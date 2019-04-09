@@ -4,6 +4,7 @@ namespace App\Http\Controllers\scmsp;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\View;
 
 class ComplainTypeController extends Controller {
 	
@@ -27,7 +28,7 @@ class ComplainTypeController extends Controller {
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "Create Complain Type";
+		return View('scmsp.backend.complain_type.create');
 	}
 	
 	
