@@ -12,7 +12,7 @@ class ComplainTypeController extends Controller {
 	Method Name	: index
 	Purpose		: load complain type list
 	Param		: no param need
-	Date			: 04/09/2019
+	Date		: 04/09/2019
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
@@ -24,7 +24,7 @@ class ComplainTypeController extends Controller {
 	Method Name	: create
 	Purpose		: load complain type create
 	Param		: no param need
-	Date			: 04/09/2019
+	Date		: 04/09/2019
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
@@ -36,7 +36,7 @@ class ComplainTypeController extends Controller {
 	Method Name	: edit
 	Purpose		: load complain type edit
 	Param		: no param need
-	Date			: 04/09/2019
+	Date		: 04/09/2019
 	Author		: Atiqur Rahman
 	*/
 	public function edit(Request $request){
@@ -47,7 +47,7 @@ class ComplainTypeController extends Controller {
 	Method Name	: store
 	Purpose		: load complain type store
 	Param		: no param need
-	Date			: 04/09/2019
+	Date		: 04/09/2019
 	Author		: Atiqur Rahman
 	*/
     public function store(Request $request){
@@ -58,7 +58,7 @@ class ComplainTypeController extends Controller {
 	Method Name	: update
 	Purpose		: load complain type update
 	Param		: no param need
-	Date			: 04/09/2019
+	Date		: 04/09/2019
 	Author		: Atiqur Rahman
 	*/
 	public function update(Request $request){

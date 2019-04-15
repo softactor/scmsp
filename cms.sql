@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2019 at 07:12 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- Generation Time: Apr 15, 2019 at 06:08 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.1.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -54,10 +54,10 @@ CREATE TABLE `complain_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `complain_feedback`
+-- Table structure for table `complain_feedbacks`
 --
 
-CREATE TABLE `complain_feedback` (
+CREATE TABLE `complain_feedbacks` (
   `id` int(11) NOT NULL,
   `complian_id` int(11) NOT NULL,
   `eng_feedbak` text COLLATE utf32_unicode_ci NOT NULL,
@@ -78,22 +78,45 @@ CREATE TABLE `complain_status` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `complain_type`
+-- Table structure for table `complain_types`
 --
 
-CREATE TABLE `complain_type` (
+CREATE TABLE `complain_types` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
 --
--- Dumping data for table `complain_type`
+-- Dumping data for table `complain_types`
 --
 
-INSERT INTO `complain_type` (`id`, `name`) VALUES
+INSERT INTO `complain_types` (`id`, `name`) VALUES
 (1, 'ABC'),
 (2, 'DEF'),
 (3, 'Installation Problem');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `departments`
+--
+
+CREATE TABLE `departments` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `divisions`
+--
+
+CREATE TABLE `divisions` (
+  `id` int(11) NOT NULL,
+  `dept_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -130,10 +153,10 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Table structure for table `roles`
 --
 
-CREATE TABLE `role` (
+CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
@@ -160,16 +183,28 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tanveer Qureshee', 'tanveerqureshee@hotmail.com', NULL, '$2y$10$VTwjMD7dPEe23OBG52sIWOhLz8ETliwzpYhOYwbg6UtpURTSO/Wnm', NULL, '2019-03-27 04:36:21', '2019-03-27 04:36:21');
+(1, 'Tanveer Qureshee', 'tanveerqureshee@hotmail.com', NULL, '$2y$10$VTwjMD7dPEe23OBG52sIWOhLz8ETliwzpYhOYwbg6UtpURTSO/Wnm', NULL, '2019-03-26 22:36:21', '2019-03-26 22:36:21');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `complain_type`
+-- Indexes for table `complain_types`
 --
-ALTER TABLE `complain_type`
+ALTER TABLE `complain_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `departments`
+--
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `divisions`
+--
+ALTER TABLE `divisions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -196,20 +231,35 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `complain_type`
+-- AUTO_INCREMENT for table `complain_types`
 --
-ALTER TABLE `complain_type`
+ALTER TABLE `complain_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `departments`
+--
+ALTER TABLE `departments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `divisions`
+--
+ALTER TABLE `divisions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
