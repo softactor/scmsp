@@ -13,3 +13,5 @@ yarn-error.log
 /nbproject/private/
 /nbproject
 nbproject
+composer.lock
+/composer.lock
