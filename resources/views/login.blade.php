@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('scmsp/icon/favicon_25X25.png') }}" />
         <title>{{ config('app.name') }}</title>
         <link href="{{ asset('scmsp/css/bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
         <style type="text/css">
@@ -71,7 +72,7 @@
                 height: 51px;
                 margin: 0 auto 21px;
                 display: block;
-                border-radius: 20%;
+                border-radius: 0%;
             }
             .need-help
             {
@@ -91,15 +92,24 @@
                     <h1 class="text-center login-title">Sign in to continue CMS</h1>
                     <div class="account-wall">
                         <img class="profile-img" src="{{ asset('scmsp/icon/complain_customer.png') }}" alt="">
-                        <form class="form-signin">
-                            <input type="text" class="form-control" placeholder="Email" required autofocus>
-                            <input type="password" class="form-control" placeholder="Password" required>
+                        <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                            @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                             <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Sign in</button>
-                            <label class="checkbox pull-left">
-                                <input type="checkbox" value="remember-me">
-                                Remember me
-                            </label>
+                                Login
+                            </button>
                         </form>
                     </div>
                 </div>
