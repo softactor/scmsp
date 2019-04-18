@@ -16,7 +16,7 @@ class ComplainTypeController extends Controller {
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "list method";
+		return View('scmsp.backend.complain_type.list');
 	}
 	
 	
@@ -40,7 +40,7 @@ class ComplainTypeController extends Controller {
 	Author		: Atiqur Rahman
 	*/
 	public function edit(Request $request){
-		echo "Edit Complain Type";
+		return View('scmsp.backend.complain_type.edit');
 	}
 	
 	/*

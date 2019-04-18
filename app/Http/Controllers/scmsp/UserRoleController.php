@@ -15,7 +15,7 @@ class UserRoleController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "User Role list";
+		return View('scmsp.backend.user_role.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class UserRoleController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "User Role Create";
+		return View('scmsp.backend.user_role.create');
 	}
         /*
 	Method Name	: edit
@@ -36,7 +36,7 @@ class UserRoleController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "User Role Edit";
+		return View('scmsp.backend.user_role.edit');
 	}
         /*
 	Method Name	: store

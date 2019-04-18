@@ -15,7 +15,7 @@ class DepartmentController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "Department list";
+		return View('scmsp.backend.department.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class DepartmentController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "Department Create";
+		return View('scmsp.backend.department.create');
 	}
         
         /*
@@ -37,7 +37,7 @@ class DepartmentController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "Department Edit";
+		return View('scmsp.backend.department.edit');
 	}
         
         /*

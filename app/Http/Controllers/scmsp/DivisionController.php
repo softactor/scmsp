@@ -15,7 +15,7 @@ class DivisionController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "Division list";
+		return View('scmsp.backend.division.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class DivisionController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "Division Create";
+		return View('scmsp.backend.division.create');
 	}
         /*
 	Method Name	: edit
@@ -36,7 +36,7 @@ class DivisionController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "Division Edit";
+		return View('scmsp.backend.division.edit');
 	}
         
         /*

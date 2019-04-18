@@ -1,5 +1,5 @@
 @extends('scmsp.backend.layout.app')
-@section('title', 'Create Complain Type')
+@section('title', 'Edit Complain Type')
 @section('content')
 <div class="container-fluid">
     <!-- Breadcrumbs-->
@@ -11,7 +11,7 @@
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Complain type</h2>
+            <h2>Edit Complain type</h2>
             <form action="/action_page.php">
                 <div class="form-group">
                     <label for="email">Email:</label>

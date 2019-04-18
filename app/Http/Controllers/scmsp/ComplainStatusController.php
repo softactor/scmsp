@@ -15,7 +15,7 @@ class ComplainStatusController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "complain status list";
+		return View('scmsp.backend.complain_status.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class ComplainStatusController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "complain status Create";
+		return View('scmsp.backend.complain_status.create');
 	}
         /*
 	Method Name	: edit
@@ -36,7 +36,7 @@ class ComplainStatusController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "complain status Edit";
+		return View('scmsp.backend.complain_status.edit');
 	}
         /*
 	Method Name	: store

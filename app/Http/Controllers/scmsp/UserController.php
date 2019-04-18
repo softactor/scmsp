@@ -15,7 +15,7 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "User list";
+		return View('scmsp.backend.user.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "User Create";
+		return View('scmsp.backend.user.create');
 	}
         /*
 	Method Name	: edit
@@ -36,7 +36,7 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "User Edit";
+		return View('scmsp.backend.user.edit');
 	}
         /*
 	Method Name	: store

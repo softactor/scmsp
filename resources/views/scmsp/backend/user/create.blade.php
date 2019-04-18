@@ -1,17 +1,17 @@
 @extends('scmsp.backend.layout.app')
-@section('title', 'Create Complain Type')
+@section('title', 'Create User')
 @section('content')
 <div class="container-fluid">
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="#">User Create</a>
         </li>
         <li class="breadcrumb-item active">Overview</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Complain type</h2>
+            <h2>Create User</h2>
             <form action="/action_page.php">
                 <div class="form-group">
                     <label for="email">Email:</label>
