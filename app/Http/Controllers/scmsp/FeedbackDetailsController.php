@@ -15,7 +15,7 @@ class FeedbackDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "feedback details list";
+		return View('scmsp.backend.feedback_details.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class FeedbackDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "feedback details Create";
+		return View('scmsp.backend.feedback_details.create');
 	}
         /*
 	Method Name	: edit
@@ -36,7 +36,7 @@ class FeedbackDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "feedback details Edit";
+		return View('scmsp.backend.feedback_details.edit');
 	}
         /*
 	Method Name	: store

@@ -15,7 +15,7 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		echo "complain details list";
+		return View('scmsp.backend.complain_details.list');
 	}
         
         /*
@@ -26,7 +26,7 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		echo "complain details Create";
+		return View('scmsp.backend.complain_details.create');
 	}
         /*
 	Method Name	: edit
@@ -36,7 +36,7 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(){
-		echo "complain details Edit";
+		return View('scmsp.backend.complain_details.edit');
 	}
         /*
 	Method Name	: store
