@@ -12,9 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
+Route::get('admin/dashboard', 'scmsp\DashboardController@index');
 // calling complain type list routes
 Route::get('admin/complain-type', 'scmsp\ComplainTypeController@index')->name('admin.complain-type-list');
 
