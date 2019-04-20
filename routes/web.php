@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
-    Route::get('dashboard', 'scmsp\DashboardController@index');
+    Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
     // calling complain type list routes
     Route::get('complain-type', 'scmsp\ComplainTypeController@index')->name('admin.complain-type-list');
 
@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('update-complain-type', 'scmsp\ComplainTypeController@update')->name('admin.complain-type-update');
 
     // calling department list routes
-    Route::get('department-list', 'scmsp\DepartmentController@index')->name('admin.department-list');
+    Route::get('department-list', 'scmsp\DepartmentController@index')->name('department-list');
 
     // calling department create routes
     Route::get('department-create', 'scmsp\DepartmentController@create')->name('admin.department-create');
