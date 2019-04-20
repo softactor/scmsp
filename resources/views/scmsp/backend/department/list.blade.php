@@ -11,8 +11,9 @@
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List Department</h2>
-            <table class="table table-bordered">
+            <h2>List Department<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.department-create') }}'" >Create New</button></h2>
+            
+            <table class="table datatable table-bordered">
                 <thead>
                   <tr>
                     <th>Firstname</th>

@@ -11,7 +11,8 @@
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List User</h2>
+            <h2>List User<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.user-create') }}'" >Create New</button></h2>
+            
             <table class="table table-bordered">
                 <thead>
                   <tr>

@@ -11,7 +11,8 @@
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List Complain Details</h2>
+           <h2>List Complain Details<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.complain-details-create') }}'" >Create New</button></h2>
+            
             <table class="table table-bordered">
                 <thead>
                   <tr>
