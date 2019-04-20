@@ -18,133 +18,133 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
     // calling complain type list routes
-    Route::get('complain-type', 'scmsp\ComplainTypeController@index')->name('admin.complain-type-list');
+    Route::get('complain-type', 'scmsp\ComplainTypeController@index')->name('complain-type-list');
 
     // calling complain type create routes
-    Route::get('create-complain-type', 'scmsp\ComplainTypeController@create')->name('admin.complain-type-create');
+    Route::get('create-complain-type', 'scmsp\ComplainTypeController@create')->name('complain-type-create');
 
     // calling complain type edit routes
-    Route::get('edit-complain-type', 'scmsp\ComplainTypeController@edit')->name('admin.complain-type-edit');
+    Route::get('edit-complain-type', 'scmsp\ComplainTypeController@edit')->name('complain-type-edit');
 
     // calling complain type store routes
-    Route::get('store-complain-type', 'scmsp\ComplainTypeController@store')->name('admin.complain-type-store');
+    Route::get('store-complain-type', 'scmsp\ComplainTypeController@store')->name('complain-type-store');
 
     // calling complain type update routes
-    Route::get('update-complain-type', 'scmsp\ComplainTypeController@update')->name('admin.complain-type-update');
+    Route::get('update-complain-type', 'scmsp\ComplainTypeController@update')->name('complain-type-update');
 
     // calling department list routes
     Route::get('department-list', 'scmsp\DepartmentController@index')->name('department-list');
 
     // calling department create routes
-    Route::get('department-create', 'scmsp\DepartmentController@create')->name('admin.department-create');
+    Route::get('department-create', 'scmsp\DepartmentController@create')->name('department-create');
 
     // calling department edit routes
-    Route::get('department-edit', 'scmsp\DepartmentController@edit')->name('admin.department-edit');
+    Route::get('department-edit', 'scmsp\DepartmentController@edit')->name('department-edit');
 
     // calling department store routes
-    Route::get('department-store', 'scmsp\DepartmentController@store')->name('admin.department-store');
+    Route::get('department-store', 'scmsp\DepartmentController@store')->name('department-store');
 
     // calling department update routes
-    Route::get('department-update', 'scmsp\DepartmentController@update')->name('admin.department-update');
+    Route::get('department-update', 'scmsp\DepartmentController@update')->name('department-update');
 
     // calling department delete routes
-    Route::get('department-delete', 'scmsp\DepartmentController@delete')->name('admin.department-delete');
+    Route::get('department-delete', 'scmsp\DepartmentController@delete')->name('department-delete');
     //Division Routes Start 
     // calling division list routes
-    Route::get('division-list', 'scmsp\DivisionController@index')->name('admin.division-list');
+    Route::get('division-list', 'scmsp\DivisionController@index')->name('division-list');
     // calling division create routes
-    Route::get('division-create', 'scmsp\DivisionController@create')->name('admin.division-create');
+    Route::get('division-create', 'scmsp\DivisionController@create')->name('division-create');
     // calling division edit routes
-    Route::get('division-edit', 'scmsp\DivisionController@edit')->name('admin.division-edit');
+    Route::get('division-edit', 'scmsp\DivisionController@edit')->name('division-edit');
     // calling division store routes
-    Route::get('division-store', 'scmsp\DivisionController@store')->name('admin.division-store');
+    Route::get('division-store', 'scmsp\DivisionController@store')->name('division-store');
     // calling division update routes
-    Route::get('division-update', 'scmsp\DivisionController@update')->name('admin.division-update');
+    Route::get('division-update', 'scmsp\DivisionController@update')->name('division-update');
     // calling division delete routes
-    Route::get('division-delete', 'scmsp\DivisionController@delete')->name('admin.division-delete');
+    Route::get('division-delete', 'scmsp\DivisionController@delete')->name('division-delete');
     // start role routes
     // calling role list routes
-    Route::get('role-list', 'scmsp\RoleController@index')->name('admin.role-list');
+    Route::get('role-list', 'scmsp\RoleController@index')->name('role-list');
     // calling role create routes
-    Route::get('role-create', 'scmsp\RoleController@create')->name('admin.role-create');
+    Route::get('role-create', 'scmsp\RoleController@create')->name('role-create');
     // calling role edit routes
-    Route::get('role-edit', 'scmsp\RoleController@edit')->name('admin.role-edit');
+    Route::get('role-edit', 'scmsp\RoleController@edit')->name('role-edit');
     // calling role store routes
-    Route::get('role-store', 'scmsp\RoleController@store')->name('admin.role-store');
+    Route::get('role-store', 'scmsp\RoleController@store')->name('role-store');
     // calling role update routes
-    Route::get('role-update', 'scmsp\RoleController@update')->name('admin.role-update');
+    Route::get('role-update', 'scmsp\RoleController@update')->name('role-update');
     // calling role delete routes
-    Route::get('role-delete', 'scmsp\RoleController@delete')->name('admin.role-delete');
+    Route::get('role-delete', 'scmsp\RoleController@delete')->name('role-delete');
 
     // start users routes
     // calling user list routes
-    Route::get('user-list', 'scmsp\UserController@index')->name('admin.user-list');
+    Route::get('user-list', 'scmsp\UserController@index')->name('user-list');
     // calling user create routes
-    Route::get('user-create', 'scmsp\UserController@create')->name('admin.user-create');
+    Route::get('user-create', 'scmsp\UserController@create')->name('user-create');
     // calling user edit routes
-    Route::get('user-edit', 'scmsp\UserController@edit')->name('admin.user-edit');
+    Route::get('user-edit', 'scmsp\UserController@edit')->name('user-edit');
     // calling user store routes
-    Route::get('user-store', 'scmsp\UserController@store')->name('admin.user-store');
+    Route::get('user-store', 'scmsp\UserController@store')->name('user-store');
     // calling user update routes
-    Route::get('user-update', 'scmsp\UserController@update')->name('admin.user-update');
+    Route::get('user-update', 'scmsp\UserController@update')->name('user-update');
     // calling user delete routes
-    Route::get('user-delete', 'scmsp\UserController@delete')->name('admin.user-delete');
+    Route::get('user-delete', 'scmsp\UserController@delete')->name('user-delete');
 
     // start user role routes
     // calling user-role list routes
-    Route::get('user-role-list', 'scmsp\UserRoleController@index')->name('admin.user-role-list');
+    Route::get('user-role-list', 'scmsp\UserRoleController@index')->name('user-role-list');
     // calling user-role create routes
-    Route::get('user-role-create', 'scmsp\UserRoleController@create')->name('admin.user-role-create');
+    Route::get('user-role-create', 'scmsp\UserRoleController@create')->name('user-role-create');
     // calling user-role edit routes
-    Route::get('user-role-edit', 'scmsp\UserRoleController@edit')->name('admin.user-role-edit');
+    Route::get('user-role-edit', 'scmsp\UserRoleController@edit')->name('user-role-edit');
     // calling user-role store routes
-    Route::get('user-role-store', 'scmsp\UserRoleController@store')->name('admin.user-role-store');
+    Route::get('user-role-store', 'scmsp\UserRoleController@store')->name('user-role-store');
     // calling user-role update routes
-    Route::get('user-role-update', 'scmsp\UserRoleController@update')->name('admin.user-role-update');
+    Route::get('user-role-update', 'scmsp\UserRoleController@update')->name('user-role-update');
     // calling user-role delete routes
-    Route::get('user-role-delete', 'scmsp\UserRoleController@delete')->name('admin.user-role-delete');
+    Route::get('user-role-delete', 'scmsp\UserRoleController@delete')->name('user-role-delete');
 
     // start complain status routes
     // calling complain-status list routes
-    Route::get('complain-status-list', 'scmsp\ComplainStatusController@index')->name('admin.complain-status-list');
+    Route::get('complain-status-list', 'scmsp\ComplainStatusController@index')->name('complain-status-list');
     // calling complain-status create routes
-    Route::get('complain-status-create', 'scmsp\ComplainStatusController@create')->name('admin.complain-status-create');
+    Route::get('complain-status-create', 'scmsp\ComplainStatusController@create')->name('complain-status-create');
     // calling complain-status edit routes
-    Route::get('complain-status-edit', 'scmsp\ComplainStatusController@edit')->name('admin.complain-status-edit');
+    Route::get('complain-status-edit', 'scmsp\ComplainStatusController@edit')->name('complain-status-edit');
     // calling complain-status store routes
-    Route::get('complain-status-store', 'scmsp\ComplainStatusController@store')->name('admin.complain-status-store');
+    Route::get('complain-status-store', 'scmsp\ComplainStatusController@store')->name('complain-status-store');
     // calling complain-status update routes
-    Route::get('complain-status-update', 'scmsp\ComplainStatusController@update')->name('admin.complain-status-update');
+    Route::get('complain-status-update', 'scmsp\ComplainStatusController@update')->name('complain-status-update');
     // calling complain-status delete routes
-    Route::get('complain-status-delete', 'scmsp\ComplainStatusController@delete')->name('admin.complain-status-delete');
+    Route::get('complain-status-delete', 'scmsp\ComplainStatusController@delete')->name('complain-status-delete');
 
     // start complain details routes
     // calling complain-details list routes
-    Route::get('complain-details-list', 'scmsp\ComplainDetailsController@index')->name('admin.complain-details-list');
+    Route::get('complain-details-list', 'scmsp\ComplainDetailsController@index')->name('complain-details-list');
     // calling complain-details create routes
-    Route::get('complain-details-create', 'scmsp\ComplainDetailsController@create')->name('admin.complain-details-create');
+    Route::get('complain-details-create', 'scmsp\ComplainDetailsController@create')->name('complain-details-create');
     // calling complain-details edit routes
-    Route::get('complain-details-edit', 'scmsp\ComplainDetailsController@edit')->name('admin.complain-details-edit');
+    Route::get('complain-details-edit', 'scmsp\ComplainDetailsController@edit')->name('complain-details-edit');
     // calling complain-details store routes
-    Route::get('complain-details-store', 'scmsp\ComplainDetailsController@store')->name('admin.complain-details-store');
+    Route::get('complain-details-store', 'scmsp\ComplainDetailsController@store')->name('complain-details-store');
     // calling complain-details update routes
-    Route::get('complain-details-update', 'scmsp\ComplainDetailsController@update')->name('admin.complain-details-update');
+    Route::get('complain-details-update', 'scmsp\ComplainDetailsController@update')->name('complain-details-update');
     // calling complain-details delete routes
-    Route::get('complain-details-delete', 'scmsp\ComplainDetailsController@delete')->name('admin.complain-details-delete');
+    Route::get('complain-details-delete', 'scmsp\ComplainDetailsController@delete')->name('complain-details-delete');
 
     // start feedback details routes
     // calling feedback-details list routes
-    Route::get('feedback-details-list', 'scmsp\FeedbackDetailsController@index')->name('admin.feedback-details-list');
+    Route::get('feedback-details-list', 'scmsp\FeedbackDetailsController@index')->name('feedback-details-list');
     // calling feedback-details create routes
-    Route::get('feedback-details-create', 'scmsp\FeedbackDetailsController@create')->name('admin.feedback-details-create');
+    Route::get('feedback-details-create', 'scmsp\FeedbackDetailsController@create')->name('feedback-details-create');
     // calling feedback-details edit routes
-    Route::get('feedback-details-edit', 'scmsp\FeedbackDetailsController@edit')->name('admin.feedback-details-edit');
+    Route::get('feedback-details-edit', 'scmsp\FeedbackDetailsController@edit')->name('feedback-details-edit');
     // calling feedback-details store routes
-    Route::get('feedback-details-store', 'scmsp\FeedbackDetailsController@store')->name('admin.feedback-details-store');
+    Route::get('feedback-details-store', 'scmsp\FeedbackDetailsController@store')->name('feedback-details-store');
     // calling feedback-details update routes
-    Route::get('feedback-details-update', 'scmsp\FeedbackDetailsController@update')->name('admin.feedback-details-update');
+    Route::get('feedback-details-update', 'scmsp\FeedbackDetailsController@update')->name('feedback-details-update');
     // calling feedback-details delete routes
-    Route::get('feedback-details-delete', 'scmsp\FeedbackDetailsController@delete')->name('admin.feedback-details-delete');
+    Route::get('feedback-details-delete', 'scmsp\FeedbackDetailsController@delete')->name('feedback-details-delete');
 
 });
 Auth::routes();
