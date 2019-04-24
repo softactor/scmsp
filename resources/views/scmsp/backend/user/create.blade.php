@@ -14,17 +14,20 @@
             <h2>Create User</h2>
             <form action="/action_page.php">
                 <div class="form-group">
-                    <label for="email">Email:</label>
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                    <label for="psw">Password</label>
+                    <input type="text" class="form-control" id="psw" placeholder="Enter password" name="psw">
                 </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="remember"> Remember me</label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                
+                
+                <button type="submit" class="btn btn-info">Submit</button>
             </form>
         </div>
     </div>
