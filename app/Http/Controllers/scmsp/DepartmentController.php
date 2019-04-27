@@ -4,6 +4,9 @@ namespace App\Http\Controllers\scmsp;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Model\scmsp\backend\department\Department;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -15,7 +18,8 @@ class DepartmentController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		return View('scmsp.backend.department.list');
+            $list   = Department::orderBy('name', 'desc')->get();
+            return View('scmsp.backend.department.list', compact('list'));
 	}
         
         /*
@@ -47,8 +51,24 @@ class DepartmentController extends Controller
 	Date		: 04/15/2019
 	Author		: Atiqur Rahman
 	*/
-	public function store(){
-		echo "Department Store";
+	public function store(Request $request){
+            //$all    =   $request->all();
+            $rules  =   [
+                'name' => 'required|unique:departments,name'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect('admin/department-create')
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $department             =   new Department;
+            $department->name       =   $request->name;
+            $department->user_id    =   Auth::user()->id;
+            $department->save();
+            return redirect('admin/department-list');
 	}
         
         /*

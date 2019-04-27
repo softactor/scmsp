@@ -27,8 +27,12 @@
                         </tr>
                     </tfoot>
                     <tbody>
+                        <?php
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){
+                        ?>
                         <tr>
-                            <td>Tiger Nixon</td>
+                            <td>{{ $data->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,6 +45,7 @@
                                 </div>
                             </td>
                         </tr>
+                            <?php }} ?>
                     </tbody>
                 </table>
         </div>

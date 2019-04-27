@@ -42,7 +42,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('department-edit', 'scmsp\DepartmentController@edit')->name('department-edit');
 
     // calling department store routes
-    Route::get('department-store', 'scmsp\DepartmentController@store')->name('department-store');
+    Route::post('department-store', 'scmsp\DepartmentController@store')->name('department-store');
 
     // calling department update routes
     Route::get('department-update', 'scmsp\DepartmentController@update')->name('department-update');
