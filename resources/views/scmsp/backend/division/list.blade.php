@@ -12,7 +12,7 @@
     <div class='row'>
         <div class='col col-md-12'>
             <h2>List Division<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.division-create') }}'" >Create New</button></h2>
-            
+            @include('scmsp.backend.partial.operation_message')
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>

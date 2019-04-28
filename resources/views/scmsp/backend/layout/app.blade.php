@@ -17,6 +17,7 @@
 
         <!-- Custom styles for this template-->
         <link href="{{ asset('scmsp/css/sb-admin.css') }}" rel="stylesheet">
+        <link href="{{ asset('scmsp/css/custom.css') }}" rel="stylesheet" />
     </head>
     <body id="page-top">
 

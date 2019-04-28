@@ -68,11 +68,13 @@ class DivisionController extends Controller
         if ($duplicateCheck) {
             return redirect('admin/division-create')
                             ->withInput()
-                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+                            ->with('error', 'Failed to save data. Duplicate Entry found.')
+                            ->with('dept_id', $request->dept_id);
         }// end of duplicate checking:
 
         $rules  =   [
-                'name' => 'required|unique:divisions,name'
+                'name' => 'required',
+                'dept_id' => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -87,7 +89,7 @@ class DivisionController extends Controller
             $division->name       =   $request->name;
             $division->user_id    =   Auth::user()->id;
             $division->save();
-            return redirect('admin/division-list');
+            return redirect('admin/division-list')->with('success', 'Data have been successfully saved.');
         }
         /*
 	Method Name	: update

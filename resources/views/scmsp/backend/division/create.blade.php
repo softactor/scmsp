@@ -12,6 +12,7 @@
     <div class='row'>
         <div class='col col-md-12'>
             <h2>Create Division</h2>
+            @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.division-store') }}">
                 @csrf
                 <div class="form-group">
@@ -26,10 +27,11 @@
                     <select class="form-control" name="dept_id">
                         <option value="">Select Department</option>
                         <?php
+                            $dept_id    =   Session::get('dept_id');
                             $list = get_table_data_by_table('departments');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){ ?>
-                        <option value="{{ $data->id }}"> {{ $data->name }} </option>   
+                        <option value="{{ $data->id }}" <?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
                         <?php }} ?>
                         
                     </select>
