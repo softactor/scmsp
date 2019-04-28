@@ -1,33 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Apr 27, 2019 at 08:13 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `saif_complain`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `complain_asigned`
---
-
 CREATE TABLE `complain_asigned` (
   `id` int(11) NOT NULL,
   `complian_id` int(11) NOT NULL,
@@ -117,7 +87,8 @@ CREATE TABLE `departments` (
 
 INSERT INTO `departments` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
 (5, 'Solar', 1, 1, '2019-04-27 00:05:52', '2019-04-27 00:05:52'),
-(6, 'Battery', 1, 1, '2019-04-27 00:05:58', '2019-04-27 00:05:58');
+(6, 'Battery', 1, 1, '2019-04-27 00:05:58', '2019-04-27 00:05:58'),
+(7, 'LED', 1, 1, '2019-04-27 00:22:29', '2019-04-27 00:22:29');
 
 -- --------------------------------------------------------
 
@@ -128,8 +99,20 @@ INSERT INTO `departments` (`id`, `name`, `user_id`, `status`, `created_at`, `upd
 CREATE TABLE `divisions` (
   `id` int(11) NOT NULL,
   `dept_id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `divisions`
+--
+
+INSERT INTO `divisions` (`id`, `dept_id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(2, 5, 'Sales', 1, 1, '2019-04-27 23:23:49', '2019-04-27 23:23:49'),
+(3, 5, 'IT', 1, 1, '2019-04-27 23:29:56', '2019-04-27 23:29:56');
 
 -- --------------------------------------------------------
 
@@ -266,32 +249,34 @@ ALTER TABLE `user_roles`
 --
 ALTER TABLE `complain_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;

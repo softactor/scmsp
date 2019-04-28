@@ -5,23 +5,33 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Division Create</a>
+            <a href="{{ route('admin.dashboard') }}">Home</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Create Division</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
             <h2>Create Division</h2>
-            <form action="/action_page.php">
+            <form method="POST" action="{{ route('admin.division-store') }}">
+                @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Division Name" name="name">
+                    <input type="text" class="form-control" id="name" placeholder="Enter Division Name" name="name" value="{{ old('name') }}">
+                    <?php if ($errors->has('name')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
+                    <?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Department</label>
-                    <select class="form-control" name="">
-                        <option>Select Department</option>
-                        <option>Department</option>
+                    <select class="form-control" name="dept_id">
+                        <option value="">Select Department</option>
+                        <?php
+                            $list = get_table_data_by_table('departments');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}"> {{ $data->name }} </option>   
+                        <?php }} ?>
+                        
                     </select>
                 </div>
                 

@@ -57,7 +57,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling division edit routes
     Route::get('division-edit', 'scmsp\DivisionController@edit')->name('division-edit');
     // calling division store routes
-    Route::get('division-store', 'scmsp\DivisionController@store')->name('division-store');
+    Route::post('division-store', 'scmsp\DivisionController@store')->name('division-store');
     // calling division update routes
     Route::get('division-update', 'scmsp\DivisionController@update')->name('division-update');
     // calling division delete routes
