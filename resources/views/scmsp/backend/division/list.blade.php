@@ -42,7 +42,7 @@
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="#">Edit</a>
+                                      <a class="dropdown-item" href="{{ route('admin.division-edit',$data->id) }} ">Edit</a>
                                       <a class="dropdown-item" href="#">Delete</a>
                                     </div>
                                 </div>
