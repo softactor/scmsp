@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::post('department-store', 'scmsp\DepartmentController@store')->name('department-store');
 
     // calling department update routes
-    Route::get('department-update', 'scmsp\DepartmentController@update')->name('department-update');
+    Route::post('department-update', 'scmsp\DepartmentController@update')->name('department-update');
 
     // calling department delete routes
     Route::get('department-delete', 'scmsp\DepartmentController@delete')->name('department-delete');
@@ -55,11 +55,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling division create routes
     Route::get('division-create', 'scmsp\DivisionController@create')->name('division-create');
     // calling division edit routes
-    Route::get('division-edit', 'scmsp\DivisionController@edit')->name('division-edit');
+    Route::get('division-edit/{id}', 'scmsp\DivisionController@edit')->name('division-edit');
     // calling division store routes
     Route::post('division-store', 'scmsp\DivisionController@store')->name('division-store');
     // calling division update routes
-    Route::get('division-update', 'scmsp\DivisionController@update')->name('division-update');
+    Route::post('division-update', 'scmsp\DivisionController@update')->name('division-update');
     // calling division delete routes
     Route::get('division-delete', 'scmsp\DivisionController@delete')->name('division-delete');
     // start role routes
