@@ -14,6 +14,12 @@
 
             <h2>Create Division</h2>
             @include('scmsp.backend.partial.operation_message')
+            <?php
+            $sessionEditData   =   Session::get('editData');
+            if(isset($sessionEditData) && !empty($sessionEditData)){
+                $editData   =   $sessionEditData; 
+            }
+            ?>
             <form method="POST" action="{{ route('admin.division-update') }}">
                 @csrf
                 <div class="form-group">
@@ -29,17 +35,15 @@
                     <select class="form-control" name="dept_id">
                         <option value="">Select Department</option>
                         <?php
-                            $dept_id    =   Session::get('dept_id');
-
-                            $dept_id    =   $editData->dept_id;
-
                             $list = get_table_data_by_table('departments');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){ ?>
-                        <option value="{{ $data->id }}" <?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
-                        <?php }} ?>
-                        
+                        <option value="{{ $data->id }}" <?php if((isset($_POST['dept_id']) && $_POST['dept_id']==$data->id) || isset($editData->dept_id) && $editData->dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>                        
                     </select>
+                    <?php if ($errors->has('dept_id')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('dept_id'); ?></span>
+                    <?php } ?>
                 </div>
 
                 <input type='hidden' name='edit_id' value="{{$editData->id}}">
