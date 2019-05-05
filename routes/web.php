@@ -61,7 +61,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling division update routes
     Route::post('division-update', 'scmsp\DivisionController@update')->name('division-update');
     // calling division delete routes
-    Route::get('division-delete', 'scmsp\DivisionController@delete')->name('division-delete');
+    Route::post('division-delete', 'scmsp\DivisionController@delete')->name('division-delete');
     // start role routes
     // calling role list routes
     Route::get('role-list', 'scmsp\RoleController@index')->name('role-list');
