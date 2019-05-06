@@ -7,6 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('scmsp/icon/favicon_25X25.png') }}" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>{{ config('app.name')}}</title>
 
         <!-- Custom fonts for this template-->
@@ -14,6 +15,8 @@
 
         <!-- Page level plugin CSS-->
         <link href="{{ asset('scmsp/vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
+        <!-- Sweet alert CSS-->
+        <link href="{{ asset('scmsp/css/sweetalert.css') }}" rel="stylesheet">
 
         <!-- Custom styles for this template-->
         <link href="{{ asset('scmsp/css/sb-admin.css') }}" rel="stylesheet">
@@ -87,7 +90,10 @@
 
         <!-- Demo scripts for this page-->
         <script src="{{ asset('scmsp/js/demo/datatables-demo.js') }}"></script>
-        <script src="{{ asset('scmsp/js/demo/chart-area-demo.js') }}"></script>
-
+        
+        <!-- Demo scripts for this page-->
+        <script src="{{ asset('scmsp/js/sweetalert.min.js') }}"></script>
+        <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
+        
     </body>
 </html>

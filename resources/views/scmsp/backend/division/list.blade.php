@@ -30,10 +30,11 @@
                     </tfoot>
                     <tbody>
                         <?php
+                        $deleteUrl  =   url('admin/division-delete');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>
-                        <tr>
+                        <tr id='delete_row_id_{{$data->id}}'>
                             <td>{{ $data->name }}</td>
                             <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
                             <td>
@@ -45,7 +46,7 @@
 
                                       <a class="dropdown-item" href="{{ url('admin/division-edit/'.$data->id) }}">Edit</a>
 
-                                      <a class="dropdown-item" href="#">Delete</a>
+                                      <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
                                     </div>
                                 </div>
                             </td>
