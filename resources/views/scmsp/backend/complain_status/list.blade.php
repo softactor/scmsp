@@ -27,20 +27,25 @@
                         </tr>
                     </tfoot>
                     <tbody>
+                        <?php
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){
+                        ?>
                         <tr>
-                            <td>Tiger Nixon</td>
+                            <td>{{ $data->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="#">Edit</a>
+                                      <a class="dropdown-item" href="{{ url('admin/complain-status-edit/'.$data->id) }}">Edit</a>
                                       <a class="dropdown-item" href="#">Delete</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        <?php }} ?>
                     </tbody>
                 </table>
         </div>

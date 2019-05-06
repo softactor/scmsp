@@ -12,10 +12,15 @@
     <div class='row'>
         <div class='col col-md-12'>
             <h2>Create Complain type</h2>
-            <form action="/action_page.php">
+            @include('scmsp.backend.partial.operation_message')
+            <form method="POST" action="{{ route('admin.complain-type-store') }}">
+                @csrf
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name">
+                    <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name" value="{{ old('name') }}">
+                    <?php if ($errors->has('name')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
+                    <?php } ?>
                 </div>
                 
                 <button type="submit" class="btn btn-info">Save</button>

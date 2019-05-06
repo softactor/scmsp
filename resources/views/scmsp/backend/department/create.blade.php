@@ -11,6 +11,7 @@
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
+            @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.department-store') }}">
                 @csrf
                 <div class="form-group">

@@ -18,19 +18,19 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
     // calling complain type list routes
-    Route::get('complain-type', 'scmsp\ComplainTypeController@index')->name('complain-type-list');
+    Route::get('complain-type-list', 'scmsp\ComplainTypeController@index')->name('complain-type-list');
 
     // calling complain type create routes
     Route::get('create-complain-type', 'scmsp\ComplainTypeController@create')->name('complain-type-create');
 
     // calling complain type edit routes
-    Route::get('edit-complain-type', 'scmsp\ComplainTypeController@edit')->name('complain-type-edit');
+    Route::get('complain-type-edit/{id}', 'scmsp\ComplainTypeController@edit')->name('complain-type-edit');
 
     // calling complain type store routes
-    Route::get('store-complain-type', 'scmsp\ComplainTypeController@store')->name('complain-type-store');
+    Route::post('store-complain-type', 'scmsp\ComplainTypeController@store')->name('complain-type-store');
 
     // calling complain type update routes
-    Route::get('update-complain-type', 'scmsp\ComplainTypeController@update')->name('complain-type-update');
+    Route::post('update-complain-type', 'scmsp\ComplainTypeController@update')->name('complain-type-update');
 
     // calling department list routes
     Route::get('department-list', 'scmsp\DepartmentController@index')->name('department-list');
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::get('department-create', 'scmsp\DepartmentController@create')->name('department-create');
 
     // calling department edit routes
-    Route::get('department-edit', 'scmsp\DepartmentController@edit')->name('department-edit');
+    Route::get('department-edit/{id}', 'scmsp\DepartmentController@edit')->name('department-edit');
 
     // calling department store routes
     Route::post('department-store', 'scmsp\DepartmentController@store')->name('department-store');
@@ -110,11 +110,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling complain-status create routes
     Route::get('complain-status-create', 'scmsp\ComplainStatusController@create')->name('complain-status-create');
     // calling complain-status edit routes
-    Route::get('complain-status-edit', 'scmsp\ComplainStatusController@edit')->name('complain-status-edit');
+    Route::get('complain-status-edit/{id}', 'scmsp\ComplainStatusController@edit')->name('complain-status-edit');
     // calling complain-status store routes
-    Route::get('complain-status-store', 'scmsp\ComplainStatusController@store')->name('complain-status-store');
+    Route::post('complain-status-store', 'scmsp\ComplainStatusController@store')->name('complain-status-store');
     // calling complain-status update routes
-    Route::get('complain-status-update', 'scmsp\ComplainStatusController@update')->name('complain-status-update');
+    Route::post('complain-status-update', 'scmsp\ComplainStatusController@update')->name('complain-status-update');
     // calling complain-status delete routes
     Route::get('complain-status-delete', 'scmsp\ComplainStatusController@delete')->name('complain-status-delete');
 
