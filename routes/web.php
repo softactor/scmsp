@@ -126,7 +126,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling complain-details edit routes
     Route::get('complain-details-edit', 'scmsp\ComplainDetailsController@edit')->name('complain-details-edit');
     // calling complain-details store routes
-    Route::get('complain-details-store', 'scmsp\ComplainDetailsController@store')->name('complain-details-store');
+    Route::post('complain-details-store', 'scmsp\ComplainDetailsController@store')->name('complain-details-store');
     // calling complain-details update routes
     Route::get('complain-details-update', 'scmsp\ComplainDetailsController@update')->name('complain-details-update');
     // calling complain-details delete routes
