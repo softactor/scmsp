@@ -1,3 +1,33 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: May 16, 2019 at 07:21 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.1.27
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `cms`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complain_asigned`
+--
+
 CREATE TABLE `complain_asigned` (
   `id` int(11) NOT NULL,
   `complian_id` int(11) NOT NULL,
@@ -14,13 +44,22 @@ CREATE TABLE `complain_asigned` (
 
 CREATE TABLE `complain_details` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `complain_type_id` int(11) NOT NULL,
-  `complainer` varchar(100) COLLATE utf32_unicode_ci NOT NULL,
-  `complain_details` text COLLATE utf32_unicode_ci NOT NULL,
-  `compalin_status` text COLLATE utf32_unicode_ci NOT NULL,
-  `issued_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+  `complainer` varchar(100) NOT NULL,
+  `complain_details` longtext NOT NULL,
+  `issued_date` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `complain_status` varchar(100) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `complain_details`
+--
+
+INSERT INTO `complain_details` (`id`, `complain_type_id`, `complainer`, `complain_details`, `issued_date`, `user_id`, `complain_status`, `created_at`, `updated_at`) VALUES
+(1, 7, 'Atiqur Rahman Bhuiyan', 'Panel Not Working', '2019-04-15 00:00:00', 1, '1', '2019-05-15 02:05:46', '2019-05-15 23:20:25');
 
 -- --------------------------------------------------------
 
@@ -38,13 +77,25 @@ CREATE TABLE `complain_feedbacks` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `complain_status`
+-- Table structure for table `complain_statuses`
 --
 
-CREATE TABLE `complain_status` (
+CREATE TABLE `complain_statuses` (
   `id` int(11) NOT NULL,
-  `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL
+  `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+--
+-- Dumping data for table `complain_statuses`
+--
+
+INSERT INTO `complain_statuses` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Pending', 1, 1, '2019-05-05 04:28:15', '2019-05-14 23:06:41'),
+(2, 'Solved', 1, 1, '2019-05-05 04:59:33', '2019-05-05 04:59:49');
 
 -- --------------------------------------------------------
 
@@ -54,17 +105,20 @@ CREATE TABLE `complain_status` (
 
 CREATE TABLE `complain_types` (
   `id` int(11) NOT NULL,
-  `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL
+  `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
 
 --
 -- Dumping data for table `complain_types`
 --
 
-INSERT INTO `complain_types` (`id`, `name`) VALUES
-(1, 'ABC'),
-(2, 'DEF'),
-(3, 'Installation Problem');
+INSERT INTO `complain_types` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(6, 'LED Problem', 1, 1, '2019-05-05 00:21:55', '2019-05-05 02:46:08'),
+(7, 'Solar Problems', 1, 1, '2019-05-05 00:25:22', '2019-05-14 23:06:12');
 
 -- --------------------------------------------------------
 
@@ -87,7 +141,7 @@ CREATE TABLE `departments` (
 
 INSERT INTO `departments` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
 (5, 'Solar', 1, 1, '2019-04-27 00:05:52', '2019-04-27 00:05:52'),
-(6, 'Battery', 1, 1, '2019-04-27 00:05:58', '2019-04-27 00:05:58'),
+(6, 'Battery', 1, 1, '2019-04-27 00:05:58', '2019-05-04 23:54:49'),
 (7, 'LED', 1, 1, '2019-04-27 00:22:29', '2019-04-27 00:22:29');
 
 -- --------------------------------------------------------
@@ -112,7 +166,9 @@ CREATE TABLE `divisions` (
 
 INSERT INTO `divisions` (`id`, `dept_id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
 (2, 5, 'Sales', 1, 1, '2019-04-27 23:23:49', '2019-04-27 23:23:49'),
-(3, 5, 'IT', 1, 1, '2019-04-27 23:29:56', '2019-04-27 23:29:56');
+(3, 5, 'IT', 1, 1, '2019-04-27 23:29:56', '2019-04-27 23:29:56'),
+(4, 6, 'Sales', 1, 1, '2019-04-28 00:32:30', '2019-04-28 00:32:30'),
+(5, 5, '454545', 1, 1, '2019-05-04 22:33:24', '2019-05-05 21:21:21');
 
 -- --------------------------------------------------------
 
@@ -160,6 +216,24 @@ CREATE TABLE `roles` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(11) NOT NULL,
+  `setting_type` varchar(100) NOT NULL,
+  `setting_key` varchar(100) NOT NULL,
+  `setting_value` varchar(100) NOT NULL,
+  `from_date` datetime NOT NULL,
+  `to_date` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -198,6 +272,18 @@ CREATE TABLE `user_roles` (
 --
 
 --
+-- Indexes for table `complain_details`
+--
+ALTER TABLE `complain_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `complain_statuses`
+--
+ALTER TABLE `complain_statuses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `complain_types`
 --
 ALTER TABLE `complain_types`
@@ -228,6 +314,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -245,10 +337,22 @@ ALTER TABLE `user_roles`
 --
 
 --
+-- AUTO_INCREMENT for table `complain_details`
+--
+ALTER TABLE `complain_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `complain_statuses`
+--
+ALTER TABLE `complain_statuses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `complain_types`
 --
 ALTER TABLE `complain_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -260,13 +364,19 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -280,3 +390,7 @@ ALTER TABLE `users`
 ALTER TABLE `user_roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

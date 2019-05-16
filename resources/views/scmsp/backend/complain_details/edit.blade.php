@@ -12,19 +12,63 @@
     <div class='row'>
         <div class='col col-md-12'>
             <h2>Edit Complain Details</h2>
-            <form action="/action_page.php">
+            @include('scmsp.backend.partial.operation_message')
+            <?php
+            $sessionEditData   =   Session::get('editData');
+            if(isset($sessionEditData) && !empty($sessionEditData)){
+                $editData   =   $sessionEditData; 
+            }
+            ?>
+            <form method="POST" action="{{ route('admin.complain-details-update') }}">
+                @csrf
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="pwd">Complain Type</label>
+                            <select class="form-control" name="complain_type_id">
+                                <option>Select Type</option>
+                                <?php
+                                $list = get_table_data_by_table('complain_types');
+                                if(!$list->isEmpty()){
+                                    foreach($list as $data){ ?>
+                                <option value="{{ $data->id }}"<?php if((isset($complain_type_id) && $complain_type_id==$data->id) || isset($editData->complain_type_id) && $editData->complain_type_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                <?php }} ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="complainer">Complainer</label>
+                            <input type="text" class="form-control" name="complainer" id="complainer" value="{{ old('name',$editData->complainer) }}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="complainer">Issue Date</label>
+                            <input type="text" class="form-control" name="issued_date" id="datepicker" value="{{ old('name',$editData->issued_date) }}">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="pwd">Complain Status</label>
+                            <select class="form-control" name="complain_status">
+                                <?php
+                                $list = get_table_data_by_table('complain_statuses');
+                                if(!$list->isEmpty()){
+                                    foreach($list as $data){ ?>
+                                <option value="{{ $data->id }}"<?php if((isset($complain_status) && $complain_status==$data->id) || isset($editData->complain_status) && $editData->complain_status==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                <?php }} ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>    
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <label for="complain details">Complain Details</label>
+                    <textarea class="form-control" id="details" name="complain_details">{{ old('complain_details',$editData->complain_details) }}</textarea>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="remember"> Remember me</label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <input type='hidden' name='edit_id' value="{{$editData->id}}">
+                <button type="submit" class="btn btn-info">Submit</button>
             </form>
         </div>
     </div>

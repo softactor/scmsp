@@ -1,5 +1,5 @@
 @extends('scmsp.backend.layout.app')
-@section('title', 'Edit Complain Details')
+@section('title', 'Complain Details')
 @section('content')
 <div class="container-fluid">
     <!-- Breadcrumbs-->
@@ -43,12 +43,12 @@
                                 foreach($list as $data){
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
-                            <td>{{ $data->user_id }}</td>
-                            <td>{{ $data->complain_type_id }}</td>
+                            <td>{{ get_data_name_by_id('users',$data->user_id)->name }}</td>
+                            <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>
                             <td>{{ $data->complainer }}</td>
                             <td>{{ $data->complain_details }}</td>
                             <td>{{ $data->issued_date }}</td>
-                            <td>{{ $data->complain_status }}</td>
+                            <td>{{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
