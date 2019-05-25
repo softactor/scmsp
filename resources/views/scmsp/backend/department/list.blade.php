@@ -28,10 +28,11 @@
                     </tfoot>
                     <tbody>
                         <?php
+                            $deleteUrl  =   url('admin/department-delete');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>
-                        <tr>
+                        <tr id='delete_row_id_{{$data->id}}'>
                             <td>{{ $data->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
@@ -40,7 +41,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                       <a class="dropdown-item" href="{{ url('admin/department-edit/'.$data->id) }}">Edit</a>
-                                      <a class="dropdown-item" href="#">Delete</a>
+                                      <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
                                     </div>
                                 </div>
                             </td>

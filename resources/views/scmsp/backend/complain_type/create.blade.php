@@ -22,6 +22,34 @@
                     <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
                     <?php } ?>
                 </div>
+                <div class="form-group">
+                    <label for="pwd">Department</label>
+                    <select class="form-control" name="dept_id">
+                        <option value="">Select Department</option>
+                        <?php
+                            $dept_id    =   Session::get('dept_id');
+                            $list = get_table_data_by_table('departments');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>
+                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Division</label>
+                    <select class="form-control" name="div_id">
+                        <option value="">Select Division</option>
+                        <?php
+                            $div_id    =   Session::get('div_id');
+                            $list = get_table_data_by_table('divisions');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>
+                        
+                    </select>
+                </div>
                 
                 <button type="submit" class="btn btn-info">Save</button>
             </form>

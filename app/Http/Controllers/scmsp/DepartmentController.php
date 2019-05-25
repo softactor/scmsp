@@ -139,7 +139,13 @@ class DepartmentController extends Controller
 	Date		: 04/15/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "Department Delete";
+	public function delete(Request $request){
+		$res        =   Department::where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

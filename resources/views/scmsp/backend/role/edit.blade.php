@@ -1,30 +1,35 @@
 @extends('scmsp.backend.layout.app')
-@section('title', 'Edit Role')
+@section('title', 'Create Role')
 @section('content')
 <div class="container-fluid">
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Role</a>
+            <a href="{{ route('admin.dashboard') }}">Home</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Edit Role</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
             <h2>Edit Role</h2>
-            <form action="/action_page.php">
+            @include('scmsp.backend.partial.operation_message')
+            <?php
+            $sessionEditData   =   Session::get('editData');
+            if(isset($sessionEditData) && !empty($sessionEditData)){
+                $editData   =   $sessionEditData; 
+            }
+            ?>
+            <form method="POST" action="{{ route('admin.role-update') }}">
+                @csrf
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <label for="name">Role Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter Role Name" name="name" value="{{ old('name',$editData->name) }}">
+                    <?php if ($errors->has('name')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
+                    <?php } ?>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-                </div>
-                <div class="checkbox">
-                    <label><input type="checkbox" name="remember"> Remember me</label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <input type='hidden' name='edit_id' value="{{$editData->id}}">
+                <button type="submit" class="btn btn-info">Save</button>
             </form>
         </div>
     </div>

@@ -137,7 +137,13 @@ class ComplainStatusController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "complain status Delete";
+	public function delete(Request $request){
+		$res        =   ComplainStatus::where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

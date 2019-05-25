@@ -129,7 +129,13 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "complain details Delete";
+	public function delete(Request $request){
+		$res        =   ComplainDetails::where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

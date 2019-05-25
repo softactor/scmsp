@@ -12,7 +12,7 @@
     <div class='row'>
         <div class='col col-md-12'>
 
-            <h2>Create Division</h2>
+            <h2>Edit Division</h2>
             @include('scmsp.backend.partial.operation_message')
             <?php
             $sessionEditData   =   Session::get('editData');

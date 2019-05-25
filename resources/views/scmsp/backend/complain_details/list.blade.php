@@ -38,7 +38,7 @@
                     </tfoot>
                     <tbody>
                         <?php
-                        $deleteUrl  =   url('admin/division-delete');
+                        $deleteUrl  =   url('admin/complain-details-delete');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>

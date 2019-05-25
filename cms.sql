@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2019 at 07:21 AM
+-- Generation Time: May 25, 2019 at 09:27 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -59,7 +59,8 @@ CREATE TABLE `complain_details` (
 --
 
 INSERT INTO `complain_details` (`id`, `complain_type_id`, `complainer`, `complain_details`, `issued_date`, `user_id`, `complain_status`, `created_at`, `updated_at`) VALUES
-(1, 7, 'Atiqur Rahman Bhuiyan', 'Panel Not Working', '2019-04-15 00:00:00', 1, '1', '2019-05-15 02:05:46', '2019-05-15 23:20:25');
+(1, 7, '01515672889', 'Panel Not Working', '2019-04-15 00:00:00', 1, '2', '2019-05-15 02:05:46', '2019-05-15 23:37:17'),
+(2, 6, '01729714503', 'Some LED Not Shine', '2019-05-15 00:00:00', 1, '2', '2019-05-15 23:25:36', '2019-05-19 02:38:22');
 
 -- --------------------------------------------------------
 
@@ -69,10 +70,21 @@ INSERT INTO `complain_details` (`id`, `complain_type_id`, `complainer`, `complai
 
 CREATE TABLE `complain_feedbacks` (
   `id` int(11) NOT NULL,
-  `complian_id` int(11) NOT NULL,
-  `eng_feedbak` text COLLATE utf32_unicode_ci NOT NULL,
-  `customer_feedback` text COLLATE utf32_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+  `complain_id` int(11) NOT NULL,
+  `eng_feedback` longtext NOT NULL,
+  `customer_feedback` mediumtext NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `complain_feedbacks`
+--
+
+INSERT INTO `complain_feedbacks` (`id`, `complain_id`, `eng_feedback`, `customer_feedback`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 2, 'Solved', 'Well Done', 1, '2019-05-18 23:49:18', '2019-05-19 02:38:06'),
+(3, 1, 'Problem Solved', 'Nice Job', 1, '2019-05-19 02:00:32', '2019-05-19 02:00:32');
 
 -- --------------------------------------------------------
 
@@ -106,6 +118,8 @@ INSERT INTO `complain_statuses` (`id`, `name`, `user_id`, `status`, `created_at`
 CREATE TABLE `complain_types` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL,
+  `dept_id` int(11) NOT NULL,
+  `div_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -116,9 +130,8 @@ CREATE TABLE `complain_types` (
 -- Dumping data for table `complain_types`
 --
 
-INSERT INTO `complain_types` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(6, 'LED Problem', 1, 1, '2019-05-05 00:21:55', '2019-05-05 02:46:08'),
-(7, 'Solar Problems', 1, 1, '2019-05-05 00:25:22', '2019-05-14 23:06:12');
+INSERT INTO `complain_types` (`id`, `name`, `dept_id`, `div_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(8, 'Service Related Problems', 5, 2, 1, 1, '2019-05-24 22:27:51', '2019-05-24 23:07:07');
 
 -- --------------------------------------------------------
 
@@ -166,9 +179,7 @@ CREATE TABLE `divisions` (
 
 INSERT INTO `divisions` (`id`, `dept_id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
 (2, 5, 'Sales', 1, 1, '2019-04-27 23:23:49', '2019-04-27 23:23:49'),
-(3, 5, 'IT', 1, 1, '2019-04-27 23:29:56', '2019-04-27 23:29:56'),
-(4, 6, 'Sales', 1, 1, '2019-04-28 00:32:30', '2019-04-28 00:32:30'),
-(5, 5, '454545', 1, 1, '2019-05-04 22:33:24', '2019-05-05 21:21:21');
+(4, 6, 'Sales', 1, 1, '2019-04-28 00:32:30', '2019-04-28 00:32:30');
 
 -- --------------------------------------------------------
 
@@ -210,8 +221,19 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL
+  `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Manager', 1, 1, '2019-05-20 22:52:33', '2019-05-22 22:43:22');
 
 -- --------------------------------------------------------
 
@@ -278,6 +300,12 @@ ALTER TABLE `complain_details`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `complain_feedbacks`
+--
+ALTER TABLE `complain_feedbacks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `complain_statuses`
 --
 ALTER TABLE `complain_statuses`
@@ -314,6 +342,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `settings`
 --
 ALTER TABLE `settings`
@@ -340,7 +374,13 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `complain_details`
 --
 ALTER TABLE `complain_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `complain_feedbacks`
+--
+ALTER TABLE `complain_feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `complain_statuses`
@@ -352,7 +392,7 @@ ALTER TABLE `complain_statuses`
 -- AUTO_INCREMENT for table `complain_types`
 --
 ALTER TABLE `complain_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -364,13 +404,19 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `settings`

@@ -17,32 +17,33 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Department</th>
+                            <th>Division</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Name</th>
+                            <th>Department</th>
+                            <th>Division</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         <?php
-                            if(!$list->isEmpty()){
+                        $deleteUrl  =   url('admin/complain-type-delete');    
+                        if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>
                         <tr>
                             <td>{{ $data->name }}</td>
+                            <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
+                            <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
                             <td>
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Action
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="{{ url('admin/complain-type-edit/'.$data->id) }}">Edit</a>
-                                      <a class="dropdown-item" href="#">Delete</a>
-                                    </div>
-                                </div>
+                                <a href="{{ url('admin/complain-type-edit/'.$data->id) }}"><i class="fa fa-edit text-success"></i></a>
+                                <a href="#"  onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');"><i class="fa fa-trash text-danger"></i></a>
+                                
                             </td>
                         </tr>
                         <?php }} ?>

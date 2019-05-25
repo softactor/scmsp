@@ -63,7 +63,9 @@ class ComplainTypeController extends Controller {
          */
         $checkParam['table'] = "complain_types";
         $checkWhereParam = [
-            ['name',    '=', $request->name],
+            ['name',       '=', $request->name],
+            ['dept_id',    '=', $request->dept_id],
+            ['div_id',     '=', $request->div_id],
         ];
         $checkParam['where'] = $checkWhereParam;
         $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
@@ -86,6 +88,8 @@ class ComplainTypeController extends Controller {
             
             $complain_type             =   new ComplainType;
             $complain_type->name       =   $request->name;
+            $complain_type->dept_id    =   $request->dept_id;
+            $complain_type->div_id     =   $request->div_id;
             $complain_type->user_id    =   Auth::user()->id;
             $complain_type->save();
             return redirect('admin/complain-type-list')->with('success', 'Data have been successfully saved.');
@@ -107,6 +111,8 @@ class ComplainTypeController extends Controller {
         $checkParam['table'] = "complain_types";
         $checkWhereParam = [
             ['name',    '=', $request->name],
+            ['dept_id', '=', $request->dept_id],
+            ['div_id',  '=', $request->div_id],
             ['id',      '!=', $request->edit_id],
         ];
         $checkParam['where'] = $checkWhereParam;
@@ -118,7 +124,9 @@ class ComplainTypeController extends Controller {
                             ->with('error', 'Failed to save data. Duplicate Entry found.');
         }// end of duplicate checking:
             $rules  =   [
-                'name' => 'required|unique:complain_types,name'
+                'name'    => 'required|unique:complain_types,name',
+                'dept_id' => 'required|unique:complain_types,dept_id',
+                'div_id'  => 'required|unique:complain_types,div_id',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -130,8 +138,20 @@ class ComplainTypeController extends Controller {
             
             $complain_type             =   ComplainType::find($request->edit_id);
             $complain_type->name       =   $request->name;
+            $complain_type->dept_id    =   $request->dept_id;
+            $complain_type->div_id     =   $request->div_id;
             $complain_type->user_id    =   Auth::user()->id;
             $complain_type->save();
             return redirect('admin/complain-type-list')->with('success', 'Data have been successfully saved.');
+	}
+        
+        public function delete(Request $request){
+		$res        =   ComplainType::where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

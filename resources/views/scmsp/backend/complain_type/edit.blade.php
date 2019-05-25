@@ -28,6 +28,36 @@
                     <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
                     <?php } ?>
                 </div>
+                <div class="form-group">
+                    <label for="pwd">Department</label>
+                    <select class="form-control" name="dept_id">
+                        <option value="">Select Department</option>
+                        <?php
+                            $list = get_table_data_by_table('departments');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if((isset($_POST['dept_id']) && $_POST['dept_id']==$data->id) || isset($editData->dept_id) && $editData->dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>                        
+                    </select>
+                    <?php if ($errors->has('dept_id')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('dept_id'); ?></span>
+                    <?php } ?>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Division</label>
+                    <select class="form-control" name="div_id">
+                        <option value="">Select Division</option>
+                        <?php
+                            $list = get_table_data_by_table('divisions');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if((isset($_POST['div_id']) && $_POST['div_id']==$data->id) || isset($editData->div_id) && $editData->div_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>                        
+                    </select>
+                    <?php if ($errors->has('div_id')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('div_id'); ?></span>
+                    <?php } ?>
+                </div>
                 <input type='hidden' name='edit_id' value="{{$editData->id}}">
                 <button type="submit" class="btn btn-info">Update</button>
             </form>
