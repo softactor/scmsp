@@ -18,6 +18,36 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label for="pwd">Complain Department</label>
+                            <select class="form-control" name="dept_id">
+                                <option>Select Type</option>
+                                <?php
+                                $dept_id    =   Session::get('dept_id');
+                                $list = get_table_data_by_table('departments');
+                                if(!$list->isEmpty()){
+                                    foreach($list as $data){ ?>
+                                <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                <?php }} ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="pwd">Complain Division</label>
+                            <select class="form-control" name="div_id">
+                                <option>Select Type</option>
+                                <?php
+                                $div_id    =   Session::get('div_id');
+                                $list = get_table_data_by_table('divisions');
+                                if(!$list->isEmpty()){
+                                    foreach($list as $data){ ?>
+                                <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                <?php }} ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label for="pwd">Complain Type</label>
                             <select class="form-control" name="complain_type_id">
                                 <option>Select Type</option>
@@ -40,7 +70,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="complainer">Issue Date</label>
-                            <input type="text" class="form-control" name="issued_date" id="datepicker" placeholder="Enter Complainer Phone">
+                            <input type="date" class="form-control" name="issued_date" id="demoDatepicker" placeholder="Enter Complainer Phone" autocomplete="off">
                         </div>
                     </div>
                     
@@ -70,3 +100,9 @@
     </div>
 </div>
 @endsection
+
+<script>
+    $("#demoDatepicker").datepicker({
+        dateFormat: 'dd/mm/yy H:i:s'
+    });
+</script>
