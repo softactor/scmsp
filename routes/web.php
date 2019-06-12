@@ -147,6 +147,34 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::post('feedback-details-update', 'scmsp\FeedbackDetailsController@update')->name('feedback-details-update');
     // calling feedback-details delete routes
     Route::post('feedback-details-delete', 'scmsp\FeedbackDetailsController@delete')->name('feedback-details-delete');
+    
+     // start module routes
+    // calling module list routes
+    Route::get('module-list', 'scmsp\ModuleController@index')->name('module-list');
+    // calling module create routes
+    Route::get('module-create', 'scmsp\ModuleController@create')->name('module-create');
+    // calling module edit routes
+    Route::get('module-edit/{id}', 'scmsp\ModuleController@edit')->name('module-edit');
+    // calling module store routes
+    Route::post('module-store', 'scmsp\ModuleController@store')->name('module-store');
+    // calling module update routes
+    Route::post('module-update', 'scmsp\ModuleController@update')->name('module-update');
+    // calling module delete routes
+    Route::post('module-delete', 'scmsp\ModuleController@delete')->name('module-delete');
+    
+      // start permission routes
+    // calling permission list routes
+    Route::get('permission-list', 'scmsp\PermissionController@index')->name('permission-list');
+    // calling permission create routes
+    Route::get('permission-create', 'scmsp\PermissionController@create')->name('permission-create');
+    // calling permission edit routes
+    Route::get('permission-edit/{id}', 'scmsp\PermissionController@edit')->name('permission-edit');
+    // calling permission store routes
+    Route::post('permission-store', 'scmsp\PermissionController@store')->name('permission-store');
+    // calling permission update routes
+    Route::post('permission-update', 'scmsp\PermissionController@update')->name('permission-update');
+    // calling permission delete routes
+    Route::post('permission-delete', 'scmsp\PermissionController@delete')->name('permission-delete');
 
 });
 Auth::routes();

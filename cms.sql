@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2019 at 09:27 AM
+-- Generation Time: Jun 12, 2019 at 07:25 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -60,7 +60,8 @@ CREATE TABLE `complain_details` (
 
 INSERT INTO `complain_details` (`id`, `complain_type_id`, `complainer`, `complain_details`, `issued_date`, `user_id`, `complain_status`, `created_at`, `updated_at`) VALUES
 (1, 7, '01515672889', 'Panel Not Working', '2019-04-15 00:00:00', 1, '2', '2019-05-15 02:05:46', '2019-05-15 23:37:17'),
-(2, 6, '01729714503', 'Some LED Not Shine', '2019-05-15 00:00:00', 1, '2', '2019-05-15 23:25:36', '2019-05-19 02:38:22');
+(2, 6, '01729714503', 'Some LED Not Shine', '2019-05-15 00:00:00', 1, '2', '2019-05-15 23:25:36', '2019-05-19 02:38:22'),
+(3, 7, '01515672889', 'Solar Panel Does Not Work', '2019-05-15 00:00:00', 1, '1', '2019-05-27 22:20:03', '2019-05-27 22:20:03');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,8 @@ CREATE TABLE `complain_types` (
 --
 
 INSERT INTO `complain_types` (`id`, `name`, `dept_id`, `div_id`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(8, 'Service Related Problems', 5, 2, 1, 1, '2019-05-24 22:27:51', '2019-05-24 23:07:07');
+(6, 'LED Problem', 7, 4, 1, 1, '2019-05-24 22:27:51', '2019-05-25 22:03:54'),
+(7, 'Service Related Problems', 5, 2, 1, 1, '2019-05-24 22:27:51', '2019-05-24 23:07:07');
 
 -- --------------------------------------------------------
 
@@ -204,6 +206,32 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `modules`
+--
+
+CREATE TABLE `modules` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `modules`
+--
+
+INSERT INTO `modules` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
+(2, 'Department', 1, 1, '2019-06-10 22:49:35', '2019-06-10 22:59:52'),
+(3, 'Division', 1, 1, '2019-06-11 00:14:01', '2019-06-11 00:14:01'),
+(4, 'Complain Type', 1, 1, '2019-06-11 01:57:48', '2019-06-11 01:57:48'),
+(5, 'Complain Status', 1, 1, '2019-06-11 01:58:01', '2019-06-11 01:58:01'),
+(6, 'Complain details', 1, 1, '2019-06-11 01:58:11', '2019-06-11 01:58:11');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `password_resets`
 --
 
@@ -212,6 +240,27 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `user_type` varchar(100) NOT NULL,
+  `isallpermission` tinyint(1) NOT NULL DEFAULT '1',
+  `module` varchar(100) NOT NULL,
+  `isallmodulepermission` tinyint(1) NOT NULL DEFAULT '1',
+  `addaccess` tinyint(1) NOT NULL DEFAULT '1',
+  `editaccess` tinyint(1) NOT NULL DEFAULT '1',
+  `listaccess` tinyint(1) NOT NULL DEFAULT '1',
+  `deleteaccess` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -233,7 +282,10 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Manager', 1, 1, '2019-05-20 22:52:33', '2019-05-22 22:43:22');
+(1, 'Admin', 1, 1, '2019-05-20 22:52:33', '2019-06-10 21:23:34'),
+(2, 'Department', 1, 1, '2019-06-10 21:23:47', '2019-06-10 22:53:00'),
+(3, 'Moderator', 1, 1, '2019-06-10 21:23:57', '2019-06-10 21:23:57'),
+(4, 'Engineer', 1, 1, '2019-06-10 21:24:11', '2019-06-10 21:24:11');
 
 -- --------------------------------------------------------
 
@@ -336,10 +388,22 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `modules`
+--
+ALTER TABLE `modules`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `roles`
@@ -374,7 +438,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `complain_details`
 --
 ALTER TABLE `complain_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `complain_feedbacks`
@@ -392,7 +456,7 @@ ALTER TABLE `complain_statuses`
 -- AUTO_INCREMENT for table `complain_types`
 --
 ALTER TABLE `complain_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -413,10 +477,22 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `modules`
+--
+ALTER TABLE `modules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `settings`

@@ -96,5 +96,6 @@
         <script src="{{ asset('scmsp/js/sweetalert.min.js') }}"></script>
         <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
         
+        
     </body>
 </html>

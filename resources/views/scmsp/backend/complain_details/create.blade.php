@@ -61,20 +61,20 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="complainer">Complainer</label>
                             <input type="text" class="form-control" name="complainer" id="complainer" placeholder="Enter Complainer Phone">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="complainer">Issue Date</label>
                             <input type="date" class="form-control" name="issued_date" id="demoDatepicker" placeholder="Enter Complainer Phone" autocomplete="off">
                         </div>
                     </div>
                     
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="pwd">Complain Status</label>
                             <select class="form-control" name="complain_status">
@@ -84,6 +84,21 @@
                                 if(!$list->isEmpty()){
                                     foreach($list as $data){ ?>
                                 <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                <?php }} ?>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Assign To</label>
+                            <select class="form-control" name="assign_to">
+                                <?php
+                                $id    =   Session::get('id');
+                                $list = get_table_data_by_table('roles');
+                                if(!$list->isEmpty()){
+                                    foreach($list as $data){ ?>
+                                <option value="{{ $data->name }}"<?php if(isset($id) && $id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
                                 <?php }} ?>
                             </select>
                         </div>
