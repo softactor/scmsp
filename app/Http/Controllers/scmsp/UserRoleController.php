@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Scmsp;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Model\scmsp\backend\userRole\UserRole;
+use Illuminate\Support\Facades\Auth;
 
 class UserRoleController extends Controller
 {
@@ -45,8 +48,40 @@ class UserRoleController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function store(){
-		echo "User Role Store";
+	public function store(Request $request){
+		//$all    =   $request->all();
+            /* ----------------------------------------------------------
+         * check duplicate entry
+         * ---------------------------------------------------------
+         */
+        $checkParam['table'] = "roles";
+        $checkWhereParam = [
+            ['name',    '=', $request->name],
+        ];
+        $checkParam['where'] = $checkWhereParam;
+        $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        // check is it duplicate or not
+        if ($duplicateCheck) {
+            return redirect('admin/user-role-create')
+                            ->withInput()
+                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+        }// end of duplicate checking:
+            $rules  =   [
+                'name' => 'required|unique:roles,name'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect('admin/user-role-create')
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $user_role             =   new UserRole;
+            $user_role->name       =   $request->name;
+            $user_role->user_id    =   Auth::user()->id;
+            $user_role->save();
+            return redirect('admin/user-role-list')->with('success', 'Data have been successfully saved.');
 	}
         
         /*

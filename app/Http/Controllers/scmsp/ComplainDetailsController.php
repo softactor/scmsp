@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Scmsp;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Model\scmsp\backend\complainDetails\ComplainDetails;
+use Illuminate\Support\Facades\Auth;
+use App\Model\scmsp\backend\complainType\ComplainType;
+use App\Model\scmsp\backend\complainStatus\ComplainStatus;
 
 class ComplainDetailsController extends Controller
 {
@@ -15,7 +20,8 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		return View('scmsp.backend.complain_details.list');
+            $list   = ComplainDetails::orderBy('id', 'desc')->get();
+            return View('scmsp.backend.complain_details.list', compact('list'));
 	}
         
         /*
@@ -35,8 +41,10 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function edit(){
-		return View('scmsp.backend.complain_details.edit');
+	public function edit(Request $request){
+            $editData   = ComplainDetails::find($request->id);
+            return View('scmsp.backend.complain_details.edit',  compact('editData'));
+                
 	}
         /*
 	Method Name	: store
@@ -45,8 +53,35 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function store(){
-		echo "complain details Store";
+	public function store(Request $request){
+		//$all    =   $request->all();
+                //print_r($all);
+                //exit();
+
+        $rules  =   [
+                'complain_type_id'  => 'required',
+                'complainer'        => 'required',
+                'complain_details'  => 'required',
+                'issued_date'       => 'required',
+                'complain_status'   => 'required',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect('admin/complain-details-create')
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $complain_details                      =   new ComplainDetails;
+            $complain_details->complain_type_id    =   $request->complain_type_id;
+            $complain_details->complainer          =   $request->complainer;
+            $complain_details->complain_details    =   $request->complain_details;
+            $complain_details->issued_date         =   $request->issued_date;
+            $complain_details->complain_status     =   $request->complain_status;
+            $complain_details->user_id             =   Auth::user()->id;
+            $complain_details->save();
+            return redirect('admin/complain-details-list')->with('success', 'Data have been successfully saved.');
 	}
         
         /*
@@ -56,8 +91,36 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function update(){
-		echo "complain details Update";
+	public function update(Request $request){
+		//$all    =   $request->all();
+                //print_r($all);
+                //exit();
+
+        $rules  =   [
+                'complain_type_id'  => 'required',
+                'complainer'        => 'required',
+                'complain_details'  => 'required',
+                'issued_date'       => 'required',
+                'complain_status'   => 'required',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                 return redirect('admin/complain-details-edit/'.$request->edit_id)
+                                ->withInput()
+                                ->with('error', 'Failed to update data. Pleae fix the validation.')
+                                ->withErrors($validator);
+            }
+            
+            $complain_details                      =   ComplainDetails::find($request->edit_id);
+            $complain_details->complain_type_id    =   $request->complain_type_id;
+            $complain_details->complainer          =   $request->complainer;
+            $complain_details->complain_details    =   $request->complain_details;
+            $complain_details->issued_date         =   $request->issued_date;
+            $complain_details->complain_status     =   $request->complain_status;
+            $complain_details->user_id             =   Auth::user()->id;
+            $complain_details->save();
+            return redirect('admin/complain-details-list')->with('success', 'Data have been successfully Updated.');
 	}
         /*
 	Method Name	: delete
@@ -66,7 +129,13 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "complain details Delete";
+	public function delete(Request $request){
+		$res        =   ComplainDetails::where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

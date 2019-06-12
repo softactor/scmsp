@@ -47,6 +47,28 @@
         </a>
     </li>
     
+    
+    
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="{{ route('admin.module-list') }}">
+            <i class="fas fa-fw fa-chalkboard-teacher"></i>
+            <span>Module</span>
+        </a>
+    </li>
+    
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="{{ route('admin.permission-list') }}">
+            <i class="fas fa-fw fa-chalkboard-teacher"></i>
+            <span>Permission</span>
+        </a>
+    </li>
+    
+     <li class="nav-item dropdown">
+        <a class="nav-link" href="{{ route('admin.user-role-list') }}">
+            <i class="fas fa-fw fa-chalkboard-teacher"></i>
+            <span>Users Role</span>
+        </a>
+    </li>
      <li class="nav-item dropdown">
         <a class="nav-link" href="{{ route('admin.role-list') }}">
             <i class="fas fa-fw fa-address-card"></i>
@@ -60,13 +82,5 @@
             <span>Users</span>
         </a>
     </li>
-    
-     <li class="nav-item dropdown">
-        <a class="nav-link" href="{{ route('admin.user-role-list') }}">
-            <i class="fas fa-fw fa-chalkboard-teacher"></i>
-            <span>Users Role</span>
-        </a>
-    </li>
-     
     
 </ul>

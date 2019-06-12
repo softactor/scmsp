@@ -40,8 +40,9 @@ class DepartmentController extends Controller
 	Date		: 04/15/2019
 	Author		: Atiqur Rahman
 	*/
-	public function edit(){
-		return View('scmsp.backend.department.edit');
+	public function edit(Request $request){
+            $editData   = Department::find($request->id);
+            return View('scmsp.backend.department.edit', compact('editData'));
 	}
         
         /*
@@ -53,6 +54,22 @@ class DepartmentController extends Controller
 	*/
 	public function store(Request $request){
             //$all    =   $request->all();
+            /* ----------------------------------------------------------
+         * check duplicate entry
+         * ---------------------------------------------------------
+         */
+        $checkParam['table'] = "departments";
+        $checkWhereParam = [
+            ['name',    '=', $request->name],
+        ];
+        $checkParam['where'] = $checkWhereParam;
+        $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        // check is it duplicate or not
+        if ($duplicateCheck) {
+            return redirect('admin/department-create')
+                            ->withInput()
+                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+        }// end of duplicate checking:
             $rules  =   [
                 'name' => 'required|unique:departments,name'
             ];
@@ -68,7 +85,7 @@ class DepartmentController extends Controller
             $department->name       =   $request->name;
             $department->user_id    =   Auth::user()->id;
             $department->save();
-            return redirect('admin/department-list');
+            return redirect('admin/department-list')->with('success', 'Data have been successfully saved.');
 	}
         
         /*
@@ -78,8 +95,41 @@ class DepartmentController extends Controller
 	Date		: 04/15/2019
 	Author		: Atiqur Rahman
 	*/
-	public function update(){
-		echo "Department Update";
+	public function update(Request $request){
+		//$all    =   $request->all();
+            /* ----------------------------------------------------------
+         * check duplicate entry
+         * ---------------------------------------------------------
+         */
+        $checkParam['table'] = "departments";
+        $checkWhereParam = [
+            ['name',    '=', $request->name],
+            ['id', '!=', $request->edit_id],
+        ];
+        $checkParam['where'] = $checkWhereParam;
+        $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        // check is it duplicate or not
+        if ($duplicateCheck) {
+            return redirect('admin/department-edit/'.$request->edit_id)
+                            ->withInput()
+                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+        }// end of duplicate checking:
+            $rules  =   [
+                'name' => 'required|unique:departments,name'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect('admin/department-edit/'.$request->edit_id)
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $department             =   Department::find($request->edit_id);
+            $department->name       =   $request->name;
+            $department->user_id    =   Auth::user()->id;
+            $department->save();
+            return redirect('admin/department-list')->with('success', 'Data have been successfully updated.');
 	}
         
          /*
@@ -89,7 +139,13 @@ class DepartmentController extends Controller
 	Date		: 04/15/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "Department Delete";
+	public function delete(Request $request){
+		$res        =   Department::where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

@@ -28,3 +28,11 @@ function delete_operation(url, del_id) {
             
         });
     }
+    
+function allcheck() {
+    if ($('#isallpermission').is(":checked")) {
+        $('.module_common_class').prop('checked', true);
+    } else {
+        $('.module_common_class').prop('checked', false);
+    }
+}

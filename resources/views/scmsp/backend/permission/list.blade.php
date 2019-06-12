@@ -1,18 +1,17 @@
 @extends('scmsp.backend.layout.app')
-@section('title', 'Edit Complain Status')
+@section('title', 'List Permission')
 @section('content')
 <div class="container-fluid">
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Complain Status</a>
+            <a href="#">Permission</a>
         </li>
         <li class="breadcrumb-item active">Overview</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List Complain Status<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.complain-status-create') }}'" >Create New</button></h2>
-            
+            <h2>List Permission<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.permission-create') }}'" >Create New</button></h2>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -28,8 +27,8 @@
                     </tfoot>
                     <tbody>
                         <?php
-                        $deleteUrl  =   url('admin/complain-status-delete');    
-                        if(!$list->isEmpty()){
+                            $deleteUrl  =   url('admin/permission-delete');
+                            if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
@@ -40,7 +39,7 @@
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="{{ url('admin/complain-status-edit/'.$data->id) }}">Edit</a>
+                                      <a class="dropdown-item" href="{{ url('admin/permission-edit/'.$data->id) }}">Edit</a>
                                       <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
                                     </div>
                                 </div>

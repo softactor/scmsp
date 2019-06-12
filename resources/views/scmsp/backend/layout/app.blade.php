@@ -22,6 +22,7 @@
         <!-- Custom styles for this template-->
         <link href="{{ asset('scmsp/css/sb-admin.css') }}" rel="stylesheet">
         <link href="{{ asset('scmsp/css/custom.css') }}" rel="stylesheet" />
+        <link href="{{ asset('scmsp/css/scroll.css') }}" rel="stylesheet">
     </head>
     <body id="page-top">
 
@@ -95,6 +96,7 @@
         <!-- Demo scripts for this page-->
         <script src="{{ asset('scmsp/js/sweetalert.min.js') }}"></script>
         <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
+        
         
     </body>
 </html>
