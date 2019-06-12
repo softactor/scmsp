@@ -7,11 +7,20 @@
         <li class="breadcrumb-item">
             <a href="#">Devision</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">List Division</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List Division<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.division-create') }}'" >Create New</button></h2>
+            <div class="title_section">
+                <div class='row'>
+                    <div class="col-md-6">
+                        Create New 
+                        <a class="btn btn-outline-primary btn-sm create_new_style" href="{{route('admin.division-create')}}">
+                            <span class="fa"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>            
             @include('scmsp.backend.partial.operation_message')
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

@@ -12,7 +12,8 @@
 
         <!-- Custom fonts for this template-->
         <link href="{{ asset('scmsp/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-
+        <link href="{{ asset('scmsp/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('scmsp/css/bootstrap.min.css') }}" rel="stylesheet" />
         <!-- Page level plugin CSS-->
         <link href="{{ asset('scmsp/vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
         <!-- Sweet alert CSS-->

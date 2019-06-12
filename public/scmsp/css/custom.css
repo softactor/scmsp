@@ -11,3 +11,12 @@ and open the template in the editor.
 .json_alert_message{
     display: none;
 }
+.title_section h2{
+    font-size: 23px;
+    line-height: 5px;
+    color: #646464;
+    letter-spacing: 2px;
+}
+.title_section a.create_new_style{
+    margin: 1% 0;
+}
