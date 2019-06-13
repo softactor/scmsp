@@ -51,24 +51,24 @@
                     <div class="col-md-1"> :</div>
                     <div class="col-md-8"> 
                         <label>
+                          <input type="checkbox" name="module[<?php echo $module->id ?>]['add']" class="minimal module_common_class" value="1">
                           Add 
-                          <input type="checkbox" name="addaccess" class="minimal module_common_class" value="module[<?php echo $module->name ?>]['add'][<?php echo $module->id ?>]">
                         </label>
                         <label>
+                          <input type="checkbox" name="module[<?php echo $module->id ?>]['edit']" class="minimal module_common_class" value="1">
                           Edit 
-                          <input type="checkbox" name="editaccess" class="minimal module_common_class" value="module[<?php echo $module->name ?>]['edit'][<?php echo $module->id ?>]">
                         </label>
                         <label>
+                          <input type="checkbox" name="module[<?php echo $module->id ?>]['list']" class="minimal module_common_class" value="1">
                           List 
-                          <input type="checkbox" name="listaccess" class="minimal module_common_class" value="module[<?php echo $module->name ?>]['list'][<?php echo $module->id ?>]">
                         </label>
                         <label>
+                          <input type="checkbox" name="module[<?php echo $module->id ?>]['del']" class="minimal module_common_class" value="1">
                           Delete 
-                          <input type="checkbox" name="deleteaccess" class="minimal module_common_class" value="module[<?php echo $module->name ?>]['del'][<?php echo $module->id ?>]">
                         </label>
                         <label>
+                          <input type="checkbox" name="module[<?php echo $module->id ?>]['all']" class="minimal module_common_class" value="1">
                           All 
-                          <input type="checkbox" name="isallmodulepermission" class="minimal module_common_class" value="module[<?php echo $module->name ?>]['all'][<?php echo $module->id ?>]">
                         </label>
                     </div>
                   </div>
