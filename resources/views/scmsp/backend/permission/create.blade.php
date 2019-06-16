@@ -51,23 +51,23 @@
                     <div class="col-md-1"> :</div>
                     <div class="col-md-8"> 
                         <label>
-                          <input type="checkbox" name="module[<?php echo $module->id ?>][add]" class="minimal module_common_class" value="1">
+                          <input type="checkbox" name="module[<?php echo $module->id ?>][add]" class="minimal module_common_class <?php echo 'module_type_'.$module->id; ?>" value="1">
                           Add 
                         </label>
                         <label>
-                          <input type="checkbox" name="module[<?php echo $module->id ?>][edit]" class="minimal module_common_class" value="1">
+                          <input type="checkbox" name="module[<?php echo $module->id ?>][edit]" class="minimal module_common_class <?php echo 'module_type_'.$module->id; ?>" value="1">
                           Edit 
                         </label>
                         <label>
-                          <input type="checkbox" name="module[<?php echo $module->id ?>][list]" class="minimal module_common_class" value="1">
+                          <input type="checkbox" name="module[<?php echo $module->id ?>][list]" class="minimal module_common_class <?php echo 'module_type_'.$module->id; ?>" value="1">
                           List 
                         </label>
                         <label>
-                          <input type="checkbox" name="module[<?php echo $module->id ?>][del]" class="minimal module_common_class" value="1">
+                          <input type="checkbox" name="module[<?php echo $module->id ?>][del]" class="minimal module_common_class <?php echo 'module_type_'.$module->id; ?>" value="1">
                           Delete 
                         </label>
                         <label>
-                          <input type="checkbox" name="module[<?php echo $module->id ?>][all]" class="minimal module_common_class" value="1">
+                            <input type="checkbox" id="ind_module_all_selector_<?php echo $module->id; ?>" name="module[<?php echo $module->id ?>][all]" class="minimal module_common_class" value="1" onclick="toggleIndividualModuleChecked('<?php echo $module->id; ?>');">
                           All 
                         </label>
                     </div>

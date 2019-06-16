@@ -36,3 +36,11 @@ function allcheck() {
         $('.module_common_class').prop('checked', false);
     }
 }
+function toggleIndividualModuleChecked(classSelector) {
+    if ($('#ind_module_all_selector_'+classSelector).is(":checked")) {
+        $('.module_type_'+classSelector).prop('checked', true);
+    } else {        
+        $('#isallpermission').prop('checked', false);
+        $('.module_type_'+classSelector).prop('checked', false);
+    }
+}
