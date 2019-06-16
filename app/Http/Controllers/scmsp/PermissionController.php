@@ -46,7 +46,19 @@ class PermissionController extends Controller {
         $all = $request->all();
         $isallpermission = $request->isallpermission;
         if (isset($isallpermission) && !empty($isallpermission)) {
-            
+           $permissionData              = [
+                'user_type'             => $request->user_type,
+                'isallpermission'       => $isallpermission,
+                'module'                => "all",
+                'isallmodulepermission' => 0,
+                'addaccess'             => 0,
+                'editaccess'            => 0,
+                'listaccess'            => 0,
+                'deleteaccess'          => 0,
+                'created_at'            => '',
+                'updated_at'            => '',
+                'user_id'               => ''
+            ];  
         } else {
             $isallpermission = 0;
             $modules = get_table_data_by_table('modules');
@@ -83,21 +95,68 @@ class PermissionController extends Controller {
                         }
                     }
                     if ($mp) {
-                        $permissionData = [
-                            'user_type' => $request->user_type,
-                            'isallpermission' => $isallpermission,
-                            'module' => $module_name,
+                        $permissionData             = [
+                            'user_type'             => $request->user_type,
+                            'isallpermission'       => $isallpermission,
+                            'module'                => $module_name,
                             'isallmodulepermission' => $isallmodulepermission,
-                            'addaccess' => $addaccess,
-                            'editaccess' => $editaccess,
-                            'listaccess' => $listaccess,
-                            'deleteaccess' => $deleteaccess,
-                            'created_at' => '',
-                            'updated_at' => '',
-                            'user_id' => ''
+                            'addaccess'             => $addaccess,
+                            'editaccess'            => $editaccess,
+                            'listaccess'            => $listaccess,
+                            'deleteaccess'          => $deleteaccess,
+                            'created_at'            => '',
+                            'updated_at'            => '',
+                            'user_id'               => ''
                         ];
-
-                        // from down there, we need to insert command;
+                  // Insert Code here
+                        $checkParam['table'] = "permissions";
+                        $checkWhereParam = [
+                            ['user_type',            '=', $request->user_type],
+                            ['isallpermission',      '=', $request->isallpermission],
+                            ['module',               '=', $request->module],
+                            ['isallmodulepermission','=', $request->isallmodulepermission],
+                            ['addaccess',            '=', $request->addaccess],
+                            ['editaccess',           '=', $request->editaccess],
+                            ['listaccess',           '=', $request->listaccess],
+                            ['deleteaccess',         '=', $request->deleteaccess],
+                        ];
+                        $checkParam['where'] = $checkWhereParam;
+                        //$duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+                        // check is it duplicate or not
+//                        if ($duplicateCheck) {
+//                            return redirect('admin/permission-create')
+//                                            ->withInput()
+//                                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+//                        }// end of duplicate checking:
+//                            $permissions  =   [
+//                                'user_type' => 'required|unique:permissions,user_type'
+//                            ];
+//                            $validator = Validator::make($request->all(), $rules);
+//
+//                            if ($validator->fails()) {
+//                                return redirect('admin/permission-create')
+//                                            ->withErrors($validator)
+//                                            ->withInput();
+//                            }
+ echo "I am Here";
+ exit;
+                            $permission                         =   new Permission;
+                            $permission->user_type              =   $request->user_type;
+                            $permission->isallpermission        =   $isallpermission;
+                            $permission->module                 =   $module;
+                            $permission->isallmodulepermission  =   $isallmodulepermission;
+                            $permission->addaccess              =   $addaccess;
+                            $permission->editaccess             =   $editaccess;
+                            $permission->listaccess             =   $listaccess;
+                            $permission->deleteaccess           =   $deleteaccess;
+                            $permission->user_id                =   Auth::user()->id;
+                            $permission->save();
+                            
+                            //print '<pre>';
+                           // print_r($permission);
+                           // print '</pre>';
+                           // exit;
+                            return redirect('admin/permission-list')->with('success', 'Data have been successfully saved.');
                     }// module permission check;
                 }// end of foreach
             }

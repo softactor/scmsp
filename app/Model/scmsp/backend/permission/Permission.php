@@ -11,5 +11,5 @@ class Permission extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id','user_type'];
+    protected $fillable = ['user_type','isallpermission','module','isallmodulepermission','addaccess','editaccess','listaccess','deleteaccess','user_id'];
 }

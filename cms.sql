@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2019 at 07:25 AM
+-- Generation Time: Jun 16, 2019 at 06:25 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -249,7 +249,6 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `user_type` varchar(100) NOT NULL,
   `isallpermission` tinyint(1) NOT NULL DEFAULT '1',
   `module` varchar(100) NOT NULL,
@@ -258,6 +257,7 @@ CREATE TABLE `permissions` (
   `editaccess` tinyint(1) NOT NULL DEFAULT '1',
   `listaccess` tinyint(1) NOT NULL DEFAULT '1',
   `deleteaccess` tinyint(1) NOT NULL DEFAULT '1',
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

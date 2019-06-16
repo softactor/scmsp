@@ -116,8 +116,3 @@
 </div>
 @endsection
 
-<script>
-    $("#demoDatepicker").datepicker({
-        dateFormat: 'dd/mm/yy H:i:s'
-    });
-</script>
