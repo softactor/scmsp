@@ -98,7 +98,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling user-role create routes
     Route::get('user-role-create', 'scmsp\UserRoleController@create')->name('user-role-create');
     // calling user-role edit routes
-    Route::post('user-role-edit/{id}', 'scmsp\UserRoleController@edit')->name('user-role-edit');
+    Route::get('user-role-edit/{id}', 'scmsp\UserRoleController@edit')->name('user-role-edit');
     // calling user-role store routes
     Route::post('user-role-store', 'scmsp\UserRoleController@store')->name('user-role-store');
     // calling user-role update routes

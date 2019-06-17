@@ -12,20 +12,35 @@
     <div class='row'>
         <div class='col col-md-12'>
             <h2>Create User Role</h2>
-            <form action="/action_page.php">
+            @include('scmsp.backend.partial.operation_message')
+            <form method="POST" action="{{ route('admin.user-role-store') }}">
+                @csrf
                 <div class="form-group">
                     <label for="pwd">User</label>
-                    <select class="form-control" name="">
-                        <option>Select User</option>
-                        <option>Tiger Nixon</option>
+                    <select class="form-control" name="user_id">
+                        <option value="">Select User</option>
+                        <?php
+                            $user_id    =   Session::get('user_id');
+                            $list = get_table_data_by_table('users');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if(isset($user_id) && $user_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>
+                        
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Role</label>
-                    <select class="form-control" name="">
-                        <option>Select User Role</option>
-                        <option>Admin</option>
-                        <option>Moderator</option>
+                    <select class="form-control" name="role_id">
+                        <option value="">Select Role</option>
+                        <?php
+                            $role_id    =   Session::get('role_id');
+                            $list = get_table_data_by_table('roles');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if(isset($role_id) && $role_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>
+                        
                     </select>
                 </div>
                 

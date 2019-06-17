@@ -18,7 +18,8 @@ class UserRoleController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		return View('scmsp.backend.user_role.list');
+            $list   = UserRole::orderBy('user_id', 'desc')->get();
+            return View('scmsp.backend.user_role.list', compact('list'));
 	}
         
         /*
@@ -38,8 +39,9 @@ class UserRoleController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function edit(){
-		return View('scmsp.backend.user_role.edit');
+	public function edit(Request $request){
+            $editData   = UserRole::find($request->id);
+            return View('scmsp.backend.user_role.edit', compact('editData'));
 	}
         /*
 	Method Name	: store
@@ -54,9 +56,10 @@ class UserRoleController extends Controller
          * check duplicate entry
          * ---------------------------------------------------------
          */
-        $checkParam['table'] = "roles";
+        $checkParam['table'] = "user_roles";
         $checkWhereParam = [
-            ['name',    '=', $request->name],
+            ['user_id',    '=', $request->user_id],
+            ['role_id',    '=', $request->role_id],
         ];
         $checkParam['where'] = $checkWhereParam;
         $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
@@ -67,7 +70,8 @@ class UserRoleController extends Controller
                             ->with('error', 'Failed to save data. Duplicate Entry found.');
         }// end of duplicate checking:
             $rules  =   [
-                'name' => 'required|unique:roles,name'
+                'user_id' => 'required',
+                'role_id' => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -78,8 +82,8 @@ class UserRoleController extends Controller
             }
             
             $user_role             =   new UserRole;
-            $user_role->name       =   $request->name;
-            $user_role->user_id    =   Auth::user()->id;
+            $user_role->user_id       =   $request->user_id;
+            $user_role->role_id       =   $request->role_id;
             $user_role->save();
             return redirect('admin/user-role-list')->with('success', 'Data have been successfully saved.');
 	}
@@ -91,8 +95,39 @@ class UserRoleController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function update(){
-		echo "User Role Update";
+	public function update(Request $request){
+        
+        $checkParam['table'] = "user_roles";
+        $checkWhereParam = [
+            ['user_id',    '=', $request->user_id],
+            ['role_id',    '=', $request->role_id],
+            ['id',         '!=', $request->edit_id],
+        ];
+        $checkParam['where'] = $checkWhereParam;
+        $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        // check is it duplicate or not
+        if ($duplicateCheck) {
+            return redirect('admin/user-role-edit/'.$request->edit_id)
+                            ->withInput()
+                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+        }// end of duplicate checking:
+            $rules  =   [
+                'user_id' => 'required',
+                'role_id' => 'required',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return redirect('admin/user-role-edit/'.$request->edit_id)
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $user_role                =   UserRole::find($request->edit_id);
+            $user_role->user_id       =   $request->user_id;
+            $user_role->role_id       =   $request->role_id;
+            $user_role->save();
+            return redirect('admin/user-role-list')->with('success', 'Data have been successfully saved.');
 	}
         /*
 	Method Name	: delete
@@ -101,7 +136,13 @@ class UserRoleController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "User Role Delete";
+	public function delete(Request $request){
+		$res        =   UserRole::where('id',$request->del_id)->delete();
+                $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
 	}
 }

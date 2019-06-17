@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2019 at 06:25 AM
+-- Generation Time: Jun 17, 2019 at 10:51 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -262,6 +262,18 @@ CREATE TABLE `permissions` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `user_type`, `isallpermission`, `module`, `isallmodulepermission`, `addaccess`, `editaccess`, `listaccess`, `deleteaccess`, `user_id`, `created_at`, `updated_at`) VALUES
+(14, 'Admin', 1, 'all', 1, 1, 1, 1, 1, 1, '2019-06-17 02:42:24', '2019-06-17 02:42:24'),
+(15, 'Moderator', 0, 'Department', 1, 0, 0, 0, 0, 1, '2019-06-17 02:43:08', '2019-06-17 02:43:08'),
+(16, 'Moderator', 0, 'Division', 1, 0, 0, 0, 0, 1, '2019-06-17 02:43:09', '2019-06-17 02:43:09'),
+(17, 'Moderator', 0, 'Complain Type', 1, 0, 0, 0, 0, 1, '2019-06-17 02:43:09', '2019-06-17 02:43:09'),
+(18, 'Moderator', 0, 'Complain Status', 1, 0, 0, 0, 0, 1, '2019-06-17 02:43:09', '2019-06-17 02:43:09'),
+(19, 'Moderator', 0, 'Complain details', 0, 1, 0, 1, 0, 1, '2019-06-17 02:43:09', '2019-06-17 02:43:09');
+
 -- --------------------------------------------------------
 
 --
@@ -283,7 +295,6 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 1, 1, '2019-05-20 22:52:33', '2019-06-10 21:23:34'),
-(2, 'Department', 1, 1, '2019-06-10 21:23:47', '2019-06-10 22:53:00'),
 (3, 'Moderator', 1, 1, '2019-06-10 21:23:57', '2019-06-10 21:23:57'),
 (4, 'Engineer', 1, 1, '2019-06-10 21:24:11', '2019-06-10 21:24:11');
 
@@ -313,6 +324,7 @@ CREATE TABLE `settings` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` int(11) NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -326,8 +338,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Tanveer Qureshee', 'tanveerqureshee@hotmail.com', NULL, '$2y$10$yzdRh.HNr8RukRLgiuVfoe37Ckjmr1wFdlQi0XHoTrCSLeBjLLYMS', NULL, '2019-03-26 16:36:21', '2019-03-26 16:36:21');
+INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Tanveer Qureshee', 'tanveerqureshee@hotmail.com', NULL, '$2y$10$yzdRh.HNr8RukRLgiuVfoe37Ckjmr1wFdlQi0XHoTrCSLeBjLLYMS', NULL, '2019-03-26 16:36:21', '2019-03-26 16:36:21');
 
 -- --------------------------------------------------------
 
@@ -338,8 +350,17 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 CREATE TABLE `user_roles` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `role_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, '2019-06-16 22:56:26', '2019-06-16 23:33:54');
 
 --
 -- Indexes for dumped tables
@@ -486,7 +507,7 @@ ALTER TABLE `modules`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -510,7 +531,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

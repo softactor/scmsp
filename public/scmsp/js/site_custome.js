@@ -36,6 +36,8 @@ function allcheck() {
         $('.module_common_class').prop('checked', false);
     }
 }
+
+
 function toggleIndividualModuleChecked(classSelector) {
     if ($('#ind_module_all_selector_'+classSelector).is(":checked")) {
         $('.module_type_'+classSelector).prop('checked', true);
@@ -43,4 +45,24 @@ function toggleIndividualModuleChecked(classSelector) {
         $('#isallpermission').prop('checked', false);
         $('.module_type_'+classSelector).prop('checked', false);
     }
+}
+
+function permission_operation(){
+        $.ajax({
+            url     : url,
+            type    : 'POST',
+            dataType: 'json',
+            data    : 'del_id='+del_id,
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#delete_row_id_'+del_id).hide();
+                    swal("Deleted!", "Data has been deleted.", "success");
+                }else{
+                }                    
+            },
+            async: false // <- this turns it into synchronous
+        });
 }

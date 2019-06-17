@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Model\scmsp\backend\userRole;
+namespace App\Model\scmsp\backend\user;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserRole extends Model
+class User extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['user_id','role_id'];
+    protected $fillable = ['name','email'];
 }

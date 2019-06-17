@@ -28,21 +28,27 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>user</td>
+                        <?php
+                            $deleteUrl  =   url('admin/user-role-delete');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){
+                        ?>
+                        <tr id='delete_row_id_{{$data->id}}'>
+                            <td>{{ get_data_name_by_id('users',$data->user_id)->name }}</td>
+                            <td>{{ get_data_name_by_id('roles',$data->role_id)->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="#">Edit</a>
-                                      <a class="dropdown-item" href="#">Delete</a>
+                                      <a class="dropdown-item" href="{{ url('admin/user-role-edit/'.$data->id) }}">Edit</a>
+                                      <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        <?php }} ?>
                     </tbody>
                 </table>
         </div>

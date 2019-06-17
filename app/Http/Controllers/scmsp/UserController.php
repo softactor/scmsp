@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Scmsp;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Model\scmsp\backend\user\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,7 +18,8 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-		return View('scmsp.backend.user.list');
+            $list   = User::orderBy('name', 'desc')->get();
+            return View('scmsp.backend.user.list', compact('list'));
 	}
         
         /*

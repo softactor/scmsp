@@ -18,7 +18,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="pwd">User Type</label>
-                    <select class="form-control" name="user_type">
+                    <select class="form-control" name="user_type" onchange="permission_operation();">
                         <option value="">Select Type</option>
                         <?php
                             $role_id    =   Session::get('role_id');
@@ -44,7 +44,7 @@
                     $modules = get_table_data_by_table('modules');
                     if(isset($modules) && !empty($modules)){
                         foreach($modules as $module){
-                    ?>
+                ?>
                 <div class="form-group"> 
                   <div class="row">
                     <div class="col-md-3"><?php echo $module->name ?></div>

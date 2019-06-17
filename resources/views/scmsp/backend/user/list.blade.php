@@ -30,10 +30,15 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>tigernixon@gmail.com</td>
-                            <td>user</td>
+                        <?php
+                            $deleteUrl  =   url('admin/user-delete');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){
+                        ?>
+                        <tr id='delete_row_id_{{$data->id}}'>
+                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->email }}</td>
+                            <td>{{ get_data_name_by_id('roles',$data->role_id)->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,6 +51,7 @@
                                 </div>
                             </td>
                         </tr>
+                        <?php }} ?>
                     </tbody>
                 </table>
         </div>
