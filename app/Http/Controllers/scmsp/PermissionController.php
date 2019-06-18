@@ -44,6 +44,11 @@ class PermissionController extends Controller {
 
     public function store(Request $request) {
         $all = $request->all();
+        print '<pre>';
+        print_r($all);
+        print '</pre>';
+        exit;
+        
         // assigning default param:
         $user_type              =   $request->user_type;
         $isallpermission        =   0;
