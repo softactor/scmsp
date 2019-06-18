@@ -89,3 +89,22 @@ function autosearch(){
     });
 });
 }
+
+/*
+ *   select previous permission details
+ */
+
+function getRoleWisePermission(url, roleId){
+    if(roleId){
+        $.ajax({
+            url         : url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'role_id='+roleId,
+            success     : function(response){
+                console.log(response);
+                $('#permission_access_section').html(response.data);
+            }
+        });
+    }
+}

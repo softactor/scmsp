@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Model\scmsp\backend\permission\Permission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 class PermissionController extends Controller {
     /*
@@ -44,11 +46,6 @@ class PermissionController extends Controller {
 
     public function store(Request $request) {
         $all = $request->all();
-        print '<pre>';
-        print_r($all);
-        print '</pre>';
-        exit;
-        
         // assigning default param:
         $user_type              =   $request->user_type;
         $isallpermission        =   0;
@@ -146,11 +143,62 @@ class PermissionController extends Controller {
                             $permission->user_id                = $user_id;
                             $permission->save();
                             
-                    }// module permission check;
+                    }else{
+                        DB::table('permissions')->where('module', $module->name)->where('user_type', $user_type)->delete();
+                    }
+                    
                 }// end of foreach
                 return redirect('admin/permission-create')->with('success', 'Data have been successfully saved.');
             }
         } // end of else:
     }
+    public function get_role_wise_permission(Request $request) {
+        $all = $request->all();
+        $permissionData = DB::table('permissions')->where('user_type', $request->role_id)->get();
+        if (!$permissionData->isEmpty()) {
+            // checll all permision checkbox:
+            $allAccessCheck = $this->checkIsAllAccessIsChecked($permissionData);
+            if ($allAccessCheck) {
+                $all_access_page_view   =   View::make('scmsp.backend.partial.all_access_permission_view');
+            } else {
+                $pertialAccessCheck     =   $this->makePertialAccessCheckArray($permissionData);
+                $all_access_page_view   =   View::make('scmsp.backend.partial.partial_access_permission_view', compact('pertialAccessCheck'));
+            }
 
+            $feedback = [
+                'status'    => 'success',
+                'message'   => 'Data found',
+                'data'      => $all_access_page_view->render(),
+            ];
+            echo json_encode($feedback);
+        }else{
+            $all_access_page_view   =   View::make('scmsp.backend.permission.create');
+            $feedback = [
+                'status'    => 'success',
+                'message'   => 'Data found',
+                'data'      => $all_access_page_view->render(),
+            ];
+            echo json_encode($feedback);
+        }
+    }
+
+    public function checkIsAllAccessIsChecked($permission){
+        $isallpermission    =   false;
+        foreach($permission as $access){
+            if($access->isallpermission){
+                $isallpermission = true;
+                return $isallpermission;
+            }            
+        } // end of foreach
+        
+        return $isallpermission;
+    }
+    
+    public function makePertialAccessCheckArray($permission){
+        $accessArray    =   [];
+        foreach($permission as $per){
+            $accessArray[$per->module]  =   (array)$per;
+        }
+        return $accessArray;
+    }
 }
