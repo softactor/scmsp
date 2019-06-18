@@ -57,7 +57,7 @@
     </li>
     
     <li class="nav-item dropdown">
-        <a class="nav-link" href="{{ route('admin.permission-list') }}">
+        <a class="nav-link" href="{{ route('admin.permission-create') }}">
             <i class="fas fa-fw fa-chalkboard-teacher"></i>
             <span>Permission</span>
         </a>

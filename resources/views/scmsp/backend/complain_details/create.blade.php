@@ -64,7 +64,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="complainer">Complainer</label>
-                            <input type="text" class="form-control" name="complainer" id="complainer" placeholder="Enter Complainer Phone">
+                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()">
                         </div>
                     </div>
                     <div class="col-md-3">

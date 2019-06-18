@@ -66,3 +66,26 @@ function permission_operation(){
             async: false // <- this turns it into synchronous
         });
 }
+
+
+function autosearch(){
+   $(document).ready(function() {
+     $("#search_text").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: url,
+                dataType: "json",
+                data: {
+                    term : request.term
+                },
+                success: function(data) {
+                    response(data);
+                   
+                }
+            });
+        },
+        minLength: 3,
+       
+    });
+});
+}
