@@ -175,6 +175,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::post('permission-update', 'scmsp\PermissionController@update')->name('permission-update');
     // calling permission delete routes
     Route::post('permission-delete', 'scmsp\PermissionController@delete')->name('permission-delete');
+    
+    
+    
+    Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
+Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
 
 });
 Auth::routes();

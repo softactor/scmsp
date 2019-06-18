@@ -138,4 +138,18 @@ class ComplainDetailsController extends Controller
             ];
             echo json_encode($feedback);
 	}
+        
+        public function autocomplete(Request $request)
+        {
+            $data = Search::select("complainer")
+                    ->where("complainer","LIKE","%{$request->input('query')}%")
+                    ->get();
+            
+            if(count($data))
+                return $data;
+            else
+                return ['No Result Found'];
+
+            return response()->json($data);
+        }
 }

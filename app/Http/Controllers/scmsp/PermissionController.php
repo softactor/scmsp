@@ -73,7 +73,7 @@ class PermissionController extends Controller {
             $permission->deleteaccess           = $deleteaccess;
             $permission->user_id                = $user_id;
             $permission->save();
-            return redirect('admin/permission-list')->with('success', 'Data have been successfully saved.');  
+            return redirect('admin/permission-create')->with('success', 'Data have been successfully saved.');  
         } else {
             $isallpermission = 0;
             $modules = get_table_data_by_table('modules');
@@ -148,7 +148,7 @@ class PermissionController extends Controller {
                             
                     }// module permission check;
                 }// end of foreach
-                return redirect('admin/permission-list')->with('success', 'Data have been successfully saved.');
+                return redirect('admin/permission-create')->with('success', 'Data have been successfully saved.');
             }
         } // end of else:
     }
