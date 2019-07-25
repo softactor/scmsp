@@ -8,14 +8,14 @@
     <li class="nav-item dropdown">
         <a class="nav-link" href="{{ route('admin.department-list') }}">
             <i class="fas fa-fw fa-memory"></i>
-            <span>Department</span>
+            <span>Division</span>
         </a>
     </li>
     
     <li class="nav-item dropdown">
         <a class="nav-link" href="{{ route('admin.division-list') }}">
             <i class="fas fa-fw fa-microchip"></i>
-            <span>Division</span>
+            <span>Department</span>
         </a>
     </li>
     

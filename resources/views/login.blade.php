@@ -1,122 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
     <head>
+        <link rel="shortcut icon" type="image/png" href="<?php echo asset('img/favicon_icon/favi.png') ?>"/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('scmsp/icon/favicon_25X25.png') }}" />
-        <title>{{ config('app.name') }}</title>
-        <link href="{{ asset('scmsp/css/bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
-        <style type="text/css">
-            .form-signin
-            {
-                max-width: 330px;
-                padding: 15px;
-                margin: 0 auto;
-            }
-            .form-signin .form-signin-heading, .form-signin .checkbox
-            {
-                margin-bottom: 10px;
-            }
-            .form-signin .checkbox
-            {
-                font-weight: normal;
-            }
-            .form-signin .form-control
-            {
-                position: relative;
-                font-size: 16px;
-                height: auto;
-                padding: 10px;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-            }
-            .form-signin .form-control:focus
-            {
-                z-index: 2;
-            }
-            .form-signin input[type="text"]
-            {
-                margin-bottom: -1px;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
-            .form-signin input[type="password"]
-            {
-                margin-bottom: 10px;
-                border-top-left-radius: 0;
-                border-top-right-radius: 0;
-            }
-            .account-wall
-            {
-                margin-top: 20px;
-                padding: 40px 0px 20px 0px;
-                background-color: #f7f7f7;
-                -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            }
-            .login-title
-            {
-                color: #555;
-                font-size: 18px;
-                font-weight: 400;
-                display: block;
-            }
-            .profile-img
-            {
-                width: 50px;
-                height: 51px;
-                margin: 0 auto 21px;
-                display: block;
-                border-radius: 0%;
-            }
-            .need-help
-            {
-                margin-top: 10px;
-            }
-            .new-account
-            {
-                display: block;
-                margin-top: 10px;
-            }
-        </style>
+        <title>CMS</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     </head>
-    <body class="bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-4 offset-4">
-                    <h1 class="text-center login-title">Sign in to continue CMS</h1>
-                    <div class="account-wall">
-                        <img class="profile-img" src="{{ asset('scmsp/icon/complain_customer.png') }}" alt="">
-                        <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-                            @if ($errors->has('email'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                            @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                            @endif
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Login
-                            </button>
-                        </form>
+    <body id="app-layout">
+        <div class="main">
+            <div class="container">                
+                <center>
+                    <div class="row">
+                        <div class="col col-md-6">
+                            @include('opmessage')
+                        </div>
                     </div>
-                </div>
+                    <div class="middle">                        
+                        <div id="login">
+                            <form action="{{ route('login') }}" method="POST">
+                                @csrf
+                                <fieldset class="clearfix">
+                                    <p ><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
+                                    <p><span class="fa fa-lock"></span><input placeholder="Password" name="password" type="password" id="password" required></p>
+                                    <div>
+                                        <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
+                                                password?</a></span>
+                                        <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Login"></span>
+                                    </div>
+                                </fieldset>
+                                <div class="clearfix"></div>
+                            </form>
+                            <div class="clearfix"></div>
+                        </div> <!-- end login -->
+                        <div class="logo">
+                            <img src="{{ asset('scmsp/icon/cms_200x200.png') }}"/>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </center>
             </div>
         </div>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-        <!------ Include the above in your HEAD tag ---------->
     </body>
 </html>
