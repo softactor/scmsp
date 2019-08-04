@@ -7,7 +7,7 @@
         <li class="breadcrumb-item">
             <a href="#">Devision</a>
         </li>
-        <li class="breadcrumb-item active">List Division</li>
+        <li class="breadcrumb-item active">Department List</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>

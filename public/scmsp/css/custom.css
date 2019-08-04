@@ -20,3 +20,17 @@ and open the template in the editor.
 .title_section a.create_new_style{
     margin: 1% 0;
 }
+span.sub_menu_text_design{
+    display: inline-block !important;
+    color: black;
+    font-size: 14px !important;
+    margin: 0 4%;
+}
+.sub_menu_text_nav_link{
+    padding: 2% 5% !important;
+}
+
+.submenu_selector{
+    background-color: red;
+    width: 100% !important;
+}

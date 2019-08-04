@@ -38,7 +38,7 @@
                         <tr id='delete_row_id_{{$data->id}}'>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
-                            <td>{{ get_data_name_by_id('roles',$data->role_id)->name }}</td>
+                            <td><?php echo (isset($data->role_id) && !empty($data->role_id) ? get_data_name_by_id('roles',$data->role_id)->name : 'Role unassigned!') ?></td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -14,13 +14,14 @@
     <div class="row">
        
     </div>
-
-   
-
     <!-- DataTables Example -->
     <div class="card mb-3">
         <div class="card-body">
-            <h2>Welcome To Dashboard</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="complainDatepicker"></div>
+                </div>
+            </div>
             <div class="row">
                 <!-- Grid column -->
                 <div class="col-md-6">
@@ -62,7 +63,7 @@
                   <!-- Exaple 1 -->
                   <div class="card example-1 scrollbar-deep-purple">
                     <div class="card-body">
-                      <h4 id="section1"><strong>New Complain</strong></h4>
+                      <h4 id="section1"><strong>Pending Complain</strong></h4>
                       <table class="table table-striped">
                         <thead>
                           <tr>
@@ -102,6 +103,4 @@
 
 </div>
 <!-- /.container-fluid -->
-
-
   @endsection

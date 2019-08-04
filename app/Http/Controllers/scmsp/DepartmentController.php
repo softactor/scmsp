@@ -18,8 +18,11 @@ class DepartmentController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-            $list   = Department::orderBy('name', 'desc')->get();
-            return View('scmsp.backend.department.list', compact('list'));
+            $list               =   Department::orderBy('name', 'desc')->get();
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'division-list';
+            return View('scmsp.backend.department.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*

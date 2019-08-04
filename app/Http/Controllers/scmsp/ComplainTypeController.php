@@ -20,7 +20,10 @@ class ComplainTypeController extends Controller {
 	*/
 	public function index(){
                 $list   = ComplainType::orderBy('name', 'desc')->get();
-                return View('scmsp.backend.complain_type.list', compact('list'));
+                /* selected menue data */
+                $activeMenuClass    =   'settings';   
+                $subMenuClass       =   'complain-type-list';
+                return View('scmsp.backend.complain_type.list', compact('list','activeMenuClass','subMenuClass'));
 	}
 	
 	

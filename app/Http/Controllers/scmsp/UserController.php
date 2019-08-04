@@ -19,7 +19,10 @@ class UserController extends Controller
 	*/
 	public function index(){
             $list   = User::orderBy('name', 'desc')->get();
-            return View('scmsp.backend.user.list', compact('list'));
+            /* selected menue data */
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'users-list';
+            return View('scmsp.backend.user.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*

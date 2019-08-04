@@ -20,7 +20,9 @@ class FeedbackDetailsController extends Controller
 	*/
 	public function index(){
             $list   = FeedbackDetails::orderBy('id', 'desc')->get();
-            return View('scmsp.backend.feedback_details.list', compact('list'));
+            /* selected menue data */
+            $activeMenuClass    =   'feedback-details'; 
+            return View('scmsp.backend.feedback_details.list', compact('list','activeMenuClass'));
 	}
         
         /*

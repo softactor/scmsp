@@ -20,7 +20,10 @@ class ComplainStatusController extends Controller
 	*/
 	public function index(){
                 $list   = ComplainStatus::orderBy('name', 'desc')->get();
-                return View('scmsp.backend.complain_status.list', compact('list'));
+                /* selected menue data */
+                $activeMenuClass    =   'settings';   
+                $subMenuClass       =   'complain-status-list';
+                return View('scmsp.backend.complain_status.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*
