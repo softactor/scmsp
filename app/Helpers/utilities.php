@@ -111,3 +111,10 @@ function getTableTotalRows($data){
         }
         
     }
+    function setActiveMenuClass($menuName,  $currentMenu, $activeClass='active'){
+        if($menuName == $currentMenu){
+            return $activeClass;
+        }else{
+            return 'inactive';
+        }
+    }

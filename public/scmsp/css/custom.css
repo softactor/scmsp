@@ -29,3 +29,8 @@ span.sub_menu_text_design{
 .sub_menu_text_nav_link{
     padding: 2% 5% !important;
 }
+
+.submenu_selector{
+    background-color: red;
+    width: 100% !important;
+}

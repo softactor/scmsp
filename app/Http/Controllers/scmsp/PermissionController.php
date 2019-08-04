@@ -21,7 +21,10 @@ class PermissionController extends Controller {
 
     public function index() {
         $list = Permission::orderBy('module', 'desc')->get();
-        return View('scmsp.backend.permission.list', compact('list'));
+        /* selected menue data */
+        $activeMenuClass    =   'users';   
+        $subMenuClass       =   'permission-list';
+        return View('scmsp.backend.permission.list', compact('list','activeMenuClass','subMenuClass'));
     }
 
     /*
@@ -33,7 +36,10 @@ class PermissionController extends Controller {
      */
 
     public function create() {
-        return View('scmsp.backend.permission.create');
+        /* selected menue data */
+        $activeMenuClass    =   'users';   
+        $subMenuClass       =   'permission-list';
+        return View('scmsp.backend.permission.create', compact('list','activeMenuClass','subMenuClass'));
     }
 
     /*

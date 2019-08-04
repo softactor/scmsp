@@ -23,6 +23,7 @@
         <link href="{{ asset('scmsp/css/sb-admin.css') }}" rel="stylesheet">
         <link href="{{ asset('scmsp/css/custom.css') }}" rel="stylesheet" />
         <link href="{{ asset('scmsp/css/scroll.css') }}" rel="stylesheet">
+        <link href="{{ asset('scmsp/css/jquery-ui.css') }}" rel="stylesheet">
     </head>
     <body id="page-top">
 
@@ -86,6 +87,7 @@
         <script src="{{ asset('scmsp/vendor/chart.js/Chart.min.js') }}"></script>
         <script src="{{ asset('scmsp/vendor/datatables/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('scmsp/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+        <script src="{{ asset('scmsp/js/jquery-ui.js') }}"></script>
 
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('scmsp/js/sb-admin.min.js') }}"></script>
@@ -96,7 +98,11 @@
         <!-- Demo scripts for this page-->
         <script src="{{ asset('scmsp/js/sweetalert.min.js') }}"></script>
         <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
-        
+        <script>
+            $( function() {
+                $( "#complainDatepicker" ).datepicker();
+            } );
+        </script>
         
     </body>
 </html>

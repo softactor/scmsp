@@ -21,7 +21,9 @@ class ComplainDetailsController extends Controller
 	*/
 	public function index(){
             $list   = ComplainDetails::orderBy('id', 'desc')->get();
-            return View('scmsp.backend.complain_details.list', compact('list'));
+            /* selected menue data */
+            $activeMenuClass    =   'complain-details';   
+            return View('scmsp.backend.complain_details.list', compact('list','activeMenuClass'));
 	}
         
         /*

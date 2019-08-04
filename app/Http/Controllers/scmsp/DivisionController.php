@@ -20,7 +20,10 @@ class DivisionController extends Controller
 	*/
 	public function index(){
             $list   = Division::orderBy('name', 'desc')->get();
-            return View('scmsp.backend.division.list', compact('list'));
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'department-list';
+            return View('scmsp.backend.division.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*

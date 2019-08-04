@@ -9,6 +9,8 @@ use View;
 class DashboardController extends Controller
 {
     public function index(){
-        return View('scmsp.backend.dashboard');
+        /* selected menue data */
+        $activeMenuClass    =   'dashboard';   
+        return View('scmsp.backend.dashboard', compact('activeMenuClass'));
     }
 }

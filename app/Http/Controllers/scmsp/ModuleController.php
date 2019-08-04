@@ -19,7 +19,10 @@ class ModuleController extends Controller
 	*/
 	public function index(){
             $list   = Module::orderBy('name', 'desc')->get();
-            return View('scmsp.backend.module.list', compact('list'));
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'module-list';
+            return View('scmsp.backend.module.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*

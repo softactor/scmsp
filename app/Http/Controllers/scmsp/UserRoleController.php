@@ -19,7 +19,10 @@ class UserRoleController extends Controller
 	*/
 	public function index(){
             $list   = UserRole::orderBy('user_id', 'desc')->get();
-            return View('scmsp.backend.user_role.list', compact('list'));
+            /* selected menue data */
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'user-role-list';
+            return View('scmsp.backend.user_role.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*
