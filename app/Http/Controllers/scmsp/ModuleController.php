@@ -33,7 +33,10 @@ class ModuleController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.module.create');
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'module-list';
+            return View('scmsp.backend.module.create', compact('list','activeMenuClass','subMenuClass'));
 	}
         
          /*
@@ -88,7 +91,10 @@ class ModuleController extends Controller
 	*/
 	public function edit(Request $request){
             $editData   = Module::find($request->id);
-            return View('scmsp.backend.module.edit', compact('editData'));
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'module-list';
+            return View('scmsp.backend.module.edit', compact('editData','activeMenuClass','subMenuClass'));
 	}
         
         

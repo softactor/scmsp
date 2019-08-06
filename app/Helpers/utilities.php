@@ -57,21 +57,24 @@ function get_table_data_by_clause($data){
     }
 } 
 
-function hasAccessPermission($user_id, $page_id, $accessType){
-    $return =   false;
-    $access = DB::table('page_access as pa')
-            ->join('model_has_roles as mhr', 'pa.role_id', '=', 'mhr.role_id')
-            ->where('mhr.model_id','=',$user_id)
-            ->where('pa.page_id','=',$page_id)
-            ->where('pa.'.$accessType,'=',1)
-            ->select('pa.*')
-            ->get();
+function hasAccessPermission($role, $module, $accessType){
+    $accessAllPermission   =   DB::table('permissions')
+                ->where('user_type',$role)
+                ->where('isallpermission',1)
+                ->first();
+    if(isset($accessAllPermission) && !empty($accessAllPermission)){
+        return true;
+    }    
+    $accessmodAccPermission   =   DB::table('permissions')
+                ->where('user_type',$role)
+                ->where('module',$module)
+                ->where($accessType,1)
+                ->first();
+    if(isset($accessmodAccPermission) && !empty($accessmodAccPermission)){
+        return true;
+    } 
     
-    if($access->first()){
-        $return =   true;
-    }
-    
-    return $return;
+    return false;
 }
 function getRoleWiseUser($role_id){
     $users = DB::table('users as u')
@@ -88,6 +91,15 @@ function getRoleIdByUserId($user_id){
                 ->where('hr.model_id',$user_id)
                 ->first();
     return  $role->role_id;
+}
+function getRoleNameByUserId($user_id){
+    $role   =   DB::table('users as u')
+                ->select('r.name as role_name')
+                ->join('user_roles as ur','ur.user_id', '=', 'u.id')
+                ->join('roles as r','r.id', '=', 'ur.role_id')
+                ->where('u.id',$user_id)
+                ->first();
+    return  $role->role_name;
 }
 
 function getTableTotalRows($data){

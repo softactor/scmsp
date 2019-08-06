@@ -5,13 +5,14 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">User</a>
+            <a href="{{ route('admin.user-list') }}">Users</a>
         </li>
         <li class="breadcrumb-item active">Overview</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List User<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.user-create') }}'" >Create New</button></h2>
+            <h2>User List<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.user-create') }}'" >Create New</button></h2>
+            @include('scmsp.backend.partial.operation_message')
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -36,7 +37,7 @@
                                 foreach($list as $data){
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
-                            <td>{{ $data->name }}</td>
+                            <td><a href="{{ url('admin/user-edit/'.$data->id) }}" title="Click here to edit">{{ $data->name }}</a></td>
                             <td>{{ $data->email }}</td>
                             <td><?php echo (isset($data->role_id) && !empty($data->role_id) ? get_data_name_by_id('roles',$data->role_id)->name : 'Role unassigned!') ?></td>
                             <td>
@@ -45,7 +46,7 @@
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="#">Edit</a>
+                                      <a class="dropdown-item" href="{{ url('admin/user-edit/'.$data->id) }}">Edit</a>
                                       <a class="dropdown-item" href="#">Delete</a>
                                     </div>
                                 </div>
