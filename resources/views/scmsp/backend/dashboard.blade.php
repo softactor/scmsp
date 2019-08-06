@@ -18,8 +18,36 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
-                    <div id="complainDatepicker"></div>
+                <div class="col-md-12">
+                    <form action="/action_page.php">
+                        <div class="form-group">
+                            <label for="start_date">Start date:</label>
+                            <input autocomplete="off" type="text" class="form-control" id="complainDatepicker"  name="start_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="end_date">End date:</label>
+                            <input autocomplete="off" type="text" class="form-control" id="start_date"  name="start_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Division:</label>
+                            <select class="form-control" id="division" name='division'>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                              </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Department:</label>
+                            <select class="form-control" id="department" name='department'>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                              </select>
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
                 </div>
             </div>
             <div class="row">

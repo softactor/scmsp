@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Model\scmsp\backend\user\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -18,7 +20,11 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-            $list   = User::orderBy('name', 'desc')->get();
+//            $list   = User::orderBy('name', 'desc')->get();
+            $list = DB::table('users')
+                    ->join('user_roles', 'users.id', '=', 'user_roles.user_id')
+                    ->select('users.*', 'user_roles.role_id')
+            ->get();
             /* selected menue data */
             $activeMenuClass    =   'users';   
             $subMenuClass       =   'users-list';
@@ -33,7 +39,10 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.user.create');
+                /* selected menue data */
+                $activeMenuClass    =   'users';   
+                $subMenuClass       =   'users-list';
+		return View('scmsp.backend.user.create', compact('list','activeMenuClass','subMenuClass'));
 	}
         /*
 	Method Name	: edit
@@ -42,18 +51,55 @@ class UserController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function edit(){
-		return View('scmsp.backend.user.edit');
+	public function edit(Request $request){
+            $editData = DB::table('users')
+                    ->join('user_roles', 'users.id', '=', 'user_roles.user_id')
+                    ->select('users.*', 'user_roles.role_id')
+                    ->where('users.id', $request->user_edit_id)
+            ->first();
+            /* selected menue data */
+                $activeMenuClass    =   'users';   
+                $subMenuClass       =   'users-list';
+            return View('scmsp.backend.user.edit', compact('editData','activeMenuClass','subMenuClass'));
 	}
         /*
-	Method Name	: store
-	Purpose		: load user store
-	Param		: no param need
-	Date		: 04/16/2019
-	Author		: Atiqur Rahman
+            Method Name	: store
+            Purpose		: load user store
+            Param		: no param need
+            Date		: 05/08/2019
+            Author		: Tanveer Qureshee
 	*/
-	public function store(){
-		echo "User Store";
+	public function store(Request $request){
+            $rules  =   [
+                'name'      => 'required',
+                'email'     => 'required',
+                'password'  => 'required',
+                'role_id'   => 'required',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect('admin/user-create')
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $userData  =   [
+                'name'      =>  $request->name,
+                'email'     =>  $request->email,
+                'password'  =>  Hash::make($request->password),
+                'created_at'=>  date('Y-m-d h:i:s'),
+                'updated_at'=>  date('Y-m-d h:i:s'),
+            ];
+            //insert
+            $user_id   =   DB::table('users')->insertGetId($userData);
+            $roleData  =   [
+                'user_id'   =>  $user_id,
+                'role_id'   =>  $request->role_id,
+                'created_at'=>  date('Y-m-d h:i:s'),
+                'updated_at'=>  date('Y-m-d h:i:s'),
+            ];
+            $user_id   =   DB::table('user_roles')->insert($roleData);
+            return redirect('admin/user-list')->with('success', 'User have been successfully created.');
 	}
         
         /*
@@ -63,8 +109,42 @@ class UserController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function update(){
-		echo "User Update";
+	public function update(Request $request){
+		$rules  =   [
+                'name'      => 'required',
+                'email'     => 'required',
+                'role_id'   => 'required',
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                return redirect('admin/user-edit/'.$request->user_update_id)
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+            
+            $userData  =   [
+                'name'      =>  $request->name,
+                'email'     =>  $request->email,
+                'updated_at'=>  date('Y-m-d h:i:s'),
+            ];
+            //user update
+            DB::table('users')->where('id',$request->user_update_id)->update($userData);
+            
+            $password   =   $request->password;
+            if(isset($password) && !empty($password)){
+                $userPasswordData  =   [
+                    'password'  =>  Hash::make($request->password),
+                    'updated_at'=>  date('Y-m-d h:i:s'),
+                ];
+                //user update
+                DB::table('users')->where('id',$request->user_update_id)->update($userPasswordData);
+            }            
+            $roleData  =   [
+                'role_id'   =>  $request->role_id,
+                'updated_at'=>  date('Y-m-d h:i:s'),
+            ];
+            DB::table('user_roles')->where('user_id',$request->user_update_id)->update($roleData);
+            return redirect('admin/user-list')->with('success', 'User have been successfully updated.');
 	}
         /*
 	Method Name	: delete

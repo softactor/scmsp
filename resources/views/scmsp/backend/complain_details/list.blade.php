@@ -48,7 +48,7 @@
                             <td>{{ $data->complainer }}</td>
                             <td>{{ $data->complain_details }}</td>
                             <td>{{ $data->issued_date }}</td>
-                            <td>{{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}</td>
+                            <td><a href="{{ url('admin/complain-details-edit/'.$data->id) }}">{{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}</a></td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

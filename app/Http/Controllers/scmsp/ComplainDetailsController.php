@@ -34,7 +34,8 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.complain_details.create');
+            $activeMenuClass    =   'complain-details';
+            return View('scmsp.backend.complain_details.create', compact('activeMenuClass'));
 	}
         /*
 	Method Name	: edit
@@ -45,7 +46,8 @@ class ComplainDetailsController extends Controller
 	*/
 	public function edit(Request $request){
             $editData   = ComplainDetails::find($request->id);
-            return View('scmsp.backend.complain_details.edit',  compact('editData'));
+            $activeMenuClass    =   'complain-details';
+            return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
                 
 	}
         /*
@@ -56,11 +58,7 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function store(Request $request){
-		//$all    =   $request->all();
-                //print_r($all);
-                //exit();
-
-        $rules  =   [
+            $rules  =   [
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
                 'complain_details'  => 'required',

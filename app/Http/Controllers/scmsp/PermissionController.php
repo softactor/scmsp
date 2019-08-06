@@ -178,10 +178,10 @@ class PermissionController extends Controller {
             ];
             echo json_encode($feedback);
         }else{
-            $all_access_page_view   =   View::make('scmsp.backend.permission.create');
+            $all_access_page_view   =   View::make('scmsp.backend.partial.partial_access_permission_view');
             $feedback = [
-                'status'    => 'success',
-                'message'   => 'Data found',
+                'status'    => 'error',
+                'message'   => 'Data not found',
                 'data'      => $all_access_page_view->render(),
             ];
             echo json_encode($feedback);

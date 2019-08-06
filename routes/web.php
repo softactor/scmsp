@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('login');
 });
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'storeusersession']], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
     // calling complain type list routes
     Route::get('complain-type-list', 'scmsp\ComplainTypeController@index')->name('complain-type-list');
@@ -84,11 +84,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // calling user create routes
     Route::get('user-create', 'scmsp\UserController@create')->name('user-create');
     // calling user edit routes
-    Route::get('user-edit', 'scmsp\UserController@edit')->name('user-edit');
+    Route::get('user-edit/{user_edit_id}', 'scmsp\UserController@edit')->name('user-edit');
     // calling user store routes
-    Route::get('user-store', 'scmsp\UserController@store')->name('user-store');
+    Route::post('user-store', 'scmsp\UserController@store')->name('user-store');
     // calling user update routes
-    Route::get('user-update', 'scmsp\UserController@update')->name('user-update');
+    Route::post('user-update', 'scmsp\UserController@update')->name('user-update');
     // calling user delete routes
     Route::post('user-delete', 'scmsp\UserController@delete')->name('user-delete');
 

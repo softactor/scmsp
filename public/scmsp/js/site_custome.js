@@ -102,8 +102,11 @@ function getRoleWisePermission(url, roleId){
             dataType    : 'json',
             data        : 'role_id='+roleId,
             success     : function(response){
-                console.log(response);
-                $('#permission_access_section').html(response.data);
+                if(response.status  ==  'success'){
+                    $('#permission_access_section').html(response.data);                    
+                }else{
+                    $('#permission_access_section').html(response.data);
+                }
             }
         });
     }
