@@ -77,7 +77,7 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
     </li> 
         <?php } ?>
     <?php
-        if(hasAccessPermission($roleName, 'Complain details', 'listaccess')){
+        if(hasAccessPermission($roleName, 'Feedback details', 'listaccess')){
     ?>
      <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'feedback-details') ?>">
         <a class="nav-link" href="{{ route('admin.feedback-details-list') }}">
