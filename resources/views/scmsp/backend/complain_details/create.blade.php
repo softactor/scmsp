@@ -5,20 +5,20 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('admin.dashboard') }}">Home</a>
+            <a href="{{ route('admin.complain-details-list') }}">Complain</a>
         </li>
         <li class="breadcrumb-item active">Overview</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Complain Details</h2>
+            <h2>Create Complain</h2>
             @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.complain-details-store') }}">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="pwd">Complain Department</label>
+                            <label for="pwd">Complain Division</label>
                             <select class="form-control" name="dept_id">
                                 <option>Select Type</option>
                                 <?php
@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="pwd">Complain Division</label>
+                            <label for="pwd">Complain Department</label>                            
                             <select class="form-control" name="div_id">
                                 <option>Select Type</option>
                                 <?php
@@ -45,7 +45,7 @@
                                 <?php }} ?>
                             </select>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="pwd">Complain Type</label>
