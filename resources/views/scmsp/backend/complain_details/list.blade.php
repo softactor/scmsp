@@ -56,7 +56,7 @@
                                 </a>
                             </td>
                             <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
-                            <td>{{ (isset($data->assign_to) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
+                            <td>{{ (isset($data->user_id) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
