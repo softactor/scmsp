@@ -41,14 +41,18 @@
                         $deleteUrl  =   url('admin/complain-details-delete');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){
+                                $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
-                        <tr id='delete_row_id_{{$data->id}}'>
+                        <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
                             <td>{{ get_data_name_by_id('users',$data->user_id)->name }}</td>
                             <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>
                             <td>{{ $data->complainer }}</td>
                             <td>{{ $data->complain_details }}</td>
                             <td>{{ $data->issued_date }}</td>
-                            <td><a href="{{ url('admin/complain-details-edit/'.$data->id) }}">{{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}</a></td>
+                            <td><a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
+                                    {{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}
+                                </a>
+                            </td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

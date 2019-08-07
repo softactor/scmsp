@@ -9,6 +9,7 @@ use App\Model\scmsp\backend\user\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
@@ -84,11 +85,13 @@ class UserController extends Controller
             }
             
             $userData  =   [
-                'name'      =>  $request->name,
-                'email'     =>  $request->email,
-                'password'  =>  Hash::make($request->password),
-                'created_at'=>  date('Y-m-d h:i:s'),
-                'updated_at'=>  date('Y-m-d h:i:s'),
+                'name'          =>  $request->name,
+                'email'         =>  $request->email,
+                'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : ''),
+                'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : ''),
+                'password'      =>  Hash::make($request->password),
+                'created_at'    =>  date('Y-m-d h:i:s'),
+                'updated_at'    =>  date('Y-m-d h:i:s'),
             ];
             //insert
             $user_id   =   DB::table('users')->insertGetId($userData);
@@ -125,6 +128,8 @@ class UserController extends Controller
             $userData  =   [
                 'name'      =>  $request->name,
                 'email'     =>  $request->email,
+                'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : ''),
+                'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : ''),
                 'updated_at'=>  date('Y-m-d h:i:s'),
             ];
             //user update
@@ -156,4 +161,23 @@ class UserController extends Controller
 	public function delete(){
 		echo "User Delete";
 	}
+        /*
+            Method Name         : get_department_wise_user
+            Purpose		: load user by department from an ajax call
+            Param		: department id need
+            Date		: 07/08/2019
+            Author		: Tanveer Qureshee
+        */    
+        function get_department_wise_user(Request $request){
+            $usersData   = DB::table('users')
+                    ->where('department_id', $request->department_id)
+                    ->get();
+            $users_view        =   View::make('scmsp.backend.partial.get_users_by_department', compact('usersData'));
+            $feedback = [
+                    'status'    => 'success',
+                    'message'   => 'Data found',
+                    'data'      => $users_view->render(),
+                ];
+            echo json_encode($feedback);
+        }
 }
