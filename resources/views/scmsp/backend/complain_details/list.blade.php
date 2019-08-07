@@ -55,8 +55,8 @@
                                     {{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}
                                 </a>
                             </td>
-                            <td>{{ get_data_name_by_id('users',$data->assign_to)->name }}</td>
-                            <td>{{ get_data_name_by_id('users',$data->user_id)->name }}</td>
+                            <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
+                            <td>{{ (isset($data->assign_to) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
