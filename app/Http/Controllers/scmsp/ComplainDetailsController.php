@@ -20,12 +20,20 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function index(){
+	public function index($complain_status = null){
             $role   =   getRoleNameByUserId(Auth::user()->id);
             if($role== 'Admin' || $role=='Moderator'){
-                $list   = ComplainDetails::orderBy('created_at', 'desc')->get();
+                if(isset($complain_status) && !empty($complain_status)){
+                    $list   = ComplainDetails::where('complain_status',$complain_status)->orderBy('created_at', 'desc')->get();
+                }else{
+                    $list   = ComplainDetails::orderBy('created_at', 'desc')->get();
+                }
             }else{
-                $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
+                if(isset($complain_status) && !empty($complain_status)){
+                    $list   = ComplainDetails::where('complain_status',$complain_status)->where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
+                }else{
+                    $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
+                }
             }
             /* selected menue data */
             $activeMenuClass    =   'complain-details';   
