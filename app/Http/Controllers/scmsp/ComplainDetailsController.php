@@ -21,7 +21,12 @@ class ComplainDetailsController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-            $list   = ComplainDetails::orderBy('id', 'desc')->get();
+            $role   =   getRoleNameByUserId(Auth::user()->id);
+            if($role== 'Admin'){
+                $list   = ComplainDetails::orderBy('created_at', 'desc')->get();
+            }else{
+                $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
+            }
             /* selected menue data */
             $activeMenuClass    =   'complain-details';   
             return View('scmsp.backend.complain_details.list', compact('list','activeMenuClass'));
@@ -118,8 +123,11 @@ class ComplainDetailsController extends Controller
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
                 'complain_details'  => 'required',
-                'issued_date'       => 'required',
+                'complain_date'     => 'required',
                 'complain_status'   => 'required',
+                'div_id'            => 'required',
+                'dept_id'           => 'required',
+                'assign_to'         => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -134,9 +142,11 @@ class ComplainDetailsController extends Controller
             $complain_details->complain_type_id    =   $request->complain_type_id;
             $complain_details->complainer          =   $request->complainer;
             $complain_details->complain_details    =   $request->complain_details;
-            $complain_details->issued_date         =   $request->issued_date;
+            $complain_details->issued_date         =   $request->complain_date;
+            $complain_details->division_id         =   $request->div_id;
+            $complain_details->department_id       =   $request->dept_id;
             $complain_details->complain_status     =   $request->complain_status;
-            $complain_details->user_id             =   Auth::user()->id;
+            $complain_details->assign_to           =   $request->assign_to;
             $complain_details->save();
             return redirect('admin/complain-details-list')->with('success', 'Data have been successfully Updated.');
 	}
