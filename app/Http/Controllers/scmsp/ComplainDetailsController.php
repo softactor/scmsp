@@ -111,15 +111,11 @@ class ComplainDetailsController extends Controller
 	Method Name	: update
 	Purpose		: load complain details update
 	Param		: no param need
-	Date		: 04/16/2019
-	Author		: Atiqur Rahman
+	Date		: 07/08/2019
+	Author		: Tanveer Qureshee
 	*/
-	public function update(Request $request){
-		//$all    =   $request->all();
-                //print_r($all);
-                //exit();
-
-        $rules  =   [
+       public function update(Request $request) {
+            $rules = [
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
                 'complain_details'  => 'required',
@@ -132,25 +128,36 @@ class ComplainDetailsController extends Controller
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
-                 return redirect('admin/complain-details-edit/'.$request->edit_id)
+                return redirect('admin/complain-details-edit/' . $request->edit_id)
                                 ->withInput()
                                 ->with('error', 'Failed to update data. Pleae fix the validation.')
                                 ->withErrors($validator);
             }
-            
-            $complain_details                      =   ComplainDetails::find($request->edit_id);
-            $complain_details->complain_type_id    =   $request->complain_type_id;
-            $complain_details->complainer          =   $request->complainer;
-            $complain_details->complain_details    =   $request->complain_details;
-            $complain_details->issued_date         =   $request->complain_date;
-            $complain_details->division_id         =   $request->div_id;
-            $complain_details->department_id       =   $request->dept_id;
-            $complain_details->complain_status     =   $request->complain_status;
-            $complain_details->assign_to           =   $request->assign_to;
+
+            $complain_details                       = ComplainDetails::find($request->edit_id);
+            $complain_details->complain_type_id     = $request->complain_type_id;
+            $complain_details->complainer           = $request->complainer;
+            $complain_details->complain_details     = $request->complain_details;
+            $complain_details->issued_date          = $request->complain_date;
+            $complain_details->division_id          = $request->div_id;
+            $complain_details->department_id        = $request->dept_id;
+            $complain_details->complain_status      = $request->complain_status;
+            $complain_details->assign_to            = $request->assign_to;
             $complain_details->save();
-            return redirect('admin/complain-details-list')->with('success', 'Data have been successfully Updated.');
-	}
-        /*
+            
+            $detailsHistoryData                    =    [
+                'complain_id'   =>  $request->edit_id,
+                'descriptions'  =>  $request->complain_details,
+                'assign_to'     =>  $request->assign_to,
+                'current_status'=>  $request->complain_status,
+                'created_at'    =>  date('Y-m-d h:i:s'),
+                'updated_at'    =>  date('Y-m-d h:i:s')
+            ];
+            DB::table('complain_details_history')->insert($detailsHistoryData);
+            return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');
+        }
+
+    /*
 	Method Name	: delete
 	Purpose		: load complain details delete
 	Param		: no param need
