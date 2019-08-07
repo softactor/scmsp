@@ -105,6 +105,7 @@ class ComplainDetailsController extends Controller
                 'complain_id'   =>  $complain_id,
                 'descriptions'  =>  $request->complain_details,
                 'created_by'    =>  Auth::user()->id,
+                'updated_by'    =>  Auth::user()->id,
                 'assign_to'     =>  $request->assign_to,
                 'current_status'=>  $request->complain_status,
                 'created_at'    =>  date('Y-m-d h:i:s')
@@ -121,16 +122,24 @@ class ComplainDetailsController extends Controller
 	Author		: Tanveer Qureshee
 	*/
        public function update(Request $request) {
-            $rules = [
-                'complain_type_id'  => 'required',
-                'complainer'        => 'required',
-                'complain_details'  => 'required',
-                'complain_date'     => 'required',
-                'complain_status'   => 'required',
-                'div_id'            => 'required',
-                'dept_id'           => 'required',
-                'assign_to'         => 'required',
-            ];
+           $role   =   getRoleNameByUserId(Auth::user()->id);
+            if($role== 'Admin' || $role=='Moderator'){
+                $rules = [
+                    'complain_type_id'  => 'required',
+                    'complainer'        => 'required',
+                    'complain_details'  => 'required',
+                    'complain_date'     => 'required',
+                    'complain_status'   => 'required',
+                    'div_id'            => 'required',
+                    'dept_id'           => 'required',
+                    'assign_to'         => 'required',
+                ];
+            }else{
+                $rules = [
+                    'feedback_details'  => 'required',
+                    'complain_status'   => 'required',
+                ];
+            }
             $validator = Validator::make($request->all(), $rules);
 
             if ($validator->fails()) {
@@ -141,20 +150,30 @@ class ComplainDetailsController extends Controller
             }
 
             $complain_details                       = ComplainDetails::find($request->edit_id);
-            $complain_details->complain_type_id     = $request->complain_type_id;
-            $complain_details->complainer           = $request->complainer;
-            $complain_details->complain_details     = $request->complain_details;
-            $complain_details->issued_date          = $request->complain_date;
-            $complain_details->division_id          = $request->div_id;
-            $complain_details->department_id        = $request->dept_id;
-            $complain_details->complain_status      = $request->complain_status;
-            $complain_details->assign_to            = $request->assign_to;
+            if($role== 'Admin' || $role=='Moderator'){
+                $complain_details->complain_type_id     = $request->complain_type_id;
+                $complain_details->complainer           = $request->complainer;
+                $complain_details->complain_details     = $request->complain_details;
+                $complain_details->issued_date          = $request->complain_date;
+                $complain_details->division_id          = $request->div_id;
+                $complain_details->department_id        = $request->dept_id;
+                $complain_details->complain_status      = $request->complain_status;
+                $complain_details->assign_to            = $request->assign_to;
+                $complain_details->updated_at           = date('Y-m-d h:i:s');
+                $descriptions                           = $request->complain_details;
+            }else{
+                $complain_details->feedback_details     = $request->feedback_details;
+                $complain_details->updated_at           = date("Y-m-d h:i:s");
+                $complain_details->complain_status      = $request->complain_status;
+                $descriptions                           = $request->feedback_details;
+            }
             $complain_details->save();
             
             $detailsHistoryData                    =    [
                 'complain_id'   =>  $request->edit_id,
-                'descriptions'  =>  $request->complain_details,
-                'assign_to'     =>  $request->assign_to,
+                'descriptions'  =>  $descriptions,
+                'assign_to'     =>  (isset($request->assign_to) && !empty($request->assign_to) ? $request->assign_to : $complain_details->assign_to),
+                'updated_by'    =>  Auth::user()->id,
                 'current_status'=>  $request->complain_status,
                 'created_at'    =>  date('Y-m-d h:i:s'),
                 'updated_at'    =>  date('Y-m-d h:i:s')

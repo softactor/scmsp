@@ -34,3 +34,8 @@ span.sub_menu_text_design{
     background-color: red;
     width: 100% !important;
 }
+.complain_n_feedback_para{
+    width: 100%;
+    background: lightyellow;
+    padding: 1% .5%;
+}
