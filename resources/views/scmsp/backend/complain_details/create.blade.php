@@ -43,7 +43,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="complain details">Complain Details</label>
+                            <label for="complain details">Complain</label>
                             <textarea class="form-control" id="details" name="complain_details"><?php echo old('complain_details'); ?></textarea>
                             <?php
                                 if ($errors->has('complain_details')) {

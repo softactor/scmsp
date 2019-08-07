@@ -140,9 +140,15 @@ function get_status_wise_row_color($complain_status){
         case 'Solved':
             $color  =   'bg-success';
             break;
+        case 'Processing':
+            $color  =   'bg-info';
+            break;
         default:
             $color  =   'bg-primary';
             break;
     }
     return $color;
+}
+function human_format_date($timestamp){
+    return date("jS F, Y", strtotime($timestamp)); //September 30th, 2013
 }
