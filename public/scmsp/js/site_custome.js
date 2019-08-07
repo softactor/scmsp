@@ -111,3 +111,51 @@ function getRoleWisePermission(url, roleId){
         });
     }
 }
+
+/*
+ *  getDepartmentByDivision
+ */
+function getDepartmentByDivision(divisionId, selector, url){
+    if(divisionId){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'dept_id='+divisionId,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}
+
+/*
+ *  getDepartmentByDivision
+ */
+function getusersByDepartment(departmentId, selector, url){
+    if(departmentId){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'department_id='+departmentId,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}

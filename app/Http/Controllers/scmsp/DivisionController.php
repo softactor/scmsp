@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Model\scmsp\backend\division\Division;
 use Illuminate\Support\Facades\Auth;
 use App\Model\scmsp\backend\department\Department;
+use Illuminate\Support\Facades\View;
 
 class DivisionController extends Controller
 {
@@ -145,7 +146,7 @@ class DivisionController extends Controller
 	Param		: no param need
 	Date		: 04/15/2019
 	Author		: Atiqur Rahman
-	*/
+    */
 	public function delete(Request $request){
             $res        =   Division::where('id',$request->del_id)->delete();
             $feedback   =   [
@@ -155,4 +156,21 @@ class DivisionController extends Controller
             ];
             echo json_encode($feedback);
 	}
+    /*
+	Method Name	: get_department_by_division
+	Purpose		: load department by division from an ajax call
+	Param		: department id need
+	Date		: 07/08/2019
+	Author		: Tanveer Qureshee
+    */    
+    function get_department_by_division(Request $request){
+        $departmentdata         =   Division::where('dept_id',$request->dept_id)->get();
+        $department_view        =   View::make('scmsp.backend.partial.get_department_by_division', compact('departmentdata'));
+        $feedback = [
+                'status'    => 'success',
+                'message'   => 'Data found',
+                'data'      => $department_view->render(),
+            ];
+        echo json_encode($feedback);
+    }
 }

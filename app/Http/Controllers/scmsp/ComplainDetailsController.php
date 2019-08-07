@@ -9,6 +9,7 @@ use App\Model\scmsp\backend\complainDetails\ComplainDetails;
 use Illuminate\Support\Facades\Auth;
 use App\Model\scmsp\backend\complainType\ComplainType;
 use App\Model\scmsp\backend\complainStatus\ComplainStatus;
+use Illuminate\Support\Facades\DB;
 
 class ComplainDetailsController extends Controller
 {
@@ -62,8 +63,11 @@ class ComplainDetailsController extends Controller
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
                 'complain_details'  => 'required',
-                'issued_date'       => 'required',
+                'complain_date'     => 'required',
                 'complain_status'   => 'required',
+                'div_id'            => 'required',
+                'dept_id'           => 'required',
+                'assign_to'         => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -77,11 +81,25 @@ class ComplainDetailsController extends Controller
             $complain_details->complain_type_id    =   $request->complain_type_id;
             $complain_details->complainer          =   $request->complainer;
             $complain_details->complain_details    =   $request->complain_details;
-            $complain_details->issued_date         =   $request->issued_date;
+            $complain_details->issued_date         =   $request->complain_date;
+            $complain_details->division_id         =   $request->div_id;
+            $complain_details->department_id       =   $request->dept_id;
             $complain_details->complain_status     =   $request->complain_status;
             $complain_details->user_id             =   Auth::user()->id;
+            $complain_details->assign_to           =   $request->assign_to;
             $complain_details->save();
-            return redirect('admin/complain-details-list')->with('success', 'Data have been successfully saved.');
+            $complain_id                           =   $complain_details->id;
+            
+            $detailsHistoryData                    =    [
+                'complain_id'   =>  $complain_id,
+                'descriptions'  =>  $request->complain_details,
+                'created_by'    =>  Auth::user()->id,
+                'assign_to'     =>  $request->assign_to,
+                'current_status'=>  $request->complain_status,
+                'created_at'    =>  date('Y-m-d h:i:s')
+            ];
+            DB::table('complain_details_history')->insert($detailsHistoryData);
+            return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
 	}
         
         /*

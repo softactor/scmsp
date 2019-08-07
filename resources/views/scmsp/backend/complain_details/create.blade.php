@@ -16,100 +16,158 @@
             <form method="POST" action="{{ route('admin.complain-details-store') }}">
                 @csrf
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="pwd">Complain Division</label>
-                            <select class="form-control" name="dept_id">
-                                <option>Select Type</option>
-                                <?php
-                                $dept_id    =   Session::get('dept_id');
-                                $list = get_table_data_by_table('departments');
-                                if(!$list->isEmpty()){
-                                    foreach($list as $data){ ?>
-                                <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
-                                <?php }} ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="pwd">Complain Department</label>                            
-                            <select class="form-control" name="div_id">
-                                <option>Select Type</option>
-                                <?php
-                                $div_id    =   Session::get('div_id');
-                                $list = get_table_data_by_table('divisions');
-                                if(!$list->isEmpty()){
-                                    foreach($list as $data){ ?>
-                                <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
-                                <?php }} ?>
-                            </select>
-                        </div>
-                    </div>                    
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="pwd">Complain Type</label>
-                            <select class="form-control" name="complain_type_id">
-                                <option>Select Type</option>
-                                <?php
-                                $complain_type_id    =   Session::get('complain_type_id');
-                                $list = get_table_data_by_table('complain_types');
-                                if(!$list->isEmpty()){
-                                    foreach($list as $data){ ?>
-                                <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
-                                <?php }} ?>
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="complainer">Complainer</label>
-                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()">
+                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="<?php echo old('complainer'); ?>">
+                            <?php
+                                if ($errors->has('complainer')) {
+                                    echo "<div class='alert alert-danger'>Complainer Phone is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <!--demoDatepicker-->
+                            <label for="complainer">Complain Date</label>
+                            <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="<?php echo date('Y-m-d') ?>">
+                            <?php
+                                if ($errors->has('complain_date')) {
+                                    echo "<div class='alert alert-danger'>Complain Date is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="complain details">Complain Details</label>
+                            <textarea class="form-control" id="details" name="complain_details"><?php echo old('complain_details'); ?></textarea>
+                            <?php
+                                if ($errors->has('complain_details')) {
+                                    echo "<div class='alert alert-danger'>Complain Details is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Complain Type</label>
+                            <select class="form-control" name="complain_type_id">
+                                <option value="">Select Type</option>
+                                <?php
+                                $list = get_table_data_by_table('complain_types');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                        if (old('complain_type_id') == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}
+                                        </option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                            </select>
+                            <?php
+                                if ($errors->has('complain_type_id')) {
+                                    echo "<div class='alert alert-danger'>Complain Type is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="complainer">Issue Date</label>
-                            <input type="date" class="form-control" name="issued_date" id="demoDatepicker" placeholder="Enter Complainer Phone" autocomplete="off">
+                            <label for="pwd">Division</label>
+                            <?php
+                            $get_department_by_division_url = url('admin/get_department_by_division');
+                            ?>
+                            <label for="pwd">Complain Division</label>
+                            <select class="form-control" name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('departments');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                        if (old('div_id') == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}</option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                            </select>
+                            <?php
+                                if ($errors->has('div_id')) {
+                                    echo "<div class='alert alert-danger'>Division is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
-                    
                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Department</label> 
+                            <?php
+                            $get_department_wise_user_url = url('admin/get_department_wise_user');
+                            ?>
+                            <select class="form-control" id="dept_id" name="dept_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
+                                <option value="">Select</option>
+                            </select>
+                            <?php
+                                if ($errors->has('dept_id')) {
+                                    echo "<div class='alert alert-danger'>Department is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>  
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Assign To</label>
+                            <select class="form-control" name="assign_to" id="assign_to">
+                                <option value="">Select</option>
+                            </select>
+                            <?php
+                                if ($errors->has('assign_to')) {
+                                    echo "<div class='alert alert-danger'>Technician is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>                    
+                <div class="row">           
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="pwd">Complain Status</label>
                             <select class="form-control" name="complain_status">
                                 <?php
-                                $id    =   Session::get('id');
                                 $list = get_table_data_by_table('complain_statuses');
-                                if(!$list->isEmpty()){
-                                    foreach($list as $data){ ?>
-                                <option value="{{ $data->id }}"<?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
-                                <?php }} ?>
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php if (old('complain_status')== $data->id) {
+                                    echo 'selected';
+                                } ?>>{{ $data->name }}</option>
+    <?php }
+} ?>
                             </select>
+                            <?php
+                                if ($errors->has('complain_status')) {
+                                    echo "<div class='alert alert-danger'>Complain status is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="pwd">Assign To</label>
-                            <select class="form-control" name="assign_to">
-                                <?php
-                                $id    =   Session::get('id');
-                                $list = get_table_data_by_table('roles');
-                                if(!$list->isEmpty()){
-                                    foreach($list as $data){ ?>
-                                <option value="{{ $data->name }}"<?php if(isset($id) && $id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
-                                <?php }} ?>
-                            </select>
-                        </div>
-                    </div>
-                </div>    
-                <div class="form-group">
-                    <label for="complain details">Complain Details</label>
-                    <textarea class="form-control" id="details" name="complain_details"></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-info">Submit</button>
+                </div>                                
+                <button type="submit" class="btn btn-info">Create</button>
             </form>
         </div>
     </div>

@@ -38,7 +38,42 @@
                         <option value="{{ $data->id }}" <?php if(isset($editData->role_id) && $editData->role_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>   
                         <?php }} ?>                        
                     </select>
-                </div>   
+                </div>
+                <div class="form-group">
+                    <?php
+                        $get_department_by_division_url     =   url('admin/get_department_by_division');
+                    ?>
+                    <label for="pwd">Complain Division</label>
+                    <select class="form-control" name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                        <option value="">Select</option>
+                        <?php
+                        $list = get_table_data_by_table('departments');
+                        if (!$list->isEmpty()) {
+                            foreach ($list as $data) {
+                                ?>
+                                <option value="{{ $data->id }}"<?php if(isset($editData->division_id) && $editData->division_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Complain Department</label>                            
+                    <select class="form-control" id="dept_id" name="dept_id">
+                        <option value="">Select</option>
+                        <?php
+                        $list = get_table_data_by_table('divisions');
+                        if (!$list->isEmpty()) {
+                            foreach ($list as $data) {
+                                ?>
+                                <option value="{{ $data->id }}"<?php if(isset($editData->department_id) && $editData->department_id==$data->id){ echo 'selected'; } ?>>{{ $data->name }}</option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                    </select>
+                </div>
                 <input type='hidden' name="user_update_id" value="<?php echo $editData->id; ?>">
                 <input type="submit" name="update" value="Update" class="btn btn-info">
             </form>

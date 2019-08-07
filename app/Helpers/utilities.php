@@ -130,3 +130,19 @@ function getTableTotalRows($data){
             return 'inactive';
         }
     }
+    
+    function get_status_wise_row_color($complain_status){
+        $status     =   get_data_name_by_id('complain_statuses',$complain_status)->name;
+        switch($status){
+            case 'Pending':
+                $color  =   'bg-danger';
+                break;
+            case 'Solved':
+                $color  =   'bg-success';
+                break;
+            default:
+                $color  =   'bg-primary';
+                break;
+        }
+        return $color;
+    }

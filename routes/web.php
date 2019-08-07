@@ -64,6 +64,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::post('division-update', 'scmsp\DivisionController@update')->name('division-update');
     // calling division delete routes
     Route::post('division-delete', 'scmsp\DivisionController@delete')->name('division-delete');
+    /*
+     *  Get Ajax call Details:
+     */    
+    Route::get('get_department_by_division', 'scmsp\DivisionController@get_department_by_division')->name('get_department_by_division');
+    
     // start role routes
     // calling role list routes
     Route::get('role-list', 'scmsp\RoleController@index')->name('role-list');
@@ -91,6 +96,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::post('user-update', 'scmsp\UserController@update')->name('user-update');
     // calling user delete routes
     Route::post('user-delete', 'scmsp\UserController@delete')->name('user-delete');
+    /*
+     *  Get Ajax call Details:
+     */    
+    Route::get('get_department_wise_user', 'scmsp\UserController@get_department_wise_user')->name('get_department_wise_user');
 
     // start user role routes
     // calling user-role list routes
@@ -175,6 +184,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::post('permission-update', 'scmsp\PermissionController@update')->name('permission-update');
     // calling permission delete routes
     Route::post('permission-delete', 'scmsp\PermissionController@delete')->name('permission-delete');
+    
+    /*
+     *  Get Ajax call Details:
+     */    
     Route::get('get_role_wise_permission', 'scmsp\PermissionController@get_role_wise_permission')->name('get_role_wise_permission');
     
     
