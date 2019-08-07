@@ -22,7 +22,7 @@ class ComplainDetailsController extends Controller
 	*/
 	public function index(){
             $role   =   getRoleNameByUserId(Auth::user()->id);
-            if($role== 'Admin'){
+            if($role== 'Admin' || $role=='Moderator'){
                 $list   = ComplainDetails::orderBy('created_at', 'desc')->get();
             }else{
                 $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
@@ -53,7 +53,13 @@ class ComplainDetailsController extends Controller
 	public function edit(Request $request){
             $editData   = ComplainDetails::find($request->id);
             $activeMenuClass    =   'complain-details';
-            return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
+            $role   =   getRoleNameByUserId(Auth::user()->id);
+            if($role== 'Admin' || $role=='Moderator'){
+                return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
+            }else{
+                return View('scmsp.backend.complain_details.edit_technician',  compact('editData','activeMenuClass'));
+            }
+            
                 
 	}
         /*
