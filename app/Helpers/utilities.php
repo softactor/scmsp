@@ -111,38 +111,38 @@ function getTableTotalRows($data){
     return $total_row;
 }
     
-    function get_settings_value($key){
-        $data     = DB::table('settings')->where('name', $key)->first();
-        if(isset($data) && !empty($data)){
-            switch($data->data_type){
-                case 'csv':
-                    $get_values = explode(',', $data->values);
-                    break;
-            }
-            return $get_values;
-        }
-        
-    }
-    function setActiveMenuClass($menuName,  $currentMenu, $activeClass='active'){
-        if($menuName == $currentMenu){
-            return $activeClass;
-        }else{
-            return 'inactive';
-        }
-    }
-    
-    function get_status_wise_row_color($complain_status){
-        $status     =   get_data_name_by_id('complain_statuses',$complain_status)->name;
-        switch($status){
-            case 'Pending':
-                $color  =   'bg-danger';
-                break;
-            case 'Solved':
-                $color  =   'bg-success';
-                break;
-            default:
-                $color  =   'bg-primary';
+function get_settings_value($key){
+    $data     = DB::table('settings')->where('name', $key)->first();
+    if(isset($data) && !empty($data)){
+        switch($data->data_type){
+            case 'csv':
+                $get_values = explode(',', $data->values);
                 break;
         }
-        return $color;
+        return $get_values;
     }
+
+}
+function setActiveMenuClass($menuName,  $currentMenu, $activeClass='active'){
+    if($menuName == $currentMenu){
+        return $activeClass;
+    }else{
+        return 'inactive';
+    }
+}
+
+function get_status_wise_row_color($complain_status){
+    $status     =   get_data_name_by_id('complain_statuses',$complain_status)->name;
+    switch($status){
+        case 'Pending':
+            $color  =   'bg-danger';
+            break;
+        case 'Solved':
+            $color  =   'bg-success';
+            break;
+        default:
+            $color  =   'bg-primary';
+            break;
+    }
+    return $color;
+}
