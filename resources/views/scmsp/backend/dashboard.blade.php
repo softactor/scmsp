@@ -74,78 +74,106 @@
                 </form>
             </div>
             <div class="row">
+                <?php 
+                    $pending        =   1;
+                    $processing     =   3;
+                    $solved         =   2;
+                ?>
                 <!-- Grid column -->
-                <div class="col-md-6">
-                    <!-- Exaple 1 -->
-                    <div class="card example-1 scrollbar-deep-purple">
-                        <div class="card-body">
-                            <h4 id="section1"><strong>New Complain</strong></h4>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@example.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mary</td>
-                                        <td>Moe</td>
-                                        <td>mary@example.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>July</td>
-                                        <td>Dooley</td>
-                                        <td>july@example.com</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="col-md-12">                    
+                    <!-- Icon Cards-->
+                    <div class="row">
+                        <?php
+                            $countParam                                 =   [];
+                            $countParam['table']                        =   'complain_details';
+                            $countParam['field']                        =   'id';
+                            $countParam['where']['complain_status']     =   $pending;
+                            $role                                       =   getRoleNameByUserId(Auth::user()->id);
+                            if($role    ==  'Technician'){
+                                $countParam['where']['assign_to']           =   Auth::user()->id;
+                            }
+                            $totalPending                               =   getTableTotalRows($countParam)->total;     
+                            if($totalPending){
+                        ?>                        
+                            <div class="col-xl-3 col-sm-6 mb-3">
+                                <div class="card text-white bg-danger o-hidden h-100">
+                                    <div class="card-body">
+                                        <div class="card-body-icon">
+                                            <i class="fas fa-fw fa-life-ring"></i>
+                                        </div>
+                                        <div class="mr-5">
+                                            <?php echo $totalPending.' Pending'; ?>
+                                        </div>
+                                    </div>
+                                    <a class="card-footer text-white clearfix small z-1" href="<?php echo url('admin/complain-details-list/'.$pending) ?>">
+                                        <span class="float-left">View Details</span>
+                                        <span class="float-right">
+                                            <i class="fas fa-angle-right"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <?php
+                            $countParam                                 =   [];
+                            $countParam['table']                        =   'complain_details';
+                            $countParam['field']                        =   'id';
+                            $countParam['where']['complain_status']     =   $processing;
+                            $role                                       =   getRoleNameByUserId(Auth::user()->id);
+                            if($role    ==  'Technician'){
+                                $countParam['where']['assign_to']           =   Auth::user()->id;
+                            }
+                            $totalprocessing                              =   getTableTotalRows($countParam)->total;     
+                            if($totalprocessing){
+                        ?>
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card text-white bg-primary o-hidden h-100">
+                                <div class="card-body">
+                                    <div class="card-body-icon">
+                                        <i class="fas fa-fw fa-comments"></i>
+                                    </div>
+                                    <div class="mr-5"><?php echo $totalprocessing.' Processing'; ?></div>
+                                </div>
+                                <a class="card-footer text-white clearfix small z-1" href="<?php echo url('admin/complain-details-list/'.$processing) ?>">
+                                    <span class="float-left">View Details</span>
+                                    <span class="float-right">
+                                        <i class="fas fa-angle-right"></i>
+                                    </span>
+                                </a>
+                            </div>
                         </div>
+                        <?php } ?>
+                        <?php
+                            $countParam                                 =   [];
+                            $countParam['table']                        =   'complain_details';
+                            $countParam['field']                        =   'id';
+                            $countParam['where']['complain_status']     =   $solved;
+                            $role                                       =   getRoleNameByUserId(Auth::user()->id);
+                            if($role    ==  'Technician'){
+                                $countParam['where']['assign_to']           =   Auth::user()->id;
+                            }
+                            $totalsolved                               =   getTableTotalRows($countParam)->total;     
+                            if($totalsolved){
+                        ?>
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card text-white bg-success o-hidden h-100">
+                                <div class="card-body">
+                                    <div class="card-body-icon">
+                                        <i class="fas fa-fw fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="mr-5"><?php echo $totalsolved.' Solved'; ?></div>
+                                </div>
+                                <a class="card-footer text-white clearfix small z-1" href="<?php echo url('admin/complain-details-list/'.$solved) ?>">
+                                    <span class="float-left">View Details</span>
+                                    <span class="float-right">
+                                        <i class="fas fa-angle-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div> 
+                        <?php } ?>
                     </div>
-                    <!-- Exaple 1 -->
                 </div>
-                <div class="col-md-6">
-                    <!-- Exaple 1 -->
-                    <div class="card example-1 scrollbar-deep-purple">
-                        <div class="card-body">
-                            <h4 id="section1"><strong>Pending Complain</strong></h4>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Firstname</th>
-                                        <th>Lastname</th>
-                                        <th>Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>john@example.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mary</td>
-                                        <td>Moe</td>
-                                        <td>mary@example.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>July</td>
-                                        <td>Dooley</td>
-                                        <td>july@example.com</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Exaple 1 -->
-                </div>
-                <!-- Grid column -->
             </div>
             <!-- Grid row -->
 

@@ -131,7 +131,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
 
     // start complain details routes
     // calling complain-details list routes
-    Route::get('complain-details-list', 'scmsp\ComplainDetailsController@index')->name('complain-details-list');
+    Route::get('complain-details-list/{complain_status?}', 'scmsp\ComplainDetailsController@index')->name('complain-details-list');
     // calling complain-details create routes
     Route::get('complain-details-create', 'scmsp\ComplainDetailsController@create')->name('complain-details-create');
     // calling complain-details edit routes
