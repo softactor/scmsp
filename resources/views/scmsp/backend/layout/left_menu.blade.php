@@ -35,10 +35,6 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
                 <i class="fa fa-bullseye" aria-hidden="true" style="color: red;"></i>
                 <span class="sub_menu_text_design">Complain Status</span>
             </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'module-list', 'submenu_selector') ?>" href="{{ route('admin.module-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color: red;"></i>
-                <span class="sub_menu_text_design">Module</span>
-            </a>
         </div>
     </li>
     <?php } ?>

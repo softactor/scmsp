@@ -32,11 +32,56 @@
                     <select class="form-control" name="role_id">
                         <option value="">Select Role</option>
                         <?php
-                            $list = get_table_data_by_table('roles');
-                            if(!$list->isEmpty()){
-                                foreach($list as $data){ ?>
-                        <option value="{{ $data->id }}">{{ $data->name }}</option>   
-                        <?php }} ?>                        
+                        $list = get_table_data_by_table('roles');
+                        if (!$list->isEmpty()) {
+                            foreach ($list as $data) {
+                                ?>
+                                <option value="{{ $data->id }}">{{ $data->name }}</option>   
+                            <?php
+                            }
+                        }
+                        ?>                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Complain Division</label>
+                    <select class="form-control" name="dept_id" on>
+                        <option value="">Select Type</option>
+                        <?php
+                        $dept_id = Session::get('dept_id');
+                        $list = get_table_data_by_table('departments');
+                        if (!$list->isEmpty()) {
+                            foreach ($list as $data) {
+                                ?>
+                                <option value="{{ $data->id }}"<?php
+                                if (isset($dept_id) && $dept_id == $data->id) {
+                                    echo 'selected';
+                                }
+                                ?>>{{ $data->name }}</option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Complain Department</label>                            
+                    <select class="form-control" name="div_id">
+                        <option>Select Type</option>
+                        <?php
+                        $div_id = Session::get('div_id');
+                        $list = get_table_data_by_table('divisions');
+                        if (!$list->isEmpty()) {
+                            foreach ($list as $data) {
+                                ?>
+                                <option value="{{ $data->id }}"<?php
+                                        if (isset($dept_id) && $dept_id == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}</option>
+    <?php }
+}
+?>
                     </select>
                 </div>                
                 <input type="submit" name="submit" value="Create" class="btn btn-info">
