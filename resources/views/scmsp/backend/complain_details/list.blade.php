@@ -16,23 +16,25 @@
            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Complain Type</th>
+                            <th>Complain date</th>
                             <th>complainer</th>
+                            <th>Complain Type</th>
                             <th>Details</th>
-                            <th>Issue date</th>
                             <th>Status</th>
+                            <th>Technician</th>
+                            <th>Created By</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>User</th>
-                            <th>Complain Type</th>
+                            <th>Complain date</th>
                             <th>complainer</th>
+                            <th>Complain Type</th>
                             <th>Details</th>
-                            <th>Issue date</th>
                             <th>Status</th>
+                            <th>Technician</th>
+                            <th>Created By</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -44,15 +46,17 @@
                                 $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
-                            <td>{{ get_data_name_by_id('users',$data->user_id)->name }}</td>
-                            <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>
-                            <td>{{ $data->complainer }}</td>
-                            <td>{{ $data->complain_details }}</td>
                             <td>{{ $data->issued_date }}</td>
-                            <td><a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
+                            <td>{{ $data->complainer }}</td>                            
+                            <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
+                            <td>{{ $data->complain_details }}</td>
+                            <td>
+                                <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
                                     {{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}
                                 </a>
                             </td>
+                            <td>{{ get_data_name_by_id('users',$data->assign_to)->name }}</td>
+                            <td>{{ get_data_name_by_id('users',$data->user_id)->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

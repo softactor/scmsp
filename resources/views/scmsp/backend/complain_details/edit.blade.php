@@ -13,7 +13,7 @@
         <div class='col col-md-12'>
             <h2>Update Complain</h2>
             @include('scmsp.backend.partial.operation_message')
-            <form method="POST" action="{{ route('admin.complain-details-store') }}">
+            <form method="POST" action="{{ route('admin.complain-details-update') }}">
                 @csrf
                 <div class="row">
                     <div class="col-md-3">
@@ -142,7 +142,8 @@
                             </select>
                         </div>
                     </div>
-                </div>                                
+                </div>   
+                <input type="hidden" name="edit_id" value="{{ $editData->id }}">
                 <button type="submit" class="btn btn-info">Update</button>
             </form>
         </div>
