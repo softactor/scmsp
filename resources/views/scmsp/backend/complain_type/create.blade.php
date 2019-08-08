@@ -16,8 +16,11 @@
                 @csrf
                 <div class="form-group">
                     <label for="pwd">Division</label>
-                    <select class="form-control" name="dept_id">
-                        <option value="">Select Department</option>
+                    <?php
+                        $get_department_by_division_url = url('admin/get_department_by_division');
+                    ?>
+                    <select class="form-control" name="dept_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                        <option value="">Select</option>
                         <?php
                             $dept_id    =   Session::get('dept_id');
                             $list = get_table_data_by_table('departments');
@@ -30,8 +33,8 @@
                 </div>
                 <div class="form-group">
                     <label for="pwd">Department</label>
-                    <select class="form-control" name="div_id">
-                        <option value="">Select Division</option>
+                    <select class="form-control" id="dept_id" name="div_id">
+                        <option value="">Select</option>
                         <?php
                             $div_id    =   Session::get('div_id');
                             $list = get_table_data_by_table('divisions');
