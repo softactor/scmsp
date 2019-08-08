@@ -27,6 +27,10 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
                 <i class="fa fa-bullseye" aria-hidden="true" style="color: red;"></i>
                 <span class="sub_menu_text_design">Department</span>
             </a>
+            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'complain-type-category-list', 'submenu_selector') ?>" href="{{ route('admin.complain-type-category-list') }}">
+                <i class="fa fa-bullseye" aria-hidden="true" style="color: red;"></i>
+                <span class="sub_menu_text_design">Complain Type Category</span>
+            </a>
             <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'complain-type-list', 'submenu_selector') ?>" href="{{ route('admin.complain-type-list') }}">
                 <i class="fa fa-bullseye" aria-hidden="true" style="color: red;"></i>
                 <span class="sub_menu_text_design">Complain Type</span>

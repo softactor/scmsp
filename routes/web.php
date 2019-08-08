@@ -17,6 +17,22 @@ Route::get('/', function () {
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'storeusersession']], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
+    
+    /*
+     * Complain type categort routes
+     */
+    
+    // calling complain type list routes
+    Route::get('complain-type-category-list', 'scmsp\ComplainTypeCategoryController@index')->name('complain-type-category-list');
+    // calling complain type list routes
+    Route::get('complain-type-category-create', 'scmsp\ComplainTypeCategoryController@create')->name('complain-type-category-create');
+    // calling complain type store routes
+    Route::post('store-complain-type-category', 'scmsp\ComplainTypeCategoryController@store')->name('complain-type-category-store');
+    /*
+     *  Get Ajax call Details:
+     */    
+    Route::get('get_category_wise_complain_type', 'scmsp\ComplainTypeController@get_category_wise_complain_type')->name('get_category_wise_complain_type');
+    //End of complain type category
     // calling complain type list routes
     Route::get('complain-type-list', 'scmsp\ComplainTypeController@index')->name('complain-type-list');
 

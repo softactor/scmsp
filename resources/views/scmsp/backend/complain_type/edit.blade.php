@@ -51,6 +51,19 @@
                     <?php } ?>
                 </div>
                 <div class="form-group">
+                    <label for="pwd">Category</label>
+                    <select class="form-control" name="category_id">
+                        <option value="">Select</option>
+                        <?php
+                            $list = get_table_data_by_table('complain_type_categories');
+                            if(!$list->isEmpty()){
+                                foreach($list as $data){ ?>
+                        <option value="{{ $data->id }}" <?php if((isset($_POST['category_id']) && $_POST['category_id']==$data->id) || isset($editData->category_id) && $editData->category_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+                        <?php }} ?>
+                        
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name" value="{{ old('name',$editData->name) }}">
                     <?php if ($errors->has('name')) { ?>

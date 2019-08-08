@@ -11,5 +11,5 @@ class ComplainType extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','dept_id','div_id','user_id'];
+    protected $fillable = ['name','dept_id','div_id','category_id','user_id'];
 }

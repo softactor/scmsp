@@ -159,3 +159,28 @@ function getusersByDepartment(departmentId, selector, url){
         $('#'+selector).html(defaultSelector);
     }
 }
+/*
+ *  getDepartmentByDivision
+ */
+function getCategoryWiseComplainType(category_id,url,selector, divSelector, depSelector){
+    if(category_id){
+        var division_id     =   $('#'+divSelector).val();
+        var department_id   =   $('#'+depSelector).val();
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'category_id='+category_id+'&division_id='+department_id+'&department_id='+division_id,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}

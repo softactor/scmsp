@@ -66,9 +66,7 @@ class ComplainDetailsController extends Controller
                 return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
             }else{
                 return View('scmsp.backend.complain_details.edit_technician',  compact('editData','activeMenuClass'));
-            }
-            
-                
+            }      
 	}
         /*
 	Method Name	: store
@@ -79,6 +77,7 @@ class ComplainDetailsController extends Controller
 	*/
 	public function store(Request $request){
             $rules  =   [
+                'category_id'       => 'required',
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
                 'complain_details'  => 'required',
@@ -97,6 +96,7 @@ class ComplainDetailsController extends Controller
             }
             
             $complain_details                      =   new ComplainDetails;
+            $complain_details->category_id         =   $request->category_id;
             $complain_details->complain_type_id    =   $request->complain_type_id;
             $complain_details->complainer          =   $request->complainer;
             $complain_details->complain_details    =   $request->complain_details;
@@ -133,6 +133,7 @@ class ComplainDetailsController extends Controller
            $role   =   getRoleNameByUserId(Auth::user()->id);
             if($role== 'Admin' || $role=='Moderator'){
                 $rules = [
+                    'category_id'       => 'required',
                     'complain_type_id'  => 'required',
                     'complainer'        => 'required',
                     'complain_details'  => 'required',
@@ -159,6 +160,7 @@ class ComplainDetailsController extends Controller
 
             $complain_details                       = ComplainDetails::find($request->edit_id);
             if($role== 'Admin' || $role=='Moderator'){
+                $complain_details->category_id          = $request->category_id;
                 $complain_details->complain_type_id     = $request->complain_type_id;
                 $complain_details->complainer           = $request->complainer;
                 $complain_details->complain_details     = $request->complain_details;
