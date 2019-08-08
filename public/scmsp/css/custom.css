@@ -39,3 +39,6 @@ span.sub_menu_text_design{
     background: lightyellow;
     padding: 1% .5%;
 }
+table.complain_details_table_style tr td,a{
+    color: white !important;
+}

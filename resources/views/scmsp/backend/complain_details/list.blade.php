@@ -20,7 +20,7 @@
                 <?php } ?>
            </h2>
            @include('scmsp.backend.partial.operation_message') 
-           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+           <table class="table table-bordered complain_details_table_style" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Complain date</th>
@@ -53,7 +53,7 @@
                                 $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
-                            <td>{{ $data->issued_date }}</td>
+                            <td><?php echo human_format_date($data->issued_date); ?></td>
                             <td>{{ $data->complainer }}</td>                            
                             <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
                             <td>{{ $data->complain_details }}</td>
