@@ -7,11 +7,11 @@
         <li class="breadcrumb-item">
             <a href="#">Role</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Role List</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>List Role<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.role-create') }}'" >Create New</button></h2>
+            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.role-create') }}" >Create New</a>
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>

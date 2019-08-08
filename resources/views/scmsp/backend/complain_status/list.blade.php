@@ -7,11 +7,11 @@
         <li class="breadcrumb-item">
             <a href="#">Complain Status</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Complain Status List</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Complain Status List<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.complain-status-create') }}'" >Create New</button></h2>
+            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.complain-status-create') }}" >Create New</a>
             
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

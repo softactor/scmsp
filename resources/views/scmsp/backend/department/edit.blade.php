@@ -7,7 +7,7 @@
         <li class="breadcrumb-item">
             <a href="{{ route('admin.dashboard') }}">Home</a>
         </li>
-        <li class="breadcrumb-item active">Create Department</li>
+        <li class="breadcrumb-item active">Create Division</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
@@ -21,7 +21,7 @@
             <form method="POST" action="{{ route('admin.department-update') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="email">Department Name</label>
+                    <label for="email">Division Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Enter Department Name" name="name" value="{{ old('name',$editData->name) }}">
                     <?php if ($errors->has('name')) { ?>
                     <span class='alert-danger'><?php echo $errors->first('name'); ?></span>

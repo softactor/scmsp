@@ -33,7 +33,10 @@ class RoleController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.role.create');
+            /* selected menue data */
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'role-list';
+            return View('scmsp.backend.role.create', compact('activeMenuClass','subMenuClass'));
 	}
         /*
 	Method Name	: edit
@@ -44,7 +47,10 @@ class RoleController extends Controller
 	*/
 	public function edit(Request $request){
             $editData   = Role::find($request->id);
-            return View('scmsp.backend.role.edit', compact('editData'));
+            /* selected menue data */
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'role-list';
+            return View('scmsp.backend.role.edit', compact('editData','activeMenuClass','subMenuClass'));
 	}
          /*
 	Method Name	: store

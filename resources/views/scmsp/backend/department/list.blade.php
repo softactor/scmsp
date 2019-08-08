@@ -5,14 +5,13 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Department</a>
+            <a href="#">Division</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Division List</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Division List<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.department-create') }}'" >Create New</button></h2>
-            
+            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.department-create') }}">Create New</a>            
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>

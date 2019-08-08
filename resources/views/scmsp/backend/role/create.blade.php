@@ -5,13 +5,12 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Role Create</a>
+            <a href="#">Role</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Create Role</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Role</h2>
             @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.role-store') }}">
                 @csrf

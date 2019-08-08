@@ -33,7 +33,10 @@ class DepartmentController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.department.create');
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'division-list';
+            return View('scmsp.backend.department.create', compact('activeMenuClass','subMenuClass'));
 	}
         
         /*
@@ -45,7 +48,10 @@ class DepartmentController extends Controller
 	*/
 	public function edit(Request $request){
             $editData   = Department::find($request->id);
-            return View('scmsp.backend.department.edit', compact('editData'));
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'division-list';
+            return View('scmsp.backend.department.edit', compact('editData','activeMenuClass','subMenuClass'));
 	}
         
         /*

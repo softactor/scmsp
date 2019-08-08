@@ -39,6 +39,22 @@ span.sub_menu_text_design{
     background: lightyellow;
     padding: 1% .5%;
 }
-table.complain_details_table_style tr td,a{
+table.complain_details_table_style tr td{
     color: white !important;
+}
+table.complain_details_table_style tr td > a{
+    color: white !important;
+}
+table.complain_details_history_table_style tr > th{
+    font-size: 13px;
+}
+table.complain_details_history_table_style tr > td{
+    font-size: 13px;
+}
+table.complain_details_history_table_style tr th{
+    text-align: center;
+    background-color: lightgreen;
+}
+h2.list_second_heading_style{
+    font-size: 15px;
 }

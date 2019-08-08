@@ -5,13 +5,12 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('admin.dashboard') }}">Home</a>
+            <a href="{{ route('admin.dashboard') }}">Role</a>
         </li>
         <li class="breadcrumb-item active">Edit Role</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Edit Role</h2>
             @include('scmsp.backend.partial.operation_message')
             <?php
             $sessionEditData   =   Session::get('editData');
