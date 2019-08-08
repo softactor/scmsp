@@ -21,13 +21,6 @@
             <form method="POST" action="{{ route('admin.complain-type-update') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name" value="{{ old('name',$editData->name) }}">
-                    <?php if ($errors->has('name')) { ?>
-                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
-                    <?php } ?>
-                </div>
-                <div class="form-group">
                     <label for="pwd">Division</label>
                     <select class="form-control" name="dept_id">
                         <option value="">Select Department</option>
@@ -57,6 +50,13 @@
                     <span class='alert-danger'><?php echo $errors->first('div_id'); ?></span>
                     <?php } ?>
                 </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name" value="{{ old('name',$editData->name) }}">
+                    <?php if ($errors->has('name')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
+                    <?php } ?>
+                </div>                
                 <input type='hidden' name='edit_id' value="{{$editData->id}}">
                 <button type="submit" class="btn btn-info">Update</button>
             </form>
