@@ -75,6 +75,7 @@ class ComplainTypeController extends Controller {
             ['name',       '=', $request->name],
             ['dept_id',    '=', $request->dept_id],
             ['div_id',     '=', $request->div_id],
+            ['category_id','=', $request->category_id],
         ];
         $checkParam['where'] = $checkWhereParam;
         $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
@@ -85,7 +86,7 @@ class ComplainTypeController extends Controller {
                             ->with('error', 'Failed to save data. Duplicate Entry found.');
         }// end of duplicate checking:
             $rules  =   [
-                'name' => 'required|unique:complain_types,name'
+                'name' => 'required'
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -99,6 +100,7 @@ class ComplainTypeController extends Controller {
             $complain_type->name       =   $request->name;
             $complain_type->dept_id    =   $request->dept_id;
             $complain_type->div_id     =   $request->div_id;
+            $complain_type->category_id=   $request->category_id;
             $complain_type->user_id    =   Auth::user()->id;
             $complain_type->save();
             return redirect('admin/complain-type-list')->with('success', 'Data have been successfully saved.');
@@ -123,6 +125,7 @@ class ComplainTypeController extends Controller {
             ['dept_id', '=', $request->dept_id],
             ['div_id',  '=', $request->div_id],
             ['id',      '!=', $request->edit_id],
+            ['category_id','=', $request->category_id],
         ];
         $checkParam['where'] = $checkWhereParam;
         $duplicateCheck = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
@@ -133,9 +136,10 @@ class ComplainTypeController extends Controller {
                             ->with('error', 'Failed to save data. Duplicate Entry found.');
         }// end of duplicate checking:
             $rules  =   [
-                'name'    => 'required|unique:complain_types,name',
-                'dept_id' => 'required|unique:complain_types,dept_id',
-                'div_id'  => 'required|unique:complain_types,div_id',
+                'name'          => 'required',
+                'dept_id'       => 'required',
+                'div_id'        => 'required',
+                'category_id'   => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -147,6 +151,7 @@ class ComplainTypeController extends Controller {
             
             $complain_type             =   ComplainType::find($request->edit_id);
             $complain_type->name       =   $request->name;
+            $complain_type->category_id=   $request->category_id;
             $complain_type->dept_id    =   $request->dept_id;
             $complain_type->div_id     =   $request->div_id;
             $complain_type->user_id    =   Auth::user()->id;
@@ -163,4 +168,21 @@ class ComplainTypeController extends Controller {
             ];
             echo json_encode($feedback);
 	}
+        /*
+	Method Name	: get_department_by_division
+	Purpose		: load department by division from an ajax call
+	Param		: department id need
+	Date		: 08/08/2019
+	Author		: Tanveer Qureshee
+    */    
+    function get_category_wise_complain_type(Request $request){
+        $departmentdata         =   ComplainType::where('category_id',$request->category_id)->where('dept_id',$request->department_id)->where('div_id',$request->division_id)->get();
+        $department_view        =   View::make('scmsp.backend.partial.get_category_wise_complain_type', compact('departmentdata'));
+        $feedback = [
+                'status'    => 'success',
+                'message'   => 'Data found',
+                'data'      => $department_view->render(),
+            ];
+        echo json_encode($feedback);
+    }
 }

@@ -56,36 +56,14 @@
                         </div>
                     </div>
                 <?php } ?>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="pwd">Complain Type</label>
-                            <select class="form-control" name="complain_type_id">
-                                <option>Select Type</option>
-                                <?php
-                                $list = get_table_data_by_table('complain_types');
-                                if (!$list->isEmpty()) {
-                                    foreach ($list as $data) {
-                                        ?>
-                                        <option value="{{ $data->id }}"<?php
-                                        if (isset($editData->complain_type_id) && $editData->complain_type_id == $data->id) {
-                                            echo 'selected';
-                                        }
-                                        ?>>{{ $data->name }}</option>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
-                            </select>
-                        </div>
-                    </div>
+                <div class="row">                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="pwd">Division</label>
                             <?php
                             $get_department_by_division_url = url('admin/get_department_by_division');
                             ?>
-                            <select class="form-control" name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                            <select class="form-control" id='div_id' name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
                                 <option value="">Select</option>
                                 <?php
                                 $list = get_table_data_by_table('departments');
@@ -131,7 +109,60 @@
 ?>
                             </select>
                         </div>
-                    </div>  
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Category</label>
+                            <?php
+                            $url = route('admin.get_category_wise_complain_type');
+                            ?>
+                            <select class="form-control" name="category_id" onchange="getCategoryWiseComplainType(this.value, '<?php echo $url; ?>','complain_type_id','div_id','dept_id');">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('complain_type_categories');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                                if (isset($editData->category_id) && $editData->category_id == $data->id) {
+                                                    echo 'selected';
+                                                }
+                                                ?>>{{ $data->name }}
+                                        </option>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <?php
+                            if ($errors->has('complain_type_id')) {
+                                echo "<div class='alert alert-danger'>Complain Type is Required</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Complain Type</label>
+                            <select class="form-control" id='complain_type_id' name="complain_type_id">
+                                <option>Select Type</option>
+                                <?php
+                                $list = get_table_data_by_table('complain_types');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                        if (isset($editData->complain_type_id) && $editData->complain_type_id == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}</option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="pwd">Assign To</label>
@@ -183,11 +214,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="edit_id" value="{{ $editData->id }}">
-<?php
-if (!$feedback_details) {
-    ?>
                     <button type="submit" class="btn btn-info">Update</button>
-<?php } ?>
             </form>
         </div>
         <div class="col-md-6">

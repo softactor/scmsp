@@ -16,6 +16,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Department</th>
                             <th>Division</th>
                             <th>Action</th>
@@ -24,6 +25,7 @@
                     <tfoot>
                         <tr>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Department</th>
                             <th>Division</th>
                             <th>Action</th>
@@ -37,6 +39,7 @@
                         ?>
                         <tr>
                             <td>{{ $data->name }}</td>
+                            <td>{{ (isset($data->category_id) && !empty($data->category_id) ? get_data_name_by_id('complain_type_categories',$data->category_id)->name : 'Not found') }}</td>
                             <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
                             <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
                             <td>
