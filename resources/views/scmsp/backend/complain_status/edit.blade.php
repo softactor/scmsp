@@ -5,13 +5,12 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Create Complain Status</a>
+            <a href="#">Complain Status</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Edit Complain Status</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Complain Status</h2>
             @include('scmsp.backend.partial.operation_message')
             <?php
             $sessionEditData   =   Session::get('editData');

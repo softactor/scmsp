@@ -7,11 +7,11 @@
         <li class="breadcrumb-item">
             <a href="{{ route('admin.user-list') }}">Users</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Users List</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>User List<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.user-create') }}'" >Create New</button></h2>
+            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.user-create') }}" >Create New</a>
             @include('scmsp.backend.partial.operation_message')
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>

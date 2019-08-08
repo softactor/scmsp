@@ -35,7 +35,10 @@ class ComplainTypeController extends Controller {
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.complain_type.create');
+            /* selected menue data */
+                $activeMenuClass    =   'settings';   
+                $subMenuClass       =   'complain-type-list';
+		return View('scmsp.backend.complain_type.create', compact('activeMenuClass','subMenuClass'));
 	}
 	
 	
@@ -48,7 +51,10 @@ class ComplainTypeController extends Controller {
 	*/
 	public function edit(Request $request){
                 $editData   = ComplainType::find($request->id);
-                return View('scmsp.backend.complain_type.edit', compact('editData'));
+                /* selected menue data */
+                $activeMenuClass    =   'settings';   
+                $subMenuClass       =   'complain-type-list';
+                return View('scmsp.backend.complain_type.edit', compact('editData','activeMenuClass','subMenuClass'));
 	}
 	
 	/*

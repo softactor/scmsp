@@ -7,11 +7,10 @@
         <li class="breadcrumb-item">
             <a href="{{ route('admin.user-list') }}">Users</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Edit User</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Update User</h2>
             @include('scmsp.backend.partial.operation_message')
             <form action="{{ route('admin.user-update') }}" method="post">
                 @csrf

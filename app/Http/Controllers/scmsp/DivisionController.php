@@ -35,7 +35,10 @@ class DivisionController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.division.create');
+            /* selected menue data */
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'department-list';
+            return View('scmsp.backend.division.create', compact('activeMenuClass','subMenuClass'));
 	}
         /*
 	Method Name	: edit
@@ -45,8 +48,10 @@ class DivisionController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(Request $request){
-            $editData   = Division::find($request->id);                
-            return View('scmsp.backend.division.edit',  compact('editData'));
+            $editData   = Division::find($request->id); 
+            $activeMenuClass    =   'settings';   
+            $subMenuClass       =   'department-list';
+            return View('scmsp.backend.division.edit',  compact('editData','activeMenuClass','subMenuClass'));
 	}
         
         /*

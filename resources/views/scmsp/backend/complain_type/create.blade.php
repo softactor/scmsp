@@ -5,13 +5,12 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="#">Complain Type</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Complain Type Create</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Complain type</h2>
             @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.complain-type-store') }}">
                 @csrf
@@ -23,7 +22,7 @@
                     <?php } ?>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Department</label>
+                    <label for="pwd">Division</label>
                     <select class="form-control" name="dept_id">
                         <option value="">Select Department</option>
                         <?php
@@ -37,7 +36,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Division</label>
+                    <label for="pwd">Department</label>
                     <select class="form-control" name="div_id">
                         <option value="">Select Division</option>
                         <?php

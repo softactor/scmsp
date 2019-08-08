@@ -7,11 +7,10 @@
         <li class="breadcrumb-item">
             <a href="{{ route('admin.complain-details-list') }}">Complain</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Create Complain</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Complain</h2>
             @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.complain-details-store') }}">
                 @csrf

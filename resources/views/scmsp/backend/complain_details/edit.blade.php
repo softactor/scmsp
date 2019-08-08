@@ -7,12 +7,11 @@
         <li class="breadcrumb-item">
             <a href="{{ route('admin.complain-details-list') }}">Complain Details</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Update Complain Details</li>
     </ol>
     <div class='row'>
         <div class="col-md-6">
             <form method="POST" action="{{ route('admin.complain-details-update') }}">
-                <h2>Update Complain</h2>
                 @include('scmsp.backend.partial.operation_message')
                 <?php
                 if (isset($editData->feedback_details) && !empty($editData->feedback_details)) {
@@ -192,7 +191,6 @@ if (!$feedback_details) {
             </form>
         </div>
         <div class="col-md-6">
-            <h2>Complain History</h2>
             <?php
             $param                 =   [];
             $param['table']                 =   'complain_details_history';

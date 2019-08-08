@@ -1,5 +1,5 @@
 <div class="table-responsive">          
-    <table class="table table-bordered">
+    <table class="table table-bordered complain_details_history_table_style">
         <tr>
             <th colspan="5">Complain History</th>
         </tr>

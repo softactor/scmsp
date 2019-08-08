@@ -34,7 +34,10 @@ class ComplainStatusController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-		return View('scmsp.backend.complain_status.create');
+            /* selected menue data */
+                $activeMenuClass    =   'settings';   
+                $subMenuClass       =   'complain-status-list';
+		return View('scmsp.backend.complain_status.create', compact('activeMenuClass','subMenuClass'));
 	}
         /*
 	Method Name	: edit
@@ -45,7 +48,10 @@ class ComplainStatusController extends Controller
 	*/
 	public function edit(Request $request){
                 $editData   = ComplainStatus::find($request->id);
-                return View('scmsp.backend.complain_status.edit', compact('editData'));
+                /* selected menue data */
+                $activeMenuClass    =   'settings';   
+                $subMenuClass       =   'complain-status-list';
+                return View('scmsp.backend.complain_status.edit', compact('editData','activeMenuClass','subMenuClass'));
 	}
         /*
 	Method Name	: store

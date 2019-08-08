@@ -6,13 +6,12 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Permission Create</a>
+            <a href="#">Permission</a>
         </li>
-        <li class="breadcrumb-item active">Overview</li>
+        <li class="breadcrumb-item active">Create Permission</li>
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <h2>Create Permission</h2>
             @include('scmsp.backend.partial.operation_message')
                 <form method="POST" action="{{ route('admin.permission-store') }}">
                     @csrf
