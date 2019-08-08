@@ -15,13 +15,6 @@
             <form method="POST" action="{{ route('admin.complain-type-store') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name" value="{{ old('name') }}">
-                    <?php if ($errors->has('name')) { ?>
-                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
-                    <?php } ?>
-                </div>
-                <div class="form-group">
                     <label for="pwd">Division</label>
                     <select class="form-control" name="dept_id">
                         <option value="">Select Department</option>
@@ -49,7 +42,13 @@
                         
                     </select>
                 </div>
-                
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter Complain Type" name="name" value="{{ old('name') }}">
+                    <?php if ($errors->has('name')) { ?>
+                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
+                    <?php } ?>
+                </div>
                 <button type="submit" class="btn btn-info">Save</button>
             </form>
         </div>
