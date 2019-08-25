@@ -16,14 +16,14 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Division</th>
                         <th>Department</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>Name</th>
+                        <th>Division</th>
                         <th>Department</th>
                         <th>Action</th>
                     </tr>
@@ -34,9 +34,14 @@
                     if (!$list->isEmpty()) {
                         foreach ($list as $data) {
                             ?>
-                            <tr id='delete_row_id_{{$data->id}}'>
+                            <tr id='delete_row_id_{{$data->id}}'>                                
+                                <td>
+                                    <?php
+                                    $res    =   get_data_name_by_id('departments',$data->dept_id);
+                                    echo (isset($res) && !empty($res) ? $res->name : '');
+                                    ?>
+                                </td>
                                 <td>{{ $data->name }}</td>
-                                <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
