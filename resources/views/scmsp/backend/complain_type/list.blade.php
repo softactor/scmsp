@@ -15,19 +15,19 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Department</th>
                             <th>Division</th>
+                            <th>Department</th>
+                            <th>Category</th>
+                            <th>Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Department</th>
                             <th>Division</th>
+                            <th>Department</th>
+                            <th>Category</th>
+                            <th>Name</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -38,10 +38,10 @@
                                 foreach($list as $data){
                         ?>
                         <tr>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ (isset($data->category_id) && !empty($data->category_id) ? get_data_name_by_id('complain_type_categories',$data->category_id)->name : 'Not found') }}</td>
-                            <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
                             <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
+                            <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
+                            <td>{{ (isset($data->category_id) && !empty($data->category_id) ? get_data_name_by_id('complain_type_categories',$data->category_id)->name : 'Not found') }}</td>
+                            <td>{{ $data->name }}</td>
                             <td>
                                 <a href="{{ url('admin/complain-type-edit/'.$data->id) }}"><i class="fa fa-edit text-success"></i></a>
                                 <a href="#"  onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');"><i class="fa fa-trash text-danger"></i></a>
