@@ -126,15 +126,14 @@ class UserController extends Controller
             }
             
             $userData  =   [
-                'name'      =>  $request->name,
-                'email'     =>  $request->email,
-                'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : ''),
-                'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : ''),
-                'updated_at'=>  date('Y-m-d h:i:s'),
+                'name'          =>  $request->name,
+                'email'         =>  $request->email,
+                'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : 0),
+                'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : 0),
+                'updated_at'    =>  date('Y-m-d H:i:s'),
             ];
             //user update
-            DB::table('users')->where('id',$request->user_update_id)->update($userData);
-            
+            $dbResult   =   DB::table('users')->where('id',$request->user_update_id)->update($userData);
             $password   =   $request->password;
             if(isset($password) && !empty($password)){
                 $userPasswordData  =   [
