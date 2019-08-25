@@ -86,7 +86,10 @@ class ComplainTypeController extends Controller {
                             ->with('error', 'Failed to save data. Duplicate Entry found.');
         }// end of duplicate checking:
             $rules  =   [
-                'name' => 'required'
+                'name' => 'required',
+                'dept_id' => 'required',
+                'div_id' => 'required',
+                'category_id' => 'required'
             ];
             $validator = Validator::make($request->all(), $rules);
 

@@ -175,6 +175,33 @@ function getCategoryWiseComplainType(category_id,url,selector, divSelector, depS
                 if(response.status  ==  'success'){
                     $('#'+selector).html(response.data);                    
                 }else{
+                    var defaultSelector = "<option value=''>Select</option>";
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}
+/*
+ *   getCategoryByDepartment
+ */
+function getCategoryByDepartment(dept_id,divSelector,selector,url){
+    if(dept_id){
+        var division_id     =   $('#'+divSelector).val();
+        var department_id   =   dept_id;
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'division_id='+division_id+'&department_id='+department_id,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    var defaultSelector = "<option value=''>Select</option>";
                     $('#'+selector).html(defaultSelector);
                 }
             }
