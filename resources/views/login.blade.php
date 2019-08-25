@@ -30,9 +30,8 @@
                                     <p><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
                                     <p><span class="fa fa-lock"></span><input placeholder="Password" name="password" type="password" id="password" required></p>
                                     <div>
-                                        <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
-                                                password?</a></span>
-                                        <span style="width:50%; text-align:right;  display: inline-block;"><input type="submit" value="Login"></span>
+                                        <span style="width:100%; text-align:right;  display: inline-block;">
+                                            <input style="width: 100%" type="submit" value="Login"></span>
                                     </div>
                                 </fieldset>
                                 <div class="clearfix"></div>

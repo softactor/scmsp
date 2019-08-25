@@ -55,6 +55,7 @@ input {
 
 p {
 	line-height: 1.5em;
+        margin-bottom: 0 !important;
 }
 
 .clearfix {
@@ -89,9 +90,9 @@ p {
     width:40%;
 }
 #login{
-border-right:1px solid #fff;
-  padding: 0px 22px;
-  width: 59%;
+    border-right: 1px solid #fff;
+    padding: 26px 0px 0 0;
+    width: 59%;
 }
 .logo{
 color:#fff;
