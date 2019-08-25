@@ -15,12 +15,16 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Division</th>
+                            <th>Department</th>
                             <th>Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Division</th>
+                            <th>Department</th>
                             <th>Name</th>
                             <th>Action</th>
                         </tr>
@@ -32,6 +36,8 @@
                                 foreach($list as $data){
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
+                            <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
+                            <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
                             <td>{{ $data->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
@@ -39,7 +45,7 @@
                                       Action
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="{{ url('admin/department-edit/'.$data->id) }}">Edit</a>
+                                      <a class="dropdown-item" href="{{ url('admin/complain-type-category-edit/'.$data->id) }}">Edit</a>
                                       <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
                                     </div>
                                 </div>

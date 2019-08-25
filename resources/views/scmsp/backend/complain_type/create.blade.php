@@ -30,6 +30,9 @@
                         <?php }} ?>
                         
                     </select>
+                    <?php if ($errors->has('dept_id')) { ?>
+                        <span class='alert-danger'><?php echo $errors->first('dept_id'); ?></span>
+<?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Department</label>
@@ -44,6 +47,9 @@
                         <?php }} ?>
                         
                     </select>
+                    <?php if ($errors->has('div_id')) { ?>
+                        <span class='alert-danger'><?php echo $errors->first('div_id'); ?></span>
+<?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Category</label>
@@ -54,9 +60,11 @@
                             if(!$list->isEmpty()){
                                 foreach($list as $data){ ?>
                         <option value="{{ $data->id }}" <?php if(isset($_POST['category_id']) && $_POST['category_id']==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
-                        <?php }} ?>
-                        
+                        <?php }} ?>                        
                     </select>
+                    <?php if ($errors->has('category_id')) { ?>
+                        <span class='alert-danger'><?php echo $errors->first('category_id'); ?></span>
+<?php } ?>
                 </div>
                 <div class="form-group">
                     <label for="name">Name</label>

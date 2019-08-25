@@ -28,6 +28,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::get('complain-type-category-create', 'scmsp\ComplainTypeCategoryController@create')->name('complain-type-category-create');
     // calling complain type store routes
     Route::post('store-complain-type-category', 'scmsp\ComplainTypeCategoryController@store')->name('complain-type-category-store');
+    // calling complain type update routes
+    Route::post('update-complain-type-category', 'scmsp\ComplainTypeCategoryController@update')->name('update-complain-type-category');
+    // calling complain type edit routes
+    Route::get('complain-type-category-edit/{id}', 'scmsp\ComplainTypeCategoryController@edit')->name('complain-type-category-edit');
+    
+    Route::get('get_category_by_department', 'scmsp\ComplainTypeCategoryController@get_category_by_department')->name('get_category_by_department');
     /*
      *  Get Ajax call Details:
      */    

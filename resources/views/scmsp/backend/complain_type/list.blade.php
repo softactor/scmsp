@@ -38,8 +38,8 @@
                                 foreach($list as $data){
                         ?>
                         <tr>
-                            <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
                             <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
+                            <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
                             <td>{{ (isset($data->category_id) && !empty($data->category_id) ? get_data_name_by_id('complain_type_categories',$data->category_id)->name : 'Not found') }}</td>
                             <td>{{ $data->name }}</td>
                             <td>

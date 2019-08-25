@@ -75,9 +75,10 @@
                         <div class="form-group">
                             <label for="pwd">Department</label> 
                             <?php
-                            $get_department_wise_user_url = url('admin/get_department_wise_user');
+                            $get_department_wise_user_url   = url('admin/get_department_wise_user');
+                            $get_category_by_department     = url('admin/get_category_by_department');
                             ?>
-                            <select class="form-control" id="dept_id" name="dept_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
+                            <select class="form-control" id="dept_id" name="dept_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');getCategoryByDepartment(this.value, 'div_id', 'category_id', '<?php echo $get_category_by_department; ?>');">
                                 <option value="">Select</option>
                             </select>
                             <?php
@@ -93,7 +94,7 @@
                             <?php
                             $url    =   route('admin.get_category_wise_complain_type');
                             ?>
-                            <select class="form-control" name="category_id" onchange="getCategoryWiseComplainType(this.value, '<?php echo $url; ?>','complain_type_id','div_id','dept_id');">
+                            <select class="form-control" id="category_id" name="category_id" onchange="getCategoryWiseComplainType(this.value, '<?php echo $url; ?>','complain_type_id','div_id','dept_id');">
                                 <option value="">Select</option>
                                 <?php
                                 $list = get_table_data_by_table('complain_type_categories');
