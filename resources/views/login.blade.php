@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        <link rel="shortcut icon" type="image/png" href="<?php echo asset('img/favicon_icon/favi.png') ?>"/>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('scmsp/icon/favicon_25X25.png') }}" />
         <title>CMS</title>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link href="{{ asset('scmsp/css/bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
+        <script src="{{ asset('scmsp/js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('scmsp/js/bootstrap.min.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('scmsp/css/font-awesome.css') }}">
         <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     </head>
     <body id="app-layout">
@@ -28,7 +27,7 @@
                             <form action="{{ route('login') }}" method="POST">
                                 @csrf
                                 <fieldset class="clearfix">
-                                    <p ><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
+                                    <p><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
                                     <p><span class="fa fa-lock"></span><input placeholder="Password" name="password" type="password" id="password" required></p>
                                     <div>
                                         <span style="width:48%; text-align:left;  display: inline-block;"><a class="small-text" href="#">Forgot
