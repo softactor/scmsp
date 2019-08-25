@@ -19,7 +19,7 @@
                     <?php
                         $get_department_by_division_url = url('admin/get_department_by_division');
                     ?>
-                    <select class="form-control" name="dept_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                    <select class="form-control" id="div_id" name="dept_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
                         <option value="">Select</option>
                         <?php
                             $dept_id    =   Session::get('dept_id');
