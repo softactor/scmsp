@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Division Name" name="name" value="{{ old('name') }}">
+                    <input type="text" class="form-control" id="name" placeholder="Enter Department Name" name="name" value="{{ old('name') }}">
                     <?php if ($errors->has('name')) { ?>
                     <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
                     <?php } ?>

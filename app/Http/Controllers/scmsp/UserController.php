@@ -87,8 +87,8 @@ class UserController extends Controller
             $userData  =   [
                 'name'          =>  $request->name,
                 'email'         =>  $request->email,
-                'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : ''),
-                'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : ''),
+                'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : 0),
+                'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : 0),
                 'password'      =>  Hash::make($request->password),
                 'created_at'    =>  date('Y-m-d h:i:s'),
                 'updated_at'    =>  date('Y-m-d h:i:s'),

@@ -73,6 +73,14 @@ function hasAccessPermission($role, $module, $accessType){
     if(isset($accessmodAccPermission) && !empty($accessmodAccPermission)){
         return true;
     } 
+    $accessmodAccPermission   =   DB::table('permissions')
+                ->where('user_type',$role)
+                ->where('module',$module)
+                ->where('isallmodulepermission',1)
+                ->first();
+    if(isset($accessmodAccPermission) && !empty($accessmodAccPermission)){
+        return true;
+    } 
     
     return false;
 }
@@ -151,4 +159,11 @@ function get_status_wise_row_color($complain_status){
 }
 function human_format_date($timestamp){
     return date("jS F, Y", strtotime($timestamp)); //September 30th, 2013
+}
+
+function isAgentRole($roleName){
+    if($roleName == 'Agent'){
+        return true;
+    }
+    return false;
 }
