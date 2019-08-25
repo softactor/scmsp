@@ -36,8 +36,18 @@
                                 foreach($list as $data){
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
-                            <td>{{ get_data_name_by_id('departments',$data->dept_id)->name }}</td>
-                            <td>{{ get_data_name_by_id('divisions',$data->div_id)->name }}</td>
+                            <td>
+                                <?php
+                                    $res    =   get_data_name_by_id('departments',$data->dept_id);
+                                    echo (isset($res) && !empty($res) ? $res->name : '');
+                                    ?>
+                            </td>
+                            <td>
+                                <?php
+                                    $res    =   get_data_name_by_id('divisions',$data->div_id);
+                                    echo (isset($res) && !empty($res) ? $res->name : '');
+                                ?>
+                            </td>
                             <td>{{ $data->name }}</td>
                             <td>
                                 <div class="btn-group" role="group">
