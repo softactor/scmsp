@@ -36,7 +36,8 @@
                 </div>
                 <div class="form-group">
                     <label for="pwd">Department</label>
-                    <select class="form-control" id="dept_id" name="div_id">
+                    <?php $get_category_by_department     = url('admin/get_category_by_department'); ?>
+                    <select class="form-control" id="dept_id" name="div_id" onchange=";getCategoryByDepartment(this.value, 'div_id', 'category_id', '<?php echo $get_category_by_department; ?>');">
                         <option value="">Select</option>
                         <?php
                             $div_id    =   Session::get('div_id');
@@ -53,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label for="pwd">Category</label>
-                    <select class="form-control" name="category_id">
+                    <select class="form-control" name="category_id" id="category_id">
                         <option value="">Select</option>
                         <?php
                             $list = get_table_data_by_table('complain_type_categories');
