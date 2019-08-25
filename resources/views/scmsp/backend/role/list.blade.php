@@ -11,18 +11,18 @@
     </ol>
     <div class='row'>
         <div class='col col-md-12'>
-            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.role-create') }}" >Create New</a>
+            <!--<a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.role-create') }}" >Create New</a>-->
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Action</th>
+                            <!--<th>Action</th>-->
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Name</th>
-                            <th>Action</th>
+                            <!--<th>Action</th>-->
                         </tr>
                     </tfoot>
                     <tbody>
@@ -33,7 +33,7 @@
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
                             <td>{{ $data->name }}</td>
-                            <td>
+<!--                            <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       Action
@@ -43,7 +43,7 @@
                                       <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
                                     </div>
                                 </div>
-                            </td>
+                            </td>-->
                         </tr>
                         <?php }} ?>
                     </tbody>

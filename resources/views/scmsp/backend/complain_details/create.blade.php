@@ -38,20 +38,7 @@
                             ?>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="complain details">Complain</label>
-                            <textarea class="form-control" id="details" name="complain_details"><?php echo old('complain_details'); ?></textarea>
-                            <?php
-                                if ($errors->has('complain_details')) {
-                                    echo "<div class='alert alert-danger'>Complain Details is Required</div>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-                </div>
+                </div>                
                 <div class="row">                    
                     <div class="col-md-3">
                         <div class="form-group">
@@ -172,7 +159,20 @@
                             ?>
                         </div>
                     </div>
-                </div>                    
+                </div> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="complain details">Complain</label>
+                            <textarea class="form-control" id="details" name="complain_details" rows="6"><?php echo old('complain_details'); ?></textarea>
+                            <?php
+                                if ($errors->has('complain_details')) {
+                                    echo "<div class='alert alert-danger'>Complain Details is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">           
                     <div class="col-md-4">
                         <div class="form-group">
@@ -196,8 +196,14 @@
                             ?>
                         </div>
                     </div>
-                </div>                                
-                <button type="submit" class="btn btn-info">Create</button>
+                </div> 
+                <div class="row">           
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info">Create</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
