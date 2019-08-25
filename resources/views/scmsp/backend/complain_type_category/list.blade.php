@@ -31,7 +31,7 @@
                     </tfoot>
                     <tbody>
                         <?php
-                            $deleteUrl  =   url('admin/department-delete');
+                            $deleteUrl  =   url('admin/complain-type-category-delete');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>
