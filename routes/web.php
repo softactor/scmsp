@@ -31,9 +31,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     // calling complain type update routes
     Route::post('update-complain-type-category', 'scmsp\ComplainTypeCategoryController@update')->name('update-complain-type-category');
     // calling complain type edit routes
-    Route::get('complain-type-category-edit/{id}', 'scmsp\ComplainTypeCategoryController@edit')->name('complain-type-category-edit');
-    
+    Route::get('complain-type-category-edit/{id}', 'scmsp\ComplainTypeCategoryController@edit')->name('complain-type-category-edit');    
     Route::get('get_category_by_department', 'scmsp\ComplainTypeCategoryController@get_category_by_department')->name('get_category_by_department');
+    Route::post('complain-type-category-delete', 'scmsp\ComplainTypeCategoryController@delete')->name('complain-type-category-delete');
     /*
      *  Get Ajax call Details:
      */    
