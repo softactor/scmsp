@@ -38,9 +38,23 @@
                                 foreach($list as $data){
                         ?>
                         <tr>
-                            <td>{{ (isset($data->dept_id) && !empty($data->dept_id) ? get_data_name_by_id('departments',$data->dept_id)->name : 'Not found') }}</td>
-                            <td>{{ (isset($data->div_id) && !empty($data->div_id) ? get_data_name_by_id('divisions',$data->div_id)->name : 'Not found') }}</td>
-                            <td>{{ (isset($data->category_id) && !empty($data->category_id) ? get_data_name_by_id('complain_type_categories',$data->category_id)->name : 'Not found') }}</td>
+                            <td>
+                                <?php  
+                                $departRes  =   get_data_name_by_id('departments',$data->dept_id);
+                                echo (isset($departRes) && !empty($departRes) ? $departRes->name: 'Not Found');
+                                ?>
+                            </td>
+                            <td>
+                                <?php  
+                                $divRes  =   get_data_name_by_id('divisions',$data->div_id);
+                                echo (isset($divRes) && !empty($divRes) ? $divRes->name: 'Not Found');
+                                ?>
+                            </td>
+                            <td>
+                                <?php  
+                                $catRes  =   get_data_name_by_id('complain_type_categories',$data->category_id);
+                                echo (isset($catRes) && !empty($catRes) ? $catRes->name: 'Not Found');
+                                ?>
                             <td>{{ $data->name }}</td>
                             <td>
                                 <a href="{{ url('admin/complain-type-edit/'.$data->id) }}"><i class="fa fa-edit text-success"></i></a>
