@@ -167,3 +167,17 @@ function isAgentRole($roleName){
     }
     return false;
 }
+function getTableTotalRowsByFieldValues($data){
+    $total_row   =   DB::table($data['table'])
+                            ->select(DB::raw("count(id) as total"))
+                            ->where($data['where'])
+                            ->first();
+    return $total_row;
+}
+function generate_serial_number($data){
+        $alphanum       = $data['alphanum'];
+        $next_id        = sprintf('%06d', $data['next_id']);
+        $event          = sprintf('%04d', $data['event_id']);
+        $comingDigit    = $event.$alphanum.$next_id;
+        return $comingDigit;
+    }
