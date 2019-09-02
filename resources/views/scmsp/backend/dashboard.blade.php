@@ -18,60 +18,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
-                <form action="/action_page.php">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="start_date">Start date:</label>
-                                    <input autocomplete="off" type="text" class="form-control" id="complainDatepicker"  name="start_date">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="end_date">End date:</label>
-                                    <input autocomplete="off" type="text" class="form-control" id="start_date"  name="start_date">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="pwd">Division:</label>
-                                    <select class="form-control" name="dept_id">
-                                        <option>Select Type</option>
-                                        <?php
-                                        $dept_id = Session::get('dept_id');
-                                        $list = get_table_data_by_table('departments');
-                                        if (!$list->isEmpty()) {
-                                            foreach ($list as $data) {
-                                                ?>
-                                                <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                            <?php }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="pwd">Department:</label>
-                                    <select class="form-control" name="div_id">
-                                        <option>Select Type</option>
-                                        <?php
-                                        $list = get_table_data_by_table('divisions');
-                                        if (!$list->isEmpty()) {
-                                            foreach ($list as $data) {
-                                                ?>
-                                                <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                            <?php }
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </div>
-                    </div>
-                </form>
+                @include('scmsp.backend.partial.dashboard_complain_search')
             </div>
             <div class="row">
                 <?php 

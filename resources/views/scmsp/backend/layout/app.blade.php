@@ -100,7 +100,8 @@
         <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
         <script>
             $( function() {
-                $( "#complainDatepicker" ).datepicker();
+                $( "#complainStartDatepicker" ).datepicker();
+                $( "#complainEndDatepicker" ).datepicker();
             } );
         </script>
         

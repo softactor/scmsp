@@ -212,6 +212,34 @@
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="pwd">Priority</label>
+                            <select class="form-control" id='priority_id' name="priority_id">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('complain_priorites');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                                if (isset($editData->priority_id) && $editData->priority_id == $data->id) {
+                                                    echo 'selected';
+                                                }
+                                                ?>>{{ $data->name }}
+                                        </option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                            </select>
+                            <?php
+                            if ($errors->has('priority_id')) {
+                                echo "<div class='alert alert-danger'>Priority is Required</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
                 <input type="hidden" name="edit_id" value="{{ $editData->id }}">
                     <button type="submit" class="btn btn-info">Update</button>
