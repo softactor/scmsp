@@ -184,16 +184,47 @@
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
                                         ?>
-                                        <option value="{{ $data->id }}"<?php if (old('complain_status')== $data->id) {
-                                    echo 'selected';
-                                } ?>>{{ $data->name }}</option>
-    <?php }
-} ?>
+                                        <option value="{{ $data->id }}"<?php
+                                        if (old('complain_status') == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}</option>
+                                <?php }
+                            }
+                            ?>
                             </select>
                             <?php
-                                if ($errors->has('complain_status')) {
-                                    echo "<div class='alert alert-danger'>Complain status is Required</div>";
+                            if ($errors->has('complain_status')) {
+                                echo "<div class='alert alert-danger'>Complain status is Required</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="pwd">Priority</label>
+                            <select class="form-control" id='priority_id' name="priority_id">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('complain_priorites');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                                if (old('div_id') == $data->id) {
+                                                    echo 'selected';
+                                                }
+                                                ?>>{{ $data->name }}
+                                        </option>
+                                        <?php
+                                    }
                                 }
+                                ?>
+                            </select>
+                            <?php
+                            if ($errors->has('priority_id')) {
+                                echo "<div class='alert alert-danger'>Priority is Required</div>";
+                            }
                             ?>
                         </div>
                     </div>

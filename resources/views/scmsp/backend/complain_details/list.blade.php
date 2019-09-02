@@ -21,6 +21,7 @@
            <table class="table table-bordered complain_details_table_style" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Priority</th>
                             <th>Complain date</th>
                             <th>complainer</th>
                             <th>Complain Type</th>
@@ -33,6 +34,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Priority</th>
                             <th>Complain date</th>
                             <th>complainer</th>
                             <th>Complain Type</th>
@@ -51,6 +53,7 @@
                                 $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
+                            <td>{{ get_data_name_by_id('complain_priorites',$data->priority_id)->name }}</td>
                             <td><?php echo human_format_date($data->issued_date); ?></td>
                             <td>{{ $data->complainer }}</td>                            
                             <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            

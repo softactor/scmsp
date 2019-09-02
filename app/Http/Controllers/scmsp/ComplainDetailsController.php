@@ -86,6 +86,7 @@ class ComplainDetailsController extends Controller
                 'div_id'            => 'required',
                 'dept_id'           => 'required',
                 'assign_to'         => 'required',
+                'priority_id'       => 'required',
             ];
             $validator = Validator::make($request->all(), $rules);
 
@@ -106,6 +107,7 @@ class ComplainDetailsController extends Controller
             $complain_details->complain_status     =   $request->complain_status;
             $complain_details->user_id             =   Auth::user()->id;
             $complain_details->assign_to           =   $request->assign_to;
+            $complain_details->priority_id         =   $request->priority_id;
             $complain_details->save();
             $complain_id                           =   $complain_details->id;
             
@@ -142,6 +144,7 @@ class ComplainDetailsController extends Controller
                     'div_id'            => 'required',
                     'dept_id'           => 'required',
                     'assign_to'         => 'required',
+                    'priority_id'       => 'required',
                 ];
             }else{
                 $rules = [
@@ -169,11 +172,12 @@ class ComplainDetailsController extends Controller
                 $complain_details->department_id        = $request->dept_id;
                 $complain_details->complain_status      = $request->complain_status;
                 $complain_details->assign_to            = $request->assign_to;
-                $complain_details->updated_at           = date('Y-m-d h:i:s');
+                $complain_details->priority_id          = $request->priority_id;
+                $complain_details->updated_at           = date('Y-m-d H:i:s');
                 $descriptions                           = $request->complain_details;
             }else{
                 $complain_details->feedback_details     = $request->feedback_details;
-                $complain_details->updated_at           = date("Y-m-d h:i:s");
+                $complain_details->updated_at           = date("Y-m-d H:i:s");
                 $complain_details->complain_status      = $request->complain_status;
                 $descriptions                           = $request->feedback_details;
             }
