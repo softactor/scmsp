@@ -10546,6 +10546,7 @@ body {
     text-align: left;
     padding: 1rem;
     width: 225px;
+	height:40px;
   }
   .sidebar .nav-item .nav-link span {
     font-size: 1rem;

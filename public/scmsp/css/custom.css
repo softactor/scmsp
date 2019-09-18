@@ -33,6 +33,7 @@ span.sub_menu_text_design{
 .submenu_selector{
     background-color: red;
     width: 100% !important;
+	color:#ffffff;
 }
 .complain_n_feedback_para{
     width: 100%;

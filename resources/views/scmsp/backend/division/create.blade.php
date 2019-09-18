@@ -14,28 +14,38 @@
             @include('scmsp.backend.partial.operation_message')
             <form method="POST" action="{{ route('admin.division-store') }}">
                 @csrf
-                <div class="form-group">
-                    <label for="pwd">Devision</label>
-                    <select class="form-control" name="dept_id">
-                        <option value="">Select</option>
-                        <?php
-                            $dept_id    =   Session::get('dept_id');
-                            $list = get_table_data_by_table('departments');
-                            if(!$list->isEmpty()){
-                                foreach($list as $data){ ?>
-                        <option value="{{ $data->id }}" <?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
-                        <?php }} ?>
-                        
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter Department Name" name="name" value="{{ old('name') }}">
-                    <?php if ($errors->has('name')) { ?>
-                    <span class='alert-danger'><?php echo $errors->first('name'); ?></span>
-                    <?php } ?>
-                </div>
-                <button type="submit" class="btn btn-info">Create</button>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="pwd">Devision</label>
+							<select class="form-control" name="dept_id">
+								<option value="">Select</option>
+								<?php
+									$dept_id    =   Session::get('dept_id');
+									$list = get_table_data_by_table('departments');
+									if(!$list->isEmpty()){
+										foreach($list as $data){ ?>
+								<option value="{{ $data->id }}" <?php if(isset($dept_id) && $dept_id==$data->id){ echo 'selected'; } ?>> {{ $data->name }} </option>   
+								<?php }} ?>
+								
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" class="form-control" id="name" placeholder="Enter Department Name" name="name" value="{{ old('name') }}">
+							<?php if ($errors->has('name')) { ?>
+							<span class='alert-danger'><?php echo $errors->first('name'); ?></span>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<button type="submit" class="form-controlbtn btn-info">Create</button>
+						</div>
+					</div>
+				</div>
             </form>
         </div>
     </div>

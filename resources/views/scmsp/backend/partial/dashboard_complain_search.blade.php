@@ -1,25 +1,24 @@
 <form action="" method="post" id="complain_search_form">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="start_date">Start date:</label>
                     <input autocomplete="off" type="text" class="form-control" id="complainStartDatepicker"  name="start_date">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="end_date">End date:</label>
                     <input autocomplete="off" type="text" class="form-control" id="complainEndDatepicker"  name="start_date">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="pwd">Division</label>
                     <?php
                     $get_department_by_division_url = url('admin/get_department_by_division');
                     ?>
-                    <label for="pwd">Complain Division</label>
                     <select class="form-control" id='div_id' name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
                         <option value="">Select</option>
                         <?php
@@ -44,7 +43,7 @@
                     ?>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="pwd">Department</label> 
                     <?php
@@ -61,7 +60,7 @@
                     ?>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="pwd">Assign To</label>
                     <select class="form-control" name="assign_to" id="assign_to">
@@ -74,7 +73,7 @@
                     ?>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="pwd">Priority</label>
                     <select class="form-control" id='priority_id' name="priority_id">
@@ -102,7 +101,11 @@
                     ?>
                 </div>
             </div>
-            <button type="submit" class="btn btn-default">Search</button>
+			<div class="col-md-2">
+                <div class="form-group">
+            <button type="submit" class="btn btn-info">Search</button>
+                </div>
+            </div>
         </div>
     </div>
 </form>
