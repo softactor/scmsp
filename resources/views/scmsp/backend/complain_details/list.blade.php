@@ -28,7 +28,7 @@
                             <th>Complain Type</th>
                             <th>Details</th>
                             <th>Status</th>
-                            <th>Technician</th>
+                            <th>In-Charge</th>
                             <th>Created By</th>
                             <th>Action</th>
                         </tr>
@@ -42,7 +42,7 @@
                             <th>Complain Type</th>
                             <th>Details</th>
                             <th>Status</th>
-                            <th>Technician</th>
+                            <th>In-Charge</th>
                             <th>Created By</th>
                             <th>Action</th>
                         </tr>
