@@ -24,21 +24,22 @@
         <link href="{{ asset('scmsp/css/custom.css') }}" rel="stylesheet" />
         <link href="{{ asset('scmsp/css/scroll.css') }}" rel="stylesheet">
         <link href="{{ asset('scmsp/css/jquery-ui.css') }}" rel="stylesheet">
-		<style>@media (min-width: 768px){
+        <link href="{{ asset('scmsp/css/custom_table_style.css') }}" rel="stylesheet">
+        <style>@media (min-width: 768px){
 .sidebar .nav-item .nav-link {
-		height:40px;
-		color:#ffffff;
-		border-bottom:1px solid gray;
-		padding-top:8px;
-	}}
-	.sidebar{
-		background-color:#217346;
-	}
-	.submenu_selector{
-		background-color:#dc3545;
-		color:#ffffff;
-	}
-</style>
+        height:40px;
+        color:#ffffff;
+        border-bottom:1px solid gray;
+        padding-top:8px;
+}}
+.sidebar{
+        background-color:#217346;
+}
+.submenu_selector{
+        background-color:#dc3545;
+        color:#ffffff;
+}
+        </style>
     </head>
     <body id="page-top">
 

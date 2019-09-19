@@ -22,7 +22,11 @@
                             @include('opmessage')
                         </div>
                     </div>
-                    <div class="middle">                        
+                    <div class="middle">
+                        <div class="logo">
+                            <img src="{{ asset('scmsp/icon/cms_200x200.png') }}"/>
+                            <div class="clearfix"></div>
+                        </div>
                         <div id="login">
                             <form action="{{ route('login') }}" method="POST">
                                 @csrf
@@ -38,10 +42,6 @@
                             </form>
                             <div class="clearfix"></div>
                         </div> <!-- end login -->
-                        <div class="logo">
-                            <img src="{{ asset('scmsp/icon/cms_200x200.png') }}"/>
-                            <div class="clearfix"></div>
-                        </div>
                     </div>
                 </center>
             </div>
