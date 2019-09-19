@@ -22,7 +22,7 @@ class ComplainDetailsController extends Controller
 	*/
 	public function index($complain_status = null){
             $role   =   getRoleNameByUserId(Auth::user()->id);
-            if($role== 'Admin' || $role=='Moderator'){
+            if($role== 'Admin' || $role=='Agent'){
                 if(isset($complain_status) && !empty($complain_status)){
                     $list   = ComplainDetails::where('complain_status',$complain_status)->orderBy('created_at', 'desc')->get();
                 }else{
