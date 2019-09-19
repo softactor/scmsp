@@ -62,7 +62,7 @@ class ComplainDetailsController extends Controller
             $editData   = ComplainDetails::find($request->id);
             $activeMenuClass    =   'complain-details';
             $role   =   getRoleNameByUserId(Auth::user()->id);
-            if($role== 'Admin' || $role=='Moderator'){
+            if($role== 'Admin' || $role=='Agent'){
                 return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
             }else{
                 return View('scmsp.backend.complain_details.edit_technician',  compact('editData','activeMenuClass'));
@@ -96,7 +96,9 @@ class ComplainDetailsController extends Controller
                             ->withInput();
             }
             
+            $complainerCode                        =   getComplainCode($request->complain_date);
             $complain_details                      =   new ComplainDetails;
+            $complain_details->complainer_code     =   $complainerCode;
             $complain_details->category_id         =   $request->category_id;
             $complain_details->complain_type_id    =   $request->complain_type_id;
             $complain_details->complainer          =   $request->complainer;
@@ -119,9 +121,27 @@ class ComplainDetailsController extends Controller
                 'assign_to'     =>  $request->assign_to,
                 'current_status'=>  $request->complain_status,
                 'created_at'    =>  date('Y-m-d H:i:s')
+            ];           
+            $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
+            
+            $message  = '';
+            $message .= "Dear Valued Customer,";
+            $message .= chr(10) . "Your complain have been successfully received.";
+            $message .= chr(10) . "Complain ID is:";
+            $message .= chr(10) . $complainerCode;
+            $message .= chr(10) . "Thanks";
+            $message .= chr(10) . "SAIF Powertec Ltd";
+            $smsParam   =   [
+                'contacts'  =>  $request->complainer,
+                'msg'       =>  $message
             ];
-            DB::table('complain_details_history')->insert($detailsHistoryData);
-            return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
+            $sms_response   =   sending_sms($smsParam);
+            $historyUpdateParam     =   [
+                'is_sms_send'   =>  1,
+                'sms_response'  =>  $sms_response,
+            ];
+            DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+        return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
 	}
         
         /*
@@ -133,7 +153,7 @@ class ComplainDetailsController extends Controller
 	*/
        public function update(Request $request) {
            $role   =   getRoleNameByUserId(Auth::user()->id);
-            if($role== 'Admin' || $role=='Moderator'){
+            if($role== 'Admin' || $role=='Agent'){
                 $rules = [
                     'category_id'       => 'required',
                     'complain_type_id'  => 'required',
@@ -162,7 +182,9 @@ class ComplainDetailsController extends Controller
             }
 
             $complain_details                       = ComplainDetails::find($request->edit_id);
-            if($role== 'Admin' || $role=='Moderator'){
+            $complainerCode                         = $complain_details->complainer_code;
+            $complainerPhone                        = $complain_details->complainer;
+            if($role== 'Admin' || $role=='Agent'){
                 $complain_details->category_id          = $request->category_id;
                 $complain_details->complain_type_id     = $request->complain_type_id;
                 $complain_details->complainer           = $request->complainer;
@@ -192,7 +214,27 @@ class ComplainDetailsController extends Controller
                 'created_at'    =>  date('Y-m-d H:i:s'),
                 'updated_at'    =>  date('Y-m-d H:i:s')
             ];
-            DB::table('complain_details_history')->insert($detailsHistoryData);
+            $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
+            $complain_status   =   get_data_name_by_id('complain_statuses',$request->complain_status)->name;
+            if($complain_status == 'Solved'){
+                $message  = '';
+                $message .= "Dear Valued Customer,";
+                $message .= chr(10) . "Your complain have been successfully Resolved.";
+                $message .= chr(10) . "Complain ID is:";
+                $message .= chr(10) . $complainerCode;
+                $message .= chr(10) . "Thanks";
+                $message .= chr(10) . "SAIF Powertec Ltd";
+                $smsParam   =   [
+                    'contacts'  =>  $complainerPhone,
+                    'msg'       =>  $message
+                ];
+                $sms_response   =   sending_sms($smsParam);
+                $historyUpdateParam     =   [
+                    'is_sms_send'   =>  1,
+                    'sms_response'  =>  $sms_response,
+                ];
+                DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+            }
             return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');
         }
 

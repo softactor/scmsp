@@ -21,12 +21,12 @@
            <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Code</th>
                             <th>Priority</th>
                             <th>Complain date</th>
                             <th>Complain raw date</th>
                             <th>complainer</th>
                             <th>Complain Type</th>
-                            <th>Details</th>
                             <th>Status</th>
                             <th>In-Charge</th>
                             <th>Created By</th>
@@ -35,12 +35,12 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>Code</th>
                             <th>Priority</th>
                             <th>Complain date</th>
                             <th>Complain raw date</th>
                             <th>complainer</th>
                             <th>Complain Type</th>
-                            <th>Details</th>
                             <th>Status</th>
                             <th>In-Charge</th>
                             <th>Created By</th>
@@ -55,12 +55,12 @@
                                 $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
+                            <td><?php echo $data->complainer_code; ?></td>
                             <td>{{ get_data_name_by_id('complain_priorites',$data->priority_id)->name }}</td>
                             <td><?php echo human_format_date($data->created_at); ?></td>
                             <td><?php echo $data->created_at; ?></td>
                             <td>{{ $data->complainer }}</td>                            
                             <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
-                            <td>{{ $data->complain_details }}</td>
                             <td>
                                 <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
                                     {{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}

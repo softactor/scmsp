@@ -18,7 +18,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
-                @include('scmsp.backend.partial.dashboard_complain_search')
+                <!--@include('scmsp.backend.partial.dashboard_complain_search')-->
             </div>
             <div class="row">
                 <?php 
@@ -45,7 +45,7 @@
                                 <div class="card text-white bg-danger o-hidden h-100">
                                     <div class="card-body">
                                         <div class="card-body-icon">
-                                            <i class="fas fa-fw fa-life-ring"></i>
+                                            <!--<i class="fas fa-fw fa-life-ring"></i>-->
                                         </div>
                                         <div class="mr-5">
                                             <?php echo $totalPending.' Pending'; ?>
@@ -74,7 +74,7 @@
                             <div class="card text-white bg-primary o-hidden h-100">
                                 <div class="card-body">
                                     <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-comments"></i>
+                                        <!--<i class="fas fa-fw fa-comments"></i>-->
                                     </div>
                                     <div class="mr-5"><?php echo $totalprocessing.' Processing'; ?></div>
                                 </div>
@@ -101,7 +101,7 @@
                             <div class="card text-white bg-success o-hidden h-100">
                                 <div class="card-body">
                                     <div class="card-body-icon">
-                                        <i class="fas fa-fw fa-shopping-cart"></i>
+                                        <!--<i class="fas fa-fw fa-shopping-cart"></i>-->
                                     </div>
                                     <div class="mr-5"><?php echo $totalsolved.' Solved'; ?></div>
                                 </div>

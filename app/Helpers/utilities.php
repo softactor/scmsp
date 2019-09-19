@@ -1,5 +1,6 @@
 <?php
-/* 
+
+/*
  * utilities method will be use for access frequently data from every where.
  * there will be custom method for custom result
  * @author: Tanveer Qureshee
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\URL;
 
 // GET TABLE DATA BY TABLE NAME:
 
-function get_table_data_by_table($table, $order_by  =   null){
-    $result     =    DB::table($table);
-    if(isset($order_by['order_by'])){
+function get_table_data_by_table($table, $order_by = null) {
+    $result = DB::table($table);
+    if (isset($order_by['order_by'])) {
         $result->orderBy($order_by['order_by_column'], $order_by['order_by']);
     }
     return $result->get();
@@ -23,161 +24,202 @@ function get_table_data_by_table($table, $order_by  =   null){
 
 // GET TABLE DATA BY TABLE NAME:
 
-function get_data_name_by_id($table,$id){
+function get_data_name_by_id($table, $id) {
     return DB::table($table)->where('id', '=', $id)->first();
 }
 
-function get_data_name_by_where($table,$where){
+function get_data_name_by_where($table, $where) {
     return DB::table($table)->where($where)->first();
 }
 
 // CHECK DUPLICATE DATA ENTRY:
 
-function check_duplicate_data($data){
-    $result     =    DB::table($data['table'])->where($data['where'])->first();
-    if(isset($result) && !empty($result)){
+function check_duplicate_data($data) {
+    $result = DB::table($data['table'])->where($data['where'])->first();
+    if (isset($result) && !empty($result)) {
         return $result->id;
-    }else{
+    } else {
         return false;
     }
 }
+
 // GET TABLE DATA BY TABLE NAME:
 
-function get_table_data_by_clause($data){
-    $result     =    DB::table($data['table'])
+function get_table_data_by_clause($data) {
+    $result = DB::table($data['table'])
             ->where($data['where']);
-    if(isset($data['order_by'])){
+    if (isset($data['order_by'])) {
         $result->orderBy($data['order_by_column'], $data['order_by']);
     }
-    $result_data    =   $result->get();
-    if(isset($result_data) && !empty($result_data)){
+    $result_data = $result->get();
+    if (isset($result_data) && !empty($result_data)) {
         return $result_data;
-    }else{
+    } else {
         return false;
     }
-} 
+}
 
-function hasAccessPermission($role, $module, $accessType){
-    $accessAllPermission   =   DB::table('permissions')
-                ->where('user_type',$role)
-                ->where('isallpermission',1)
-                ->first();
-    if(isset($accessAllPermission) && !empty($accessAllPermission)){
+function hasAccessPermission($role, $module, $accessType) {
+    $accessAllPermission = DB::table('permissions')
+            ->where('user_type', $role)
+            ->where('isallpermission', 1)
+            ->first();
+    if (isset($accessAllPermission) && !empty($accessAllPermission)) {
         return true;
-    }    
-    $accessmodAccPermission   =   DB::table('permissions')
-                ->where('user_type',$role)
-                ->where('module',$module)
-                ->where($accessType,1)
-                ->first();
-    if(isset($accessmodAccPermission) && !empty($accessmodAccPermission)){
+    }
+    $accessmodAccPermission = DB::table('permissions')
+            ->where('user_type', $role)
+            ->where('module', $module)
+            ->where($accessType, 1)
+            ->first();
+    if (isset($accessmodAccPermission) && !empty($accessmodAccPermission)) {
         return true;
-    } 
-    $accessmodAccPermission   =   DB::table('permissions')
-                ->where('user_type',$role)
-                ->where('module',$module)
-                ->where('isallmodulepermission',1)
-                ->first();
-    if(isset($accessmodAccPermission) && !empty($accessmodAccPermission)){
+    }
+    $accessmodAccPermission = DB::table('permissions')
+            ->where('user_type', $role)
+            ->where('module', $module)
+            ->where('isallmodulepermission', 1)
+            ->first();
+    if (isset($accessmodAccPermission) && !empty($accessmodAccPermission)) {
         return true;
-    } 
-    
+    }
+
     return false;
 }
-function getRoleWiseUser($role_id){
+
+function getRoleWiseUser($role_id) {
     $users = DB::table('users as u')
             ->join('model_has_roles as mhr', 'u.id', '=', 'mhr.model_id')
             ->join('roles as r', 'r.id', '=', 'mhr.role_id')
-            ->where('r.id','=',$role_id)
+            ->where('r.id', '=', $role_id)
             ->select(DB::raw('CONCAT(u.first_name,u.last_name) AS name'), "u.id")
             ->get();
     return $users;
 }
 
-function getRoleIdByUserId($user_id){
-    $role   =   DB::table('model_has_roles as hr')
-                ->where('hr.model_id',$user_id)
-                ->first();
-    return  $role->role_id;
-}
-function getRoleNameByUserId($user_id){
-    $role   =   DB::table('users as u')
-                ->select('r.name as role_name')
-                ->join('user_roles as ur','ur.user_id', '=', 'u.id')
-                ->join('roles as r','r.id', '=', 'ur.role_id')
-                ->where('u.id',$user_id)
-                ->first();
-    return  $role->role_name;
+function getRoleIdByUserId($user_id) {
+    $role = DB::table('model_has_roles as hr')
+            ->where('hr.model_id', $user_id)
+            ->first();
+    return $role->role_id;
 }
 
-function getTableTotalRows($data){
-    $field  =   $data['field'];
-    $total_row   =   DB::table($data['table'])
-                            ->select(DB::raw("count($field) as total"))
-                            ->where($data['where'])
-                            ->first();
+function getRoleNameByUserId($user_id) {
+    $role = DB::table('users as u')
+            ->select('r.name as role_name')
+            ->join('user_roles as ur', 'ur.user_id', '=', 'u.id')
+            ->join('roles as r', 'r.id', '=', 'ur.role_id')
+            ->where('u.id', $user_id)
+            ->first();
+    return $role->role_name;
+}
+
+function getTableTotalRows($data) {
+    $field = $data['field'];
+    $total_row = DB::table($data['table'])
+            ->select(DB::raw("count($field) as total"))
+            ->where($data['where'])
+            ->first();
     return $total_row;
 }
-    
-function get_settings_value($key){
-    $data     = DB::table('settings')->where('name', $key)->first();
-    if(isset($data) && !empty($data)){
-        switch($data->data_type){
+
+function get_settings_value($key) {
+    $data = DB::table('settings')->where('name', $key)->first();
+    if (isset($data) && !empty($data)) {
+        switch ($data->data_type) {
             case 'csv':
                 $get_values = explode(',', $data->values);
                 break;
         }
         return $get_values;
     }
-
 }
-function setActiveMenuClass($menuName,  $currentMenu, $activeClass='active'){
-    if($menuName == $currentMenu){
+
+function setActiveMenuClass($menuName, $currentMenu, $activeClass = 'active') {
+    if ($menuName == $currentMenu) {
         return $activeClass;
-    }else{
+    } else {
         return 'inactive';
     }
 }
 
-function get_status_wise_row_color($complain_status){
-    $status     =   get_data_name_by_id('complain_statuses',$complain_status)->name;
-    switch($status){
+function get_status_wise_row_color($complain_status) {
+    $status = get_data_name_by_id('complain_statuses', $complain_status)->name;
+    switch ($status) {
         case 'Pending':
-            $color  =   'bg-danger';
+            $color = 'bg-danger';
             break;
         case 'Solved':
-            $color  =   'bg-success';
+            $color = 'bg-success';
             break;
         case 'Processing':
-            $color  =   'bg-info';
+            $color = 'bg-info';
             break;
         default:
-            $color  =   'bg-primary';
+            $color = 'bg-primary';
             break;
     }
     return $color;
 }
-function human_format_date($timestamp){
+
+function human_format_date($timestamp) {
     return date("jS M, Y h:i:a", strtotime($timestamp)); //September 30th, 2013
 }
 
-function isAgentRole($roleName){
-    if($roleName == 'Agent'){
+function isAgentRole($roleName) {
+    if ($roleName == 'Agent') {
         return true;
     }
     return false;
 }
-function getTableTotalRowsByFieldValues($data){
-    $total_row   =   DB::table($data['table'])
-                            ->select(DB::raw("count(id) as total"))
-                            ->where($data['where'])
-                            ->first();
+
+function getTableTotalRowsByFieldValues($data) {
+    $total_row = DB::table($data['table'])
+            ->select(DB::raw("count(id) as total"))
+            ->where($data['where'])
+            ->first();
     return $total_row;
 }
-function generate_serial_number($data){
-        $alphanum       = $data['alphanum'];
-        $next_id        = sprintf('%06d', $data['next_id']);
-        $event          = sprintf('%04d', $data['event_id']);
-        $comingDigit    = $event.$alphanum.$next_id;
-        return $comingDigit;
-    }
+
+function generate_serial_number($data) {
+    $alphanum = $data['alphanum'];
+    $next_id = sprintf('%06d', $data['next_id']);
+    $event = sprintf('%04d', $data['event_id']);
+    $comingDigit = $event . $alphanum . $next_id;
+    return $comingDigit;
+}
+// get Daily Assignment Import Code:
+function getComplainCode($date, $prefix="COM"){
+    $total_row = DB::table('complain_details')
+            ->select(DB::raw("count(id) as total_row"))
+            ->where('issued_date', $date)
+            ->first();
+    $number             = intval($total_row->total_row) + 1;
+    $dateFormatExplode  = explode('-', $date);
+    $dateFormat         = $dateFormatExplode[0].$dateFormatExplode[1].$dateFormatExplode[2];
+    $defaultCode        = $prefix.$dateFormat.sprintf('%08d', $number);
+    return $defaultCode;
+
+}
+function sending_sms($smsData) {
+    $curl = curl_init();
+// Set some options - we are passing in a useragent too here
+    curl_setopt_array($curl, [
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => 'http://users.sendsmsbd.com/smsapi',
+        CURLOPT_USERAGENT => 'SMS Process',
+        CURLOPT_POST => 1,
+        CURLOPT_POSTFIELDS => [
+            'api_key'   => 'C20042245d5bcca0a4bc54.80275636',
+            'type'      => 'text',
+            'senderid'  => '8804445629107',
+            'contacts'  => '88'.$smsData['contacts'],
+            'msg'       => $smsData['msg'],
+        ]
+    ]);
+// Send the request & save response to $resp
+    $resp = curl_exec($curl);
+// Close request to clear up some resources
+    curl_close($curl);
+    return $resp;
+}
