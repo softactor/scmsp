@@ -124,15 +124,11 @@ function getTableTotalRows($data) {
 }
 
 function get_settings_value($key) {
-    $data = DB::table('settings')->where('name', $key)->first();
+    $data = DB::table('settings')->where('setting_key', $key)->first();
     if (isset($data) && !empty($data)) {
-        switch ($data->data_type) {
-            case 'csv':
-                $get_values = explode(',', $data->values);
-                break;
-        }
-        return $get_values;
+        return $data->setting_value;
     }
+    return 0;
 }
 
 function setActiveMenuClass($menuName, $currentMenu, $activeClass = 'active') {

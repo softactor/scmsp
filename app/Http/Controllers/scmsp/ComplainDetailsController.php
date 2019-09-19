@@ -123,25 +123,26 @@ class ComplainDetailsController extends Controller
                 'created_at'    =>  date('Y-m-d H:i:s')
             ];           
             $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
-            
-            $message  = '';
-            $message .= "Dear Valued Customer,";
-            $message .= chr(10) . "Your complain have been successfully received.";
-            $message .= chr(10) . "Complain ID is:";
-            $message .= chr(10) . $complainerCode;
-            $message .= chr(10) . "Thanks";
-            $message .= chr(10) . "SAIF Powertec Ltd";
-            $smsParam   =   [
-                'contacts'  =>  $request->complainer,
-                'msg'       =>  $message
-            ];
-            $sms_response   =   sending_sms($smsParam);
-            $historyUpdateParam     =   [
-                'is_sms_send'   =>  1,
-                'sms_response'  =>  $sms_response,
-            ];
-            DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
-        return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
+            if(get_settings_value('send_sms')){
+                $message  = '';
+                $message .= "Dear Valued Customer,";
+                $message .= chr(10) . "Your complain have been successfully received.";
+                $message .= chr(10) . "Complain ID is:";
+                $message .= chr(10) . $complainerCode;
+                $message .= chr(10) . "Thanks";
+                $message .= chr(10) . "SAIF Powertec Ltd";
+                $smsParam   =   [
+                    'contacts'  =>  $request->complainer,
+                    'msg'       =>  $message
+                ];
+                $sms_response   =   sending_sms($smsParam);
+                $historyUpdateParam     =   [
+                    'is_sms_send'   =>  1,
+                    'sms_response'  =>  $sms_response,
+                ];
+                DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+            }
+            return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
 	}
         
         /*
@@ -152,91 +153,93 @@ class ComplainDetailsController extends Controller
 	Author		: Tanveer Qureshee
 	*/
        public function update(Request $request) {
-           $role   =   getRoleNameByUserId(Auth::user()->id);
-            if($role== 'Admin' || $role=='Agent'){
-                $rules = [
-                    'category_id'       => 'required',
-                    'complain_type_id'  => 'required',
-                    'complainer'        => 'required',
-                    'complain_details'  => 'required',
-                    'complain_date'     => 'required',
-                    'complain_status'   => 'required',
-                    'div_id'            => 'required',
-                    'dept_id'           => 'required',
-                    'assign_to'         => 'required',
-                    'priority_id'       => 'required',
-                ];
-            }else{
-                $rules = [
-                    'feedback_details'  => 'required',
-                    'complain_status'   => 'required',
-                ];
-            }
-            $validator = Validator::make($request->all(), $rules);
-
-            if ($validator->fails()) {
-                return redirect('admin/complain-details-edit/' . $request->edit_id)
-                                ->withInput()
-                                ->with('error', 'Failed to update data. Pleae fix the validation.')
-                                ->withErrors($validator);
-            }
-
-            $complain_details                       = ComplainDetails::find($request->edit_id);
-            $complainerCode                         = $complain_details->complainer_code;
-            $complainerPhone                        = $complain_details->complainer;
-            if($role== 'Admin' || $role=='Agent'){
-                $complain_details->category_id          = $request->category_id;
-                $complain_details->complain_type_id     = $request->complain_type_id;
-                $complain_details->complainer           = $request->complainer;
-                $complain_details->complain_details     = $request->complain_details;
-                $complain_details->issued_date          = $request->complain_date;
-                $complain_details->division_id          = $request->div_id;
-                $complain_details->department_id        = $request->dept_id;
-                $complain_details->complain_status      = $request->complain_status;
-                $complain_details->assign_to            = $request->assign_to;
-                $complain_details->priority_id          = $request->priority_id;
-                $complain_details->updated_at           = date('Y-m-d H:i:s');
-                $descriptions                           = $request->complain_details;
-            }else{
-                $complain_details->feedback_details     = $request->feedback_details;
-                $complain_details->updated_at           = date("Y-m-d H:i:s");
-                $complain_details->complain_status      = $request->complain_status;
-                $descriptions                           = $request->feedback_details;
-            }
-            $complain_details->save();
-            
-            $detailsHistoryData                    =    [
-                'complain_id'   =>  $request->edit_id,
-                'descriptions'  =>  $descriptions,
-                'assign_to'     =>  (isset($request->assign_to) && !empty($request->assign_to) ? $request->assign_to : $complain_details->assign_to),
-                'updated_by'    =>  Auth::user()->id,
-                'current_status'=>  $request->complain_status,
-                'created_at'    =>  date('Y-m-d H:i:s'),
-                'updated_at'    =>  date('Y-m-d H:i:s')
+        $role = getRoleNameByUserId(Auth::user()->id);
+        if ($role == 'Admin' || $role == 'Agent') {
+            $rules = [
+                'category_id' => 'required',
+                'complain_type_id' => 'required',
+                'complainer' => 'required',
+                'complain_details' => 'required',
+                'complain_date' => 'required',
+                'complain_status' => 'required',
+                'div_id' => 'required',
+                'dept_id' => 'required',
+                'assign_to' => 'required',
+                'priority_id' => 'required',
             ];
-            $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
-            $complain_status   =   get_data_name_by_id('complain_statuses',$request->complain_status)->name;
-            if($complain_status == 'Solved'){
-                $message  = '';
+        } else {
+            $rules = [
+                'feedback_details' => 'required',
+                'complain_status' => 'required',
+            ];
+        }
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect('admin/complain-details-edit/' . $request->edit_id)
+                            ->withInput()
+                            ->with('error', 'Failed to update data. Pleae fix the validation.')
+                            ->withErrors($validator);
+        }
+
+        $complain_details = ComplainDetails::find($request->edit_id);
+        $complainerCode = $complain_details->complainer_code;
+        $complainerPhone = $complain_details->complainer;
+        if ($role == 'Admin' || $role == 'Agent') {
+            $complain_details->category_id = $request->category_id;
+            $complain_details->complain_type_id = $request->complain_type_id;
+            $complain_details->complainer = $request->complainer;
+            $complain_details->complain_details = $request->complain_details;
+            $complain_details->issued_date = $request->complain_date;
+            $complain_details->division_id = $request->div_id;
+            $complain_details->department_id = $request->dept_id;
+            $complain_details->complain_status = $request->complain_status;
+            $complain_details->assign_to = $request->assign_to;
+            $complain_details->priority_id = $request->priority_id;
+            $complain_details->updated_at = date('Y-m-d H:i:s');
+            $descriptions = $request->complain_details;
+        } else {
+            $complain_details->feedback_details = $request->feedback_details;
+            $complain_details->updated_at = date("Y-m-d H:i:s");
+            $complain_details->complain_status = $request->complain_status;
+            $descriptions = $request->feedback_details;
+        }
+        $complain_details->save();
+
+        $detailsHistoryData = [
+            'complain_id' => $request->edit_id,
+            'descriptions' => $descriptions,
+            'assign_to' => (isset($request->assign_to) && !empty($request->assign_to) ? $request->assign_to : $complain_details->assign_to),
+            'updated_by' => Auth::user()->id,
+            'current_status' => $request->complain_status,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+        $lastHistoryId = DB::table('complain_details_history')->insertGetId($detailsHistoryData);
+        $complain_status = get_data_name_by_id('complain_statuses', $request->complain_status)->name;
+        if (get_settings_value('send_sms')) {
+            if ($complain_status == 'Solved') {
+                $message = '';
                 $message .= "Dear Valued Customer,";
                 $message .= chr(10) . "Your complain have been successfully Resolved.";
                 $message .= chr(10) . "Complain ID is:";
                 $message .= chr(10) . $complainerCode;
                 $message .= chr(10) . "Thanks";
                 $message .= chr(10) . "SAIF Powertec Ltd";
-                $smsParam   =   [
-                    'contacts'  =>  $complainerPhone,
-                    'msg'       =>  $message
+                $smsParam = [
+                    'contacts' => $complainerPhone,
+                    'msg' => $message
                 ];
-                $sms_response   =   sending_sms($smsParam);
-                $historyUpdateParam     =   [
-                    'is_sms_send'   =>  1,
-                    'sms_response'  =>  $sms_response,
+                $sms_response = sending_sms($smsParam);
+                $historyUpdateParam = [
+                    'is_sms_send' => 1,
+                    'sms_response' => $sms_response,
                 ];
                 DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
             }
-            return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');
         }
+        return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');
+    }
 
     /*
 	Method Name	: delete
