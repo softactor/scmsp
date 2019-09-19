@@ -158,7 +158,7 @@ function get_status_wise_row_color($complain_status){
     return $color;
 }
 function human_format_date($timestamp){
-    return date("jS F, Y h:i:a", strtotime($timestamp)); //September 30th, 2013
+    return date("jS M, Y h:i:a", strtotime($timestamp)); //September 30th, 2013
 }
 
 function isAgentRole($roleName){
