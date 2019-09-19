@@ -118,7 +118,7 @@ class ComplainDetailsController extends Controller
                 'updated_by'    =>  Auth::user()->id,
                 'assign_to'     =>  $request->assign_to,
                 'current_status'=>  $request->complain_status,
-                'created_at'    =>  date('Y-m-d h:i:s')
+                'created_at'    =>  date('Y-m-d H:i:s')
             ];
             DB::table('complain_details_history')->insert($detailsHistoryData);
             return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
@@ -189,8 +189,8 @@ class ComplainDetailsController extends Controller
                 'assign_to'     =>  (isset($request->assign_to) && !empty($request->assign_to) ? $request->assign_to : $complain_details->assign_to),
                 'updated_by'    =>  Auth::user()->id,
                 'current_status'=>  $request->complain_status,
-                'created_at'    =>  date('Y-m-d h:i:s'),
-                'updated_at'    =>  date('Y-m-d h:i:s')
+                'created_at'    =>  date('Y-m-d H:i:s'),
+                'updated_at'    =>  date('Y-m-d H:i:s')
             ];
             DB::table('complain_details_history')->insert($detailsHistoryData);
             return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');
