@@ -18,11 +18,12 @@
                <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.complain-details-create') }}" >Create New</a>
                 <?php } ?>
            @include('scmsp.backend.partial.operation_message') 
-           <table class="table table-bordered complain_details_table_style list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
+           <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Priority</th>
                             <th>Complain date</th>
+                            <th>Complain raw date</th>
                             <th>complainer</th>
                             <th>Complain Type</th>
                             <th>Details</th>
@@ -36,6 +37,7 @@
                         <tr>
                             <th>Priority</th>
                             <th>Complain date</th>
+                            <th>Complain raw date</th>
                             <th>complainer</th>
                             <th>Complain Type</th>
                             <th>Details</th>
@@ -55,6 +57,7 @@
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
                             <td>{{ get_data_name_by_id('complain_priorites',$data->priority_id)->name }}</td>
                             <td><?php echo human_format_date($data->created_at); ?></td>
+                            <td><?php echo $data->created_at; ?></td>
                             <td>{{ $data->complainer }}</td>                            
                             <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
                             <td>{{ $data->complain_details }}</td>

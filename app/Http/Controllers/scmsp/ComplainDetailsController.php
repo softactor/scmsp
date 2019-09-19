@@ -24,15 +24,15 @@ class ComplainDetailsController extends Controller
             $role   =   getRoleNameByUserId(Auth::user()->id);
             if($role== 'Admin' || $role=='Agent'){
                 if(isset($complain_status) && !empty($complain_status)){
-                    $list   = ComplainDetails::where('complain_status',$complain_status)->orderBy('created_at', 'desc')->get();
+                    $list   = ComplainDetails::where('complain_status',$complain_status)->orderBy('created_at', 'DESC')->get();
                 }else{
-                    $list   = ComplainDetails::orderBy('created_at', 'desc')->get();
+                    $list   = ComplainDetails::orderBy('created_at', 'DESC')->get();
                 }
             }else{
                 if(isset($complain_status) && !empty($complain_status)){
-                    $list   = ComplainDetails::where('complain_status',$complain_status)->where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
+                    $list   = ComplainDetails::where('complain_status',$complain_status)->where('assign_to',Auth::user()->id)->orderBy('created_at', 'DESC')->get();
                 }else{
-                    $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'desc')->get();
+                    $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'DESC')->get();
                 }
             }
             /* selected menue data */
