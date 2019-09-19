@@ -54,7 +54,7 @@
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
                             <td>{{ get_data_name_by_id('complain_priorites',$data->priority_id)->name }}</td>
-                            <td><?php echo human_format_date($data->issued_date); ?></td>
+                            <td><?php echo human_format_date($data->created_at); ?></td>
                             <td>{{ $data->complainer }}</td>                            
                             <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
                             <td>{{ $data->complain_details }}</td>
