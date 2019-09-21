@@ -96,7 +96,13 @@ p {
 .logo{
 color:#fff;
 font-size:50px;
-  line-height: 190px;
+line-height: 190px;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo {
+    line-height: 120px;
+  }
 }
 
 #login form span.fa {
