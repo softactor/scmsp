@@ -18,6 +18,7 @@
                <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.complain-details-create') }}" >Create New</a>
                 <?php } ?>
            @include('scmsp.backend.partial.operation_message') 
+           <div class="table-responsive">
            <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -83,6 +84,7 @@
                          <?php }} ?>
                     </tbody>
                 </table>
+                </div>
         </div>
     </div>
 </div>

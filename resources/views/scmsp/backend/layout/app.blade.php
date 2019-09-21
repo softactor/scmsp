@@ -29,7 +29,6 @@
 .sidebar .nav-item .nav-link {
         height:40px;
         color:#ffffff;
-        border-bottom:1px solid gray;
         padding-top:8px;
 }}
 .sidebar{
@@ -38,6 +37,9 @@
 .submenu_selector{
         background-color:#dc3545;
         color:#ffffff;
+}
+.nav-item{
+     border-bottom: 1px solid gray;
 }
         </style>
     </head>
