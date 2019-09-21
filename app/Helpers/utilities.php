@@ -25,11 +25,21 @@ function get_table_data_by_table($table, $order_by = null) {
 // GET TABLE DATA BY TABLE NAME:
 
 function get_data_name_by_id($table, $id) {
-    return DB::table($table)->where('id', '=', $id)->first();
+    $result     =   '';
+    $result     =    DB::table($table)->where('id', '=', $id)->first();
+    if(isset($result) && !empty($result)){
+        return $result;
+    }
+    return $result;
 }
 
 function get_data_name_by_where($table, $where) {
-    return DB::table($table)->where($where)->first();
+    $result     =   '';
+    $result     =    DB::table($table)->where($where)->first();
+    if(isset($result) && !empty($result)){
+        return $result;
+    }
+    return $result;
 }
 
 // CHECK DUPLICATE DATA ENTRY:
