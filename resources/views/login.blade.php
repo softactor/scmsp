@@ -18,30 +18,38 @@
             <div class="container">                
                 <center>
                     <div class="row">
-                        <div class="col col-md-6">
+                        <div class="col-md-6">
                             @include('opmessage')
                         </div>
                     </div>
-                    <div class="middle">
-                        <div class="logo">
-                            <img src="{{ asset('scmsp/icon/cms_200x200.png') }}"/>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div id="login">
-                            <form action="{{ route('login') }}" method="POST">
-                                @csrf
-                                <fieldset class="clearfix">
-                                    <p><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
-                                    <p><span class="fa fa-lock"></span><input placeholder="Password" name="password" type="password" id="password" required></p>
-                                    <div>
-                                        <span style="width:100%; text-align:right;  display: inline-block;">
-                                            <input style="width: 100%" type="submit" value="Login"></span>
-                                    </div>
-                                </fieldset>
+                    <div class="row" style="max-width:600px;padding-right:150px;">
+                        <div class="col-md-6">
+                            <div class="logo">
+                                <img src="{{ asset('scmsp/icon/cms_200x200.png') }}"/>
                                 <div class="clearfix"></div>
-                            </form>
-                            <div class="clearfix"></div>
-                        </div> <!-- end login -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="login">
+                                <form action="{{ route('login') }}" method="POST">
+                                    @csrf
+                                    <fieldset class="clearfix">
+                                        <p><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
+                                        <p><span class="fa fa-lock"></span><input placeholder="Password" name="password" type="password" id="password" required></p>
+                                        <div>
+                                            <span style="width:100%; text-align:right;  display: inline-block;">
+                                                <input style="width: 100%" type="submit" value="Login"></span>
+                                        </div>
+                                    </fieldset>
+                                    <div class="clearfix"></div>
+                                </form>
+                                <div class="clearfix"></div>
+                            </div> <!-- end login -->
+                        </div>
+                    </div>
+                    <div class="middle">
+                        
+                        
                     </div>
                 </center>
             </div>
