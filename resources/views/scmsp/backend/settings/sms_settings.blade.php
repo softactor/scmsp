@@ -24,7 +24,7 @@
                         <input type="radio" class="form-check-input" name="send_sms" value="0" <?php if(isset($send_sms_value) && $send_sms_value==0) { echo 'checked'; } ?>>Disable
                     </label>
                 </div>
-                <input type="submit" name="sms_status" class="btn btn-primary" value="Save">
+                <input type="submit" name="sms_status" class="btn btn-sm btn-primary" value="Save">
             </form>
         </div>
     </div>
