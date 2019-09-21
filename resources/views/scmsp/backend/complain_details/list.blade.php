@@ -57,14 +57,27 @@
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
                             <td><?php echo $data->complainer_code; ?></td>
-                            <td>{{ get_data_name_by_id('complain_priorites',$data->priority_id)->name }}</td>
+                            <td>
+                                <?php 
+                                    $res    =   get_data_name_by_id('complain_priorites',$data->priority_id);
+                                    echo    (isset($res) && !empty($res) ? $res->name : 'No data found');
+                                ?>
+                            </td>
                             <td><?php echo human_format_date($data->created_at); ?></td>
                             <td><?php echo $data->created_at; ?></td>
                             <td>{{ $data->complainer }}</td>                            
-                            <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
                             <td>
-                                <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
-                                    {{ get_data_name_by_id('complain_statuses',$data->complain_status)->name }}
+                                <?php 
+                                        $res    =   get_data_name_by_id('complain_types',$data->complain_type_id);
+                                        echo    (isset($res) && !empty($res) ? $res->name : 'No data found');
+                                    ?>
+                            </td>                            
+                            <td>
+                                <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">                                    
+                                    <?php 
+                                        $res    =   get_data_name_by_id('complain_statuses',$data->complain_status);
+                                        echo    (isset($res) && !empty($res) ? $res->name : 'No data found');
+                                    ?>
                                 </a>
                             </td>
                             <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
