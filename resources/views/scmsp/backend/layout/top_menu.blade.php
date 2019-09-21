@@ -7,8 +7,10 @@
     $roleName = getRoleNameByUserId(Auth::user()->id);
     if (isAgentRole($roleName)) {
         if (hasAccessPermission($roleName, 'Complain details', 'addaccess')) {
-            ?>
-            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.complain-details-create') }}" >New Complain</a>
+            ?>            
+            <a class="" href="{{ route('admin.complain-details-create') }}" >
+                <button type="button" class="btn btn-sm btn-success float-right margin-fixing">New Complain</button>
+            </a>
         <?php }
     } ?>
     <ul class="navbar-nav ml-auto ml-md-12">
