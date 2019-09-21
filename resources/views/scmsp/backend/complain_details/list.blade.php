@@ -15,7 +15,9 @@
                     $roleName                   =   getRoleNameByUserId(Auth::user()->id);
                     if(hasAccessPermission($roleName, 'Complain details', 'addaccess')){
                 ?>
-               <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.complain-details-create') }}" >Create New</a>
+            <a class="" href="{{ route('admin.complain-details-create') }}" >
+                <button type="button" class="btn btn-sm btn-success float-right margin-fixing">New Complain</button>
+            </a>
                 <?php } ?>
            @include('scmsp.backend.partial.operation_message') 
            <div class="table-responsive">
@@ -69,7 +71,7 @@
                             <td>
                                 <?php 
                                         $res    =   get_data_name_by_id('complain_types',$data->complain_type_id);
-                                        echo    (isset($res) && !empty($res) ? $res->name : 'No data found');
+                                        echo    (isset($res) && !empty($res) ? short_str($res->name) : 'No data found');
                                     ?>
                             </td>                            
                             <td>

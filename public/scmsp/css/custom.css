@@ -59,3 +59,6 @@ table.complain_details_history_table_style tr th{
 h2.list_second_heading_style{
     font-size: 15px;
 }
+.margin-fixing{
+    margin: 0 0 1% 0;
+}

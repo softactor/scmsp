@@ -229,3 +229,15 @@ function sending_sms($smsData) {
     curl_close($curl);
     return $resp;
 }
+
+function short_str($str, $max = 50) {
+    $str = trim($str);
+    if (strlen($str) > $max) {
+        $s_pos = strpos($str, ' ');
+        $cut = $s_pos === false || $s_pos > $max;
+        $str = wordwrap($str, $max, ';;', $cut);
+        $str = explode(';;', $str);
+        $str = $str[0] . '...';
+    }
+    return $str;
+}
