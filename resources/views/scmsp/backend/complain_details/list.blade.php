@@ -66,7 +66,12 @@
                             <td><?php echo human_format_date($data->created_at); ?></td>
                             <td><?php echo $data->created_at; ?></td>
                             <td>{{ $data->complainer }}</td>                            
-                            <td>{{ get_data_name_by_id('complain_types',$data->complain_type_id)->name }}</td>                            
+                            <td>
+                                <?php 
+                                        $res    =   get_data_name_by_id('complain_types',$data->complain_type_id);
+                                        echo    (isset($res) && !empty($res) ? $res->name : 'No data found');
+                                    ?>
+                            </td>                            
                             <td>
                                 <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">                                    
                                     <?php 
