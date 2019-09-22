@@ -18,7 +18,7 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
             <i class="fas fa-fw fa-info" aria-hidden="true" style="color:#dc3545;"></i>
             <span>Settings</span>
         </a>
-        <div class="dropdown-menu <?php echo setActiveMenuClass($activeMenu, 'settings', 'show') ?>" aria-labelledby="pagesDropdown">
+        <div class="dropdown-menu <?php echo setActiveMenuClass($activeMenu, 'settings', 'hide') ?>" aria-labelledby="pagesDropdown">
             <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'division-list', 'submenu_selector') ?>" href="{{ route('admin.department-list') }}">
                 <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
                 <span class="sub_menu_text_design">Division</span>
