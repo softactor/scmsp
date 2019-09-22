@@ -212,8 +212,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
      */    
     Route::get('get_role_wise_permission', 'scmsp\PermissionController@get_role_wise_permission')->name('get_role_wise_permission');
     
-    
-    
+    /*
+     *  Get Ajax call Details:
+     */    
+    Route::get('sms-status-set', 'scmsp\SettingsController@sms_status_set')->name('sms-status-set');
+    Route::post('sms-status-set-update', 'scmsp\SettingsController@sms_status_set_update')->name('sms-status-set-update');
+
     Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
     Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
 
