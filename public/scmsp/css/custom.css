@@ -62,3 +62,6 @@ h2.list_second_heading_style{
 .margin-fixing{
     margin: 0 0 1% 0;
 }
+footer.sticky-footer{
+    height: 30px !important;
+}

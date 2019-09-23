@@ -19,6 +19,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Mobile</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -27,6 +28,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Mobile</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
@@ -40,6 +42,7 @@
                             <td><a href="{{ url('admin/user-edit/'.$data->id) }}" title="Click here to edit">{{ $data->name }}</a></td>
                             <td>{{ $data->email }}</td>
                             <td><?php echo (isset($data->role_id) && !empty($data->role_id) ? get_data_name_by_id('roles',$data->role_id)->name : 'Role unassigned!') ?></td>
+                            <td><?php echo (isset($data->mobile) && !empty($data->mobile) ? $data->mobile : 'No Data') ?></td>
                             <td>
                                 <div class="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
