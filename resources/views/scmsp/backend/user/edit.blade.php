@@ -23,6 +23,10 @@
                     <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{ old('name',$editData->email) }}">
                 </div>
                 <div class="form-group">
+                    <label for="psw">Mobile</label>
+                    <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile" name="mobile" value="{{ old('mobile',$editData->mobile) }}">
+                </div>
+                <div class="form-group">
                     <label for="psw">Password</label>
                     <input type="password" class="form-control" id="psw" placeholder="Enter password" name="password" autocomplete="off">
                 </div>

@@ -32,6 +32,14 @@ function get_data_name_by_id($table, $id) {
     }
     return $result;
 }
+function get_user_mobile_number_by_id($id) {
+    $result     =   '';
+    $result     =    DB::table('users')->where('id', '=', $id)->first();
+    if(isset($result->mobile) && !empty($result->mobile)){
+        return $result->mobile;
+    }
+    return $result;
+}
 
 function get_data_name_by_where($table, $where) {
     $result     =   '';
@@ -240,4 +248,33 @@ function short_str($str, $max = 50) {
         $str = $str[0] . '...';
     }
     return $str;
+}
+
+function get_customer_message($data){
+    $message  = '';
+    $message .= "Dear Valued Customer,";
+    $message .= chr(10) . "Your complain have been successfully received.";
+    $message .= chr(10) . "Complain ID is:";
+    $message .= chr(10) . $data['complainerCode'];
+    $message .= chr(10) . "Thanks";
+    $message .= chr(10) . "SAIF Powertec Ltd";
+    $smsParam   =   [
+        'contacts'  =>  $data['contacts'],
+        'msg'       =>  $message
+    ];
+    return $smsParam;
+}
+function get_service_staff_message($data){
+    $message  = '';
+    $message .= "Dear Service Staff,";
+    $message .= chr(10) . "One Complain have been assigned to you.";
+    $message .= chr(10) . "Complain ID is:";
+    $message .= chr(10) . $data['complainerCode'];
+    $message .= chr(10) . "Thanks";
+    $message .= chr(10) . "SAIF Powertec Ltd";
+    $smsParam   =   [
+        'contacts'  =>  $data['contacts'],
+        'msg'       =>  $message
+    ];
+    return $smsParam;
 }

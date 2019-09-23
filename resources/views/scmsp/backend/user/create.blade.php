@@ -27,6 +27,10 @@
                     <input type="password" class="form-control" id="psw" placeholder="Enter password" name="password">
                 </div>
                 <div class="form-group">
+                    <label for="psw">Mobile</label>
+                    <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile" name="mobile">
+                </div>
+                <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" name="role_id">
                         <option value="">Select Role</option>

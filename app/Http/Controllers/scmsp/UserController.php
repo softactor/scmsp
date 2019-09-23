@@ -89,17 +89,18 @@ class UserController extends Controller
                 'email'         =>  $request->email,
                 'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : 0),
                 'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : 0),
+                'mobile'        =>  (isset($request->mobile) && !empty($request->mobile) ? $request->mobile : 0),
                 'password'      =>  Hash::make($request->password),
-                'created_at'    =>  date('Y-m-d h:i:s'),
-                'updated_at'    =>  date('Y-m-d h:i:s'),
+                'created_at'    =>  date('Y-m-d H:i:s'),
+                'updated_at'    =>  date('Y-m-d H:i:s'),
             ];
             //insert
             $user_id   =   DB::table('users')->insertGetId($userData);
             $roleData  =   [
                 'user_id'   =>  $user_id,
                 'role_id'   =>  $request->role_id,
-                'created_at'=>  date('Y-m-d h:i:s'),
-                'updated_at'=>  date('Y-m-d h:i:s'),
+                'created_at'=>  date('Y-m-d H:i:s'),
+                'updated_at'=>  date('Y-m-d H:i:s'),
             ];
             $user_id   =   DB::table('user_roles')->insert($roleData);
             return redirect('admin/user-list')->with('success', 'User have been successfully created.');
@@ -130,6 +131,7 @@ class UserController extends Controller
                 'email'         =>  $request->email,
                 'division_id'   =>  (isset($request->div_id) && !empty($request->div_id) ? $request->div_id : 0),
                 'department_id' =>  (isset($request->dept_id) && !empty($request->dept_id) ? $request->dept_id : 0),
+                'mobile'        =>  (isset($request->mobile) && !empty($request->mobile) ? $request->mobile : 0),
                 'updated_at'    =>  date('Y-m-d H:i:s'),
             ];
             //user update

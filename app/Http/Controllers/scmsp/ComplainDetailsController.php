@@ -124,23 +124,47 @@ class ComplainDetailsController extends Controller
             ];           
             $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
             if(get_settings_value('send_sms')){
-                $message  = '';
-                $message .= "Dear Valued Customer,";
-                $message .= chr(10) . "Your complain have been successfully received.";
-                $message .= chr(10) . "Complain ID is:";
-                $message .= chr(10) . $complainerCode;
-                $message .= chr(10) . "Thanks";
-                $message .= chr(10) . "SAIF Powertec Ltd";
-                $smsParam   =   [
-                    'contacts'  =>  $request->complainer,
-                    'msg'       =>  $message
-                ];
-                $sms_response   =   sending_sms($smsParam);
-                $historyUpdateParam     =   [
-                    'is_sms_send'   =>  1,
-                    'sms_response'  =>  $sms_response,
-                ];
-                DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                //Customer SMS Part:
+                if(isset($request->complainer) && !empty($request->complainer)){
+                    $cusparam       =   [
+                        'complainerCode'=>  $complainerCode,
+                        'contacts'      =>  $request->complainer,
+                    ];
+                    $cusSmsParam    =   get_customer_message($cusparam);
+                    $sms_response   =   sending_sms($cusSmsParam);
+                    $historyUpdateParam     =   [
+                        'is_sms_send'   =>  1,
+                        'sms_response'  =>  $sms_response,
+                    ];
+                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }else{
+                    $historyUpdateParam     =   [
+                        'is_sms_send'   =>  0,
+                        'sms_response'  =>  'Mobile number not found',
+                    ];
+                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }
+                //Technitian Staff SMS Part:
+                $tecnitianMobile    =   get_user_mobile_number_by_id($request->assign_to);
+                if(isset($tecnitianMobile) && !empty($tecnitianMobile)){
+                    $staffParam       =   [
+                        'complainerCode'=>  $complainerCode,
+                        'contacts'      =>  $tecnitianMobile,
+                    ];
+                    $staffSmsParam  =   get_service_staff_message($staffParam);
+                    $sms_response   =   sending_sms($staffSmsParam);
+                    $historyUpdateParam     =   [
+                        'is_sms_send'   =>  1,
+                        'sms_response'  =>  $sms_response,
+                    ];
+                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }else{
+                    $historyUpdateParam     =   [
+                        'is_sms_send'   =>  0,
+                        'sms_response'  =>  'Mobile number not found',
+                    ];
+                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }                
             }
             return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
 	}
