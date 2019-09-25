@@ -36,7 +36,7 @@
                             $countParam['field']                        =   'id';
                             $countParam['where']['complain_status']     =   $pending;
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
-                            if($role    ==  'Technician'){
+                            if($role    ==  'Service Staff'){
                                 $countParam['where']['assign_to']           =   Auth::user()->id;
                             }
                             $totalPending                               =   getTableTotalRows($countParam)->total;
