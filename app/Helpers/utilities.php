@@ -278,3 +278,15 @@ function get_service_staff_message($data){
     ];
     return $smsParam;
 }
+function isSuperAdmin($user_id) {
+    $role = DB::table('users as u')
+            ->select('r.name as role_name')
+            ->join('user_roles as ur', 'ur.user_id', '=', 'u.id')
+            ->join('roles as r', 'r.id', '=', 'ur.role_id')
+            ->where('u.id', $user_id)
+            ->first();
+    if($role->role_name == "Admin"){
+        return true;
+    }
+    return false;
+}

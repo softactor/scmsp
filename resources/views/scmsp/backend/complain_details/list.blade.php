@@ -58,7 +58,11 @@
                                 $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
-                            <td><?php echo $data->complainer_code; ?></td>
+                            <td>
+                                <a href="{{ url('admin/complain-details-edit/'.$data->id) }}"> 
+                                <?php echo $data->complainer_code; ?>
+                                </a>
+                            </td>
                             <td>
                                 <?php 
                                     $res    =   get_data_name_by_id('complain_priorites',$data->priority_id);
@@ -91,7 +95,11 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                       <a class="dropdown-item" href="{{ url('admin/complain-details-edit/'.$data->id) }}">Edit</a>
+                                      <?php
+                                        if(isSuperAdmin(Auth::user()->id)){
+                                      ?>
                                       <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </td>

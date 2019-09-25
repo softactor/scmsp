@@ -65,7 +65,7 @@
                             $countParam['field']                        =   'id';
                             $countParam['where']['complain_status']     =   $processing;
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
-                            if($role    ==  'Technician'){
+                            if($role    ==  'Service Staff'){
                                 $countParam['where']['assign_to']           =   Auth::user()->id;
                             }
                             $totalprocessing                              =   getTableTotalRows($countParam)->total;
@@ -92,7 +92,7 @@
                             $countParam['field']                        =   'id';
                             $countParam['where']['complain_status']     =   $solved;
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
-                            if($role    ==  'Technician'){
+                            if($role    ==  'Service Staff'){
                                 $countParam['where']['assign_to']           =   Auth::user()->id;
                             }
                             $totalsolved                               =   getTableTotalRows($countParam)->total;
