@@ -256,7 +256,8 @@ function get_customer_message($data){
     $message .= chr(10) . "Your complain have been successfully received.";
     $message .= chr(10) . "Complain ID is:";
     $message .= chr(10) . $data['complainerCode'];
-    $message .= chr(10) . "Helpline: 16650";
+    $message .= chr(10) . "For Further Queries";
+    $message .= chr(10) . "Call: 16650";
     $message .= chr(10) . "Thanks";
     $message .= chr(10) . "SAIF Powertec Ltd";
     $smsParam   =   [
@@ -271,7 +272,8 @@ function get_service_staff_message($data){
     $message .= chr(10) . "One Complain have been assigned to you.";
     $message .= chr(10) . "Complain ID is:";
     $message .= chr(10) . $data['complainerCode'];
-    $message .= chr(10) . "Helpline: 16650";
+    $message .= chr(10) . "For Further Queries";
+    $message .= chr(10) . "Call: 16650";
     $message .= chr(10) . "Thanks";
     $message .= chr(10) . "SAIF Powertec Ltd";
     $smsParam   =   [
