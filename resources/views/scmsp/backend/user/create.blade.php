@@ -72,7 +72,44 @@
                 <div class="form-group">
                     <label for="pwd">Complain Department</label>                            
                     <select class="form-control" id="dept_id" name="dept_id"><option value="">Select</option></select>
-                </div>                
+                </div>
+                <div class="form-group">
+                    <label for="role">Address Division</label>
+                    <?php $div_by_dis_url = route('admin.get_district_by_division') ?>
+                    <select class="form-control" name="addr_div_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_dis_id', '<?php echo $div_by_dis_url; ?>');">
+                        <option value="">Select</option>
+                        <?php
+                        $list = get_table_data_by_table('addr_divisions');
+                        if (!$list->isEmpty()) {
+                            foreach ($list as $data) {
+                                ?>
+                                <option value="{{ $data->id }}">{{ $data->name }}</option>   
+                                <?php
+                            }
+                        }
+                        ?>                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="role">Address District</label>
+                    <?php $up_by_dis_url = route('admin.get_upozila_by_district') ?>
+                    <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
+                        <option value="">Select</option>                       
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="role">Address Upazila</label>
+                    <?php $union_by_up_url = route('admin.get_union_by_upozila') ?>
+                    <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
+                        <option value="">Select</option>                        
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="role">Address Union</label>
+                    <select class="form-control" name="addr_union_id" id="addr_union_id">
+                        <option value="">Select</option>                       
+                    </select>
+                </div>
                 <input type="submit" name="submit" value="Create" class="btn btn-info">
             </form>
         </div>

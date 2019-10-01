@@ -220,6 +220,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
 
     Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
     Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
+    
+    Route::get('get_district_by_division', 'scmsp\AutoCompleteController@get_district_by_division')->name('get_district_by_division');
+    Route::get('get_upozila_by_district', 'scmsp\AutoCompleteController@get_upozila_by_district')->name('get_upozila_by_district');
+    Route::get('get_union_by_upozila', 'scmsp\AutoCompleteController@get_union_by_upozila')->name('get_union_by_upozila');
 
 });
 Auth::routes();

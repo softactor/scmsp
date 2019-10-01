@@ -211,3 +211,27 @@ function getCategoryByDepartment(dept_id,divSelector,selector,url){
         $('#'+selector).html(defaultSelector);
     }
 }
+/*
+ *   getCategoryByDepartment
+ */
+function getAddressRelatedAjaxdata(id,selector,url){
+    if(id){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'id='+id,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    var defaultSelector = "<option value=''>Select</option>";
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}
