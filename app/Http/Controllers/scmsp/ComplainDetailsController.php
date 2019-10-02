@@ -28,7 +28,7 @@ class ComplainDetailsController extends Controller
                 }else{
                     $list   = ComplainDetails::orderBy('created_at', 'DESC')->get();
                 }
-            }else if($role  =   'Area Manager'){
+            }else if($role  ==   'Area Manager'){
                 if(isset($complain_status) && !empty($complain_status)){
                     $list   = get_complain_details_by_area_manager(Auth::user()->id, $complain_status);
                 }else{
