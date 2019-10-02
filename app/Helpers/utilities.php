@@ -295,3 +295,23 @@ function isSuperAdmin($user_id) {
     }
     return false;
 }
+
+function get_complain_details_by_area_manager($area_manager_id, $complain_status=false){
+    if($complain_status){
+        $complainDetailsData   = DB::table('complain_details as u')
+                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
+                ->join('users as ur', 'u.assign_to', '=', 'ur.id')
+                ->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id')
+                ->where('sl.area_mng_id',$area_manager_id)
+                ->where('u.complain_status',$complain_status)
+                ->get();
+    }else{
+        $complainDetailsData   = DB::table('complain_details as u')
+                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
+                ->join('users as ur', 'u.user_id', '=', 'ur.id')
+                ->join('staff_locations as sl', 'u.user_id', '=', 'sl.user_id')
+                ->where('sl.area_mng_id',$area_manager_id)
+                ->get();
+    }
+    return $complainDetailsData;
+}

@@ -28,6 +28,12 @@ class ComplainDetailsController extends Controller
                 }else{
                     $list   = ComplainDetails::orderBy('created_at', 'DESC')->get();
                 }
+            }else if($role  =   'Area Manager'){
+                if(isset($complain_status) && !empty($complain_status)){
+                    $list   = get_complain_details_by_area_manager(Auth::user()->id, $complain_status);
+                }else{
+                    $list   = get_complain_details_by_area_manager(Auth::user()->id);
+                }
             }else{
                 if(isset($complain_status) && !empty($complain_status)){
                     $list   = ComplainDetails::where('complain_status',$complain_status)->where('assign_to',Auth::user()->id)->orderBy('created_at', 'DESC')->get();

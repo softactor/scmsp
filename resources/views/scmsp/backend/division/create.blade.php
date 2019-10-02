@@ -17,7 +17,7 @@
 				<div class="row">
 					<div class="col-md-2">
 						<div class="form-group">
-							<label for="pwd">Devision</label>
+							<label for="pwd">Division</label>
 							<select class="form-control" name="dept_id">
 								<option value="">Select</option>
 								<?php

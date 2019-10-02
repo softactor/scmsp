@@ -38,8 +38,14 @@
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
                             if($role    ==  'Service Staff'){
                                 $countParam['where']['assign_to']           =   Auth::user()->id;
+                                $totalPending                               =   getTableTotalRows($countParam)->total;
+                            }else if($role    ==  'Area Manager'){
+                                $list   = get_complain_details_by_area_manager(Auth::user()->id, $pending);
+                                $totalPending                               =   count($list);
+                            }else{
+                                $totalPending                               =   getTableTotalRows($countParam)->total;
                             }
-                            $totalPending                               =   getTableTotalRows($countParam)->total;
+                            
                         ?>                        
                             <div class="col-xl-3 col-sm-6 mb-3">
                                 <div class="card text-white bg-danger o-hidden h-100">
@@ -67,8 +73,13 @@
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
                             if($role    ==  'Service Staff'){
                                 $countParam['where']['assign_to']           =   Auth::user()->id;
+                                $totalprocessing                               =   getTableTotalRows($countParam)->total;
+                            }else if($role    ==  'Area Manager'){
+                                $list   = get_complain_details_by_area_manager(Auth::user()->id, $processing);
+                                $totalprocessing                               =   count($list);
+                            }else{
+                                $totalprocessing                               =   getTableTotalRows($countParam)->total;
                             }
-                            $totalprocessing                              =   getTableTotalRows($countParam)->total;
                         ?>
                         <div class="col-xl-3 col-sm-6 mb-3">
                             <div class="card text-white bg-primary o-hidden h-100">
@@ -94,8 +105,13 @@
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
                             if($role    ==  'Service Staff'){
                                 $countParam['where']['assign_to']           =   Auth::user()->id;
+                                $totalsolved                               =   getTableTotalRows($countParam)->total;
+                            }else if($role    ==  'Area Manager'){
+                                $list   = get_complain_details_by_area_manager(Auth::user()->id, $solved);
+                                $totalsolved                               =   count($list);
+                            }else{
+                                $totalsolved                               =   getTableTotalRows($countParam)->total;
                             }
-                            $totalsolved                               =   getTableTotalRows($countParam)->total;
                         ?>
                         <div class="col-xl-3 col-sm-6 mb-3">
                             <div class="card text-white bg-success o-hidden h-100">
