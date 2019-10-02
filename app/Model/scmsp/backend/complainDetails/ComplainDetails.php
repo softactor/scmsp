@@ -11,5 +11,5 @@ class ComplainDetails extends Model
      *
      * @var array
      */
-    protected $fillable = ['complainer_code','category_id','complain_type_id','complainer','complain_details','issued_date','user_id','complain_status', 'priority_id'];
+    protected $fillable = ['complainer_code','category_id','complain_type_id','complainer','name','address','complain_details','issued_date','user_id','complain_status', 'priority_id'];
 }

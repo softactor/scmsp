@@ -25,7 +25,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="complainer">Complainer</label>
-                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="{{ old('name',$editData->complainer) }}">
+                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="{{ old('complainer',$editData->complainer) }}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -33,6 +33,21 @@
                             <!--demoDatepicker-->
                             <label for="complainer">Complain Date</label>
                             <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="{{ old('complain_date',$editData->issued_date) }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="complainer">Name</label>
+                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="{{ old('name',$editData->name) }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <!--demoDatepicker-->
+                            <label for="complainer">Address</label>
+                            <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="{{ old('address',$editData->address) }}">
                         </div>
                     </div>
                 </div>
@@ -163,7 +178,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="pwd">Assign To</label>
                             <select class="form-control" name="assign_to" id="assign_to">
@@ -191,7 +206,7 @@
                     </div>
                 </div>
                 <div class="row">           
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="pwd">Complain Status</label>
                             <select class="form-control" name="complain_status">
@@ -212,7 +227,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="pwd">Priority</label>
                             <select class="form-control" id='priority_id' name="priority_id">

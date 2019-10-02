@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2019 at 11:15 AM
+-- Generation Time: Oct 02, 2019 at 03:54 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -3019,6 +3019,24 @@ INSERT INTO `addr_upazilas` (`id`, `district_id`, `name`, `bn_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `complainer_informations`
+--
+
+CREATE TABLE `complainer_informations` (
+  `id` int(11) NOT NULL,
+  `mobile_number` varchar(20) NOT NULL,
+  `addr_div_id` int(11) DEFAULT NULL,
+  `addr_dis_id` int(11) DEFAULT NULL,
+  `addr_up_id` int(11) DEFAULT NULL,
+  `addr_union_id` int(11) DEFAULT NULL,
+  `description` text,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `complain_asigned`
 --
 
@@ -3042,6 +3060,8 @@ CREATE TABLE `complain_details` (
   `category_id` int(11) DEFAULT NULL,
   `complain_type_id` int(11) NOT NULL,
   `complainer` varchar(100) NOT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  `address` text,
   `complain_details` longtext NOT NULL,
   `feedback_details` text,
   `issued_date` datetime NOT NULL,
@@ -3059,16 +3079,10 @@ CREATE TABLE `complain_details` (
 -- Dumping data for table `complain_details`
 --
 
-INSERT INTO `complain_details` (`id`, `complainer_code`, `category_id`, `complain_type_id`, `complainer`, `complain_details`, `feedback_details`, `issued_date`, `division_id`, `department_id`, `user_id`, `assign_to`, `complain_status`, `priority_id`, `created_at`, `updated_at`) VALUES
-(16, 'COM2019092300000001', 16, 27, '01730795080', 'Generator shows Red alert. Please fix it ASAP.', 'Dear Customer Your Problem has been solved successfully. Thank you for your feedback.', '2019-09-23 00:00:00', 20, 13, 10, 13, '2', 1, '2019-09-23 04:38:45', '2019-09-23 04:55:18'),
-(17, 'COM2019092300000002', 17, 43, '01552463664', 'light is not work properly.', 'Problem have been solved', '2019-09-23 00:00:00', 16, 9, 11, 12, '2', 1, '2019-09-23 04:38:45', '2019-09-23 04:53:53'),
-(18, 'COM2019092300000003', 16, 30, '01708467858', 'Controller not working properly. plz. fix it.', 'Complain has been solved successfully.', '2019-09-23 00:00:00', 20, 13, 10, 13, '2', 1, '2019-09-23 05:05:50', '2019-09-23 05:09:24'),
-(19, 'COM2019092300000004', 16, 32, '01755630128', 'Test Complain', 'Problem have been fixed.', '2019-09-23 00:00:00', 20, 13, 10, 13, '2', 1, '2019-09-23 05:29:26', '2019-09-23 05:42:00'),
-(20, 'COM2019092400000001', 16, 27, '01708467858', 'generator show red alert', NULL, '2019-09-24 00:00:00', 20, 13, 10, 13, '1', 1, '2019-09-24 07:57:17', '2019-09-24 07:57:17'),
-(21, 'COM2019092400000002', 18, 46, '01817182075', 'jhklnnj', 'solved', '2019-09-24 00:00:00', 16, 9, 10, 12, '2', 1, '2019-09-24 11:03:16', '2019-09-24 11:16:08'),
-(22, 'COM2019093000000001', 19, 50, '01708467858', 'Helpline 16650 call center test', NULL, '2019-09-30 00:00:00', 16, 9, 10, 12, '1', 1, '2019-09-30 05:08:33', '2019-09-30 05:08:33'),
-(23, 'COM2019093000000002', 19, 49, '01708467858', 'Test', NULL, '2019-09-30 00:00:00', 16, 9, 10, 12, '1', 2, '2019-09-30 05:51:17', '2019-09-30 05:51:17'),
-(24, 'COM2019093000000003', 18, 46, '01708467858', 'Test with long text', NULL, '2019-09-30 00:00:00', 16, 9, 10, 12, '1', 1, '2019-09-30 06:20:49', '2019-09-30 06:20:49');
+INSERT INTO `complain_details` (`id`, `complainer_code`, `category_id`, `complain_type_id`, `complainer`, `name`, `address`, `complain_details`, `feedback_details`, `issued_date`, `division_id`, `department_id`, `user_id`, `assign_to`, `complain_status`, `priority_id`, `created_at`, `updated_at`) VALUES
+(25, 'COM2019100200000001', 21, 53, '01676545520', 'Meghna jahana', 'Mohammadpur', 'Test', NULL, '2019-10-02 07:38:16', 15, 8, 1, 16, '1', 1, '2019-10-02 01:38:16', '2019-10-02 01:38:16'),
+(26, 'COM2019100200000001', 21, 53, '01676545520', 'Meghna jahana', 'Mohammadpur', 'Test', NULL, '2019-10-02 07:39:32', 15, 8, 1, 16, '1', 1, '2019-10-02 01:39:32', '2019-10-02 01:39:32'),
+(27, 'COM2019100200000001', 21, 53, '01676545520', 'Meghna jahana', 'Mohammadpur', 'Test', NULL, '2019-10-02 07:49:01', 15, 8, 10, 16, '1', 1, '2019-10-02 01:49:01', '2019-10-02 01:49:01');
 
 -- --------------------------------------------------------
 
@@ -3095,26 +3109,8 @@ CREATE TABLE `complain_details_history` (
 --
 
 INSERT INTO `complain_details_history` (`id`, `complain_id`, `descriptions`, `created_by`, `assign_to`, `updated_by`, `current_status`, `is_sms_send`, `sms_response`, `created_at`, `updated_at`) VALUES
-(20, 16, 'Generator shows Red alert. Please fix it ASAP.', 10, 13, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d884cba26479', '2019-09-23 04:38:48', NULL),
-(21, 17, 'light is not work properly.', 11, 12, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245d884cba48b95', '2019-09-23 04:38:48', NULL),
-(22, 17, 'I found the problem. Working on it', NULL, 12, 12, 3, 0, NULL, '2019-09-23 04:52:48', '2019-09-23 04:52:48'),
-(23, 16, 'Complain has been received.', NULL, 13, 13, 3, 0, NULL, '2019-09-23 04:53:53', '2019-09-23 04:53:53'),
-(24, 17, 'Problem have been solved', NULL, 12, 12, 2, 1, 'SMS SUBMITTED: ID - C20042245d885048086e5', '2019-09-23 04:53:58', '2019-09-23 04:53:53'),
-(25, 16, 'Dear Customer Your Problem has been solved successfully. Thank you for your feedback.', NULL, 13, 13, 2, 1, 'SMS SUBMITTED: ID - C20042245d885099ee024', '2019-09-23 04:55:20', '2019-09-23 04:55:18'),
-(26, 18, 'Controller not working properly. plz. fix it.', 10, 13, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d8853134fac6', '2019-09-23 05:05:53', NULL),
-(27, 18, 'Complain has been received successfully.', NULL, 13, 13, 3, 0, NULL, '2019-09-23 05:08:35', '2019-09-23 05:08:35'),
-(28, 18, 'Complain has been solved successfully.', NULL, 13, 13, 2, 1, 'SMS SUBMITTED: ID - C20042245d8853e742716', '2019-09-23 05:09:25', '2019-09-23 05:09:24'),
-(29, 19, 'Test Complain', 10, 13, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d88589dbacd5', '2019-09-23 05:29:31', NULL),
-(30, 19, 'working', NULL, 13, 13, 3, 0, NULL, '2019-09-23 05:33:30', '2019-09-23 05:33:30'),
-(31, 19, 'Problem have been fixed.', NULL, 13, 13, 2, 1, 'SMS SUBMITTED: ID - C20042245d885b8b46caa', '2019-09-23 05:42:01', '2019-09-23 05:42:00'),
-(32, 20, 'generator show red alert', 10, 13, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d89ccc3300e8', '2019-09-24 07:57:20', NULL),
-(33, 21, 'jhklnnj', 10, 12, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d89f859b1f2d', '2019-09-24 11:03:18', NULL),
-(34, 21, 'poigtd', NULL, 12, 12, 1, 0, NULL, '2019-09-24 11:14:33', '2019-09-24 11:14:33'),
-(35, 21, 'poigtd', NULL, 12, 12, 3, 0, NULL, '2019-09-24 11:14:46', '2019-09-24 11:14:46'),
-(36, 21, 'solved', NULL, 12, 12, 2, 1, 'SMS SUBMITTED: ID - C20042245d89fb5ca99f1', '2019-09-24 11:16:10', '2019-09-24 11:16:08'),
-(37, 22, 'Helpline 16650 call center test', 10, 12, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d918e3bde677', '2019-09-30 05:08:36', NULL),
-(38, 23, 'Test', 10, 12, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d919840021c3', '2019-09-30 05:51:21', NULL),
-(39, 24, 'Test with long text', 10, 12, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d919f2d5a18b', '2019-09-30 06:20:54', NULL);
+(40, 26, 'Test', 1, 16, 1, 1, 0, NULL, '2019-10-02 01:39:32', NULL),
+(41, 27, 'Test', 10, 16, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d94027bc0205', '2019-10-02 01:49:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -3229,7 +3225,8 @@ INSERT INTO `complain_types` (`id`, `name`, `dept_id`, `div_id`, `category_id`, 
 (49, 'After Warranty Period', 16, 9, 19, 1, 1, '2019-09-22 10:43:56', '2019-09-22 10:43:56'),
 (50, 'Spare Material', 16, 9, 19, 1, 1, '2019-09-22 10:44:52', '2019-09-22 10:44:52'),
 (51, 'Late response', 16, 9, 20, 1, 1, '2019-09-22 10:46:16', '2019-09-22 10:46:16'),
-(52, 'Poor Service Support', 16, 9, 20, 1, 1, '2019-09-22 10:47:54', '2019-09-22 10:47:54');
+(52, 'Poor Service Support', 16, 9, 20, 1, 1, '2019-09-22 10:47:54', '2019-09-22 10:47:54'),
+(53, 'Test Complain Type', 15, 8, 21, 1, 1, '2019-10-02 01:31:32', '2019-10-02 01:31:32');
 
 -- --------------------------------------------------------
 
@@ -3257,7 +3254,8 @@ INSERT INTO `complain_type_categories` (`id`, `name`, `dept_id`, `div_id`, `user
 (17, 'Light', 16, 9, 1, 1, '2019-09-22 10:20:45', '2019-09-22 10:20:45'),
 (18, 'Setup & Installation', 16, 9, 1, 1, '2019-09-22 10:24:27', '2019-09-22 10:24:27'),
 (19, 'Payments', 16, 9, 1, 1, '2019-09-22 10:42:46', '2019-09-22 10:42:46'),
-(20, 'After Sales Service', 16, 9, 1, 1, '2019-09-22 10:45:35', '2019-09-22 10:45:35');
+(20, 'After Sales Service', 16, 9, 1, 1, '2019-09-22 10:45:35', '2019-09-22 10:45:35'),
+(21, 'Test ABC', 15, 8, 1, 1, '2019-10-02 01:31:08', '2019-10-02 01:31:08');
 
 -- --------------------------------------------------------
 
@@ -3458,6 +3456,33 @@ INSERT INTO `settings` (`id`, `setting_type`, `setting_key`, `setting_value`, `f
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `staff_locations`
+--
+
+CREATE TABLE `staff_locations` (
+  `id` int(11) NOT NULL,
+  `addr_div_id` int(11) NOT NULL COMMENT 'address division id',
+  `addr_dis_id` int(11) NOT NULL COMMENT 'address district id',
+  `addr_up_id` int(11) DEFAULT NULL COMMENT 'address upazila id',
+  `addr_union_id` int(11) DEFAULT NULL COMMENT 'address union id',
+  `user_id` int(11) NOT NULL COMMENT 'User id',
+  `area_mng_id` int(11) DEFAULT NULL COMMENT 'User Id',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `staff_locations`
+--
+
+INSERT INTO `staff_locations` (`id`, `addr_div_id`, `addr_dis_id`, `addr_up_id`, `addr_union_id`, `user_id`, `area_mng_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(2, 3, 1, 145, 502, 16, 14, 1, NULL, '2019-10-02 06:48:16', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -3483,8 +3508,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `email_verified_at`, `pass
 (1, 'Super Admin', 'superadmin@cms.com', NULL, NULL, '$2y$10$Vau6vW1eJDO55kR666BpbeAKS/JRMbv4jDT1MGwkY83d/eCrabqEG', NULL, NULL, NULL, '2019-03-26 10:36:21', '2019-08-05 22:38:33'),
 (10, 'agent1', 'agent1@cms.com', '0', NULL, '$2y$10$PUdS9PnI.uJuZq/6UKXgwut6aobGNQtqde06NFxGlPdaouceogbam', NULL, 0, 0, '2019-09-23 04:21:08', '2019-09-23 04:21:08'),
 (11, 'agent2', 'agent2@cms.com', '0', NULL, '$2y$10$Z6Dx2Vkj2D6w2HrEZADW0.YysF9AsotE.VTHZhZ7GhNV4cX0zKdW6', NULL, 0, 0, '2019-09-23 04:26:19', '2019-09-23 04:26:19'),
-(12, 'stafftanvir1', 'stafftanvir1@cms.com', '01716600843', NULL, '$2y$10$SW9ucaDZyNTpzirh2cet0.bWkEwmqiIIw/IbZ9bYsPSe5d5dm3wJ2', NULL, 16, 9, '2019-09-23 04:28:18', '2019-09-23 04:34:31'),
-(13, 'staffatiq2', 'staffatiq2@cms.com', '01729714503', NULL, '$2y$10$KIjt/E8F8dGqqTHNvnFqSuU/DBKk4HXOmjhLnbpNrNTPSMmHYvDbq', NULL, 20, 13, '2019-09-23 04:29:33', '2019-09-23 04:34:08');
+(14, 'Mr Area Manager', 'area_manager@cms.com', '01676545520', NULL, '$2y$10$rpGQff44jBYUqUOjM1h03e2tPy1OTcu7UyFBnrGhj5MgSc4MR8kXO', NULL, 15, 8, '2019-10-02 00:18:56', '2019-10-02 00:18:56'),
+(16, 'Tanveer Qureshee', 'tq@cms.com', '01716600843', NULL, '$2y$10$ZrG1mkAKh1wgtEUI/JVTHuN0zwXoni3X9t/ARcRE73EtJ2MAfgO.q', NULL, 15, 8, '2019-10-02 00:48:15', '2019-10-02 00:48:15');
 
 -- --------------------------------------------------------
 
@@ -3517,7 +3542,9 @@ INSERT INTO `user_roles` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`
 (11, 10, 3, '2019-09-23 04:21:08', '2019-09-23 04:21:08'),
 (12, 11, 3, '2019-09-23 04:26:19', '2019-09-23 04:26:19'),
 (13, 12, 4, '2019-09-23 04:28:18', '2019-09-23 04:34:31'),
-(14, 13, 4, '2019-09-23 04:29:33', '2019-09-23 04:34:08');
+(14, 13, 4, '2019-09-23 04:29:33', '2019-09-23 04:34:08'),
+(15, 14, 5, '2019-10-02 00:18:56', '2019-10-02 00:18:56'),
+(17, 16, 4, '2019-10-02 00:48:15', '2019-10-02 00:48:15');
 
 --
 -- Indexes for dumped tables
@@ -3549,6 +3576,12 @@ ALTER TABLE `addr_unions`
 ALTER TABLE `addr_upazilas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `district_id` (`district_id`);
+
+--
+-- Indexes for table `complainer_informations`
+--
+ALTER TABLE `complainer_informations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `complain_asigned`
@@ -3642,6 +3675,12 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `staff_locations`
+--
+ALTER TABLE `staff_locations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -3678,6 +3717,11 @@ ALTER TABLE `addr_unions`
 ALTER TABLE `addr_upazilas`
   MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=493;
 --
+-- AUTO_INCREMENT for table `complainer_informations`
+--
+ALTER TABLE `complainer_informations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `complain_asigned`
 --
 ALTER TABLE `complain_asigned`
@@ -3686,12 +3730,12 @@ ALTER TABLE `complain_asigned`
 -- AUTO_INCREMENT for table `complain_details`
 --
 ALTER TABLE `complain_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `complain_details_history`
 --
 ALTER TABLE `complain_details_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `complain_feedbacks`
 --
@@ -3711,12 +3755,12 @@ ALTER TABLE `complain_statuses`
 -- AUTO_INCREMENT for table `complain_types`
 --
 ALTER TABLE `complain_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `complain_type_categories`
 --
 ALTER TABLE `complain_type_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `departments`
 --
@@ -3726,7 +3770,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -3753,15 +3797,20 @@ ALTER TABLE `roles`
 ALTER TABLE `settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `staff_locations`
+--
+ALTER TABLE `staff_locations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- Constraints for dumped tables
 --

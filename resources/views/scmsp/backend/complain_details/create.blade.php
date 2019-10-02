@@ -15,9 +15,9 @@
             <form method="POST" action="{{ route('admin.complain-details-store') }}">
                 @csrf
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="complainer">Complainer</label>
+                            <label for="complainer">Mobile</label>
                             <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="<?php echo old('complainer'); ?>">
                             <?php
                                 if ($errors->has('complainer')) {
@@ -28,12 +28,22 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <!--demoDatepicker-->
-                            <label for="complainer">Complain Date</label>
-                            <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="<?php echo date('Y-m-d') ?>">
+                            <label for="complainer">Name</label>
+                            <input type="text" class="form-control" name="complainer_name" placeholder="Enter Complainer Name" id='search_text' value="<?php echo old('complainer_name'); ?>">
                             <?php
-                                if ($errors->has('complain_date')) {
-                                    echo "<div class='alert alert-danger'>Complain Date is Required</div>";
+                                if ($errors->has('complainer')) {
+                                    echo "<div class='alert alert-danger'>Complainer Phone is Required</div>";
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="complain details">Address</label>
+                            <textarea class="form-control" id="complainer_address" name="complainer_address" rows="3"><?php echo old('complainer_address'); ?></textarea>
+                            <?php
+                                if ($errors->has('complainer_address')) {
+                                    echo "<div class='alert alert-danger'>Complainer Address is Required</div>";
                                 }
                             ?>
                         </div>
@@ -78,7 +88,7 @@
                             $get_department_wise_user_url   = url('admin/get_department_wise_user');
                             $get_category_by_department     = url('admin/get_category_by_department');
                             ?>
-                            <select class="form-control" id="dept_id" name="dept_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');getCategoryByDepartment(this.value, 'div_id', 'category_id', '<?php echo $get_category_by_department; ?>');">
+                            <select class="form-control" id="dept_id" name="dept_id" onchange="getCategoryByDepartment(this.value, 'div_id', 'category_id', '<?php echo $get_category_by_department; ?>');">
                                 <option value="">Select</option>
                             </select>
                             <?php
@@ -147,6 +157,55 @@
                             ?>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address Division</label>
+                            <?php $div_by_dis_url = route('admin.get_district_by_division') ?>
+                            <select class="form-control" id="addr_div_id" name="addr_div_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_dis_id', '<?php echo $div_by_dis_url; ?>');">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('addr_divisions');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>   
+                                        <?php
+                                    }
+                                }
+                                ?>                        
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address District</label>
+                            <?php $up_by_dis_url = route('admin.get_upozila_by_district') ?>
+                            <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
+                                <option value="">Select</option>                       
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address Upazila</label>
+                            <?php $union_by_up_url = route('admin.get_union_by_upozila') ?>
+                            <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
+                                <option value="">Select</option>                        
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address Union</label>
+                            <select class="form-control" name="addr_union_id" id="addr_union_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
+                                <option value="">Select</option>                       
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="pwd">Assign To</label>
@@ -160,43 +219,16 @@
                             ?>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <div class="form-group">
                             <label for="complain details">Complain</label>
-                            <textarea class="form-control" id="details" name="complain_details" rows="6"><?php echo old('complain_details'); ?></textarea>
+                            <textarea class="form-control" id="details" name="complain_details" rows="3"><?php echo old('complain_details'); ?></textarea>
                             <?php
                                 if ($errors->has('complain_details')) {
                                     echo "<div class='alert alert-danger'>Complain Details is Required</div>";
                                 }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">           
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="pwd">Complain Status</label>
-                            <select class="form-control" name="complain_status">
-                                <?php
-                                $list = get_table_data_by_table('complain_statuses');
-                                if (!$list->isEmpty()) {
-                                    foreach ($list as $data) {
-                                        ?>
-                                        <option value="{{ $data->id }}"<?php
-                                        if (old('complain_status') == $data->id) {
-                                            echo 'selected';
-                                        }
-                                        ?>>{{ $data->name }}</option>
-                                <?php }
-                            }
-                            ?>
-                            </select>
-                            <?php
-                            if ($errors->has('complain_status')) {
-                                echo "<div class='alert alert-danger'>Complain status is Required</div>";
-                            }
                             ?>
                         </div>
                     </div>
@@ -228,7 +260,7 @@
                             ?>
                         </div>
                     </div>
-                </div> 
+                </div>
                 <div class="row">           
                     <div class="col-md-12">
                         <div class="form-group">

@@ -273,11 +273,10 @@ function get_service_staff_message($data){
     $message .= chr(10) . "One Complain have been assigned to you.";
     $message .= chr(10) . "Complain ID is:";
     $message .= chr(10) . $data['complainerCode'];
+    $message .= chr(10) . "Name: ".$data['complainerName'];
+    $message .= chr(10) . "Mobile: ".$data['complainerMobile'];
     $message .= chr(10) . "Thanks";
-    $message .= chr(10) . "SAIF Powertec Ltd";
-    $message .= chr(10) . "if any further queries";
-    $message .= chr(10) . "call us in our";
-    $message .= chr(10) . "hotline: 16650";    
+    $message .= chr(10) . "SAIF Powertec Ltd";   
     $smsParam   =   [
         'contacts'  =>  $data['contacts'],
         'msg'       =>  $message

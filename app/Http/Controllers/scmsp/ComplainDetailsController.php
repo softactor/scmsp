@@ -81,8 +81,6 @@ class ComplainDetailsController extends Controller
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
                 'complain_details'  => 'required',
-                'complain_date'     => 'required',
-                'complain_status'   => 'required',
                 'div_id'            => 'required',
                 'dept_id'           => 'required',
                 'assign_to'         => 'required',
@@ -96,17 +94,19 @@ class ComplainDetailsController extends Controller
                             ->withInput();
             }
             
-            $complainerCode                        =   getComplainCode($request->complain_date);
+            $complainerCode                        =   getComplainCode((isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d')));
             $complain_details                      =   new ComplainDetails;
             $complain_details->complainer_code     =   $complainerCode;
             $complain_details->category_id         =   $request->category_id;
             $complain_details->complain_type_id    =   $request->complain_type_id;
             $complain_details->complainer          =   $request->complainer;
+            $complain_details->name                =   $request->complainer_name;
+            $complain_details->address             =   $request->complainer_address;
             $complain_details->complain_details    =   $request->complain_details;
-            $complain_details->issued_date         =   $request->complain_date;
+            $complain_details->issued_date         =   (isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d H:i:s'));
             $complain_details->division_id         =   $request->div_id;
             $complain_details->department_id       =   $request->dept_id;
-            $complain_details->complain_status     =   $request->complain_status;
+            $complain_details->complain_status     =   1;
             $complain_details->user_id             =   Auth::user()->id;
             $complain_details->assign_to           =   $request->assign_to;
             $complain_details->priority_id         =   $request->priority_id;
@@ -119,7 +119,7 @@ class ComplainDetailsController extends Controller
                 'created_by'    =>  Auth::user()->id,
                 'updated_by'    =>  Auth::user()->id,
                 'assign_to'     =>  $request->assign_to,
-                'current_status'=>  $request->complain_status,
+                'current_status'=>  1,
                 'created_at'    =>  date('Y-m-d H:i:s')
             ];           
             $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
@@ -148,8 +148,10 @@ class ComplainDetailsController extends Controller
                 $tecnitianMobile    =   get_user_mobile_number_by_id($request->assign_to);
                 if(isset($tecnitianMobile) && !empty($tecnitianMobile)){
                     $staffParam       =   [
-                        'complainerCode'=>  $complainerCode,
-                        'contacts'      =>  $tecnitianMobile,
+                        'complainerName'    =>  $request->complainer_name,
+                        'complainerMobile'  =>  $request->complainer,
+                        'complainerCode'    =>  $complainerCode,
+                        'contacts'          =>  $tecnitianMobile,
                     ];
                     $staffSmsParam  =   get_service_staff_message($staffParam);
                     $sms_response   =   sending_sms($staffSmsParam);
@@ -250,6 +252,9 @@ class ComplainDetailsController extends Controller
                 $message .= chr(10) . $complainerCode;
                 $message .= chr(10) . "Thanks";
                 $message .= chr(10) . "SAIF Powertec Ltd";
+                $message .= chr(10) . "if any further queries";
+                $message .= chr(10) . "call us in our";
+                $message .= chr(10) . "hotline: 16650";
                 $smsParam = [
                     'contacts' => $complainerPhone,
                     'msg' => $message

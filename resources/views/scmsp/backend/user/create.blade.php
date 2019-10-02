@@ -15,22 +15,6 @@
             <form action="{{ route('admin.user-store') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                </div>
-                <div class="form-group">
-                    <label for="psw">Password</label>
-                    <input type="password" class="form-control" id="psw" placeholder="Enter password" name="password">
-                </div>
-                <div class="form-group">
-                    <label for="psw">Mobile</label>
-                    <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile" name="mobile">
-                </div>
-                <div class="form-group">
                     <label for="role">Role</label>
                     <select class="form-control" name="role_id">
                         <option value="">Select Role</option>
@@ -46,69 +30,116 @@
                         ?>                        
                     </select>
                 </div>
-                <div class="form-group">
-                    <?php
-                        $get_department_by_division_url     =   url('admin/get_department_by_division');
-                    ?>
-                    <label for="pwd">Complain Division</label>
-                    <select class="form-control" name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
-                        <option value="">Select</option>
-                        <?php
-                        $list = get_table_data_by_table('departments');
-                        if (!$list->isEmpty()) {
-                            foreach ($list as $data) {
-                                ?>
-                                <option value="{{ $data->id }}"<?php
-                                if (isset($_POST['div_id']) && $_POST['div_id'] == $data->id) {
-                                    echo 'selected';
-                                }
-                                ?>>{{ $data->name }}</option>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="psw">Password</label>
+                            <input type="password" class="form-control" id="psw" placeholder="Enter password" name="password">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="psw">Mobile</label>
+                            <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile" name="mobile">
+                        </div>                
+                    </div>                
+                </div>  
+                <div class="row">
+                    <div class="col-md-6">                    
+                        <div class="form-group">
+                            <?php
+                            $get_department_by_division_url = url('admin/get_department_by_division');
+                            ?>
+                            <label for="pwd">Complain Division</label>
+                            <select class="form-control" name="div_id" id="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('departments');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                        if (isset($_POST['div_id']) && $_POST['div_id'] == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}</option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pwd">Complain Department</label>
+                            <?php $getAreaManagerUrl = route('admin.get_area_manager_by_department') ?>                            
+                            <select class="form-control" id="dept_id" name="dept_id" onchange="getAreaManagerByDepartment(this.value,'div_id','area_manager_id','<?php echo $getAreaManagerUrl; ?>')"><option value="">Select</option></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address Division</label>
+                            <?php $div_by_dis_url = route('admin.get_district_by_division') ?>
+                            <select class="form-control" name="addr_div_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_dis_id', '<?php echo $div_by_dis_url; ?>');">
+                                <option value="">Select</option>
+                                <?php
+                                $list = get_table_data_by_table('addr_divisions');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}">{{ $data->name }}</option>   
                                         <?php
                                     }
                                 }
-                                ?>
-                    </select>
+                                ?>                        
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address District</label>
+                            <?php $up_by_dis_url = route('admin.get_upozila_by_district') ?>
+                            <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
+                                <option value="">Select</option>                       
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address Upazila</label>
+                            <?php $union_by_up_url = route('admin.get_union_by_upozila') ?>
+                            <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
+                                <option value="">Select</option>                        
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="role">Address Union</label>
+                            <select class="form-control" name="addr_union_id" id="addr_union_id">
+                                <option value="">Select</option>                       
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Complain Department</label>                            
-                    <select class="form-control" id="dept_id" name="dept_id"><option value="">Select</option></select>
-                </div>
-                <div class="form-group">
-                    <label for="role">Address Division</label>
-                    <?php $div_by_dis_url = route('admin.get_district_by_division') ?>
-                    <select class="form-control" name="addr_div_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_dis_id', '<?php echo $div_by_dis_url; ?>');">
-                        <option value="">Select</option>
-                        <?php
-                        $list = get_table_data_by_table('addr_divisions');
-                        if (!$list->isEmpty()) {
-                            foreach ($list as $data) {
-                                ?>
-                                <option value="{{ $data->id }}">{{ $data->name }}</option>   
-                                <?php
-                            }
-                        }
-                        ?>                        
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="role">Address District</label>
-                    <?php $up_by_dis_url = route('admin.get_upozila_by_district') ?>
-                    <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
-                        <option value="">Select</option>                       
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="role">Address Upazila</label>
-                    <?php $union_by_up_url = route('admin.get_union_by_upozila') ?>
-                    <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
-                        <option value="">Select</option>                        
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="role">Address Union</label>
-                    <select class="form-control" name="addr_union_id" id="addr_union_id">
-                        <option value="">Select</option>                       
-                    </select>
+                    <label for="pwd">Area Manager</label>                            
+                    <select class="form-control" id="area_manager_id" name="area_manager_id"><option value="">Select</option></select>
                 </div>
                 <input type="submit" name="submit" value="Create" class="btn btn-info">
             </form>

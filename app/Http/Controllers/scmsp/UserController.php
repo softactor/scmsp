@@ -71,6 +71,7 @@ class UserController extends Controller
             Author		: Tanveer Qureshee
 	*/
 	public function store(Request $request){
+            $staffLocation  =   false;
             $rules  =   [
                 'name'      => 'required',
                 'email'     => 'required',
@@ -102,7 +103,34 @@ class UserController extends Controller
                 'created_at'=>  date('Y-m-d H:i:s'),
                 'updated_at'=>  date('Y-m-d H:i:s'),
             ];
-            $user_id   =   DB::table('user_roles')->insert($roleData);
+            $user_roles_id   =   DB::table('user_roles')->insert($roleData);
+            
+            // If Service Staff Then the following code block will execute:
+            
+            $addrDiv    =   (isset($request->addr_div_id) && !empty($request->addr_div_id) ? $request->addr_div_id : false);
+            $addrDis    =   (isset($request->addr_dis_id) && !empty($request->addr_dis_id) ? $request->addr_dis_id : false);
+            $addrUpz    =   (isset($request->addr_upazila_id) && !empty($request->addr_upazila_id) ? $request->addr_upazila_id : false);
+            $addrunion  =   (isset($request->addr_union_id) && !empty($request->addr_union_id) ? $request->addr_union_id : false);
+            $areaManger =   (isset($request->area_manager_id) && !empty($request->area_manager_id) ? $request->area_manager_id : false);
+            if($addrDiv || $addrDis){
+                $staffLocation  =   true;
+            }
+            
+            if($staffLocation){
+                $staffLocationsData  =   [
+                    'addr_div_id'   =>  $addrDiv,
+                    'addr_dis_id'   =>  $addrDis,
+                    'addr_up_id'    =>  $addrUpz,
+                    'addr_union_id' =>  $addrunion,
+                    'user_id'       =>  $user_id,
+                    'area_mng_id'   =>  $areaManger,
+                    'created_at'    =>  date('Y-m-d H:i:s'),
+                    'created_by'    =>  1,
+                ];
+            //insert
+            $user_id   =   DB::table('staff_locations')->insertGetId($staffLocationsData);
+            }
+            
             return redirect('admin/user-list')->with('success', 'User have been successfully created.');
 	}
         
@@ -170,9 +198,18 @@ class UserController extends Controller
             Author		: Tanveer Qureshee
         */    
         function get_department_wise_user(Request $request){
-            $usersData   = DB::table('users')
-                    ->where('department_id', $request->department_id)
-                    ->get();
+            $usersData   = DB::table('users as u')
+                ->select('u.id as user_id', 'u.name as user_name', 'u.email')
+                ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
+                ->join('staff_locations as sl', 'u.id', '=', 'sl.user_id')
+                ->where('u.division_id',$request->division_id)
+                ->where('u.department_id',$request->department_id)
+                ->where('sl.addr_div_id',$request->addr_div_id)
+                ->where('sl.addr_dis_id',$request->addr_dis_id)
+                ->where('sl.addr_up_id',$request->addr_up_id)
+                ->where('sl.addr_union_id',$request->addr_union_id)
+                ->where('ur.role_id',4)
+                ->get();
             $users_view        =   View::make('scmsp.backend.partial.get_users_by_department', compact('usersData'));
             $feedback = [
                     'status'    => 'success',

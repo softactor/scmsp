@@ -139,13 +139,18 @@ function getDepartmentByDivision(divisionId, selector, url){
 /*
  *  getDepartmentByDivision
  */
-function getusersByDepartment(departmentId, selector, url){
-    if(departmentId){
+function getusersByDepartment(union_id, selector, url){
+    if(union_id){
+        var division_id     =   $('#div_id').val();
+        var department_id   =   $('#dept_id').val();
+        var addr_div_id     =   $('#addr_div_id').val();
+        var addr_dis_id     =   $('#addr_dis_id').val();
+        var addr_up_id     =   $('#addr_upazila_id').val();
         $.ajax({
             url         :  url,
             type        : 'GET',
             dataType    : 'json',
-            data        : 'department_id='+departmentId,
+            data        : 'division_id='+division_id+'&department_id='+department_id+'&addr_div_id='+addr_div_id+'&addr_dis_id='+addr_dis_id+'&addr_up_id='+addr_up_id+'&addr_union_id='+union_id,
             success     : function(response){
                 if(response.status  ==  'success'){
                     $('#'+selector).html(response.data);                    
@@ -221,6 +226,29 @@ function getAddressRelatedAjaxdata(id,selector,url){
             type        : 'GET',
             dataType    : 'json',
             data        : 'id='+id,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    var defaultSelector = "<option value=''>Select</option>";
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}
+function getAreaManagerByDepartment(dept_id,divSelector,selector,url){
+    if(dept_id){
+        var division_id     =   $('#'+divSelector).val();
+        var department_id   =   dept_id;
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'division_id='+division_id+'&department_id='+department_id,
             success     : function(response){
                 if(response.status  ==  'success'){
                     $('#'+selector).html(response.data);                    
