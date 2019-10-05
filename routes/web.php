@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'storeusersession']], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
+    Route::get('testmail', 'scmsp\DashboardController@test_mail')->name('testmail');
     
     /*
      * Complain type categort routes
@@ -230,4 +231,3 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/testmail', 'HomeController@test_mail')->name('testmail');
