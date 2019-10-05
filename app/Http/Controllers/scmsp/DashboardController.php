@@ -22,7 +22,7 @@ class DashboardController extends Controller
         print_r($emails);
         print '</pre>';
         
-        $mail = Mail::send('Test', ['title' => 'Title', 'content' => 'Content'], function ($message) use ($emails) {
+        $mail = Mail::send('scmsp.mail.testmail', ['title' => 'Title', 'content' => 'Content'], function ($message) use ($emails) {
                     //$message->from($emails['from_address'], $emails['from_name']);
                     $message->to($emails['to']);
                     $message->subject("Complain Test Mail");
