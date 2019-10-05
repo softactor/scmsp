@@ -16,13 +16,7 @@ class DashboardController extends Controller
     }
     
     public function test_mail() {
-        print '<pre>';
-        print_r('Hi am mail Box now');
-        print '</pre>';
-        exit;
-        
         $emails['to'] = 'tanveerqureshee1@gmail.com';
-        $emails['from_address'] = 'mail.saifpowergroup.com';
         $emails['from_name'] = 'Saif Customer Care';
         print '<pre>';
         print_r($emails);
