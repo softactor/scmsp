@@ -23,7 +23,7 @@ class DashboardController extends Controller
         print '</pre>';
         
         $mail = Mail::send('Test', ['title' => 'Title', 'content' => 'Content'], function ($message) use ($emails) {
-                    $message->from($emails['from_address'], $emails['from_name']);
+                    //$message->from($emails['from_address'], $emails['from_name']);
                     $message->to($emails['to']);
                     $message->subject("Complain Test Mail");
                 });
