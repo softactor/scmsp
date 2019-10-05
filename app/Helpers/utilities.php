@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Mail;
 
 // GET TABLE DATA BY TABLE NAME:
 
@@ -314,4 +315,15 @@ function get_complain_details_by_area_manager($area_manager_id, $complain_status
                 ->get();
     }
     return $complainDetailsData;
+}
+
+function mail_execution($data){
+    $emails['to']                   = 'tanveerqureshee1@gmail.com';
+    $emails['from_address']         = 'mail.saifpowergroup.com';
+    $emails['from_name']            = 'Saif Customer Care';
+    $mail                           = Mail::send('Test', function ($message) use ($emails) {
+        $message->from($emails['from_address'], $emails['from_name']);
+        $message->to($emails['to']);
+        $message->subject("Complain Test Mail");
+    });
 }

@@ -230,3 +230,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('testmail', 'HomeController@test_mail')->name('testmail');

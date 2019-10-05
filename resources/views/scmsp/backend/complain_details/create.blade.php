@@ -31,7 +31,7 @@
                             <label for="complainer">Name</label>
                             <input type="text" class="form-control" name="complainer_name" placeholder="Enter Complainer Name" id='search_text' value="<?php echo old('complainer_name'); ?>">
                             <?php
-                                if ($errors->has('complainer')) {
+                                if ($errors->has('complainer_name')) {
                                     echo "<div class='alert alert-danger'>Complainer Phone is Required</div>";
                                 }
                             ?>
@@ -176,15 +176,29 @@
                                 }
                                 ?>                        
                             </select>
+                            <?php
+                                if ($errors->has('addr_div_id')) {
+                                    echo "<div class='alert alert-danger'>Division is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="role">Address District</label>
-                            <?php $up_by_dis_url = route('admin.get_upozila_by_district') ?>
+                            <?php 
+                                $up_by_dis_url = route('admin.get_upozila_by_district');
+                                if (!$errors->has('addr_dis_id')) {
+                            ?>
                             <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
                                 <option value="">Select</option>                       
                             </select>
+                                <?php } ?>
+                            <?php
+                                if ($errors->has('addr_dis_id')) {
+                                    echo "<div class='alert alert-danger'>District is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -194,6 +208,11 @@
                             <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
                                 <option value="">Select</option>                        
                             </select>
+                            <?php
+                                if ($errors->has('addr_upazila_id')) {
+                                    echo "<div class='alert alert-danger'>Upozila is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -202,6 +221,11 @@
                             <select class="form-control" name="addr_union_id" id="addr_union_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
                                 <option value="">Select</option>                       
                             </select>
+                            <?php
+                                if ($errors->has('addr_union_id')) {
+                                    echo "<div class='alert alert-danger'>Union is Required</div>";
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
