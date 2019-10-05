@@ -5,6 +5,7 @@ namespace App\Http\Controllers\scmsp;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use View;
+use Illuminate\Support\Facades\Mail;
 
 class DashboardController extends Controller
 {
