@@ -13,7 +13,7 @@
         <div class='col col-md-12'>
             <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.user-create') }}" >Create New</a>
             @include('scmsp.backend.partial.operation_message')
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -44,20 +44,17 @@
                             <td><?php echo (isset($data->role_id) && !empty($data->role_id) ? get_data_name_by_id('roles',$data->role_id)->name : 'Role unassigned!') ?></td>
                             <td><?php echo (isset($data->mobile) && !empty($data->mobile) ? $data->mobile : 'No Data') ?></td>
                             <td>
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Action
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="{{ url('admin/user-edit/'.$data->id) }}">Edit</a>
-                                      <?php
-                                      $loggedinUser     =   Auth::user()->id;
-                                      if($loggedinUser != $data->id){
-                                      ?>
-                                        <a class="dropdown-item" href="javascript:void(0)" onclick="user_delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
-                                      <?php } ?>
-                                    </div>
-                                </div>
+                                <a title="Edit" href="{{ url('admin/user-edit/'.$data->id) }}">
+                                    <i class="fa fa-edit text-success"></i>
+                                </a>
+                                    <?php
+                                    $loggedinUser     =   Auth::user()->id;
+                                    if($loggedinUser != $data->id){
+                                    ?>
+                                      <a title="Delete" href="javascript:void(0)" onclick="user_delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">
+                                          <i class="fa fa-trash text-danger"></i>
+                                      </a>
+                                <?php } ?>
                             </td>
                         </tr>
                         <?php }} ?>

@@ -17,7 +17,7 @@
                 <div class="table-responsive">          
                     <table class="table table-bordered">
                         <tr>
-                            <th>Complainer</th>
+                            <th>Complainer Phone</th>
                             <th colspan="4">Complain Date</th>
                         </tr>
                         <tr>
@@ -25,8 +25,16 @@
                             <td colspan="4"><?php echo $editData->issued_date; ?></td>
                         </tr>
                         <tr>
+                            <th>Complainer Name</th>
+                            <th colspan="4">Address</th>
+                        </tr>
+                        <tr>
+                            <td><?php echo $editData->name; ?></td>
+                            <td colspan="4"><?php echo $editData->address; ?></td>
+                        </tr>
+                        <tr>
                             <td colspan="5">
-                                Others details
+                                <h6>Others details</h6>
                             </td>
                         </tr>
                         <tr>

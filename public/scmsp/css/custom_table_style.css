@@ -9,11 +9,12 @@ and open the template in the editor.
 */
 
 table.list-table-custom-style{
-    background-color: lightgray;
+    background-color: white;
 }
 table.list-table-custom-style tr th{
     font-size: 13px;
     text-align: center;
+    background-color: lightgrey;
 }
 table.list-table-custom-style tr td{
     font-size: 13px;

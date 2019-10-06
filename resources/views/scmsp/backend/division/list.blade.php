@@ -13,7 +13,7 @@
         <div class='col col-md-12'>
             @include('scmsp.backend.partial.operation_message')
             <a class="btn btn-outline-primary" style="float:right" href="{{route('admin.division-create')}}">Create New</a>            
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>Division</th>
@@ -43,17 +43,12 @@
                                 </td>
                                 <td>{{ $data->name }}</td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Action
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-
-                                            <a class="dropdown-item" href="{{ url('admin/division-edit/'.$data->id) }}">Edit</a>
-
-                                            <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
-                                        </div>
-                                    </div>
+                                    <a href="{{ url('admin/division-edit/'.$data->id) }}">
+                                        <i class="fa fa-edit text-success"></i>
+                                    </a>
+                                    <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php }

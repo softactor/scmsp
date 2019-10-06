@@ -13,7 +13,7 @@
         <div class='col col-md-12'>
             <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.complain-status-create') }}" >Create New</a>
             
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -35,15 +35,8 @@
                         <tr id='delete_row_id_{{$data->id}}'>
                             <td>{{ $data->name }}</td>
                             <td>
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Action
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="{{ url('admin/complain-status-edit/'.$data->id) }}">Edit</a>
-                                      <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
-                                    </div>
-                                </div>
+                                <a href="{{ url('admin/complain-status-edit/'.$data->id) }}"><i class="fa fa-edit text-success"></i></a>
+                                <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');"><i class="fa fa-trash text-danger"></i></a>
                             </td>
                         </tr>
                         <?php }} ?>

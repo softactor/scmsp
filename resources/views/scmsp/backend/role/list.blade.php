@@ -12,7 +12,7 @@
     <div class='row'>
         <div class='col col-md-12'>
             <!--<a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.role-create') }}" >Create New</a>-->
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Name</th>
