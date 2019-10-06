@@ -139,4 +139,15 @@
 
 </div>
 <!-- /.container-fluid -->
+@section('footer_js_scrip_area')
+    @parent
+    <script type="text/javascript">
+        function complain_details_auto_refresh(){
+            setTimeout(function() {
+                location.reload();
+            }, 30000);
+        }
+        complain_details_auto_refresh();
+    </script>
+@endsection
 @endsection
