@@ -32,7 +32,7 @@
                             <input type="text" class="form-control" name="complainer_name" placeholder="Enter Complainer Name" id='search_text' value="<?php echo old('complainer_name'); ?>">
                             <?php
                                 if ($errors->has('complainer_name')) {
-                                    echo "<div class='alert alert-danger'>Complainer Phone is Required</div>";
+                                    echo "<div class='alert alert-danger'>Complainer Name is Required</div>";
                                 }
                             ?>
                         </div>
