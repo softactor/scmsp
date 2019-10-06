@@ -50,7 +50,7 @@
                             <th>Action</th>
                         </tr>
                     </tfoot>
-                    <tbody>
+                    <tbody id="complain_details">
                         <?php
                         $deleteUrl  =   url('admin/complain-details-delete');
                             if(!$list->isEmpty()){
@@ -107,8 +107,19 @@
                          <?php }} ?>
                     </tbody>
                 </table>
-                </div>
+           </div>
         </div>
     </div>
 </div>
+@section('footer_js_scrip_area')
+    @parent
+    <script type="text/javascript">
+        function complain_details_auto_refresh(){
+            setTimeout(function() {
+                location.reload();
+            }, 30000);
+        }
+        complain_details_auto_refresh();
+    </script>
+@endsection
 @endsection

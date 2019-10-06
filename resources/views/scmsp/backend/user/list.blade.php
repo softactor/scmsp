@@ -50,7 +50,12 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                       <a class="dropdown-item" href="{{ url('admin/user-edit/'.$data->id) }}">Edit</a>
-                                      <a class="dropdown-item" href="#">Delete</a>
+                                      <?php
+                                      $loggedinUser     =   Auth::user()->id;
+                                      if($loggedinUser != $data->id){
+                                      ?>
+                                        <a class="dropdown-item" href="javascript:void(0)" onclick="user_delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
+                                      <?php } ?>
                                     </div>
                                 </div>
                             </td>

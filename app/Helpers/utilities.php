@@ -134,8 +134,8 @@ function getRoleNameByUserId($user_id) {
 }
 
 function getTableTotalRows($data) {
-    $field = $data['field'];
-    $total_row = DB::table($data['table'])
+    $field      = $data['field'];
+    $total_row  = DB::table($data['table'])
             ->select(DB::raw("count($field) as total"))
             ->where($data['where'])
             ->first();

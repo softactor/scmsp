@@ -138,7 +138,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Area Manager</label>                            
+                    <label for="pwd">Area Manager <span style="font-style: italic; font-size: 12px; font-weight: bold;">(This option only be needed when role is service incharge and he/she will under one Area Manager)</span></label>                            
                     <select class="form-control" id="area_manager_id" name="area_manager_id"><option value="">Select</option></select>
                 </div>
                 <input type="submit" name="submit" value="Create" class="btn btn-info">

@@ -187,8 +187,81 @@ class UserController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-	public function delete(){
-		echo "User Delete";
+	public function delete(Request $request){
+            $all        =   $request->all();
+            $user_id    =   $request->del_id;
+            $userRoll   =   getRoleNameByUserId($user_id);            
+            switch($userRoll){
+                case 'Agent':
+                    $whereParam['table']    =   'complain_details';
+                    $whereParam['field']    =   'id';
+                    $whereParam['where']    =   [
+                        'user_id'   =>  $user_id
+                    ];
+                    $totalRows              =   getTableTotalRows($whereParam);
+                    if($totalRows){
+                        $feedbackdata           =   [
+                            'status'    =>  'error',               
+                            'message'   =>  $userRoll. ' have data in complain details. First need to remove Complain Details.',               
+                        ];
+                    }else{
+                        $feedbackdata           =   [
+                            'status'    =>  'success',               
+                        ];
+                    }
+                    break;
+                case 'Area Manager':
+                    $whereParam['table']    =   'staff_locations';
+                    $whereParam['field']    =   'id';
+                    $whereParam['where']    =   [
+                        'area_mng_id'   =>  $user_id
+                    ];
+                    $totalRows              =   getTableTotalRows($whereParam);
+                    if($totalRows){
+                        $feedbackdata           =   [
+                            'status'    =>  'error',               
+                            'message'   =>  $userRoll. ' have Service Agency.First need to remove Service Agency.',               
+                        ];
+                    }else{
+                        $feedbackdata           =   [
+                            'status'    =>  'success',               
+                        ];
+                    }
+                    break;
+                case 'Service Staff':
+                    $whereParam['table']    =   'complain_details';
+                    $whereParam['field']    =   'id';
+                    $whereParam['where']    =   [
+                        'assign_to'   =>  $user_id
+                    ];
+                    $totalRows              =   getTableTotalRows($whereParam);
+                    if($totalRows){
+                        $feedbackdata           =   [
+                            'status'    =>  'error',               
+                            'message'   =>  $userRoll. ' have data in complain details. First need to remove Complain Details.',                
+                        ];
+                    }else{
+                        $feedbackdata           =   [
+                            'status'    =>  'success',               
+                        ];
+                    }
+                    break;
+                default :
+                    $feedbackdata           =   [
+                            'status'    =>  'success',               
+                        ];
+            }
+            if($feedbackdata['status']  ==  'success'){
+                $res        =   Department::where('id',$request->del_id)->delete();
+                $feedback   =   [
+                    'status'    => 'success',
+                    'message'   => 'Data have successfully deleted.',
+                    'data'      =>  ''
+                ];
+                echo json_encode($feedback);
+            }else{
+                echo json_encode($feedbackdata);
+            }
 	}
         /*
             Method Name         : get_department_wise_user

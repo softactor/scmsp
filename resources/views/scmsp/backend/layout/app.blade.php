@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-
+        @section('footer_js_scrip_area')
         <!-- Bootstrap core JavaScript-->
         <script src="{{ asset('scmsp/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('scmsp/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -121,6 +121,6 @@
                 $( "#complainEndDatepicker" ).datepicker();
             } );
         </script>
-        
+    @show    
     </body>
 </html>
