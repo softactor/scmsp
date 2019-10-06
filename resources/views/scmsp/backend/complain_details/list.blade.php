@@ -89,19 +89,16 @@
                             <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
                             <td>{{ (isset($data->user_id) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
                             <td>
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Action
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                      <a class="dropdown-item" href="{{ url('admin/complain-details-edit/'.$data->id) }}">Edit</a>
-                                      <?php
-                                        if(isSuperAdmin(Auth::user()->id)){
-                                      ?>
-                                      <a class="dropdown-item" href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">Delete</a>
-                                        <?php } ?>
-                                    </div>
-                                </div>
+                                <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
+                                    <i class="fa fa-edit text-grey-darker"></i>
+                                </a>
+                                <?php
+                                  if(isSuperAdmin(Auth::user()->id)){
+                                ?>
+                                <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">
+                                    <i class="fa fa-trash text-grey-darker"></i>
+                                </a>
+                                  <?php } ?>
                             </td>
                         </tr>
                          <?php }} ?>
