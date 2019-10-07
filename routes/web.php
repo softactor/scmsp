@@ -208,6 +208,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     // calling permission delete routes
     Route::post('permission-delete', 'scmsp\PermissionController@delete')->name('permission-delete');
     
+      // start Report routes
+    // calling reports list routes
+    Route::get('report-list', 'scmsp\ReportsController@index')->name('report-list');
+    
     /*
      *  Get Ajax call Details:
      */    

@@ -81,13 +81,13 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
     </li> 
         <?php } ?>
     <?php
-        if(hasAccessPermission($roleName, 'Feedback details', 'listaccess')){
+        if(hasAccessPermission($roleName, 'Report', 'listaccess')){
     ?>
-<!--     <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'feedback-details') ?>">
-        <a class="nav-link" href="{{ route('admin.feedback-details-list') }}">
+    <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'report-list') ?>">
+        <a class="nav-link" href="{{ route('admin.report-list') }}">
             <i class="fas fa-fw fa-pen-nib"></i>
-            <span>Feedback Details</span>
+            <span>Report Details</span>
         </a>
-    </li>-->
+    </li>
         <?php } ?>
 </ul>

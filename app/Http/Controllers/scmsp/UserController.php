@@ -235,6 +235,11 @@ class UserController extends Controller
                         'assign_to'   =>  $user_id
                     ];
                     $totalRows              =   getTableTotalRows($whereParam);
+                    print '<pre>';
+                    print_r($totalRows);
+                    print '</pre>';
+                    exit;
+                    
                     if($totalRows){
                         $feedbackdata           =   [
                             'status'    =>  'error',               
