@@ -252,7 +252,13 @@ class UserController extends Controller
                         ];
             }
             if($feedbackdata['status']  ==  'success'){
-                $res        =   Department::where('id',$request->del_id)->delete();
+                $res        =   User::where('id',$request->del_id)->delete();
+                if($userRoll    ==  'Service Staff'){
+                    $res        =   DB::table('staff_locations')->where('user_id',$request->del_id)->delete();
+                }
+                if($userRoll    ==  'Area Manager'){
+                    $res        =   DB::table('staff_locations')->where('area_mng_id',$request->del_id)->delete();
+                }
                 $feedback   =   [
                     'status'    => 'success',
                     'message'   => 'Data have successfully deleted.',
