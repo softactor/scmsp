@@ -187,7 +187,6 @@ class UserController extends Controller
                     $rules = [
                         'name'              => 'required',
                         'email'             => 'required',
-                        'password'          => 'required',
                         'role_id'           => 'required',
                         'div_id'            => 'required',
                         'dept_id'           => 'required',
@@ -201,7 +200,6 @@ class UserController extends Controller
                     $rules = [
                         'name'      => 'required',
                         'email'     => 'required',
-                        'password'  => 'required',
                         'role_id'   => 'required',
                         'mobile'    => 'required',
                         'div_id'    => 'required',
@@ -211,7 +209,6 @@ class UserController extends Controller
                     $rules = [
                         'name'      => 'required',
                         'email'     => 'required',
-                        'password'  => 'required',
                         'role_id'   => 'required',
                         'mobile'   => 'required',
                     ];
@@ -220,7 +217,6 @@ class UserController extends Controller
                 $rules = [
                         'name'      => 'required',
                         'email'     => 'required',
-                        'password'  => 'required',
                         'role_id'   => 'required',
                         'mobile'   => 'required',
                     ];
