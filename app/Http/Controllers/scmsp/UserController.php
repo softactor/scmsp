@@ -181,6 +181,7 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function update(Request $request){
+            $staffLocation  =   false;
             if (isset($request->role_id) && !empty($request->role_id)) {
                 $userRoll = get_data_name_by_id('roles', $request->role_id)->name;
                 if ($userRoll == 'Service Staff') {
