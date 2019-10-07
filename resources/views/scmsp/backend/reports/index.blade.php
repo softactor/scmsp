@@ -258,7 +258,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" name="submit" value="Search" class="btn btn-info">
+                <!--<input type="submit" name="submit" value="Search" class="btn btn-info">-->
             </form>
         </div>
     </div>
