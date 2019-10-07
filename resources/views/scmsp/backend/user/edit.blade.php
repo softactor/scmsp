@@ -13,7 +13,7 @@
         <div class='col col-md-12'>
             @include('scmsp.backend.partial.operation_message')
             <!--<form action="{{ route('admin.user-update') }}" method="post">-->
-            <form action="{{ route('admin.user-store') }}" method="post">
+            <form action="{{ route('admin.user-update') }}" method="post">
                 @csrf
                 <div class="form-group">
                     <label for="role">Role</label>
@@ -37,7 +37,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{ old('name',$editData->email) }}">
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{ old('email',$editData->email) }}">
                         </div>
                     </div>
                     <div class="col-md-3">

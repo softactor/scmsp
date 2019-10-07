@@ -72,13 +72,52 @@ class UserController extends Controller
 	*/
 	public function store(Request $request){
             $staffLocation  =   false;
-            $rules  =   [
-                'name'      => 'required',
-                'email'     => 'required',
-                'password'  => 'required',
-                'role_id'   => 'required',
-            ];
-            $validator = Validator::make($request->all(), $rules);
+            if (isset($request->role_id) && !empty($request->role_id)) {
+                $userRoll = get_data_name_by_id('roles', $request->role_id)->name;
+                if ($userRoll == 'Service Staff') {
+                    $rules = [
+                        'name'              => 'required',
+                        'email'             => 'required',
+                        'password'          => 'required',
+                        'role_id'           => 'required',
+                        'div_id'            => 'required',
+                        'dept_id'           => 'required',
+                        'addr_div_id'       => 'required',
+                        'addr_dis_id'       => 'required',
+                        'addr_upazila_id'   => 'required',
+                        'addr_union_id'     => 'required',
+                        'mobile'            => 'required',
+                    ];
+                } else if($userRoll == 'Area Manager') {
+                    $rules = [
+                        'name'      => 'required',
+                        'email'     => 'required',
+                        'password'  => 'required',
+                        'role_id'   => 'required',
+                        'mobile'    => 'required',
+                        'div_id'    => 'required',
+                        'dept_id'   => 'required',
+                    ];
+                } else {
+                    $rules = [
+                        'name'      => 'required',
+                        'email'     => 'required',
+                        'password'  => 'required',
+                        'role_id'   => 'required',
+                        'mobile'   => 'required',
+                    ];
+                }
+            }else{
+                $rules = [
+                        'name'      => 'required',
+                        'email'     => 'required',
+                        'password'  => 'required',
+                        'role_id'   => 'required',
+                        'mobile'   => 'required',
+                    ];
+            }
+
+        $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return redirect('admin/user-create')
                             ->withErrors($validator)
@@ -142,11 +181,50 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function update(Request $request){
-		$rules  =   [
-                'name'      => 'required',
-                'email'     => 'required',
-                'role_id'   => 'required',
-            ];
+            if (isset($request->role_id) && !empty($request->role_id)) {
+                $userRoll = get_data_name_by_id('roles', $request->role_id)->name;
+                if ($userRoll == 'Service Staff') {
+                    $rules = [
+                        'name'              => 'required',
+                        'email'             => 'required',
+                        'password'          => 'required',
+                        'role_id'           => 'required',
+                        'div_id'            => 'required',
+                        'dept_id'           => 'required',
+                        'addr_div_id'       => 'required',
+                        'addr_dis_id'       => 'required',
+                        'addr_upazila_id'   => 'required',
+                        'addr_union_id'     => 'required',
+                        'mobile'            => 'required',
+                    ];
+                } else if($userRoll == 'Area Manager') {
+                    $rules = [
+                        'name'      => 'required',
+                        'email'     => 'required',
+                        'password'  => 'required',
+                        'role_id'   => 'required',
+                        'mobile'    => 'required',
+                        'div_id'    => 'required',
+                        'dept_id'   => 'required',
+                    ];
+                } else {
+                    $rules = [
+                        'name'      => 'required',
+                        'email'     => 'required',
+                        'password'  => 'required',
+                        'role_id'   => 'required',
+                        'mobile'   => 'required',
+                    ];
+                }
+            }else{
+                $rules = [
+                        'name'      => 'required',
+                        'email'     => 'required',
+                        'password'  => 'required',
+                        'role_id'   => 'required',
+                        'mobile'   => 'required',
+                    ];
+            }
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
                 return redirect('admin/user-edit/'.$request->user_update_id)
@@ -178,6 +256,56 @@ class UserController extends Controller
                 'updated_at'=>  date('Y-m-d h:i:s'),
             ];
             DB::table('user_roles')->where('user_id',$request->user_update_id)->update($roleData);
+            
+            // If Service Staff Then the following code block will execute:
+            
+            $addrDiv    =   (isset($request->addr_div_id) && !empty($request->addr_div_id) ? $request->addr_div_id : false);
+            $addrDis    =   (isset($request->addr_dis_id) && !empty($request->addr_dis_id) ? $request->addr_dis_id : false);
+            $addrUpz    =   (isset($request->addr_upazila_id) && !empty($request->addr_upazila_id) ? $request->addr_upazila_id : false);
+            $addrunion  =   (isset($request->addr_union_id) && !empty($request->addr_union_id) ? $request->addr_union_id : false);
+            $areaManger =   (isset($request->area_manager_id) && !empty($request->area_manager_id) ? $request->area_manager_id : false);
+            if($addrDiv || $addrDis){
+                $staffLocation  =   true;
+            }
+            
+            if($staffLocation){                
+                // Duplicate Check:
+                $whereParam['table']    =   'staff_locations';
+                $whereParam['field']    =   'id';
+                $whereParam['where']    =   [
+                    'user_id'       =>  $request->user_update_id,
+                ];
+                $totalRows              =   getTableTotalRows($whereParam);
+                if($totalRows->total){
+                    // update:
+                    $staffLocationsData  =   [
+                        'addr_div_id'   =>  $addrDiv,
+                        'addr_dis_id'   =>  $addrDis,
+                        'addr_up_id'    =>  $addrUpz,
+                        'addr_union_id' =>  $addrunion,
+                        'user_id'       =>  $request->user_update_id,
+                        'area_mng_id'   =>  $areaManger,
+                        'updated_at'    =>  date('Y-m-d H:i:s'),
+                        'updated_by'    =>  1,
+                    ];
+                    DB::table('staff_locations')->where('user_id',$request->user_update_id)->update($staffLocationsData);
+                }else{
+                    //Insert:
+                    $staffLocationsData  =   [
+                        'addr_div_id'   =>  $addrDiv,
+                        'addr_dis_id'   =>  $addrDis,
+                        'addr_up_id'    =>  $addrUpz,
+                        'addr_union_id' =>  $addrunion,
+                        'user_id'       =>  $request->user_update_id,
+                        'area_mng_id'   =>  $areaManger,
+                        'created_at'    =>  date('Y-m-d H:i:s'),
+                        'created_by'    =>  1,
+                    ];
+                    //insert
+                    $user_id   =   DB::table('staff_locations')->insertGetId($staffLocationsData);
+                }                
+            }
+            
             return redirect('admin/user-list')->with('success', 'User have been successfully updated.');
 	}
         /*

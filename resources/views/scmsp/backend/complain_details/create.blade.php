@@ -68,7 +68,8 @@
                                         if (old('div_id') == $data->id) {
                                             echo 'selected';
                                         }
-                                        ?>>{{ $data->name }}</option>
+                                        ?>>{{ $data->name }}
+                                        </option>
                                                 <?php
                                             }
                                         }
