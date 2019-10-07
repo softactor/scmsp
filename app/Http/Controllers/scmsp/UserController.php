@@ -199,7 +199,7 @@ class UserController extends Controller
                         'user_id'   =>  $user_id
                     ];
                     $totalRows              =   getTableTotalRows($whereParam);
-                    if($totalRows){
+                    if($totalRows->total){
                         $feedbackdata           =   [
                             'status'    =>  'error',               
                             'message'   =>  $userRoll. ' have data in complain details. First need to remove Complain Details.',               
@@ -217,7 +217,7 @@ class UserController extends Controller
                         'area_mng_id'   =>  $user_id
                     ];
                     $totalRows              =   getTableTotalRows($whereParam);
-                    if($totalRows){
+                    if($totalRows->total){
                         $feedbackdata           =   [
                             'status'    =>  'error',               
                             'message'   =>  $userRoll. ' have Service Agency.First need to remove Service Agency.',               
@@ -235,12 +235,7 @@ class UserController extends Controller
                         'assign_to'   =>  $user_id
                     ];
                     $totalRows              =   getTableTotalRows($whereParam);
-                    print '<pre>';
-                    print_r($totalRows);
-                    print '</pre>';
-                    exit;
-                    
-                    if($totalRows){
+                    if($totalRows->total){
                         $feedbackdata           =   [
                             'status'    =>  'error',               
                             'message'   =>  $userRoll. ' have data in complain details. First need to remove Complain Details.',                
