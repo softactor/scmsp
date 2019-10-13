@@ -23,7 +23,7 @@
     <div class='row'>
         <div class='col col-md-12'>
             @include('scmsp.backend.partial.operation_message')
-            <form action="{{ route('admin.user-store') }}" method="post">
+            <form action="" method="post" id="report_search_form">
                 @csrf                
                 <div class="row">                    
                     <div class="col-md-3">
@@ -214,9 +214,9 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="name">From Date</label>
-                            <input type="text" class="form-control" id="name" placeholder="From Date" name="name" value="<?php echo old('name'); ?>">
+                            <input type="text" class="form-control" id="from_date" placeholder="From Date" name="from_date" value="<?php echo old('from_date'); ?>">
                             <?php
-                            if ($errors->has('name')) {
+                            if ($errors->has('from_date')) {
                                 echo "<div class='alert alert-danger'>Name is Required</div>";
                             }
                             ?>
@@ -225,9 +225,9 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="name">To Date</label>
-                            <input type="text" class="form-control" id="name" placeholder="To Date" name="name" value="<?php echo old('name'); ?>">
+                            <input type="text" class="form-control" id="to_date" placeholder="To Date" name="to_date" value="<?php echo old('to_date'); ?>">
                             <?php
-                            if ($errors->has('name')) {
+                            if ($errors->has('to_date')) {
                                 echo "<div class='alert alert-danger'>Name is Required</div>";
                             }
                             ?>
@@ -249,17 +249,26 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="name">Customer Phone</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter Customer Phone" name="name" value="<?php echo old('name'); ?>">
+                            <input type="text" class="form-control" id="complainer" placeholder="Enter Customer Phone" name="complainer" value="<?php echo old('complainer'); ?>">
                             <?php
-                            if ($errors->has('name')) {
+                            if ($errors->has('complainer')) {
                                 echo "<div class='alert alert-danger'>Name is Required</div>";
                             }
                             ?>
                         </div>
                     </div>
                 </div>
-                <!--<input type="submit" name="submit" value="Search" class="btn btn-info">-->
+                <?php
+                $url    = route('admin.get-cms-general-report');
+                ?>
+                <button type="button" name="form_search" class="btn btn-info" onclick="getCMSReport('report_show_section','<?php echo $url; ?>');">Search</button>
             </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <span id="report_show_section"></span>
         </div>
     </div>
 </div>

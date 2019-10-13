@@ -295,3 +295,20 @@ function getAreaManagerByDepartment(dept_id,divSelector,selector,url){
         $('#'+selector).html(defaultSelector);
     }
 }
+
+function getCMSReport(selector, url) {
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data: $('#report_search_form').serialize(),
+        success: function (response) {
+            if (response.status == 'success') {
+                $('#' + selector).html(response.data);
+            }else{
+                $('#' + selector).html('');
+                swal("Sorry!", response.message, "error");
+            }
+        }
+    });
+}

@@ -211,6 +211,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
       // start Report routes
     // calling reports list routes
     Route::get('report-list', 'scmsp\ReportsController@index')->name('report-list');
+    Route::get('get-cms-general-report', 'scmsp\ReportsController@get_general_report_data')->name('get-cms-general-report');
     
     /*
      *  Get Ajax call Details:
