@@ -1,15 +1,19 @@
-<div class="table-responsive">
-    <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
-        <tbody id="complain_details">
-            <tr>
-                <td class="text-right">
-                    <a href="">
-                        <img src="<?php echo asset('scmsp/icon/export_pdf_small.png') ?>">PDF
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row export_section">
+    <div class="col-md-4">
+        <h4>Data Export Area</h4>
+    </div>
+    <div class="col-md-8 text-right">
+        <?php
+            $pdfurl    = route('admin.generate-general-report-pdf');
+            $testpdfurl    = route('admin.test-pdf');
+        ?>
+        <a href="<?php echo $testpdfurl; ?>">
+            <img class="export_style_icon" src="<?php echo asset('scmsp/icon/export_print_small.png') ?>">
+        </a>
+        <a href="javascript:void(0);" onclick="generatePDF('<?php echo $pdfurl; ?>');">
+            <img class="export_style_icon" src="<?php echo asset('scmsp/icon/export_pdf_small.png') ?>">
+        </a>
+    </div>
 </div>
 <div class="table-responsive">
     <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
@@ -64,10 +68,11 @@
                         </td>
                         <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
                         <td>{{ (isset($data->user_id) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
-                        
+
                     </tr>
                 <?php }
-            } ?>
+            }
+            ?>
         </tbody>
     </table>
 </div>

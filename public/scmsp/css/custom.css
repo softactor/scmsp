@@ -7,7 +7,6 @@ and open the template in the editor.
     Created on : Apr 28, 2019, 11:51:07 AM
     Author     : Tanveer Qureshee
 */
-
 .json_alert_message{
     display: none;
 }
@@ -64,4 +63,16 @@ h2.list_second_heading_style{
 }
 footer.sticky-footer{
     height: 30px !important;
+}
+.export_section{
+    color: black;
+}
+.export_section a{
+    text-decoration: none;
+}
+img.export_style_icon{
+    border: 1px solid lightgoldenrodyellow;
+    width: 32px;
+    margin: 0 .2%;
+    padding: .5%;
 }

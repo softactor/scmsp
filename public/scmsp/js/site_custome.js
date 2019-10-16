@@ -312,3 +312,21 @@ function getCMSReport(selector, url) {
         }
     });
 }
+function generatePDF(url) {
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data: $('#report_search_form').serialize(),
+        success: function (response) {
+            if (response.status == 'success') {
+                //window.location=response.data;
+                var win = window.open(response.data, '_blank');
+                win.focus();
+            }else{
+                $('#' + selector).html('');
+                swal("Sorry!", response.message, "error");
+            }
+        }
+    });
+}
