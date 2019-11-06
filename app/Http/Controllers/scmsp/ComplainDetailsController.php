@@ -104,8 +104,11 @@ class ComplainDetailsController extends Controller
                 return redirect('admin/complain-details-create')
                             ->withErrors($validator)
                             ->withInput();
-            }
+            }            
             
+            $complainTypeDetails                   =    get_data_name_by_id('complain_type_categories', $request->category_id);
+            $complainTypeName                      =    (isset($complainTypeName->name) && !empty($complainTypeName->name) ? $complainTypeName->name : "");
+
             $complainerCode                        =   getComplainCode((isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d')));
             $complain_details                      =   new ComplainDetails;
             $complain_details->complainer_code     =   $complainerCode;
@@ -160,6 +163,7 @@ class ComplainDetailsController extends Controller
                 $tecnitianMobile    =   get_user_mobile_number_by_id($request->assign_to);
                 if(isset($tecnitianMobile) && !empty($tecnitianMobile)){
                     $staffParam       =   [
+                        'complainerType'    =>  $complainTypeName,
                         'complainerName'    =>  $request->complainer_name,
                         'complainerMobile'  =>  $request->complainer,
                         'complainerCode'    =>  $complainerCode,
@@ -178,7 +182,41 @@ class ComplainDetailsController extends Controller
                         'sms_response'  =>  'Mobile number not found',
                     ];
                     DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
-                }                
+                }
+                
+                // area manger SMS Part:
+                $param      =   [
+                    'addr_div_id'   => $request->addr_div_id,
+                    'addr_dis_id'   => $request->addr_dis_id,
+                    'addr_up_id'    => $request->addr_upazila_id,
+                    'addr_union_id' => $request->addr_union_id,
+                    'user_id'       => $request->assign_to,
+                ];
+                
+                $managerMobile          =    getManagerMobileByServiceStaff($param);
+                if(isset($managerMobile) && !empty($managerMobile)){
+                    $staffParam       =   [
+                        'complainerType'    =>  $complainTypeName,
+                        'complainerName'    =>  $request->complainer_name,
+                        'complainerMobile'  =>  $request->complainer,
+                        'complainerCode'    =>  $complainerCode,
+                        'contacts'          =>  $tecnitianMobile,
+                        'mmobile'           =>  $managerMobile,
+                    ];
+                    $staffSmsParam  =   get_manager_message($staffParam);
+                    $sms_response   =   sending_sms($staffSmsParam);
+                    $historyUpdateParam     =   [
+                        'is_sms_send'   =>  1,
+                        'sms_response'  =>  $sms_response,
+                    ];
+                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }else{
+                    $historyUpdateParam     =   [
+                        'is_sms_send'   =>  0,
+                        'sms_response'  =>  'Mobile number not found',
+                    ];
+                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }
             }
             return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
 	}

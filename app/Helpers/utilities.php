@@ -204,7 +204,7 @@ function generate_serial_number($data) {
     return $comingDigit;
 }
 // get Daily Assignment Import Code:
-function getComplainCode($date, $prefix="COM"){
+function getComplainCode($date, $prefix="C"){
     $total_row = DB::table('complain_details')
             ->select(DB::raw("count(id) as total_row"))
             ->where('issued_date', $date)
@@ -212,7 +212,7 @@ function getComplainCode($date, $prefix="COM"){
     $number             = intval($total_row->total_row) + 1;
     $dateFormatExplode  = explode('-', $date);
     $dateFormat         = $dateFormatExplode[0].$dateFormatExplode[1].$dateFormatExplode[2];
-    $defaultCode        = $prefix.$dateFormat.sprintf('%08d', $number);
+    $defaultCode        = $prefix.$dateFormat.sprintf('%03d', $number);
     return $defaultCode;
 
 }
@@ -270,8 +270,8 @@ function get_customer_message($data){
 }
 function get_service_staff_message($data){
     $message  = '';
-    $message .= "Dear Service Staff,";
-    $message .= chr(10) . "One Complain have been assigned to you.";
+    $message .= "Dear Concern,";
+    $message .= chr(10) . $data['complainerType']." related complain have been assigned to you.";
     $message .= chr(10) . "Complain ID is:";
     $message .= chr(10) . $data['complainerCode'];
     $message .= chr(10) . "Name: ".$data['complainerName'];
@@ -280,6 +280,22 @@ function get_service_staff_message($data){
     $message .= chr(10) . "SAIF Powertec Ltd";   
     $smsParam   =   [
         'contacts'  =>  $data['contacts'],
+        'msg'       =>  $message
+    ];
+    return $smsParam;
+}
+function get_manager_message($data){
+    $message  = '';
+    $message .= "Dear Concern,";
+    $message .= chr(10) . $data['complainerType']." related  complain have been assigned to ".$data['contacts'];
+    $message .= chr(10) . "Complain ID is:";
+    $message .= chr(10) . $data['complainerCode'];
+    $message .= chr(10) . "Name: ".$data['complainerName'];
+    $message .= chr(10) . "Mobile: ".$data['complainerMobile'];
+    $message .= chr(10) . "Thanks";
+    $message .= chr(10) . "SAIF Powertec Ltd";   
+    $smsParam   =   [
+        'contacts'  =>  $data['mmobile'],
         'msg'       =>  $message
     ];
     return $smsParam;
@@ -374,4 +390,20 @@ function get_report_table_data($request){
     }
     $report_data = $query->select('p.*')->get();
     return $report_data;
+}
+
+function getManagerMobileByServiceStaff($data){
+    $role = DB::table('users as u')
+            ->select('u.mobile as mobile')
+            ->join('staff_locations as sl', 'u.id', '=', 'sl.area_mng_id')
+            ->where('sl.addr_div_id', $data['addr_div_id'])
+            ->where('sl.addr_dis_id', $data['addr_dis_id'])
+            ->where('sl.addr_up_id', $data['addr_up_id'])
+            ->where('sl.addr_union_id', $data['addr_union_id'])
+            ->where('sl.user_id', $data['user_id'])
+            ->first();
+    if(isset($role->mobile)){
+        return $role->mobile;
+    }
+    return false;
 }
