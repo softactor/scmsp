@@ -216,24 +216,55 @@ function getComplainCode($date, $prefix="C"){
     return $defaultCode;
 
 }
-function sending_sms($smsData) {
+function sending_sms($smsData, $multiple = false, $history_id) {
     $curl = curl_init();
 // Set some options - we are passing in a useragent too here
-    curl_setopt_array($curl, [
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => 'http://users.sendsmsbd.com/smsapi',
-        CURLOPT_USERAGENT => 'SMS Process',
-        CURLOPT_POST => 1,
-        CURLOPT_POSTFIELDS => [
-            'api_key'   => 'C20042245d5bcca0a4bc54.80275636',
-            'type'      => 'text',
-            'senderid'  => '8804445629107',
-            'contacts'  => '88'.$smsData['contacts'],
-            'msg'       => $smsData['msg'],
-        ]
-    ]);
-// Send the request & save response to $resp
-    $resp = curl_exec($curl);
+    if ($multiple) {
+        foreach ($smsData as $sdata) {
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => 'http://users.sendsmsbd.com/smsapi',
+                CURLOPT_USERAGENT => 'SMS Process',
+                CURLOPT_POST => 1,
+                CURLOPT_POSTFIELDS => [
+                    'api_key' => 'C20042245d5bcca0a4bc54.80275636',
+                    'type' => 'text',
+                    'senderid' => '8804445629107',
+                    'contacts' => '88' . $sdata['contacts'],
+                    'msg' => $sdata['msg'],
+                ]
+            ]);
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
+            $historyUpdateParam = [
+                'is_sms_send' => 1,
+                'sms_response' => $resp,
+            ];
+            DB::table('complain_details_history')->where('id', $history_id)->update($historyUpdateParam);
+        }
+    } else {
+        curl_setopt_array($curl, [
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'http://users.sendsmsbd.com/smsapi',
+            CURLOPT_USERAGENT => 'SMS Process',
+            CURLOPT_POST => 1,
+            CURLOPT_POSTFIELDS => [
+                'api_key' => 'C20042245d5bcca0a4bc54.80275636',
+                'type' => 'text',
+                'senderid' => '8804445629107',
+                'contacts' => '88' . $smsData['contacts'],
+                'msg' => $smsData['msg'],
+            ]
+        ]);
+        // Send the request & save response to $resp
+        $resp = curl_exec($curl);
+        $historyUpdateParam = [
+            'is_sms_send' => 1,
+            'sms_response' => $resp,
+        ];
+        DB::table('complain_details_history')->where('id', $history_id)->update($historyUpdateParam);
+    }
+
 // Close request to clear up some resources
     curl_close($curl);
     return $resp;

@@ -107,7 +107,7 @@ class ComplainDetailsController extends Controller
             }            
             
             $complainTypeDetails                   =    get_data_name_by_id('complain_type_categories', $request->category_id);
-            $complainTypeName                      =    (isset($complainTypeName->name) && !empty($complainTypeName->name) ? $complainTypeName->name : "");
+            $complainTypeName                      =    (isset($complainTypeDetails->name) && !empty($complainTypeDetails->name) ? $complainTypeDetails->name : "");
 
             $complainerCode                        =   getComplainCode((isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d')));
             $complain_details                      =   new ComplainDetails;
@@ -138,6 +138,7 @@ class ComplainDetailsController extends Controller
                 'created_at'    =>  date('Y-m-d H:i:s')
             ];           
             $lastHistoryId  =   DB::table('complain_details_history')->insertGetId($detailsHistoryData);
+            $smsSenderContainer     =   [];
             if(get_settings_value('send_sms')){
                 //Customer SMS Part:
                 if(isset($request->complainer) && !empty($request->complainer)){
@@ -145,13 +146,9 @@ class ComplainDetailsController extends Controller
                         'complainerCode'=>  $complainerCode,
                         'contacts'      =>  $request->complainer,
                     ];
-                    $cusSmsParam    =   get_customer_message($cusparam);
-                    $sms_response   =   sending_sms($cusSmsParam);
-                    $historyUpdateParam     =   [
-                        'is_sms_send'   =>  1,
-                        'sms_response'  =>  $sms_response,
-                    ];
-                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                    $cusSmsParam            =   get_customer_message($cusparam);
+                    $smsSenderContainer[]   =   $cusSmsParam;
+                    //$sms_response           =   sending_sms($cusSmsParam);
                 }else{
                     $historyUpdateParam     =   [
                         'is_sms_send'   =>  0,
@@ -170,12 +167,8 @@ class ComplainDetailsController extends Controller
                         'contacts'          =>  $tecnitianMobile,
                     ];
                     $staffSmsParam  =   get_service_staff_message($staffParam);
-                    $sms_response   =   sending_sms($staffSmsParam);
-                    $historyUpdateParam     =   [
-                        'is_sms_send'   =>  1,
-                        'sms_response'  =>  $sms_response,
-                    ];
-                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                    $smsSenderContainer[]   =   $staffSmsParam;
+                    //$sms_response   =   sending_sms($staffSmsParam);
                 }else{
                     $historyUpdateParam     =   [
                         'is_sms_send'   =>  0,
@@ -203,19 +196,19 @@ class ComplainDetailsController extends Controller
                         'contacts'          =>  $tecnitianMobile,
                         'mmobile'           =>  $managerMobile,
                     ];
-                    $staffSmsParam  =   get_manager_message($staffParam);
-                    $sms_response   =   sending_sms($staffSmsParam);
-                    $historyUpdateParam     =   [
-                        'is_sms_send'   =>  1,
-                        'sms_response'  =>  $sms_response,
-                    ];
-                    DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                    $managerSmsParam        =   get_manager_message($staffParam);
+                    $smsSenderContainer[]   =   $managerSmsParam;
+                    //$sms_response           =   sending_sms($managerSmsParam);
                 }else{
                     $historyUpdateParam     =   [
                         'is_sms_send'   =>  0,
                         'sms_response'  =>  'Mobile number not found',
                     ];
                     DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                }
+                if(isset($smsSenderContainer) && !empty($smsSenderContainer)){
+                    $multiple   =   true;
+                    sending_sms($smsSenderContainer, $multiple, $lastHistoryId);
                 }
             }
             return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
