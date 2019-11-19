@@ -76,3 +76,10 @@ img.export_style_icon{
     margin: 0 .2%;
     padding: .5%;
 }
+.required_text:after {
+   content: " is required ";
+   color: red;
+   font-weight: bold;
+   font-style: italic;
+   font-size:10px;
+}

@@ -398,7 +398,7 @@ function get_report_table_data($request){
             $query->where('p.department_id', '=', $request->department_id);
         }
         if (isset($request->category_id) && !empty($request->category_id)) {
-            $query->where('pa.category_id', '=', $request->category_id);
+            $query->where('p.category_id', '=', $request->category_id);
         }
         if (isset($request->complain_type_id) && !empty($request->complain_type_id)) {
             $query->where('p.complain_type_id', '=', $request->complain_type_id);

@@ -85,7 +85,7 @@ class ComplainDetailsController extends Controller
             $rules  =   [
                 'category_id'       => 'required',
                 'complain_type_id'  => 'required',
-                'complainer'        => 'required',
+                'complainer'        => 'required|size:11',
                 'complainer_name'   => 'required',
                 'complainer_address'=> 'required',
                 'complain_details'  => 'required',
