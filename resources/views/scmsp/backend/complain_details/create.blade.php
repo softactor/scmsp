@@ -204,7 +204,6 @@
                             <label for="role">Address District<span class="required_text"></span></label>
                             <?php 
                                 $up_by_dis_url = route('admin.get_upozila_by_district');
-                                if (!$errors->has('addr_dis_id')) {
                             ?>
                             <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
                                 <option value="">Select</option>
@@ -225,7 +224,6 @@
                                     }
                                 ?>
                             </select>
-                                <?php } ?>
                             <?php
                                 if ($errors->has('addr_dis_id')) {
                                     echo "<div class='alert alert-danger'>District is Required</div>";
