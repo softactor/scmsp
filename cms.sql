@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2019 at 03:54 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.8
+-- Generation Time: Nov 20, 2019 at 05:08 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `saif_complain`
+-- Database: `cms`
 --
 
 -- --------------------------------------------------------
@@ -2504,7 +2504,8 @@ INSERT INTO `addr_unions` (`id`, `upazila_id`, `name`, `bn_name`, `lat`, `lon`) 
 (2347, 354, '', 'আইহাই', 0, 0),
 (2348, 354, '', 'শিরন্টী', 0, 0),
 (2349, 354, '', 'গোয়ালা', 0, 0),
-(2350, 354, '', 'পাতাড়ী', 0, 0);
+(2350, 354, '', 'পাতাড়ী', 0, 0),
+(2351, 493, 'Dhaka Sadar', 'Dhaka Sadar', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -3014,7 +3015,8 @@ INSERT INTO `addr_upazilas` (`id`, `district_id`, `name`, `bn_name`) VALUES
 (489, 54, 'Jaintiapur', 'জয়ন্তপুর'),
 (490, 54, 'Kanaighat', 'কানাইঘাট'),
 (491, 54, 'Zakiganj', 'জাকিগঞ্জ'),
-(492, 54, 'Nobigonj', 'নবীগঞ্জ');
+(492, 54, 'Nobigonj', 'নবীগঞ্জ'),
+(493, 1, 'Dhaka Sadar', 'Dhaka Sadar');
 
 -- --------------------------------------------------------
 
@@ -3029,7 +3031,7 @@ CREATE TABLE `complainer_informations` (
   `addr_dis_id` int(11) DEFAULT NULL,
   `addr_up_id` int(11) DEFAULT NULL,
   `addr_union_id` int(11) DEFAULT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3061,16 +3063,16 @@ CREATE TABLE `complain_details` (
   `complain_type_id` int(11) NOT NULL,
   `complainer` varchar(100) NOT NULL,
   `name` varchar(500) DEFAULT NULL,
-  `address` text,
+  `address` text DEFAULT NULL,
   `complain_details` longtext NOT NULL,
-  `feedback_details` text,
+  `feedback_details` text DEFAULT NULL,
   `issued_date` datetime NOT NULL,
   `division_id` int(11) DEFAULT NULL,
   `department_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `assign_to` int(11) DEFAULT NULL,
   `complain_status` varchar(100) NOT NULL,
-  `priority_id` int(11) NOT NULL DEFAULT '3',
+  `priority_id` int(11) NOT NULL DEFAULT 3,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3080,9 +3082,11 @@ CREATE TABLE `complain_details` (
 --
 
 INSERT INTO `complain_details` (`id`, `complainer_code`, `category_id`, `complain_type_id`, `complainer`, `name`, `address`, `complain_details`, `feedback_details`, `issued_date`, `division_id`, `department_id`, `user_id`, `assign_to`, `complain_status`, `priority_id`, `created_at`, `updated_at`) VALUES
-(25, 'COM2019100200000001', 21, 53, '01676545520', 'Meghna jahana', 'Mohammadpur', 'Test', NULL, '2019-10-02 07:38:16', 15, 8, 1, 16, '1', 1, '2019-10-02 01:38:16', '2019-10-02 01:38:16'),
-(26, 'COM2019100200000001', 21, 53, '01676545520', 'Meghna jahana', 'Mohammadpur', 'Test', NULL, '2019-10-02 07:39:32', 15, 8, 1, 16, '1', 1, '2019-10-02 01:39:32', '2019-10-02 01:39:32'),
-(27, 'COM2019100200000001', 21, 53, '01676545520', 'Meghna jahana', 'Mohammadpur', 'Test', NULL, '2019-10-02 07:49:01', 15, 8, 10, 16, '1', 1, '2019-10-02 01:49:01', '2019-10-02 01:49:01');
+(30, 'COM2019110500000001', 22, 54, '01708467858', 'Ripon', 'gjkgl', 'gglbljkbj', 'solved', '2019-11-05 12:39:06', 15, 14, 11, 29, '2', 1, '2019-11-05 06:39:06', '2019-11-05 06:54:29'),
+(31, 'COM2019110500000001', 22, 54, '01755630102', 'Ripon', 'blb', 'vnmb,n,n.n..n', 'solved', '2019-11-05 16:35:11', 15, 14, 11, 25, '2', 1, '2019-11-05 10:35:11', '2019-11-05 10:45:05'),
+(32, 'C20191106001', 23, 55, '01817182075', 'kamal', 'fjhkhl', 'charging problem', NULL, '2019-11-06 15:53:52', 15, 14, 11, 29, '1', 1, '2019-11-06 09:53:52', '2019-11-06 09:53:52'),
+(33, 'C20191106001', 22, 54, '01817182075', 'kamal', 'jgklkj', 'bljhl', NULL, '2019-11-06 16:39:17', 15, 14, 11, 29, '1', 1, '2019-11-06 10:39:17', '2019-11-06 10:39:17'),
+(34, 'C20191109001', 22, 54, '01817182075', 'karim', 'dhaka', 'Mileage problem found.current speed 80 instead of 120.', NULL, '2019-11-09 13:03:18', 15, 14, 11, 29, '1', 3, '2019-11-09 07:03:18', '2019-11-09 07:03:18');
 
 -- --------------------------------------------------------
 
@@ -3098,9 +3102,9 @@ CREATE TABLE `complain_details_history` (
   `assign_to` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `current_status` int(11) NOT NULL,
-  `is_sms_send` tinyint(1) NOT NULL DEFAULT '0',
-  `sms_response` text,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_sms_send` tinyint(1) NOT NULL DEFAULT 0,
+  `sms_response` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -3109,8 +3113,15 @@ CREATE TABLE `complain_details_history` (
 --
 
 INSERT INTO `complain_details_history` (`id`, `complain_id`, `descriptions`, `created_by`, `assign_to`, `updated_by`, `current_status`, `is_sms_send`, `sms_response`, `created_at`, `updated_at`) VALUES
-(40, 26, 'Test', 1, 16, 1, 1, 0, NULL, '2019-10-02 01:39:32', NULL),
-(41, 27, 'Test', 10, 16, 10, 1, 1, 'SMS SUBMITTED: ID - C20042245d94027bc0205', '2019-10-02 01:49:05', NULL);
+(47, 30, 'gglbljkbj', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245dc1190668696', '2019-11-05 06:39:10', NULL),
+(48, 30, 'prcessing', NULL, 29, 22, 3, 0, NULL, '2019-11-05 06:53:58', '2019-11-05 06:53:58'),
+(49, 30, 'solved', NULL, 29, 22, 2, 1, 'SMS SUBMITTED: ID - C20042245dc11ca0b627d', '2019-11-05 06:54:32', '2019-11-05 06:54:29'),
+(50, 31, 'vnmb,n,n.n..n', 11, 25, 11, 1, 1, '1012', '2019-11-05 10:35:14', NULL),
+(51, 31, 'processing', NULL, 25, 22, 3, 0, NULL, '2019-11-05 10:44:12', '2019-11-05 10:44:12'),
+(52, 31, 'solved', NULL, 25, 22, 2, 1, 'SMS SUBMITTED: ID - C20042245dc152ab906bf', '2019-11-05 10:45:07', '2019-11-05 10:45:05'),
+(53, 32, 'charging problem', 11, 29, 11, 1, 1, '1012', '2019-11-06 09:53:57', NULL),
+(54, 33, 'bljhl', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245dc2a2d37fd72', '2019-11-06 10:39:22', NULL),
+(55, 34, 'Mileage problem found.current speed 80 instead of 120.', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245dc664b73cfe9', '2019-11-09 07:03:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -3158,7 +3169,7 @@ CREATE TABLE `complain_statuses` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
@@ -3185,7 +3196,7 @@ CREATE TABLE `complain_types` (
   `div_id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
@@ -3226,7 +3237,13 @@ INSERT INTO `complain_types` (`id`, `name`, `dept_id`, `div_id`, `category_id`, 
 (50, 'Spare Material', 16, 9, 19, 1, 1, '2019-09-22 10:44:52', '2019-09-22 10:44:52'),
 (51, 'Late response', 16, 9, 20, 1, 1, '2019-09-22 10:46:16', '2019-09-22 10:46:16'),
 (52, 'Poor Service Support', 16, 9, 20, 1, 1, '2019-09-22 10:47:54', '2019-09-22 10:47:54'),
-(53, 'Test Complain Type', 15, 8, 21, 1, 1, '2019-10-02 01:31:32', '2019-10-02 01:31:32');
+(54, 'Mileage Problem', 15, 14, 22, 1, 1, '2019-10-02 05:54:12', '2019-10-02 05:54:12'),
+(55, 'Battery is very hot during charging', 15, 14, 23, 1, 1, '2019-10-03 04:51:11', '2019-10-03 04:51:11'),
+(56, 'Take more time to getting charge', 15, 14, 23, 1, 1, '2019-10-03 04:55:16', '2019-10-03 04:55:16'),
+(57, 'Battery Physically Damage', 15, 14, 25, 1, 1, '2019-10-03 04:57:52', '2019-10-03 04:57:52'),
+(58, 'Warranty Issue', 15, 14, 26, 1, 1, '2019-10-03 04:59:18', '2019-10-03 04:59:18'),
+(59, 'Battery load voltage found low', 15, 14, 27, 1, 1, '2019-10-03 05:01:58', '2019-10-03 05:01:58'),
+(60, 'Container Fault', 15, 14, 28, 1, 1, '2019-10-03 05:04:00', '2019-10-03 05:04:00');
 
 -- --------------------------------------------------------
 
@@ -3240,7 +3257,7 @@ CREATE TABLE `complain_type_categories` (
   `dept_id` int(11) DEFAULT NULL,
   `div_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3255,7 +3272,27 @@ INSERT INTO `complain_type_categories` (`id`, `name`, `dept_id`, `div_id`, `user
 (18, 'Setup & Installation', 16, 9, 1, 1, '2019-09-22 10:24:27', '2019-09-22 10:24:27'),
 (19, 'Payments', 16, 9, 1, 1, '2019-09-22 10:42:46', '2019-09-22 10:42:46'),
 (20, 'After Sales Service', 16, 9, 1, 1, '2019-09-22 10:45:35', '2019-09-22 10:45:35'),
-(21, 'Test ABC', 15, 8, 1, 1, '2019-10-02 01:31:08', '2019-10-02 01:31:08');
+(22, 'Mileage Problem', 15, 14, 1, 1, '2019-10-02 05:53:50', '2019-10-02 05:53:50'),
+(23, 'Charging', 15, 14, 1, 1, '2019-10-03 04:50:28', '2019-10-03 04:50:28'),
+(24, 'Battery Physically Damage', 15, 8, 1, 1, '2019-10-03 04:56:56', '2019-10-03 04:56:56'),
+(25, 'Battery Physically Damage', 15, 14, 1, 1, '2019-10-03 04:57:33', '2019-10-03 04:57:33'),
+(26, 'Warranty Issue', 15, 14, 1, 1, '2019-10-03 04:58:51', '2019-10-03 04:58:51'),
+(27, 'Battery load voltage found low', 15, 14, 1, 1, '2019-10-03 05:01:21', '2019-10-03 05:01:21'),
+(28, 'Container Fault', 15, 14, 1, 1, '2019-10-03 05:03:36', '2019-10-03 05:03:36'),
+(29, 'Color variation of PET Bottle', 22, 17, 1, 1, '2019-11-02 07:56:22', '2019-11-02 07:56:22'),
+(30, 'Weight variation problem of PET Bottle', 22, 17, 1, 1, '2019-11-02 07:57:00', '2019-11-02 07:57:00'),
+(31, 'Dust problem of PET Bottle, CAP &Ice cream Box', 22, 17, 1, 1, '2019-11-02 07:57:48', '2019-11-02 07:57:48'),
+(32, 'Wall Thickness variation of Bottle & Ice cream Box', 22, 17, 1, 1, '2019-11-02 08:00:19', '2019-11-02 08:00:19'),
+(33, 'Fitment problem with Cap & Bottle and Ice Cream Box with lid', 22, 17, 1, 1, '2019-11-02 08:01:25', '2019-11-02 08:01:25'),
+(34, 'Black spot problem -  PET Bottle & Ice cream Box', 22, 17, 1, 1, '2019-11-02 08:02:11', '2019-11-02 08:02:11'),
+(35, 'Cap unscrew / slitting problem', 22, 17, 1, 1, '2019-11-02 08:02:50', '2019-11-02 08:02:50'),
+(36, 'Scratch problem of PET Bottle surface & Ice cream Box', 22, 17, 1, 1, '2019-11-02 08:04:27', '2019-11-02 08:04:27'),
+(37, 'Micro leakage problem / bauble problem of PET Bottle', 22, 17, 1, 1, '2019-11-02 08:05:23', '2019-11-02 08:05:23'),
+(38, 'Nonuniform of Bottle & Ice cream Box body surface', 22, 17, 1, 1, '2019-11-02 08:06:23', '2019-11-02 08:06:23'),
+(39, 'Nonuniform of Bottle neck', 22, 17, 1, 1, '2019-11-02 08:07:12', '2019-11-02 08:07:12'),
+(40, 'Bottle dent during supply/delivery time', 22, 17, 1, 1, '2019-11-02 08:07:57', '2019-11-02 08:07:57'),
+(41, 'Cloudy / Non transparent of PET Bottle', 22, 17, 1, 1, '2019-11-02 08:08:36', '2019-11-02 08:08:36'),
+(42, 'Bad smell of PET Bottle', 22, 17, 1, 1, '2019-11-02 08:09:21', '2019-11-02 08:09:21');
 
 -- --------------------------------------------------------
 
@@ -3267,7 +3304,7 @@ CREATE TABLE `departments` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3282,7 +3319,8 @@ INSERT INTO `departments` (`id`, `name`, `user_id`, `status`, `created_at`, `upd
 (17, 'Renewable Energy', 1, 1, '2019-08-25 11:48:39', '2019-08-25 12:26:53'),
 (20, 'Maxson Power Ltd.', 1, 1, '2019-08-27 22:23:20', '2019-09-19 07:17:22'),
 (21, 'E-Engineering Ltd.', 1, 1, '2019-09-19 07:18:25', '2019-09-19 07:18:25'),
-(22, 'Saif Plastic & Polymer Industries Ltd.', 1, 1, '2019-09-19 07:19:53', '2019-09-19 07:19:53');
+(22, 'Saif Plastic & Polymer Industries Ltd.', 1, 1, '2019-09-19 07:19:53', '2019-09-19 07:19:53'),
+(23, 'Customer Care', 1, 1, '2019-11-14 06:25:48', '2019-11-14 06:25:48');
 
 -- --------------------------------------------------------
 
@@ -3295,7 +3333,7 @@ CREATE TABLE `divisions` (
   `dept_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3309,7 +3347,9 @@ INSERT INTO `divisions` (`id`, `dept_id`, `name`, `user_id`, `status`, `created_
 (9, 16, 'Sales', 1, 1, '2019-08-25 11:50:33', '2019-09-22 10:16:57'),
 (13, 20, 'Service', 1, 1, '2019-08-27 22:27:15', '2019-09-19 10:27:55'),
 (14, 15, 'Product & Service', 1, 1, '2019-09-19 07:23:27', '2019-09-19 07:23:27'),
-(15, 20, 'Generator Sales', 1, 1, '2019-09-19 10:30:37', '2019-09-19 10:30:37');
+(15, 20, 'Generator Sales', 1, 1, '2019-09-19 10:30:37', '2019-09-19 10:30:37'),
+(17, 22, 'Saif Plastic & Polymer Industries Ltd.', 1, 1, '2019-11-02 07:55:03', '2019-11-02 07:55:03'),
+(18, 23, 'Call Center', 1, 1, '2019-11-14 06:26:23', '2019-11-14 06:26:23');
 
 -- --------------------------------------------------------
 
@@ -3341,7 +3381,7 @@ CREATE TABLE `modules` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3380,13 +3420,13 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `permissions` (
   `id` int(11) NOT NULL,
   `user_type` varchar(100) NOT NULL,
-  `isallpermission` tinyint(1) NOT NULL DEFAULT '1',
+  `isallpermission` tinyint(1) NOT NULL DEFAULT 1,
   `module` varchar(100) NOT NULL,
-  `isallmodulepermission` tinyint(1) NOT NULL DEFAULT '1',
-  `addaccess` tinyint(1) NOT NULL DEFAULT '1',
-  `editaccess` tinyint(1) NOT NULL DEFAULT '1',
-  `listaccess` tinyint(1) NOT NULL DEFAULT '1',
-  `deleteaccess` tinyint(1) NOT NULL DEFAULT '1',
+  `isallmodulepermission` tinyint(1) NOT NULL DEFAULT 1,
+  `addaccess` tinyint(1) NOT NULL DEFAULT 1,
+  `editaccess` tinyint(1) NOT NULL DEFAULT 1,
+  `listaccess` tinyint(1) NOT NULL DEFAULT 1,
+  `deleteaccess` tinyint(1) NOT NULL DEFAULT 1,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -3413,7 +3453,7 @@ CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf32_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf32 COLLATE=utf32_unicode_ci;
@@ -3478,7 +3518,15 @@ CREATE TABLE `staff_locations` (
 --
 
 INSERT INTO `staff_locations` (`id`, `addr_div_id`, `addr_dis_id`, `addr_up_id`, `addr_union_id`, `user_id`, `area_mng_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(2, 3, 1, 145, 502, 16, 14, 1, NULL, '2019-10-02 06:48:16', NULL);
+(6, 3, 1, 493, 2351, 22, 22, 1, 1, '2019-10-05 15:47:27', '2019-11-09 12:59:37'),
+(7, 3, 1, 493, 2351, 23, 0, 1, 1, '2019-10-07 10:34:05', '2019-11-06 15:44:33'),
+(8, 3, 1, 493, 2351, 24, 0, 1, 1, '2019-10-09 16:08:53', '2019-11-06 16:06:32'),
+(9, 3, 1, 493, 2351, 25, 22, 1, 1, '2019-10-10 12:55:20', '2019-11-05 12:28:41'),
+(10, 3, 1, 493, 2351, 26, 0, 1, 1, '2019-10-10 12:59:31', '2019-11-06 15:41:42'),
+(11, 3, 1, 493, 2351, 27, 0, 1, 1, '2019-10-10 13:01:55', '2019-11-06 15:41:13'),
+(12, 3, 1, 493, 2351, 28, 0, 1, 1, '2019-10-10 15:30:34', '2019-11-06 15:43:16'),
+(13, 3, 1, 493, 2351, 29, 22, 1, 1, '2019-11-05 12:37:30', '2019-11-06 16:28:26'),
+(14, 3, 1, 493, 2351, 30, 0, 1, NULL, '2019-11-14 12:44:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -3506,10 +3554,16 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `email_verified_at`, `password`, `remember_token`, `division_id`, `department_id`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', 'superadmin@cms.com', NULL, NULL, '$2y$10$Vau6vW1eJDO55kR666BpbeAKS/JRMbv4jDT1MGwkY83d/eCrabqEG', NULL, NULL, NULL, '2019-03-26 10:36:21', '2019-08-05 22:38:33'),
-(10, 'agent1', 'agent1@cms.com', '0', NULL, '$2y$10$PUdS9PnI.uJuZq/6UKXgwut6aobGNQtqde06NFxGlPdaouceogbam', NULL, 0, 0, '2019-09-23 04:21:08', '2019-09-23 04:21:08'),
-(11, 'agent2', 'agent2@cms.com', '0', NULL, '$2y$10$Z6Dx2Vkj2D6w2HrEZADW0.YysF9AsotE.VTHZhZ7GhNV4cX0zKdW6', NULL, 0, 0, '2019-09-23 04:26:19', '2019-09-23 04:26:19'),
-(14, 'Mr Area Manager', 'area_manager@cms.com', '01676545520', NULL, '$2y$10$rpGQff44jBYUqUOjM1h03e2tPy1OTcu7UyFBnrGhj5MgSc4MR8kXO', NULL, 15, 8, '2019-10-02 00:18:56', '2019-10-02 00:18:56'),
-(16, 'Tanveer Qureshee', 'tq@cms.com', '01716600843', NULL, '$2y$10$ZrG1mkAKh1wgtEUI/JVTHuN0zwXoni3X9t/ARcRE73EtJ2MAfgO.q', NULL, 15, 8, '2019-10-02 00:48:15', '2019-10-02 00:48:15');
+(11, 'agent2', 'agent2@cms.com', '0', NULL, '$2y$10$qYkFhz4tZDXXum/wUZ60pOuWzopRBxE1ftA0lf/4DxXD.ElEMcIo2', NULL, 0, 0, '2019-09-23 04:26:19', '2019-10-02 06:01:50'),
+(22, 'Md.Nasimul Hasan', 'nasim@saifpowertec.com', '01787684207', NULL, '$2y$10$k7MD4QiDh6I66bYjtVR8eeTLKQqjgnZlolCKVl6OxHpZL0IshHXrq', NULL, 15, 14, '2019-10-05 09:47:27', '2019-11-09 06:59:37'),
+(23, 'Md.Shafiqul Islam', 'shafiqul.batt@saifpowertec.com', '1787684053', NULL, '$2y$10$ZXH9MmmTPmO6KEbxbXpW.OiNFqeAnlIvjq4adfcKsnqxmj71jgYRe', NULL, 15, 14, '2019-10-07 04:34:05', '2019-11-06 09:44:33'),
+(24, 'Shila Akter Bobi', 'boby@saifpower.com', '01787684191', NULL, '$2y$10$n7/zYKp4.WSJW8f2UsUBH.UP.QS4N6vEHshuvU4K0w8LTD99UDcZW', NULL, 0, 0, '2019-10-09 10:08:53', '2019-11-06 10:06:32'),
+(25, 'Md. Monwar Hossain', 'monwer.batt@saifpowertec.com', '1755543179', NULL, '$2y$10$4ocVDSX03RV4jwMrGgWZQuzHxCDpwNy/uCmxKARZ2eLDD5DD5Gfyi', NULL, 15, 14, '2019-10-10 06:55:20', '2019-11-05 06:28:41'),
+(26, 'A.K Azad (Shohag)', 'ak.azad@saifpowertec.com', '1713383411', NULL, '$2y$10$WtnxtijMweeuYiNkXOzJBuzN.HGEJ94BPfk2Zylj7SFRk3gB/gbiq', NULL, 20, 13, '2019-10-10 06:59:31', '2019-11-06 09:41:42'),
+(27, 'Md. Nasimul Haque', 'nasimul@maxonpowerltd.com', '1713383412', NULL, '$2y$10$Bjex4ytAG692GdjKn0SAG.4hayaqqzg0MzKOa./FFkNLGUG2rYswy', NULL, 20, 13, '2019-10-10 07:01:55', '2019-11-06 09:41:13'),
+(28, 'Beauty Hossain', 'beauty@saifpowertec.com', '1777790400', NULL, '$2y$10$YvHo7v2OFY68mgmWZvMxXeQMajGcGmiraJm1ENltTDtiyXh9zVFe.', NULL, 16, 9, '2019-10-10 09:30:34', '2019-11-06 09:43:16'),
+(29, 'Salauddin Gazi', 'salauddin@cms.com', '01708467858', NULL, '$2y$10$ELbZB703cT0uQZm.6heGv./bLemSsdag0gajx5qX2b2yIbk5QUUEa', NULL, 15, 14, '2019-11-05 06:37:30', '2019-11-06 10:28:26'),
+(30, 'Sumaiya Rahman Ratri', 'Sumaiya@cms.com', '01762560693', NULL, '$2y$10$Z8iJmL6PFepbRj5Ws6ASFewM/eOujH.jqanLaZZ1fXke0FXINPlem', NULL, 23, 18, '2019-11-14 06:44:46', '2019-11-14 06:44:46');
 
 -- --------------------------------------------------------
 
@@ -3539,12 +3593,26 @@ INSERT INTO `user_roles` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`
 (8, 7, 3, '2019-08-25 00:40:14', '2019-08-25 00:40:14'),
 (9, 8, 3, '2019-08-26 18:20:51', '2019-09-18 20:05:35'),
 (10, 9, 4, '2019-08-27 17:56:01', '2019-09-23 03:56:21'),
-(11, 10, 3, '2019-09-23 04:21:08', '2019-09-23 04:21:08'),
-(12, 11, 3, '2019-09-23 04:26:19', '2019-09-23 04:26:19'),
+(11, 10, 3, '2019-09-23 04:21:08', '2019-10-06 23:43:10'),
+(12, 11, 3, '2019-09-23 04:26:19', '2019-10-02 06:01:50'),
 (13, 12, 4, '2019-09-23 04:28:18', '2019-09-23 04:34:31'),
 (14, 13, 4, '2019-09-23 04:29:33', '2019-09-23 04:34:08'),
 (15, 14, 5, '2019-10-02 00:18:56', '2019-10-02 00:18:56'),
-(17, 16, 4, '2019-10-02 00:48:15', '2019-10-02 00:48:15');
+(17, 16, 4, '2019-10-02 00:48:15', '2019-10-02 00:48:15'),
+(18, 17, 5, '2019-10-02 04:36:49', '2019-10-02 04:36:49'),
+(19, 18, 5, '2019-10-02 04:37:54', '2019-10-02 04:37:54'),
+(20, 19, 4, '2019-10-02 04:39:22', '2019-10-02 04:39:22'),
+(21, 20, 4, '2019-10-02 04:40:53', '2019-10-02 04:40:53'),
+(22, 21, 4, '2019-10-02 05:57:42', '2019-10-02 05:57:42'),
+(23, 22, 5, '2019-10-05 09:47:27', '2019-11-09 06:59:37'),
+(24, 23, 5, '2019-10-07 04:34:05', '2019-11-05 21:44:33'),
+(25, 24, 3, '2019-10-09 10:08:53', '2019-11-05 22:06:32'),
+(26, 25, 4, '2019-10-10 06:55:20', '2019-11-05 06:28:41'),
+(27, 26, 5, '2019-10-10 06:59:31', '2019-11-05 21:41:42'),
+(28, 27, 5, '2019-10-10 07:01:55', '2019-11-05 21:41:13'),
+(29, 28, 4, '2019-10-10 09:30:34', '2019-11-05 21:43:16'),
+(30, 29, 4, '2019-11-05 06:37:30', '2019-11-05 22:28:26'),
+(31, 30, 3, '2019-11-14 06:44:47', '2019-11-14 06:44:47');
 
 --
 -- Indexes for dumped tables
@@ -3701,116 +3769,139 @@ ALTER TABLE `user_roles`
 --
 ALTER TABLE `addr_districts`
   MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+
 --
 -- AUTO_INCREMENT for table `addr_divisions`
 --
 ALTER TABLE `addr_divisions`
   MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `addr_unions`
 --
 ALTER TABLE `addr_unions`
-  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2351;
+  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2352;
+
 --
 -- AUTO_INCREMENT for table `addr_upazilas`
 --
 ALTER TABLE `addr_upazilas`
-  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=493;
+  MODIFY `id` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+
 --
 -- AUTO_INCREMENT for table `complainer_informations`
 --
 ALTER TABLE `complainer_informations`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `complain_asigned`
 --
 ALTER TABLE `complain_asigned`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `complain_details`
 --
 ALTER TABLE `complain_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
 --
 -- AUTO_INCREMENT for table `complain_details_history`
 --
 ALTER TABLE `complain_details_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
 --
 -- AUTO_INCREMENT for table `complain_feedbacks`
 --
 ALTER TABLE `complain_feedbacks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `complain_priorites`
 --
 ALTER TABLE `complain_priorites`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `complain_statuses`
 --
 ALTER TABLE `complain_statuses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `complain_types`
 --
 ALTER TABLE `complain_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
 --
 -- AUTO_INCREMENT for table `complain_type_categories`
 --
 ALTER TABLE `complain_type_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
 --
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `modules`
 --
 ALTER TABLE `modules`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `staff_locations`
 --
 ALTER TABLE `staff_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
 --
 -- Constraints for dumped tables
 --

@@ -392,10 +392,10 @@ function get_report_table_data($request){
             $query->where('p.created_at', '<=', $to_date);
         }
         if (isset($request->div_id) && !empty($request->div_id)) {
-            $query->where('p.division_id', '=', $request->division_id);
+            $query->where('p.division_id', '=', $request->div_id);
         }
         if (isset($request->dept_id) && !empty($request->dept_id)) {
-            $query->where('p.department_id', '=', $request->department_id);
+            $query->where('p.department_id', '=', $request->dept_id);
         }
         if (isset($request->category_id) && !empty($request->category_id)) {
             $query->where('p.category_id', '=', $request->category_id);
