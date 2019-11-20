@@ -403,21 +403,6 @@ function get_report_table_data($request){
         if (isset($request->complain_type_id) && !empty($request->complain_type_id)) {
             $query->where('p.complain_type_id', '=', $request->complain_type_id);
         }
-        if (isset($request->addr_div_id) && !empty($request->addr_div_id)) {
-            $query->where('p.subsector_id', '=', $request->subsector_id);
-        }
-        if (isset($request->addr_dis_id) && !empty($request->addr_dis_id)) {
-            $progress_type  =   true;
-            $query->where('pp.progresstype', '=', $request->progress_type);
-        }   
-        if (isset($request->addr_upazila_id) && !empty($request->addr_upazila_id)) {
-            $progress_type  =   true;
-            $query->where('pp.progresstype', '=', $request->progress_type);
-        }   
-        if (isset($request->addr_union_id) && !empty($request->addr_union_id)) {
-            $progress_type  =   true;
-            $query->where('pp.progresstype', '=', $request->progress_type);
-        }
     }
     $report_data = $query->select('p.*')->get();
     return $report_data;
