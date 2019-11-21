@@ -302,12 +302,8 @@ class ComplainDetailsController extends Controller
                     'contacts' => $complainerPhone,
                     'msg' => $message
                 ];
-                $sms_response = sending_sms($smsParam);
-                $historyUpdateParam = [
-                    'is_sms_send' => 1,
-                    'sms_response' => $sms_response,
-                ];
-                DB::table('complain_details_history')->where('id', $lastHistoryId)->update($historyUpdateParam);
+                $multiple       =   false;
+                $sms_response   = sending_sms($smsParam, $multiple, $lastHistoryId);
             }
         }
         return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');

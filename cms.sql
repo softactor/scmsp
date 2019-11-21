@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2019 at 05:08 AM
+-- Generation Time: Nov 21, 2019 at 02:14 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.2.22
 
@@ -3086,7 +3086,9 @@ INSERT INTO `complain_details` (`id`, `complainer_code`, `category_id`, `complai
 (31, 'COM2019110500000001', 22, 54, '01755630102', 'Ripon', 'blb', 'vnmb,n,n.n..n', 'solved', '2019-11-05 16:35:11', 15, 14, 11, 25, '2', 1, '2019-11-05 10:35:11', '2019-11-05 10:45:05'),
 (32, 'C20191106001', 23, 55, '01817182075', 'kamal', 'fjhkhl', 'charging problem', NULL, '2019-11-06 15:53:52', 15, 14, 11, 29, '1', 1, '2019-11-06 09:53:52', '2019-11-06 09:53:52'),
 (33, 'C20191106001', 22, 54, '01817182075', 'kamal', 'jgklkj', 'bljhl', NULL, '2019-11-06 16:39:17', 15, 14, 11, 29, '1', 1, '2019-11-06 10:39:17', '2019-11-06 10:39:17'),
-(34, 'C20191109001', 22, 54, '01817182075', 'karim', 'dhaka', 'Mileage problem found.current speed 80 instead of 120.', NULL, '2019-11-09 13:03:18', 15, 14, 11, 29, '1', 3, '2019-11-09 07:03:18', '2019-11-09 07:03:18');
+(34, 'C20191109001', 22, 54, '01817182075', 'karim', 'dhaka', 'Mileage problem found.current speed 80 instead of 120.', NULL, '2019-11-09 13:03:18', 15, 14, 11, 29, '1', 3, '2019-11-09 07:03:18', '2019-11-09 07:03:18'),
+(35, 'C20191120001', 22, 54, '01787686742', 'Palash', 'Dhaka', 'CMS testing', NULL, '2019-11-20 12:10:45', 15, 14, 30, 29, '1', 1, '2019-11-20 06:10:45', '2019-11-20 06:10:45'),
+(36, 'C20191120001', 22, 54, '01787686742', 'Palash', 'Dhaka', 'CMS testing', 'Issue solved', '2019-11-20 12:10:54', 15, 14, 30, 29, '2', 1, '2019-11-20 06:10:54', '2019-11-20 06:19:00');
 
 -- --------------------------------------------------------
 
@@ -3121,7 +3123,12 @@ INSERT INTO `complain_details_history` (`id`, `complain_id`, `descriptions`, `cr
 (52, 31, 'solved', NULL, 25, 22, 2, 1, 'SMS SUBMITTED: ID - C20042245dc152ab906bf', '2019-11-05 10:45:07', '2019-11-05 10:45:05'),
 (53, 32, 'charging problem', 11, 29, 11, 1, 1, '1012', '2019-11-06 09:53:57', NULL),
 (54, 33, 'bljhl', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245dc2a2d37fd72', '2019-11-06 10:39:22', NULL),
-(55, 34, 'Mileage problem found.current speed 80 instead of 120.', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245dc664b73cfe9', '2019-11-09 07:03:24', NULL);
+(55, 34, 'Mileage problem found.current speed 80 instead of 120.', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245dc664b73cfe9', '2019-11-09 07:03:24', NULL),
+(56, 35, 'CMS testing', 30, 29, 30, 1, 1, 'SMS SUBMITTED: ID - C20042245dd4d8f2a4997', '2019-11-20 06:10:55', NULL),
+(57, 36, 'CMS testing', 30, 29, 30, 1, 1, 'SMS SUBMITTED: ID - C20042245dd4d8f6c2474', '2019-11-20 06:11:00', NULL),
+(58, 36, 'Processing request.', NULL, 29, 22, 3, 0, NULL, '2019-11-20 06:17:56', '2019-11-20 06:17:56'),
+(59, 36, 'Issue solved', NULL, 29, 22, 2, 0, NULL, '2019-11-20 06:18:22', '2019-11-20 06:18:22'),
+(60, 36, 'Issue solved', NULL, 29, 22, 2, 0, NULL, '2019-11-20 06:19:00', '2019-11-20 06:19:00');
 
 -- --------------------------------------------------------
 
@@ -3349,7 +3356,8 @@ INSERT INTO `divisions` (`id`, `dept_id`, `name`, `user_id`, `status`, `created_
 (14, 15, 'Product & Service', 1, 1, '2019-09-19 07:23:27', '2019-09-19 07:23:27'),
 (15, 20, 'Generator Sales', 1, 1, '2019-09-19 10:30:37', '2019-09-19 10:30:37'),
 (17, 22, 'Saif Plastic & Polymer Industries Ltd.', 1, 1, '2019-11-02 07:55:03', '2019-11-02 07:55:03'),
-(18, 23, 'Call Center', 1, 1, '2019-11-14 06:26:23', '2019-11-14 06:26:23');
+(18, 23, 'Call Center', 1, 1, '2019-11-14 06:26:23', '2019-11-14 06:26:23'),
+(19, 16, 'Service', 1, 1, '2019-11-20 05:32:45', '2019-11-20 05:32:45');
 
 -- --------------------------------------------------------
 
@@ -3518,7 +3526,7 @@ CREATE TABLE `staff_locations` (
 --
 
 INSERT INTO `staff_locations` (`id`, `addr_div_id`, `addr_dis_id`, `addr_up_id`, `addr_union_id`, `user_id`, `area_mng_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(6, 3, 1, 493, 2351, 22, 22, 1, 1, '2019-10-05 15:47:27', '2019-11-09 12:59:37'),
+(6, 3, 1, 493, 2351, 22, 22, 1, 1, '2019-10-05 15:47:27', '2019-11-20 12:10:26'),
 (7, 3, 1, 493, 2351, 23, 0, 1, 1, '2019-10-07 10:34:05', '2019-11-06 15:44:33'),
 (8, 3, 1, 493, 2351, 24, 0, 1, 1, '2019-10-09 16:08:53', '2019-11-06 16:06:32'),
 (9, 3, 1, 493, 2351, 25, 22, 1, 1, '2019-10-10 12:55:20', '2019-11-05 12:28:41'),
@@ -3555,7 +3563,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `email_verified_at`, `password`, `remember_token`, `division_id`, `department_id`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', 'superadmin@cms.com', NULL, NULL, '$2y$10$Vau6vW1eJDO55kR666BpbeAKS/JRMbv4jDT1MGwkY83d/eCrabqEG', NULL, NULL, NULL, '2019-03-26 10:36:21', '2019-08-05 22:38:33'),
 (11, 'agent2', 'agent2@cms.com', '0', NULL, '$2y$10$qYkFhz4tZDXXum/wUZ60pOuWzopRBxE1ftA0lf/4DxXD.ElEMcIo2', NULL, 0, 0, '2019-09-23 04:26:19', '2019-10-02 06:01:50'),
-(22, 'Md.Nasimul Hasan', 'nasim@saifpowertec.com', '01787684207', NULL, '$2y$10$k7MD4QiDh6I66bYjtVR8eeTLKQqjgnZlolCKVl6OxHpZL0IshHXrq', NULL, 15, 14, '2019-10-05 09:47:27', '2019-11-09 06:59:37'),
+(22, 'Md.Nasimul Hasan', 'nasim@saifpowertec.com', '01708467887', NULL, '$2y$10$k7MD4QiDh6I66bYjtVR8eeTLKQqjgnZlolCKVl6OxHpZL0IshHXrq', NULL, 15, 14, '2019-10-05 09:47:27', '2019-11-20 06:10:26'),
 (23, 'Md.Shafiqul Islam', 'shafiqul.batt@saifpowertec.com', '1787684053', NULL, '$2y$10$ZXH9MmmTPmO6KEbxbXpW.OiNFqeAnlIvjq4adfcKsnqxmj71jgYRe', NULL, 15, 14, '2019-10-07 04:34:05', '2019-11-06 09:44:33'),
 (24, 'Shila Akter Bobi', 'boby@saifpower.com', '01787684191', NULL, '$2y$10$n7/zYKp4.WSJW8f2UsUBH.UP.QS4N6vEHshuvU4K0w8LTD99UDcZW', NULL, 0, 0, '2019-10-09 10:08:53', '2019-11-06 10:06:32'),
 (25, 'Md. Monwar Hossain', 'monwer.batt@saifpowertec.com', '1755543179', NULL, '$2y$10$4ocVDSX03RV4jwMrGgWZQuzHxCDpwNy/uCmxKARZ2eLDD5DD5Gfyi', NULL, 15, 14, '2019-10-10 06:55:20', '2019-11-05 06:28:41'),
@@ -3604,7 +3612,7 @@ INSERT INTO `user_roles` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`
 (20, 19, 4, '2019-10-02 04:39:22', '2019-10-02 04:39:22'),
 (21, 20, 4, '2019-10-02 04:40:53', '2019-10-02 04:40:53'),
 (22, 21, 4, '2019-10-02 05:57:42', '2019-10-02 05:57:42'),
-(23, 22, 5, '2019-10-05 09:47:27', '2019-11-09 06:59:37'),
+(23, 22, 5, '2019-10-05 09:47:27', '2019-11-20 06:10:26'),
 (24, 23, 5, '2019-10-07 04:34:05', '2019-11-05 21:44:33'),
 (25, 24, 3, '2019-10-09 10:08:53', '2019-11-05 22:06:32'),
 (26, 25, 4, '2019-10-10 06:55:20', '2019-11-05 06:28:41'),
@@ -3804,13 +3812,13 @@ ALTER TABLE `complain_asigned`
 -- AUTO_INCREMENT for table `complain_details`
 --
 ALTER TABLE `complain_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `complain_details_history`
 --
 ALTER TABLE `complain_details_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `complain_feedbacks`
@@ -3852,7 +3860,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `migrations`
