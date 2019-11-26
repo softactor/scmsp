@@ -28,7 +28,8 @@
                             <th>Priority</th>
                             <th>Complain date</th>
                             <th>Complain raw date</th>
-                            <th>complainer</th>
+                            <th>Complainer</th>
+                            <th>Contact</th>
                             <th>Complain Type</th>
                             <th>Status</th>
                             <th>In-Charge</th>
@@ -42,7 +43,8 @@
                             <th>Priority</th>
                             <th>Complain date</th>
                             <th>Complain raw date</th>
-                            <th>complainer</th>
+                            <th>Complainer</th>
+                            <th>Contact</th>
                             <th>Complain Type</th>
                             <th>Status</th>
                             <th>In-Charge</th>
@@ -71,6 +73,7 @@
                             </td>
                             <td><?php echo human_format_date($data->created_at); ?></td>
                             <td><?php echo $data->created_at; ?></td>
+                            <td>{{ $data->name }}</td>                            
                             <td>{{ $data->complainer }}</td>                            
                             <td>
                                 <?php 
