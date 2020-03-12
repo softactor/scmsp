@@ -229,6 +229,7 @@ class ComplainDetailsController extends Controller
                 'complain_type_id' => 'required',
                 'complainer' => 'required',
                 'complain_details' => 'required',
+                'complainer_address' => 'required',
                 'complain_date' => 'required',
                 'complain_status' => 'required',
                 'div_id' => 'required',
@@ -259,6 +260,7 @@ class ComplainDetailsController extends Controller
             $complain_details->complain_type_id = $request->complain_type_id;
             $complain_details->complainer = $request->complainer;
             $complain_details->complain_details = $request->complain_details;
+            $complain_details->address = $request->complainer_address;
             $complain_details->issued_date = $request->complain_date;
             $complain_details->division_id = $request->div_id;
             $complain_details->department_id = $request->dept_id;
@@ -271,6 +273,7 @@ class ComplainDetailsController extends Controller
             $complain_details->feedback_details = $request->feedback_details;
             $complain_details->updated_at = date("Y-m-d H:i:s");
             $complain_details->complain_status = $request->complain_status;
+            $complain_details->updated_at = date('Y-m-d H:i:s');
             $descriptions = $request->feedback_details;
         }
         $complain_details->save();

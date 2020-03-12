@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <!--demoDatepicker-->
                             <label for="complainer">Address</label>
-                            <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="{{ old('address',$editData->address) }}">
+                            <input type="text" class="form-control" name="complainer_address" id="complainer_address" placeholder="Complainer address" autocomplete="off" value="{{ old('address',$editData->address) }}">
                         </div>
                     </div>
                 </div>
