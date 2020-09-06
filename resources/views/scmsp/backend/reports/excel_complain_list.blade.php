@@ -1,15 +1,15 @@
-<table width="100%" cellspacing="5" cellpadding="5">
+<table>
     <thead>
         <tr>
-            <th>Code</th>
-            <th>Priority</th>
-            <th>Complain date</th>
-            <th>Complain raw date</th>
-            <th>complainer</th>
-            <th>Complain Type</th>
-            <th>Status</th>
-            <th>In-Charge</th>
-            <th>Created By</th>
+            <th style="text-align: center;">Code</th>
+            <th style="text-align: center;">Priority</th>
+            <th style="text-align: center;">Complain date</th>
+            <th style="text-align: center;">Complain raw date</th>
+            <th style="text-align: center;">complainer</th>
+            <th style="text-align: center;">Complain Type</th>
+            <th style="text-align: center;">Status</th>
+            <th style="text-align: center;">In-Charge</th>
+            <th style="text-align: center;">Created By</th>
         </tr>
     </thead>
     <tbody id="complain_details">
