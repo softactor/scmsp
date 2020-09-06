@@ -60,10 +60,10 @@ class ReportsController extends Controller {
     }
     public function download_complain_excel_file(Request $request)
     {
-        $events     =   '';
-        Excel::create('registration_export', function($excel) use ($events){
-            $excel->sheet('event_export', function($sheet) use ($events){
-                $sheet->loadView('scmsp.backend.reports.excel_complain_list')->with('events',$events);
+        $report_data     =   get_excel_report_data();
+        Excel::create('registration_export', function($excel) use ($report_data){
+            $excel->sheet('event_export', function($sheet) use ($report_data){
+                $sheet->loadView('scmsp.backend.reports.excel_complain_list')->with('report_data',$report_data);
                 $sheet->setOrientation('landscape');
             });
         })->export('xlsx');

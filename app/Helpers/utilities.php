@@ -374,6 +374,11 @@ function mail_execution($data){
         $message->subject("Complain Test Mail");
     });
 }
+function get_excel_report_data(){
+    $query           =     DB::table('complain_details as p');    
+    $report_data = $query->select('p.*')->get();
+    return $report_data;
+}
 function get_report_table_data($request){
     $ll     =   $request->all();
     $query           =     DB::table('complain_details as p');
