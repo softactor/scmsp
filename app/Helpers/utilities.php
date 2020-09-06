@@ -374,41 +374,46 @@ function mail_execution($data){
         $message->subject("Complain Test Mail");
     });
 }
-function get_excel_report_data(){
-    $query           =     DB::table('complain_details as p');    
-    $report_data = $query->select('p.*')->get();
-    return $report_data;
-}
 function get_report_table_data($request){
-    $ll     =   $request->all();
+    //$all     =   $request->all();
+    $filtersData['filter']      =   [];
     $query           =     DB::table('complain_details as p');
     if (isset($request->all) && !empty($request->all)) {
         $list_data = $query->select('p.*')->get();
+        $filtersData['filter']['all']   =   true;
     } else {
         if (isset($request->complainer) && !empty($request->complainer)) {
             $query->where('p.complainer', '=', $request->complainer);
+            $filtersData['filter']['complainer']   =   $request->complainer;
         }
         if (isset($request->from_date) && !empty($request->from_date)) {
             $from_date      =   date("Y-m-d", strtotime($request->from_date)).' 00:00:00';
             $query->where('p.created_at', '>=', $from_date);
+            $filtersData['filter']['from_date']   =   $request->from_date;
         }            
         if (isset($request->to_date) && !empty($request->to_date)) {
             $to_date      =   date("Y-m-d", strtotime($request->to_date)).' 12:59:59';
             $query->where('p.created_at', '<=', $to_date);
+            $filtersData['filter']['to_date']   =   $request->to_date;
         }
         if (isset($request->div_id) && !empty($request->div_id)) {
             $query->where('p.division_id', '=', $request->div_id);
+            $filtersData['filter']['div_id']   =   $request->div_id;
         }
         if (isset($request->dept_id) && !empty($request->dept_id)) {
             $query->where('p.department_id', '=', $request->dept_id);
+            $filtersData['filter']['dept_id']   =   $request->dept_id;
         }
         if (isset($request->category_id) && !empty($request->category_id)) {
             $query->where('p.category_id', '=', $request->category_id);
+            $filtersData['filter']['category_id']   =   $request->category_id;
         }
         if (isset($request->complain_type_id) && !empty($request->complain_type_id)) {
             $query->where('p.complain_type_id', '=', $request->complain_type_id);
+            $filtersData['filter']['complain_type_id']   =   $request->complain_type_id;
         }
     }
+    Session::put('filters', $filtersData);
     $report_data = $query->select('p.*')->get();
     return $report_data;
 }
