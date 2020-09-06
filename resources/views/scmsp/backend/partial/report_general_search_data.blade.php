@@ -9,9 +9,6 @@
             $excelurl    = route('admin.complain-lis-excel');
         ?>
         <a href="<?php echo $excelurl; ?>">
-            Excel
-        </a>
-        <a href="<?php echo $testpdfurl; ?>">
             <img class="export_style_icon" src="<?php echo asset('scmsp/icon/export_print_small.png') ?>">
         </a>
         <a href="javascript:void(0);" onclick="generatePDF('<?php echo $pdfurl; ?>');">
