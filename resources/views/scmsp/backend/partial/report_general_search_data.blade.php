@@ -6,7 +6,11 @@
         <?php
             $pdfurl    = route('admin.generate-general-report-pdf');
             $testpdfurl    = route('admin.test-pdf');
+            $excelurl    = route('admin.complain-lis-excel');
         ?>
+        <a href="<?php echo $excelurl; ?>">
+            Excel
+        </a>
         <a href="<?php echo $testpdfurl; ?>">
             <img class="export_style_icon" src="<?php echo asset('scmsp/icon/export_print_small.png') ?>">
         </a>

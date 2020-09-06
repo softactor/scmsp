@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use \PDF as PDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class SettingsController.
@@ -17,7 +18,7 @@ class ReportsController extends Controller {
     public function index(Request $request){
         $role   =   getRoleNameByUserId(Auth::user()->id);
         $activeMenuClass    =   'report-list';   
-        return View('scmsp.backend.reports.index', compact('list','activeMenuClass'));
+        return View('scmsp.backend.reports.index', compact('activeMenuClass'));
     }
     public function get_general_report_data(Request $request){
         $report_data     =   get_report_table_data($request);        
@@ -56,5 +57,15 @@ class ReportsController extends Controller {
         $data['report_data']     =   get_report_table_data($request);
         $pdf = PDF::loadView('scmsp.backend.reports.prints.general_pdf', $data);
         return $pdf->download('report.pdf');
+    }
+    public function download_complain_excel_file(Request $request)
+    {
+        $events     =   '';
+        Excel::create('registration_export', function($excel) use ($events){
+            $excel->sheet('event_export', function($sheet) use ($events){
+                $sheet->loadView('scmsp.backend.reports.excel_complain_list')->with('events',$events);
+                $sheet->setOrientation('landscape');
+            });
+        })->export('xlsx');
     }
 }

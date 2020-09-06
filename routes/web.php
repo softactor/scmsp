@@ -214,6 +214,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::get('get-cms-general-report', 'scmsp\ReportsController@get_general_report_data')->name('get-cms-general-report');
     Route::get('generate-general-report-pdf', 'scmsp\ReportsController@generate_general_report_pdf')->name('generate-general-report-pdf');
     Route::get('test-pdf', 'scmsp\ReportsController@testPDF')->name('test-pdf');
+    Route::get('complain-lis-excel', 'scmsp\ReportsController@download_complain_excel_file')->name('complain-lis-excel');
     
     /*
      *  Get Ajax call Details:
