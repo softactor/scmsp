@@ -1,4 +1,4 @@
-<table width="100%" cellspacing="0">
+<table width="100%" cellspacing="5" cellpadding="5">
     <thead>
         <tr>
             <th>Code</th>
@@ -16,13 +16,10 @@
         <?php
         if (!$report_data->isEmpty()) {
             foreach ($report_data as $data) {
-                $rawColor = get_status_wise_row_color($data->complain_status);
                 ?>
-                <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
+                <tr>
                     <td>
-                        <a href="{{ url('admin/complain-details-edit/'.$data->id) }}"> 
-                            <?php echo $data->complainer_code; ?>
-                        </a>
+                        <?php echo $data->complainer_code; ?>
                     </td>
                     <td>
                         <?php
@@ -40,12 +37,10 @@
                         ?>
                     </td>                            
                     <td>
-                        <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">                                    
-                            <?php
+                        <?php
                             $res = get_data_name_by_id('complain_statuses', $data->complain_status);
                             echo (isset($res) && !empty($res) ? $res->name : 'No data found');
                             ?>
-                        </a>
                     </td>
                     <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
                     <td>{{ (isset($data->user_id) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
