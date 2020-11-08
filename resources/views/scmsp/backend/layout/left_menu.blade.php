@@ -85,7 +85,7 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
     ?>
      <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'query-details') ?>">
         <a class="nav-link" href="{{ route('admin.query-details-list') }}">
-            <i class="fas fa-fw fa-marker" style="color:#dc3545;"></i>
+            <i class="fas fa-question-circle" style="color:#dc3545;"></i>
             <span>Query Details</span>
         </a>
     </li> 
