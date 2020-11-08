@@ -81,6 +81,16 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
     </li> 
         <?php } ?>
     <?php
+        if(hasAccessPermission($roleName, 'Query details', 'listaccess')){
+    ?>
+     <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'query-details') ?>">
+        <a class="nav-link" href="{{ route('admin.query-details-list') }}">
+            <i class="fas fa-fw fa-marker" style="color:#dc3545;"></i>
+            <span>Query Details</span>
+        </a>
+    </li> 
+        <?php } ?>
+    <?php
         if(hasAccessPermission($roleName, 'Report', 'listaccess')){
     ?>
     <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'report-list') ?>">

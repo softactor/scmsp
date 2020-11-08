@@ -234,7 +234,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::get('get_upozila_by_district', 'scmsp\AutoCompleteController@get_upozila_by_district')->name('get_upozila_by_district');
     Route::get('get_union_by_upozila', 'scmsp\AutoCompleteController@get_union_by_upozila')->name('get_union_by_upozila');
     Route::get('get_area_manager_by_department', 'scmsp\AutoCompleteController@get_area_manager_by_department')->name('get_area_manager_by_department');
-
+    
+    // calling complain-details list routes
+    Route::get('query-details-list', 'scmsp\ComplainDetailsController@query_details_list')->name('query-details-list');
+    // calling complain-details create routes
+    Route::get('query-details-create', 'scmsp\ComplainDetailsController@query_create')->name('query-details-create');
+    
 });
 Auth::routes();
 
