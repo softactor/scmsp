@@ -433,3 +433,13 @@ function getManagerMobileByServiceStaff($data){
     }
     return false;
 }
+// this method is using for get all division service staff:
+function get_all_division_service_staff($division_id){
+    $data = DB::table('users as u')
+            ->select('u.id', 'u.name')
+            ->join('staff_locations as sl', 'u.id', '=', 'sl.user_id')
+            ->where('sl.all_division', 1)
+            ->where('u.division_id', $division_id)
+            ->get();
+    return $data;
+}

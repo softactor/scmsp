@@ -185,15 +185,10 @@ function getusersByDepartment(union_id, selector, url){
             data        : 'division_id='+division_id+'&department_id='+department_id+'&addr_div_id='+addr_div_id+'&addr_dis_id='+addr_dis_id+'&addr_up_id='+addr_up_id+'&addr_union_id='+union_id,
             success     : function(response){
                 if(response.status  ==  'success'){
-                    $('#'+selector).html(response.data);                    
-                }else{
-                    $('#'+selector).html(defaultSelector);
+                    $('#'+selector).append(response.data);                    
                 }
             }
         });
-    }else{
-        var defaultSelector = "<option value=''>Select</option>";
-        $('#'+selector).html(defaultSelector);
     }
 }
 /*
@@ -329,4 +324,20 @@ function generatePDF(url) {
             }
         }
     });
+}
+
+function get_all_division_service_users(division_id, url){
+    if(division_id){
+        $.ajax({
+            url     : url,
+            type    : 'GET',
+            dataType: 'json',
+            data    : 'division_id='+division_id,
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#assign_to').append(response.data);
+                }
+            }
+        });
+    }
 }

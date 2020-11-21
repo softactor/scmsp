@@ -165,6 +165,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::post('complain-details-update', 'scmsp\ComplainDetailsController@update')->name('complain-details-update');
     // calling complain-details delete routes
     Route::post('complain-details-delete', 'scmsp\ComplainDetailsController@delete')->name('complain-details-delete');
+    
+    Route::get('get-all-division-service-staff', 'scmsp\ComplainDetailsController@get_all_division_service_staff')->name('get_all_division_service_staff');
 
     // start feedback details routes
     // calling feedback-details list routes

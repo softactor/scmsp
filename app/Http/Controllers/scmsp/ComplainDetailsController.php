@@ -343,15 +343,32 @@ class ComplainDetailsController extends Controller
             return response()->json($data);
         }
         
-        function query_details_list() {
+        public function query_details_list() {
             $role   =   getRoleNameByUserId(Auth::user()->id);
             $list   =   ComplainDetails::where('complain_status',10)->orderBy('created_at', 'DESC')->get();;
             /* selected menue data */
             $activeMenuClass    =   'query-details';   
             return View('scmsp.backend.querys.query_details_list', compact('list','activeMenuClass'));
         }
-        function query_create() {
+        public function query_create() {
             $activeMenuClass    =   'query-details';
             return View('scmsp.backend.querys.query_create_form', compact('activeMenuClass'));
+        }
+        
+        public function get_all_division_service_staff(Request $request){
+            $division_id        =   $request->division_id;            
+            $allDivisionStaff   =   get_all_division_service_staff($division_id);
+            $status             =   ((!$allDivisionStaff->isEmpty()) ? 'success' : 'error');
+            $optionsData        =   '';
+            if(!$allDivisionStaff->isEmpty()){
+                foreach($allDivisionStaff as $row){
+                    $optionsData.='<option value="'.$row->id.'">'.$row->name.'</option>';
+                }
+            }
+            $feedback           =   [
+                'status'    =>  $status,
+                'data'      =>  $optionsData
+            ];            
+            echo json_encode($feedback);
         }
 }

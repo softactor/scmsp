@@ -54,9 +54,10 @@
                         <div class="form-group">
                             <?php
                             $get_department_by_division_url = url('admin/get_department_by_division');
+                            $get_all_division_service_staff = url('admin/get-all-division-service-staff');
                             ?>
                             <label for="pwd">Complain Division<span class="required_text"></span></label>
-                            <select class="form-control" id='div_id' name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
+                            <select class="form-control" id='div_id' name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>'); get_all_division_service_users(this.value, '<?php echo $get_all_division_service_staff; ?>');">
                                 <option value="">Select</option>
                                 <?php
                                 $list = get_table_data_by_table('departments');

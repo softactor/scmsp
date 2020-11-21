@@ -116,7 +116,7 @@
     <script type="text/javascript">
         function complain_details_auto_refresh(){
             setTimeout(function() {
-                location.reload();
+                //location.reload();
             }, 30000);
         }
         complain_details_auto_refresh();

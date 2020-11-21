@@ -14,34 +14,36 @@
             @include('scmsp.backend.partial.operation_message')
             <form action="{{ route('admin.user-store') }}" method="post">
                 @csrf
-                <div class="form-group">
-                    <label for="role">Role</label>
-                    <select class="form-control" name="role_id">
-                        <option value="">Select Role</option>
-                        <?php
-                        $list = get_table_data_by_table('roles');
-                        if (!$list->isEmpty()) {
-                            foreach ($list as $data) {
-                                ?>
-                                <option value="{{ $data->id }}"<?php
-                                if (old('role_id') == $data->id) {
-                                    echo 'selected';
-                                }
-                                ?>>{{ $data->name }}
-                                </option>
-                                <?php
-                            }
-                        }
-                        ?>                        
-                    </select>
-                    <?php
-                    if ($errors->has('role_id')) {
-                        echo "<div class='alert alert-danger'>Role is Required</div>";
-                    }
-                    ?>
-                </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select class="form-control" name="role_id">
+                                <option value="">Select Role</option>
+                                <?php
+                                $list = get_table_data_by_table('roles');
+                                if (!$list->isEmpty()) {
+                                    foreach ($list as $data) {
+                                        ?>
+                                        <option value="{{ $data->id }}"<?php
+                                        if (old('role_id') == $data->id) {
+                                            echo 'selected';
+                                        }
+                                        ?>>{{ $data->name }}
+                                        </option>
+                                        <?php
+                                    }
+                                }
+                                ?>                        
+                            </select>
+                            <?php
+                            if ($errors->has('role_id')) {
+                                echo "<div class='alert alert-danger'>Role is Required</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" value="<?php echo old('name'); ?>">
@@ -52,7 +54,9 @@
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="<?php echo old('email'); ?>">
@@ -202,14 +206,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Area Manager <span style="font-style: italic; font-size: 12px; font-weight: bold;">(This option only be needed when role is service incharge and he/she will under one Area Manager)</span></label>                            
-                    <select class="form-control" id="area_manager_id" name="area_manager_id"><option value="">Select</option></select>
-                    <?php
-                    if ($errors->has('area_manager_id')) {
-                        echo "<div class='alert alert-danger'>Area Manager is Required</div>";
-                    }
-                    ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="pwd">Area Manager</label>                            
+                            <select class="form-control" id="area_manager_id" name="area_manager_id">
+                                <option value="">Select</option>
+                            </select>
+                            <span style="color: red;font-style: italic; font-size: 12px; font-weight: bold;">(This option only be needed when role is service incharge and he/she will under one Area Manager)</span>
+                            <?php
+                            if ($errors->has('area_manager_id')) {
+                                echo "<div class='alert alert-danger'>Area Manager is Required</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">All Location?</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="all_division" value="1"> Yes
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <input type="submit" name="submit" value="Create" class="btn btn-info">
             </form>
