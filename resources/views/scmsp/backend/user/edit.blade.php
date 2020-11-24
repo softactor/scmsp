@@ -224,20 +224,24 @@ if (!$list->isEmpty()) {
                             <label for="pwd">Area Manager                            
                             <select class="form-control" id="area_manager_id" name="area_manager_id">
                                 <option value="">Select</option>
-<?php
-$list = get_table_data_by_table('users');
-if (!$list->isEmpty()) {
-    foreach ($list as $data) {
-        ?>
-                                        <option value="{{ $data->id }}"<?php
-        if (isset($area_mng_id) && $area_mng_id == $data->id) {
-            echo 'selected';
-        }
-        ?>>{{ $data->name }}</option>
-        <?php
-    }
-}
-?>
+                                <?php
+                                    $managerParamData          =   (object)[
+                                        'division_id'   => $editData->division_id,
+                                        'department_id' => $editData->department_id
+                                    ];
+                                    $list = get_area_manager_by_department($managerParamData);
+                                    if (!$list->isEmpty()) {
+                                        foreach ($list as $data) {
+                                            ?>
+                                                                            <option value="{{ $data->user_id }}"<?php
+                                            if (isset($area_mng_id) && $area_mng_id == $data->user_id) {
+                                                echo 'selected';
+                                            }
+                                            ?>>{{ $data->user_name }}</option>
+                                            <?php
+                                        }
+                                    }
+                                ?>
                             </select>
 <span style="color: red;font-style: italic; font-size: 12px; font-weight: bold;">(This option only be needed when role is service incharge and he/she will under one Area Manager)</span>
                         </div>

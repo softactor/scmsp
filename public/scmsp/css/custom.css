@@ -83,3 +83,6 @@ img.export_style_icon{
    font-style: italic;
    font-size:10px;
 }
+.form-control {
+    font-size: 13px !important;
+}

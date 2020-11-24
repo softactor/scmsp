@@ -443,3 +443,13 @@ function get_all_division_service_staff($division_id){
             ->get();
     return $data;
 }
+function get_area_manager_by_department($request){
+    $areaManagerdata           =   DB::table('users as u')
+        ->select('u.id as user_id', 'u.name as user_name')
+        ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
+        ->where('u.division_id',$request->division_id)
+        ->where('u.department_id',$request->department_id)
+        ->where('ur.role_id',5)
+        ->get();
+    return $areaManagerdata;
+}
