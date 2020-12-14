@@ -14,8 +14,8 @@
         <?php }
         if (hasAccessPermission($roleName, 'Query details', 'addaccess')) {
             ?>            
-            <a href="{{ route('admin.query-details-list') }}">
-            <button style="margin-left: 2px;" type="button" class="btn btn-sm btn-warning float-right margin-fixing">Query Details</button>
+            <a href="{{ route('admin.query-details-create') }}">
+            <button style="margin-left: 2px;" type="button" class="btn btn-sm btn-warning float-right margin-fixing">New Query</button>
             </a>
         <?php }
         
