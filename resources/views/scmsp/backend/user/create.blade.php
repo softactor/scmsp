@@ -21,9 +21,12 @@
                             <select class="form-control" name="role_id">
                                 <option value="">Select Role</option>
                                 <?php
+                                $staticRole         =   ['Service Staff','Area Manager'];
                                 $list = get_table_data_by_table('roles');
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
+                                        if($role!= 'Admin'){
+                                            if(in_array($data->name, $staticRole)){
                                         ?>
                                         <option value="{{ $data->id }}"<?php
                                         if (old('role_id') == $data->id) {
@@ -32,7 +35,7 @@
                                         ?>>{{ $data->name }}
                                         </option>
                                         <?php
-                                    }
+                                    }}}
                                 }
                                 ?>                        
                             </select>
@@ -100,7 +103,14 @@
                             <select class="form-control" name="div_id" id="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
                                 <option value="">Select</option>
                                 <?php
-                                $list = get_table_data_by_table('departments');
+                                if($role!= 'Admin'){
+                                    $divWhere       =   [
+                                        'id'          =>  $userDetails->division_id
+                                    ];
+                                    $list = get_table_data_by_table_and_where('departments', $divWhere);
+                                }else{
+                                    $list = get_table_data_by_table('departments');
+                                }
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
                                         ?>

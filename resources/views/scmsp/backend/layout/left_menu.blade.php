@@ -55,6 +55,9 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
             <span>Users</span>
         </a>
         <div class="dropdown-menu <?php echo setActiveMenuClass($activeMenu, 'users', 'hide') ?>" aria-labelledby="pagesDropdown">
+        <?php
+            if(hasAccessPermission($roleName, 'Role Permission', 'listaccess')){
+        ?>
             <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'role-list', 'submenu_selector') ?>" href="{{ route('admin.role-list') }}">
                 <i class="fa fa-bullseye" aria-hidden="true" style="color: #dc3545;"></i>
                 <span class="sub_menu_text_design">Role</span>
@@ -62,7 +65,8 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
             <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'permission-list', 'submenu_selector') ?>" href="{{ route('admin.permission-create') }}">
                 <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
                 <span class="sub_menu_text_design">Permission</span>
-            </a>            
+            </a>
+            <?php } ?>            
             <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'users-list', 'submenu_selector') ?>" href="{{ route('admin.user-list') }}">
                 <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
                 <span class="sub_menu_text_design">Users</span>

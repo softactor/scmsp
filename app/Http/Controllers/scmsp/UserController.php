@@ -21,15 +21,24 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function index(){
-//            $list   = User::orderBy('name', 'desc')->get();
+        $role           =   getRoleNameByUserId(Auth::user()->id);        
+        if($role== 'Admin'){
             $list = DB::table('users')
                     ->join('user_roles', 'users.id', '=', 'user_roles.user_id')
                     ->select('users.*', 'user_roles.role_id')
             ->get();
-            /* selected menue data */
-            $activeMenuClass    =   'users';   
-            $subMenuClass       =   'users-list';
-            return View('scmsp.backend.user.list', compact('list','activeMenuClass','subMenuClass'));
+        }elseif($role== 'Area Manager'){
+            $userDetails    =   DB::table('users')->where('id', Auth::user()->id)->first();
+            $list = DB::table('users')
+            ->join('user_roles', 'users.id', '=', 'user_roles.user_id')
+            ->select('users.*', 'user_roles.role_id')
+            ->where('division_id' , $userDetails->division_id)
+            ->get();
+        }
+        /* selected menue data */
+        $activeMenuClass    =   'users';   
+        $subMenuClass       =   'users-list';
+        return View('scmsp.backend.user.list', compact('list','activeMenuClass','subMenuClass'));
 	}
         
         /*
@@ -40,10 +49,12 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
+        $role           =   getRoleNameByUserId(Auth::user()->id);
+        $userDetails    =   DB::table('users')->where('id', Auth::user()->id)->first();
                 /* selected menue data */
                 $activeMenuClass    =   'users';   
                 $subMenuClass       =   'users-list';
-		return View('scmsp.backend.user.create', compact('list','activeMenuClass','subMenuClass'));
+		return View('scmsp.backend.user.create', compact('list','activeMenuClass','subMenuClass', 'role', 'userDetails'));
 	}
         /*
 	Method Name	: edit
@@ -53,15 +64,17 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function edit(Request $request){
-            $editData = DB::table('users')
-                    ->join('user_roles', 'users.id', '=', 'user_roles.user_id')
-                    ->select('users.*', 'user_roles.role_id')
-                    ->where('users.id', $request->user_edit_id)
-            ->first();
-            /* selected menue data */
-                $activeMenuClass    =   'users';   
-                $subMenuClass       =   'users-list';
-            return View('scmsp.backend.user.edit', compact('editData','activeMenuClass','subMenuClass'));
+        $role           =   getRoleNameByUserId(Auth::user()->id);
+        $userDetails    =   DB::table('users')->where('id', Auth::user()->id)->first();
+        $editData = DB::table('users')
+                ->join('user_roles', 'users.id', '=', 'user_roles.user_id')
+                ->select('users.*', 'user_roles.role_id')
+                ->where('users.id', $request->user_edit_id)
+        ->first();
+        /* selected menue data */
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'users-list';
+        return View('scmsp.backend.user.edit', compact('editData','activeMenuClass','subMenuClass', 'role', 'userDetails'));
 	}
         /*
             Method Name	: store

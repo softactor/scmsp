@@ -8,11 +8,19 @@
     if (isAgentRole($roleName)) {
         if (hasAccessPermission($roleName, 'Complain details', 'addaccess')) {
             ?>            
-            <a class="" href="{{ route('admin.complain-details-create') }}" >
+            <a href="{{ route('admin.complain-details-create') }}" >
                 <button type="button" class="btn btn-sm btn-success float-right margin-fixing">New Complain</button>
             </a>
         <?php }
-    } ?>
+        if (hasAccessPermission($roleName, 'Query details', 'addaccess')) {
+            ?>            
+            <a href="{{ route('admin.query-details-list') }}">
+            <button style="margin-left: 2px;" type="button" class="btn btn-sm btn-warning float-right margin-fixing">Query Details</button>
+            </a>
+        <?php }
+        
+        } 
+    ?>
     <ul class="navbar-nav ml-auto ml-md-12">
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

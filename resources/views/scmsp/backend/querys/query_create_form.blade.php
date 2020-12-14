@@ -366,6 +366,7 @@
                 <div class="row">           
                     <div class="col-md-12">
                         <div class="form-group">
+                            <input type="hidden" name="entry_type" value="2">
                             <button type="submit" class="btn btn-info">Create</button>
                         </div>
                     </div>

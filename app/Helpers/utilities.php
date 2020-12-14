@@ -23,6 +23,14 @@ function get_table_data_by_table($table, $order_by = null) {
     return $result->get();
 }
 
+function get_table_data_by_table_and_where($table, $where, $order_by = null) {
+    $result = DB::table($table)->where($where);
+    if (isset($order_by['order_by'])) {
+        $result->orderBy($order_by['order_by_column'], $order_by['order_by']);
+    }
+    return $result->get();
+}
+
 // GET TABLE DATA BY TABLE NAME:
 
 function get_data_name_by_id($table, $id) {
@@ -204,10 +212,11 @@ function generate_serial_number($data) {
     return $comingDigit;
 }
 // get Daily Assignment Import Code:
-function getComplainCode($date, $prefix="C"){
+function getComplainCode($date, $prefix="C", $entry_type){
     $total_row = DB::table('complain_details')
             ->select(DB::raw("count(id) as total_row"))
             ->where('issued_date', $date)
+            ->where('entry_type', $entry_type)
             ->first();
     $number             = intval($total_row->total_row) + 1;
     $dateFormatExplode  = explode('-', $date);
@@ -351,6 +360,7 @@ function get_complain_details_by_area_manager($area_manager_id, $complain_status
                 ->join('users as ur', 'u.assign_to', '=', 'ur.id')
                 ->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id')
                 ->where('sl.area_mng_id',$area_manager_id)
+                ->where('u.entry_type', 1)
                 ->where('u.complain_status',$complain_status)
                 ->get();
     }else{
@@ -359,6 +369,7 @@ function get_complain_details_by_area_manager($area_manager_id, $complain_status
                 ->join('users as ur', 'u.user_id', '=', 'ur.id')
                 ->join('staff_locations as sl', 'u.user_id', '=', 'sl.user_id')
                 ->where('sl.area_mng_id',$area_manager_id)
+                ->where('u.entry_type', 1)
                 ->get();
     }
     return $complainDetailsData;

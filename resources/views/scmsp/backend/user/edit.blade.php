@@ -22,9 +22,12 @@
                             <select class="form-control" name="role_id">
                                 <option value="">Select Role</option>
                                 <?php
+                                $staticRole         =   ['Service Staff','Area Manager'];
                                 $list = get_table_data_by_table('roles');
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
+                                        if($role!= 'Admin'){
+                                            if(in_array($data->name, $staticRole)){
                                         ?>
                                         <option value="{{ $data->id }}" <?php
                                         if (isset($editData->role_id) && $editData->role_id == $data->id) {
@@ -32,7 +35,7 @@
                                         }
                                         ?>>{{ $data->name }}</option>   
     <?php }
-}
+}}}
 ?>                        
                             </select>
                         </div>
@@ -74,7 +77,14 @@ $get_department_by_division_url = url('admin/get_department_by_division');
                             <select class="form-control" name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
                                 <option value="">Select</option>
                                 <?php
-                                $list = get_table_data_by_table('departments');
+                                if($role!= 'Admin'){
+                                    $divWhere       =   [
+                                        'id'          =>  $userDetails->division_id
+                                    ];
+                                    $list = get_table_data_by_table_and_where('departments', $divWhere);
+                                }else{
+                                    $list = get_table_data_by_table('departments');
+                                }
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
                                         ?>

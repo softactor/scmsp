@@ -25,9 +25,14 @@ class ComplainDetailsController extends Controller
             $role   =   getRoleNameByUserId(Auth::user()->id);
             if($role== 'Admin' || $role=='Agent'){
                 if(isset($complain_status) && !empty($complain_status)){
-                    $list   = ComplainDetails::where('complain_status',$complain_status)->orderBy('created_at', 'DESC')->get();
+                    $list   = ComplainDetails::where('complain_status',$complain_status)
+                    ->orderBy('created_at', 'DESC')
+                    ->where('entry_type', 1)
+                    ->get();
                 }else{
-                    $list   = ComplainDetails::orderBy('created_at', 'DESC')->get();
+                    $list   = ComplainDetails::orderBy('created_at', 'DESC')
+                    ->where('entry_type', 1)
+                    ->get();
                 }
             }else if($role  ==   'Area Manager'){
                 if(isset($complain_status) && !empty($complain_status)){
@@ -37,9 +42,16 @@ class ComplainDetailsController extends Controller
                 }
             }else{
                 if(isset($complain_status) && !empty($complain_status)){
-                    $list   = ComplainDetails::where('complain_status',$complain_status)->where('assign_to',Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+                    $list   = ComplainDetails::where('complain_status',$complain_status)
+                    ->where('assign_to',Auth::user()->id)
+                    ->where('entry_type', 1)
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
                 }else{
-                    $list   = ComplainDetails::where('assign_to',Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+                    $list   = ComplainDetails::where('assign_to',Auth::user()->id)
+                    ->where('entry_type', 1)
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
                 }
             }
             /* selected menue data */
@@ -90,22 +102,35 @@ class ComplainDetailsController extends Controller
     public function store(Request $request)
     {
         //START COMPLAIN DETAILS ERROR CHECK:
+        $executeSMS             =   true;
+        $entry_type             =   $request->entry_type;
+        if($entry_type == 1){
+            $createPage     =   'admin/complain-details-create';
+            $listPage       =   'admin/complain-details-list';
+            $successMsg     =   'Complain have been successfully created.';
+        }elseif($entry_type == 2){
+            $executeSMS             =   false;
+            $createPage     =   'admin/query-details-create';
+            $listPage       =   'admin/query-details-list';
+            $successMsg     =   'Query have been successfully created.';
+        }
+        
         $errorCheckResponse     =   $this->complain_details_error_check($request);            
         if($errorCheckResponse->hasError){
-            return redirect('admin/complain-details-create')
+            return redirect($createPage)
                         ->withErrors($errorCheckResponse->validator)
                         ->withInput();
         }else{
             //START COMPLAIN STORE METHOD HERE
             $complainStoreResponse          =   $this->execute_complain_store($request);
-
-            //START SEND SMS METHOD HERE
-            $request->complainerCode        =   $complainStoreResponse->complainerCode;
-            $request->lastHistoryId         =   $complainStoreResponse->lastHistoryId;
-            $request->complainTypeName      =   $complainStoreResponse->complainTypeName;
-            $sendingSMSResponse             =   $this->execute_sms_sending($request);
-            
-            return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully created.');
+            if($executeSMS){
+                //START SEND SMS METHOD HERE
+                $request->complainerCode        =   $complainStoreResponse->complainerCode;
+                $request->lastHistoryId         =   $complainStoreResponse->lastHistoryId;
+                $request->complainTypeName      =   $complainStoreResponse->complainTypeName;
+                $sendingSMSResponse             =   $this->execute_sms_sending($request);
+            }
+            return redirect($listPage)->with('success', $successMsg);
         }
     }
     
@@ -144,12 +169,13 @@ class ComplainDetailsController extends Controller
 
     public function  execute_complain_store($request)
     {
-        $complainTypeDetails                   =    get_data_name_by_id('complain_type_categories', $request->category_id);
-        $complainTypeName                      =    (isset($complainTypeDetails->name) && !empty($complainTypeDetails->name) ? $complainTypeDetails->name : "");
-
-        $complainerCode                        =   getComplainCode((isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d')));
+        $complainTypeDetails                   =   get_data_name_by_id('complain_type_categories', $request->category_id);
+        $complainTypeName                      =   (isset($complainTypeDetails->name) && !empty($complainTypeDetails->name) ? $complainTypeDetails->name : "");
+        $prefix                                =   ($request->entry_type == 1 ? 'C':'Q');
+        $complainerCode                        =   getComplainCode((isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d')), $prefix, $request->entry_type);
         $complain_details                      =   new ComplainDetails;
         $complain_details->complainer_code     =   $complainerCode;
+        $complain_details->entry_type          =   $request->entry_type;
         $complain_details->category_id         =   $request->category_id;
         $complain_details->complain_type_id    =   $request->complain_type_id;
         $complain_details->complainer          =   $request->complainer;
@@ -400,21 +426,6 @@ class ComplainDetailsController extends Controller
 
         return response()->json($data);
     }
-    
-    public function query_details_list() 
-    {
-        $role   =   getRoleNameByUserId(Auth::user()->id);
-        $list   =   ComplainDetails::where('complain_status',10)->orderBy('created_at', 'DESC')->get();;
-        /* selected menue data */
-        $activeMenuClass    =   'query-details';   
-        return View('scmsp.backend.querys.query_details_list', compact('list','activeMenuClass'));
-    }
-    public function query_create() 
-    {
-        $activeMenuClass    =   'query-details';
-        return View('scmsp.backend.querys.query_create_form', compact('activeMenuClass'));
-    }
-    
     public function get_all_division_service_staff(Request $request)
     {
         $division_id        =   $request->division_id;            
@@ -432,4 +443,142 @@ class ComplainDetailsController extends Controller
         ];            
         echo json_encode($feedback);
     }
+    
+    public function query_details_list() 
+    {
+        $role   =   getRoleNameByUserId(Auth::user()->id);
+        $userDetails    =   DB::table('users')->where('id', Auth::user()->id)->first();
+        if($role  ==   'Area Manager'){
+            $list   =   ComplainDetails::where('entry_type',2)
+            ->where('division_id', $userDetails->division_id)
+            ->orderBy('created_at', 'DESC')
+            ->get();;
+        }elseif($role  ==   'Service Staff'){
+            $list   =   ComplainDetails::where('entry_type',2)
+            ->where('division_id', $userDetails->division_id)
+            ->where('department_id', $userDetails->department_id)
+            ->orderBy('created_at', 'DESC')
+            ->get();;
+        }else{
+            $list   =   ComplainDetails::where('entry_type',2)
+            ->orderBy('created_at', 'DESC')
+            ->get();;
+        }
+        
+        /* selected menue data */
+        $activeMenuClass    =   'query-details';   
+        return View('scmsp.backend.querys.query_details_list', compact('list','activeMenuClass'));
+    }
+    public function query_create() 
+    {
+        $activeMenuClass    =   'query-details';
+        return View('scmsp.backend.querys.query_create_form', compact('activeMenuClass'));
+    }
+
+
+        /*
+	Method Name	: edit
+	Purpose		: load complain details edit
+	Param		: no param need
+	Date		: 14/12/2020
+	Author		: Tanveer Qureshee
+	*/
+    public function query_edit(Request $request)
+    {
+        $editData           = ComplainDetails::find($request->id);
+        $activeMenuClass    =   'complain-details';
+        $role               =   getRoleNameByUserId(Auth::user()->id);
+        // Area Manager:
+        if($role== 'Admin' || $role=='Agent'){
+            return View('scmsp.backend.querys.query_edit',  compact('editData','activeMenuClass'));
+        }elseif($role== 'Area Manager'){
+            return View('scmsp.backend.querys.query_edit',  compact('editData','activeMenuClass'));
+        }else{
+            return View('scmsp.backend.complain_details.edit_technician',  compact('editData','activeMenuClass'));
+        }      
+    }
+    
+
+    /*
+	Method Name	: update
+	Purpose		: Query details update
+	Param		: no param need
+	Date		: 14/12/2020
+	Author		: Tanveer Qureshee
+	*/
+    public function query_update(Request $request) 
+    {
+        $role = getRoleNameByUserId(Auth::user()->id);
+        if ($role == 'Admin' || $role == 'Agent' || $role == 'Area Manager') {
+            $rules = [
+                'category_id'       => 'required',
+                'complain_type_id'  => 'required',
+                'complainer'        => 'required',
+                'complain_details'  => 'required',
+                'complainer_address'=> 'required',
+                'complain_date'     => 'required',
+                'complain_status'   => 'required',
+                'div_id'            => 'required',
+                'dept_id'           => 'required',
+                'assign_to'         => 'required',
+                'priority_id'       => 'required',
+            ];
+        } else {
+            $rules = [
+                'feedback_details' => 'required',
+                'complain_status' => 'required',
+            ];
+        }
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) 
+        {
+            return redirect('admin/query-details-edit/' . $request->edit_id)
+                            ->withInput()
+                            ->with('error', 'Failed to update data. Pleae fix the validation.')
+                            ->withErrors($validator);
+        }
+
+        $complain_details   = ComplainDetails::find($request->edit_id);
+        $complainerCode     = $complain_details->complainer_code;
+        $complainerPhone    = $complain_details->complainer;
+
+        if ($role == 'Admin' || $role == 'Agent' || $role == 'Area Manager') {
+            $complain_details->category_id = $request->category_id;
+            $complain_details->complain_type_id = $request->complain_type_id;
+            $complain_details->complainer = $request->complainer;
+            $complain_details->complain_details = $request->complain_details;
+            $complain_details->address = $request->complainer_address;
+            $complain_details->issued_date = $request->complain_date;
+            $complain_details->division_id = $request->div_id;
+            $complain_details->department_id = $request->dept_id;
+            $complain_details->complain_status = $request->complain_status;
+            $complain_details->assign_to = $request->assign_to;
+            $complain_details->priority_id = $request->priority_id;
+            $complain_details->updated_at = date('Y-m-d H:i:s');
+            $descriptions = $request->complain_details;
+        } else {
+            $complain_details->feedback_details = $request->feedback_details;
+            $complain_details->updated_at = date("Y-m-d H:i:s");
+            $complain_details->complain_status = $request->complain_status;
+            $complain_details->updated_at = date('Y-m-d H:i:s');
+            $descriptions = $request->feedback_details;
+        }
+        $complain_details->save();
+
+        $detailsHistoryData = [
+            'complain_id'       => $request->edit_id,
+            'descriptions'      => $descriptions,
+            'assign_to'         => (isset($request->assign_to) && !empty($request->assign_to) ? $request->assign_to : $complain_details->assign_to),
+            'updated_by'        => Auth::user()->id,
+            'current_status'    => $request->complain_status,
+            'created_at'        => date('Y-m-d H:i:s'),
+            'updated_at'        => date('Y-m-d H:i:s')
+        ];
+
+        $lastHistoryId      = DB::table('complain_details_history')->insertGetId($detailsHistoryData);
+        $complain_status    = get_data_name_by_id('complain_statuses', $request->complain_status)->name;
+        return redirect('admin/query-details-list')->with('success', 'Query have been successfully Updated.');
+    }
+
 }
