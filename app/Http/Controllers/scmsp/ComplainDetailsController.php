@@ -492,9 +492,9 @@ class ComplainDetailsController extends Controller
         if($role== 'Admin' || $role=='Agent'){
             return View('scmsp.backend.querys.query_edit',  compact('editData','activeMenuClass'));
         }elseif($role== 'Area Manager'){
-            return View('scmsp.backend.querys.query_edit',  compact('editData','activeMenuClass'));
+            return View('scmsp.backend.querys.query_edit_technician',  compact('editData','activeMenuClass'));
         }else{
-            return View('scmsp.backend.complain_details.edit_technician',  compact('editData','activeMenuClass'));
+            return View('scmsp.backend.querys.query_edit_technician',  compact('editData','activeMenuClass'));
         }      
     }
     
