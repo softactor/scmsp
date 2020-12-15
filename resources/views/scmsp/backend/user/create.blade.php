@@ -28,14 +28,23 @@
                                         if($role!= 'Admin'){
                                             if(in_array($data->name, $staticRole)){
                                         ?>
-                                        <option value="{{ $data->id }}"<?php
-                                        if (old('role_id') == $data->id) {
-                                            echo 'selected';
+                                            <option value="{{ $data->id }}"<?php
+                                            if (old('role_id') == $data->id) {
+                                                echo 'selected';
+                                            }
+                                            ?>>{{ $data->name }}
+                                            </option>
+                                            <?php
                                         }
-                                        ?>>{{ $data->name }}
-                                        </option>
-                                        <?php
-                                    }}}
+                                    }else{ ?>
+                                        <option value="{{ $data->id }}"<?php
+                                            if (old('role_id') == $data->id) {
+                                                echo 'selected';
+                                            }
+                                            ?>>{{ $data->name }}
+                                            </option>
+                                    <?php }
+                            } // foreach
                                 }
                                 ?>                        
                             </select>
