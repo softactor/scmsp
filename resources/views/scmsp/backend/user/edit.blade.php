@@ -36,10 +36,10 @@
                                         ?>>{{ $data->name }}</option>   
     <?php }
     }else{ ?>
-        <option value="{{ $data->id }}"<?php
-            if (old('role_id') == $data->id) {
-                echo 'selected';
-            }
+        <option value="{{ $data->id }}" <?php
+                                        if (isset($editData->role_id) && $editData->role_id == $data->id) {
+                                            echo 'selected';
+                                        }
             ?>>{{ $data->name }}
             </option>
     <?php }
