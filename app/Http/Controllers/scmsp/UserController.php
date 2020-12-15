@@ -276,6 +276,7 @@ class UserController extends Controller
             $addrUpz        =   (isset($request->addr_upazila_id) && !empty($request->addr_upazila_id) ? $request->addr_upazila_id : false);
             $addrunion      =   (isset($request->addr_union_id) && !empty($request->addr_union_id) ? $request->addr_union_id : false);
             $areaManger     =   (isset($request->area_manager_id) && !empty($request->area_manager_id) ? $request->area_manager_id : false);
+            $is_all_location=   (isset($request->all_division) && !empty($request->all_division) ? $request->all_division : 0);
             if($addrDiv || $addrDis){
                 $staffLocation  =   true;
             }
