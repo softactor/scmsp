@@ -16,6 +16,7 @@
             <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Division</th>
                             <th>Name</th>
                             <th>Email</th>
@@ -26,11 +27,13 @@
                     </thead>
                     <tbody>
                         <?php
+                        $sl             =   1;
                             $deleteUrl  =   url('admin/user-delete');
                             if(!$list->isEmpty()){
                                 foreach($list as $data){
                         ?>
                         <tr id='delete_row_id_{{$data->id}}'>
+                            <td><?php echo $sl++; ?></td>
                             <td>
                                 <?php
                                     if(isset($data->division_id) && !empty($data->division_id)){
