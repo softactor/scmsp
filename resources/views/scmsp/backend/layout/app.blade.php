@@ -94,6 +94,7 @@
         </div>
         @section('footer_js_scrip_area')
         <!-- Bootstrap core JavaScript-->
+        <script src="{{ asset('scmsp/js/site_url.js') }}"></script>
         <script src="{{ asset('scmsp/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('scmsp/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 

@@ -8,6 +8,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('scmsp/icon/favicon_25X25.png') }}" />
         <title>CMS</title>
         <link href="{{ asset('scmsp/css/bootstrap.min.css') }}" rel="stylesheet" id="bootstrap-css">
+        <script src="{{ asset('scmsp/js/site_url.js') }}"></script>
         <script src="{{ asset('scmsp/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('scmsp/js/bootstrap.min.js') }}"></script>
         <link rel="stylesheet" href="{{ asset('scmsp/css/font-awesome.css') }}">

@@ -24,6 +24,7 @@
            <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th style="width: 20px; text-align: right;">SL No.</th>
                             <th>Code</th>
                             <th>Priority</th>
                             <th>Complain date</th>
@@ -39,6 +40,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th style="width: 20px; text-align: right;">SL No.</th>
                             <th>Code</th>
                             <th>Priority</th>
                             <th>Complain date</th>
@@ -56,10 +58,12 @@
                         <?php
                         $deleteUrl  =   url('admin/complain-details-delete');
                             if(!$list->isEmpty()){
+                                $sl    =    1;
                                 foreach($list as $data){
                                 $rawColor   =   get_status_wise_row_color($data->complain_status);
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
+                            <td style="width: 20px; text-align: right;"><?php echo $sl++; ?></td>
                             <td>
                                 <a href="{{ url('admin/complain-details-edit/'.$data->id) }}"> 
                                 <?php echo $data->complainer_code; ?>

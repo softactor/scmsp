@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2020 at 06:12 AM
+-- Generation Time: Jan 05, 2021 at 05:05 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.2.22
 
@@ -3058,6 +3058,7 @@ CREATE TABLE `complain_asigned` (
 
 CREATE TABLE `complain_details` (
   `id` int(11) NOT NULL,
+  `entry_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=complain; 2=query',
   `complainer_code` varchar(400) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `complain_type_id` int(11) NOT NULL,
@@ -3081,22 +3082,23 @@ CREATE TABLE `complain_details` (
 -- Dumping data for table `complain_details`
 --
 
-INSERT INTO `complain_details` (`id`, `complainer_code`, `category_id`, `complain_type_id`, `complainer`, `name`, `address`, `complain_details`, `feedback_details`, `issued_date`, `division_id`, `department_id`, `user_id`, `assign_to`, `complain_status`, `priority_id`, `created_at`, `updated_at`) VALUES
-(30, 'COM2019110500000001', 22, 54, '01708467858', 'Ripon', 'gjkgl', 'gglbljkbj', 'solved', '2019-11-05 12:39:06', 15, 14, 11, 29, '2', 1, '2019-11-05 06:39:06', '2019-11-05 06:54:29'),
-(31, 'COM2019110500000001', 22, 54, '01755630102', 'Ripon', 'blb', 'vnmb,n,n.n..n', 'solved', '2019-11-05 16:35:11', 15, 14, 11, 25, '2', 1, '2019-11-05 10:35:11', '2019-11-05 10:45:05'),
-(32, 'C20191106001', 23, 55, 'kamal', 'kamal', 'fjhkhl', 'charging problem', NULL, '2019-11-06 15:53:52', 15, 14, 11, 29, '3', 1, '2019-11-06 09:53:52', '2020-03-12 11:30:29'),
-(33, 'C20191106001', 22, 54, '01817182075', 'kamal', 'jgklkj', 'bljhl', NULL, '2019-11-06 16:39:17', 15, 14, 11, 29, '1', 1, '2019-11-06 10:39:17', '2019-11-06 10:39:17'),
-(34, 'C20191109001', 22, 54, '01817182075', 'karim', 'dhaka', 'Mileage problem found.current speed 80 instead of 120.', NULL, '2019-11-09 13:03:18', 15, 14, 11, 29, '1', 3, '2019-11-09 07:03:18', '2019-11-09 07:03:18'),
-(35, 'C20191120001', 22, 54, '01787686742', 'Palash', 'Dhaka', 'CMS testing', NULL, '2019-11-20 12:10:45', 15, 14, 30, 29, '1', 1, '2019-11-20 06:10:45', '2019-11-20 06:10:45'),
-(36, 'C20191120001', 22, 54, '01787686742', 'Palash', 'Dhaka', 'CMS testing', 'Issue solved', '2019-11-20 12:10:54', 15, 14, 30, 29, '2', 1, '2019-11-20 06:10:54', '2019-11-20 06:19:00'),
-(37, 'C20191121001', 22, 54, '01755543175', 'Rajib', 'Dhaka', 'Test data', 'solved', '2019-11-21 11:03:05', 15, 14, 30, 25, '2', 1, '2019-11-21 05:03:05', '2019-11-21 05:12:52'),
-(38, 'C20191204001', 22, 54, '01719737303', 'Shakil', 'BLC', 'blc milage prob', NULL, '2019-12-04 13:34:19', 15, 14, 11, 29, '1', 1, '2019-12-04 07:34:19', '2019-12-04 07:34:19'),
-(39, 'C20200107001', 23, 55, '01817182075', 'Salim', 'mirpur, dhaka', 'Battery is very hot during charging', 'involve to shohag', '2020-01-07 17:55:42', 15, 14, 11, 29, '3', 1, '2020-01-07 11:55:42', '2020-11-17 06:52:22'),
-(40, 'C20200114001', 16, 28, '01817182075', 'kamal', 'dhk', 'gjgljjknknknjhj', 'finicial issue_pandint 5bill', '2020-01-14 12:35:05', 20, 13, 11, 31, '2', 1, '2020-01-14 06:35:05', '2020-01-14 06:51:53'),
-(41, 'C20200208001', 23, 55, 'Palash', 'Palash', 'Dhaka', 'Test Complain', NULL, '2020-02-08 13:19:06', 15, 14, 1, 31, '3', 1, '2020-02-08 07:19:06', '2020-03-12 11:50:56'),
-(42, 'C20200316001', 26, 58, '01787684074', 'Zahir', 'Dhaka', 'Emergency', NULL, '2020-03-16 10:41:43', 15, 14, 1, 31, '1', 1, '2020-03-16 04:41:43', '2020-03-16 04:41:43'),
-(43, 'C20201101001', 16, 27, 'tanvir', 'tanvir', 'dhk', 'generator red show alrat', NULL, '2020-11-01 13:39:22', 20, 13, 30, 26, '3', 1, '2020-11-01 07:39:22', '2020-11-17 06:38:46'),
-(44, 'C20201117001', 22, 54, 'kamal', 'kamal', 'dha', 'mihkjl', NULL, '2020-11-17 12:41:39', 15, 14, 11, 25, '3', 3, '2020-11-17 06:41:39', '2020-11-17 06:44:11');
+INSERT INTO `complain_details` (`id`, `entry_type`, `complainer_code`, `category_id`, `complain_type_id`, `complainer`, `name`, `address`, `complain_details`, `feedback_details`, `issued_date`, `division_id`, `department_id`, `user_id`, `assign_to`, `complain_status`, `priority_id`, `created_at`, `updated_at`) VALUES
+(30, 1, 'COM2019110500000001', 22, 54, '01708467858', 'Ripon', 'gjkgl', 'gglbljkbj', 'solved', '2019-11-05 12:39:06', 15, 14, 11, 29, '2', 1, '2019-11-05 06:39:06', '2019-11-05 06:54:29'),
+(31, 1, 'COM2019110500000001', 22, 54, '01755630102', 'Ripon', 'blb', 'vnmb,n,n.n..n', 'solved', '2019-11-05 16:35:11', 15, 14, 11, 25, '2', 1, '2019-11-05 10:35:11', '2019-11-05 10:45:05'),
+(32, 1, 'C20191106001', 23, 55, 'kamal', 'kamal', 'fjhkhl', 'charging problem', NULL, '2019-11-06 15:53:52', 15, 14, 11, 29, '3', 1, '2019-11-06 09:53:52', '2020-03-12 11:30:29'),
+(33, 1, 'C20191106001', 22, 54, '01817182075', 'kamal', 'jgklkj', 'bljhl', NULL, '2019-11-06 16:39:17', 15, 14, 11, 29, '1', 1, '2019-11-06 10:39:17', '2019-11-06 10:39:17'),
+(34, 1, 'C20191109001', 22, 54, '01817182075', 'karim', 'dhaka', 'Mileage problem found.current speed 80 instead of 120.', NULL, '2019-11-09 13:03:18', 15, 14, 11, 29, '1', 3, '2019-11-09 07:03:18', '2019-11-09 07:03:18'),
+(35, 1, 'C20191120001', 22, 54, '01787686742', 'Palash', 'Dhaka', 'CMS testing', NULL, '2019-11-20 12:10:45', 15, 14, 30, 29, '1', 1, '2019-11-20 06:10:45', '2019-11-20 06:10:45'),
+(36, 1, 'C20191120001', 22, 54, '01787686742', 'Palash', 'Dhaka', 'CMS testing', 'Issue solved', '2019-11-20 12:10:54', 15, 14, 30, 29, '2', 1, '2019-11-20 06:10:54', '2019-11-20 06:19:00'),
+(37, 1, 'C20191121001', 22, 54, '01755543175', 'Rajib', 'Dhaka', 'Test data', 'solved', '2019-11-21 11:03:05', 15, 14, 30, 25, '2', 1, '2019-11-21 05:03:05', '2019-11-21 05:12:52'),
+(38, 1, 'C20191204001', 22, 54, '01719737303', 'Shakil', 'BLC', 'blc milage prob', NULL, '2019-12-04 13:34:19', 15, 14, 11, 29, '1', 1, '2019-12-04 07:34:19', '2019-12-04 07:34:19'),
+(39, 1, 'C20200107001', 23, 55, '01817182075', 'Salim', 'mirpur, dhaka', 'Battery is very hot during charging', 'involve to shohag', '2020-01-07 17:55:42', 15, 14, 11, 29, '3', 1, '2020-01-07 11:55:42', '2020-11-17 06:52:22'),
+(43, 1, 'C20201101001', 16, 27, 'tanvir', 'tanvir', 'dhk', 'generator red show alrat', NULL, '2020-11-01 13:39:22', 20, 13, 30, 26, '3', 1, '2020-11-01 07:39:22', '2020-11-17 06:38:46'),
+(44, 1, 'C20201117001', 22, 54, 'kamal', 'kamal', 'dha', 'mihkjl', NULL, '2020-11-17 12:41:39', 15, 14, 11, 25, '3', 3, '2020-11-17 06:41:39', '2020-11-17 06:44:11'),
+(45, 1, 'C20201125001', 23, 55, 'raqib', 'raqib', 'dhaka', 'charging problem', NULL, '2020-11-25 16:07:12', 15, 14, 1, 29, '3', 3, '2020-11-25 10:07:12', '2020-11-25 10:12:28'),
+(46, 1, 'C20201214001', 27, 59, '01708467858', 'sayem', 'dhaka', 'battery load voltage found low', NULL, '2020-12-14 15:22:44', 15, 14, 11, 25, '1', 2, '2020-12-14 09:22:44', '2020-12-14 09:22:44'),
+(47, 1, 'C20201229001', 22, 54, '01708467887', 'farazi', 'Dhaka', 'mileage problem', NULL, '2020-12-29 12:32:07', 15, 14, 11, 34, '1', 2, '2020-12-29 06:32:07', '2020-12-29 06:32:07'),
+(48, 1, 'C20201230001', 23, 56, '01817182075', 'asraf', 'dhaka', 'charging problem', NULL, '2020-12-30 15:12:38', 15, 14, 30, 36, '1', 1, '2020-12-30 09:12:38', '2020-12-30 09:12:38');
 
 -- --------------------------------------------------------
 
@@ -3142,19 +3144,20 @@ INSERT INTO `complain_details_history` (`id`, `complain_id`, `descriptions`, `cr
 (63, 37, 'solved', NULL, 25, 25, 2, 1, 'SMS SUBMITTED: ID - C20042245dd61cdd6b3f4', '2019-11-21 05:12:56', '2019-11-21 05:12:52'),
 (64, 38, 'blc milage prob', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245de7618eecfea', '2019-12-04 07:34:24', NULL),
 (65, 39, 'Battery is very hot during charging', 11, 29, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245e1471ebae18f', '2020-01-07 11:55:47', NULL),
-(66, 40, 'gjgljjknknknjhj', 11, 31, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245e1d614befbb2', '2020-01-14 06:35:10', NULL),
-(67, 40, 'finicial issue_pandint 5bill', NULL, 31, 26, 2, 1, 'SMS SUBMITTED: ID - C20042245e1d653882124', '2020-01-14 06:51:54', '2020-01-14 06:51:53'),
-(68, 41, 'Test Complain', 1, 31, 1, 1, 1, 'SMS SUBMITTED: ID - C20042245e3e612fbb14f', '2020-02-08 07:19:11', NULL),
 (69, 32, 'charging problem', NULL, 29, 1, 3, 0, NULL, '2020-03-12 11:30:29', '2020-03-12 11:30:29'),
-(70, 41, 'Test Complain', NULL, 31, 1, 3, 0, NULL, '2020-03-12 11:50:56', '2020-03-12 11:50:56'),
-(71, 42, 'Emergency', 1, 31, 1, 1, 1, 'SMS SUBMITTED: ID - C20042245e6f03485b123', '2020-03-16 04:41:51', NULL),
 (72, 43, 'generator red show alrat', 30, 26, 30, 1, 1, '1005', '2020-11-01 07:39:24', NULL),
 (73, 43, 'generator red show alrat', NULL, 26, 1, 3, 0, NULL, '2020-11-17 06:38:46', '2020-11-17 06:38:46'),
 (74, 44, 'mihkjl', 11, 25, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245fb370f7629b2', '2020-11-17 06:41:48', NULL),
 (75, 44, 'mihkjl', NULL, 25, 1, 3, 0, NULL, '2020-11-17 06:44:11', '2020-11-17 06:44:11'),
 (76, 39, 'involve to shohag', NULL, 29, 22, 3, 0, NULL, '2020-11-17 06:49:43', '2020-11-17 06:49:43'),
 (77, 39, 'involve to shohag', NULL, 29, 22, 3, 0, NULL, '2020-11-17 06:51:59', '2020-11-17 06:51:59'),
-(78, 39, 'involve to shohag', NULL, 29, 22, 3, 0, NULL, '2020-11-17 06:52:22', '2020-11-17 06:52:22');
+(78, 39, 'involve to shohag', NULL, 29, 22, 3, 0, NULL, '2020-11-17 06:52:22', '2020-11-17 06:52:22'),
+(79, 45, 'charging problem', 1, 25, 1, 1, 1, 'SMS SUBMITTED: ID - C20042245fbe2d26bda01', '2020-11-25 10:07:17', NULL),
+(80, 45, 'charging problem', NULL, 29, 22, 1, 0, NULL, '2020-11-25 10:11:44', '2020-11-25 10:11:44'),
+(81, 45, 'charging problem', NULL, 29, 22, 3, 0, NULL, '2020-11-25 10:12:28', '2020-11-25 10:12:28'),
+(82, 46, 'battery load voltage found low', 11, 25, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245fd72f461245d', '2020-12-14 09:22:49', NULL),
+(83, 47, 'mileage problem', 11, 34, 11, 1, 1, 'SMS SUBMITTED: ID - C20042245feacdd29a31c', '2020-12-29 06:32:13', NULL),
+(84, 48, 'charging problem', 30, 36, 30, 1, 1, 'SMS SUBMITTED: ID - C20042245fec44f35d9f4', '2020-12-30 09:12:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -3276,7 +3279,8 @@ INSERT INTO `complain_types` (`id`, `name`, `dept_id`, `div_id`, `category_id`, 
 (57, 'Battery Physically Damage', 15, 14, 25, 1, 1, '2019-10-03 04:57:52', '2019-10-03 04:57:52'),
 (58, 'Warranty Issue', 15, 14, 26, 1, 1, '2019-10-03 04:59:18', '2019-10-03 04:59:18'),
 (59, 'Battery load voltage found low', 15, 14, 27, 1, 1, '2019-10-03 05:01:58', '2019-10-03 05:01:58'),
-(60, 'Container Fault', 15, 14, 28, 1, 1, '2019-10-03 05:04:00', '2019-10-03 05:04:00');
+(60, 'Container Fault', 15, 14, 28, 1, 1, '2019-10-03 05:04:00', '2019-10-03 05:04:00'),
+(61, 'New Battery', 15, 8, 43, 1, 1, '2020-12-14 08:34:37', '2020-12-14 08:34:37');
 
 -- --------------------------------------------------------
 
@@ -3325,7 +3329,8 @@ INSERT INTO `complain_type_categories` (`id`, `name`, `dept_id`, `div_id`, `user
 (39, 'Nonuniform of Bottle neck', 22, 17, 1, 1, '2019-11-02 08:07:12', '2019-11-02 08:07:12'),
 (40, 'Bottle dent during supply/delivery time', 22, 17, 1, 1, '2019-11-02 08:07:57', '2019-11-02 08:07:57'),
 (41, 'Cloudy / Non transparent of PET Bottle', 22, 17, 1, 1, '2019-11-02 08:08:36', '2019-11-02 08:08:36'),
-(42, 'Bad smell of PET Bottle', 22, 17, 1, 1, '2019-11-02 08:09:21', '2019-11-02 08:09:21');
+(42, 'Bad smell of PET Bottle', 22, 17, 1, 1, '2019-11-02 08:09:21', '2019-11-02 08:09:21'),
+(43, 'Battery Purchase', 15, 8, 1, 1, '2020-12-14 08:30:29', '2020-12-14 08:30:29');
 
 -- --------------------------------------------------------
 
@@ -3433,7 +3438,8 @@ INSERT INTO `modules` (`id`, `name`, `user_id`, `status`, `created_at`, `updated
 (5, 'Complain Status', 1, 1, '2019-06-10 19:58:01', '2019-06-10 19:58:01'),
 (6, 'Complain details', 1, 1, '2019-06-10 19:58:11', '2019-06-10 19:58:11'),
 (7, 'Users', 1, 1, '2019-08-05 22:41:56', '2019-08-05 22:41:56'),
-(8, 'Settings', 1, 1, '2019-08-05 22:42:10', '2019-08-05 22:42:10');
+(8, 'Settings', 1, 1, '2019-08-05 22:42:10', '2019-08-05 22:42:10'),
+(9, 'Query Details', 1, 1, '2019-08-05 22:42:10', '2019-08-05 22:42:10');
 
 -- --------------------------------------------------------
 
@@ -3477,7 +3483,10 @@ INSERT INTO `permissions` (`id`, `user_type`, `isallpermission`, `module`, `isal
 (2, 'Moderator', 0, 'Complain details', 1, 0, 0, 0, 0, 1, '2019-08-05 22:42:57', '2019-08-05 22:42:57'),
 (3, 'Engineer', 0, 'Complain details', 0, 0, 1, 1, 0, 1, '2019-08-05 22:43:24', '2019-08-05 22:43:24'),
 (4, 'Technician', 0, 'Complain details', 0, 0, 1, 1, 0, 1, '2019-08-05 22:47:32', '2019-08-05 22:47:32'),
-(5, 'Agent', 0, 'Complain details', 1, 0, 0, 0, 0, 1, '2019-08-25 03:28:10', '2019-08-25 03:28:10');
+(5, 'Agent', 0, 'Complain details', 1, 0, 0, 0, 0, 1, '2019-08-25 03:28:10', '2019-08-25 03:28:10'),
+(6, 'Area Manager', 0, 'Users', 1, 0, 0, 0, 0, 1, '2020-12-14 07:41:32', '2020-12-14 07:41:32'),
+(7, 'Area Manager', 0, 'Query Details', 1, 0, 0, 0, 0, 1, '2020-12-14 07:41:32', '2020-12-14 07:41:32'),
+(8, 'Agent', 0, 'Query Details', 1, 0, 0, 0, 0, 1, '2020-12-14 07:41:43', '2020-12-14 07:41:43');
 
 -- --------------------------------------------------------
 
@@ -3502,7 +3511,8 @@ INSERT INTO `roles` (`id`, `name`, `user_id`, `status`, `created_at`, `updated_a
 (1, 'Admin', 1, 1, '2019-05-20 16:52:33', '2019-06-10 15:23:34'),
 (3, 'Agent', 1, 1, '2019-06-10 15:23:57', '2019-06-10 15:23:57'),
 (4, 'Service Staff', 1, 1, '2019-06-10 15:24:11', '2019-08-05 22:43:52'),
-(5, 'Area Manager', 1, 1, '2019-09-30 18:00:00', '2019-09-30 18:00:00');
+(5, 'Area Manager / Key Concern Person', 1, 1, '2019-09-30 18:00:00', '2019-09-30 18:00:00'),
+(6, 'Zonal Manager', 1, 1, '2020-12-23 18:00:00', '2020-12-23 18:00:00');
 
 -- --------------------------------------------------------
 
@@ -3537,8 +3547,9 @@ INSERT INTO `settings` (`id`, `setting_type`, `setting_key`, `setting_value`, `f
 
 CREATE TABLE `staff_locations` (
   `id` int(11) NOT NULL,
-  `addr_div_id` int(11) NOT NULL COMMENT 'address division id',
-  `addr_dis_id` int(11) NOT NULL COMMENT 'address district id',
+  `all_division` tinyint(1) DEFAULT 0,
+  `addr_div_id` int(11) DEFAULT NULL COMMENT 'address division id',
+  `addr_dis_id` int(11) DEFAULT NULL COMMENT 'address district id',
   `addr_up_id` int(11) DEFAULT NULL COMMENT 'address upazila id',
   `addr_union_id` int(11) DEFAULT NULL COMMENT 'address union id',
   `user_id` int(11) NOT NULL COMMENT 'User id',
@@ -3553,18 +3564,20 @@ CREATE TABLE `staff_locations` (
 -- Dumping data for table `staff_locations`
 --
 
-INSERT INTO `staff_locations` (`id`, `addr_div_id`, `addr_dis_id`, `addr_up_id`, `addr_union_id`, `user_id`, `area_mng_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(6, 3, 1, 493, 2351, 22, 22, 1, 1, '2019-10-05 15:47:27', '2020-03-12 17:12:51'),
-(7, 7, 54, 491, 0, 23, 25, 1, 1, '2019-10-07 10:34:05', '2020-11-17 12:33:15'),
-(8, 3, 1, 493, 2351, 24, 0, 1, 1, '2019-10-09 16:08:53', '2020-01-15 12:27:34'),
-(9, 3, 1, 493, 2351, 25, 22, 1, 1, '2019-10-10 12:55:20', '2019-11-21 10:04:39'),
-(10, 3, 1, 493, 2351, 26, 26, 1, 1, '2019-10-10 12:59:31', '2020-11-16 10:02:24'),
-(11, 3, 1, 493, 2351, 27, 0, 1, 1, '2019-10-10 13:01:55', '2019-11-21 10:04:56'),
-(12, 3, 1, 493, 2351, 28, 0, 1, 1, '2019-10-10 15:30:34', '2019-11-06 15:43:16'),
-(13, 3, 1, 493, 2351, 29, 22, 1, 1, '2019-11-05 12:37:30', '2020-03-12 17:15:10'),
-(14, 3, 1, 493, 2351, 30, 0, 1, 1, '2019-11-14 12:44:47', '2020-01-15 12:27:57'),
-(15, 3, 1, 493, 2351, 31, 26, 1, 1, '2019-11-21 11:23:04', '2020-02-08 13:15:43'),
-(16, 3, 1, 493, 2351, 32, 23, 1, NULL, '2020-11-03 13:05:12', NULL);
+INSERT INTO `staff_locations` (`id`, `all_division`, `addr_div_id`, `addr_dis_id`, `addr_up_id`, `addr_union_id`, `user_id`, `area_mng_id`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(6, 1, 3, 1, 493, 2351, 22, 0, 1, 1, '2019-10-05 15:47:27', '2020-12-24 15:48:37'),
+(7, 1, 7, 54, 0, 0, 23, 0, 1, 1, '2019-10-07 10:34:05', '2020-12-24 15:48:54'),
+(8, 0, 3, 1, 493, 2351, 24, 0, 1, 1, '2019-10-09 16:08:53', '2020-01-15 12:27:34'),
+(9, 1, 3, 1, 493, 2351, 25, 0, 1, 1, '2019-10-10 12:55:20', '2020-12-24 15:49:13'),
+(10, 0, 3, 1, 493, 2351, 26, 0, 1, 1, '2019-10-10 12:59:31', '2020-12-24 15:57:42'),
+(11, 0, 3, 1, 493, 2351, 27, 0, 1, 1, '2019-10-10 13:01:55', '2019-11-21 10:04:56'),
+(12, 0, 3, 1, 493, 2351, 28, 0, 1, 1, '2019-10-10 15:30:34', '2019-11-06 15:43:16'),
+(13, 0, 3, 1, 493, 2351, 29, 25, 1, 1, '2019-11-05 12:37:30', '2020-12-29 12:59:57'),
+(14, 0, 3, 1, 493, 2351, 30, 0, 1, 1, '2019-11-14 12:44:47', '2020-01-15 12:27:57'),
+(16, 0, 3, 1, 493, 2351, 32, 23, 1, NULL, '2020-11-03 13:05:12', NULL),
+(18, 0, 3, 1, 493, 2351, 34, 25, 1, 1, '2020-12-26 12:50:01', '2020-12-29 12:59:35'),
+(19, 0, 3, 1, 493, 2351, 35, 25, 1, NULL, '2020-12-29 15:04:33', NULL),
+(20, 0, 3, 1, 493, 2351, 36, 25, 1, NULL, '2020-12-30 15:09:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -3593,15 +3606,17 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `email_verified_at`, `password`, `remember_token`, `division_id`, `department_id`, `created_at`, `updated_at`) VALUES
 (1, 'Super Admin', 'superadmin@cms.com', NULL, NULL, '$2y$10$Vau6vW1eJDO55kR666BpbeAKS/JRMbv4jDT1MGwkY83d/eCrabqEG', NULL, NULL, NULL, '2019-03-26 10:36:21', '2019-08-05 22:38:33'),
 (11, 'agent2', 'agent2@cms.com', '0', NULL, '$2y$10$qYkFhz4tZDXXum/wUZ60pOuWzopRBxE1ftA0lf/4DxXD.ElEMcIo2', NULL, 0, 0, '2019-09-23 04:26:19', '2019-10-02 06:01:50'),
-(22, 'Md.Nasimul Hasan', 'nasim@saifpowertec.com', '01708467887', NULL, '$2y$10$k7MD4QiDh6I66bYjtVR8eeTLKQqjgnZlolCKVl6OxHpZL0IshHXrq', NULL, 15, 14, '2019-10-05 09:47:27', '2020-03-12 11:12:51'),
-(23, 'Md.Shafiqul Islam', 'shafiqul.batt@saifpowertec.com', '01787684053', NULL, '$2y$10$ZXH9MmmTPmO6KEbxbXpW.OiNFqeAnlIvjq4adfcKsnqxmj71jgYRe', NULL, 15, 14, '2019-10-07 04:34:05', '2020-11-17 06:33:15'),
+(22, 'Md.Nasimul Hasan', 'nasim@saifpowertec.com', '01708467887', NULL, '$2y$10$k7MD4QiDh6I66bYjtVR8eeTLKQqjgnZlolCKVl6OxHpZL0IshHXrq', NULL, 15, 14, '2019-10-05 09:47:27', '2020-12-24 09:48:37'),
+(23, 'Md.Shafiqul Islam', 'shafiqul.batt@saifpowertec.com', '01787684053', NULL, '$2y$10$ZXH9MmmTPmO6KEbxbXpW.OiNFqeAnlIvjq4adfcKsnqxmj71jgYRe', NULL, 15, 14, '2019-10-07 04:34:05', '2020-12-24 09:48:54'),
 (24, 'Shila Akter Bobi', 'boby@saifpower.com', '01787684191', NULL, '$2y$10$n7/zYKp4.WSJW8f2UsUBH.UP.QS4N6vEHshuvU4K0w8LTD99UDcZW', NULL, 23, 0, '2019-10-09 10:08:53', '2020-01-15 06:27:34'),
-(25, 'Md. Monwar Hossain', 'monwer.batt@saifpowertec.com', '01755543179', NULL, '$2y$10$4ocVDSX03RV4jwMrGgWZQuzHxCDpwNy/uCmxKARZ2eLDD5DD5Gfyi', NULL, 15, 14, '2019-10-10 06:55:20', '2019-11-21 04:04:39'),
-(26, 'Abu Hena Mustafa(Tuhin)', 'abuhena@saifpowertec.com', '01713383411', NULL, '$2y$10$DFmQ7d.I6XjbIL1drzAwMusiPwQe3YQ5bhWIRoKfHMfPUqeryzigy', NULL, 20, 13, '2019-10-10 06:59:31', '2020-11-16 04:02:24'),
+(25, 'Md. Monwar Hossain', 'monwer.batt@saifpowertec.com', '01755543179', NULL, '$2y$10$4ocVDSX03RV4jwMrGgWZQuzHxCDpwNy/uCmxKARZ2eLDD5DD5Gfyi', NULL, 15, 14, '2019-10-10 06:55:20', '2020-12-24 09:49:12'),
+(26, 'Abu Hena Mustafa(Tuhin)', 'abuhena@saifpowertec.com', '01713383411', NULL, '$2y$10$DFmQ7d.I6XjbIL1drzAwMusiPwQe3YQ5bhWIRoKfHMfPUqeryzigy', NULL, 20, 13, '2019-10-10 06:59:31', '2020-12-24 09:57:42'),
 (28, 'Beauty Hossain', 'beauty@saifpowertec.com', '1777790400', NULL, '$2y$10$YvHo7v2OFY68mgmWZvMxXeQMajGcGmiraJm1ENltTDtiyXh9zVFe.', NULL, 16, 9, '2019-10-10 09:30:34', '2019-11-06 09:43:16'),
-(29, 'Salauddin Gazi', 'salauddin@cms.com', '01755543176', NULL, '$2y$10$ELbZB703cT0uQZm.6heGv./bLemSsdag0gajx5qX2b2yIbk5QUUEa', NULL, 15, 14, '2019-11-05 06:37:30', '2020-03-12 11:15:10'),
+(29, 'Salauddin Gazi', 'salauddin@cms.com', '01755543176', NULL, '$2y$10$ELbZB703cT0uQZm.6heGv./bLemSsdag0gajx5qX2b2yIbk5QUUEa', NULL, 15, 14, '2019-11-05 06:37:30', '2020-12-29 06:59:56'),
 (30, 'Sumaiya Rahman Ratri', 'sumaiya@cms.com', '01762560693', NULL, '$2y$10$uYs/9YPl.s4AxXD6uvTjsOigCsHkEXwkaLhbSNrGSXprNXIGb1o3W', NULL, 23, 18, '2019-11-14 06:44:46', '2020-01-15 06:27:57'),
-(31, 'shohag', 'shohag@cms.com', '01716600843', NULL, '$2y$10$82ZMG.IBu13LIurFxpzRTuRFl2TF982lpZfmvUQ06jpAOJSZdYVDa', NULL, 15, 14, '2019-11-21 05:23:04', '2020-02-08 07:15:43');
+(34, 'Md. Mariful Islam', 'marifulIslam@cms.com', '01787684104', NULL, '$2y$10$Lz8HLBg.5E/WJoy6nCQX7.FmJGh3XVw2cqVT7MIhz0q9uRmyqMKB2', NULL, 15, 14, '2020-12-26 06:50:01', '2020-12-29 06:59:35'),
+(35, 'Mr. Suman Sikder', 'sumansikder@cms.com', '01751-568763', NULL, '$2y$10$ldqqcY2SEL3i7JXzpZKJTOUsZiuAvQPyWIuWWlYYBNMoikfqkY.Tu', NULL, 15, 14, '2020-12-29 09:04:33', '2020-12-29 09:04:33'),
+(36, 'Md. Motaher Hossain', 'motaherhossain@cms.com', '01787686348', NULL, '$2y$10$QkYZgOzUAzY9FgskLk8THudySwqi/4BJElbYRU/6.q406KvmWmLke', NULL, 15, 14, '2020-12-30 09:09:38', '2020-12-30 09:09:38');
 
 -- --------------------------------------------------------
 
@@ -3642,18 +3657,21 @@ INSERT INTO `user_roles` (`id`, `user_id`, `role_id`, `created_at`, `updated_at`
 (20, 19, 4, '2019-10-02 04:39:22', '2019-10-02 04:39:22'),
 (21, 20, 4, '2019-10-02 04:40:53', '2019-10-02 04:40:53'),
 (22, 21, 4, '2019-10-02 05:57:42', '2019-10-02 05:57:42'),
-(23, 22, 5, '2019-10-05 09:47:27', '2020-03-11 23:12:51'),
-(24, 23, 5, '2019-10-07 04:34:05', '2020-11-17 06:33:15'),
+(23, 22, 6, '2019-10-05 09:47:27', '2020-12-23 21:48:37'),
+(24, 23, 6, '2019-10-07 04:34:05', '2020-12-23 21:48:54'),
 (25, 24, 3, '2019-10-09 10:08:53', '2020-01-15 06:27:34'),
-(26, 25, 4, '2019-10-10 06:55:20', '2019-11-21 04:04:39'),
-(27, 26, 4, '2019-10-10 06:59:31', '2020-11-16 04:02:24'),
+(26, 25, 5, '2019-10-10 06:55:20', '2020-12-23 21:49:13'),
+(27, 26, 5, '2019-10-10 06:59:31', '2020-12-23 21:57:42'),
 (28, 27, 5, '2019-10-10 07:01:55', '2019-11-21 04:04:56'),
 (29, 28, 4, '2019-10-10 09:30:34', '2019-11-05 21:43:16'),
-(30, 29, 4, '2019-11-05 06:37:30', '2020-03-11 23:15:10'),
+(30, 29, 4, '2019-11-05 06:37:30', '2020-12-29 06:59:56'),
 (31, 30, 3, '2019-11-14 06:44:47', '2020-01-15 06:27:57'),
 (32, 31, 4, '2019-11-21 05:23:04', '2020-02-07 19:15:43'),
 (33, 32, 5, '2020-11-03 07:05:12', '2020-11-03 07:05:12'),
-(34, 33, 4, '2020-11-03 07:06:53', '2020-11-03 07:06:53');
+(34, 33, 4, '2020-11-03 07:06:53', '2020-11-03 07:06:53'),
+(35, 34, 4, '2020-12-26 06:50:01', '2020-12-29 06:59:35'),
+(36, 35, 4, '2020-12-29 09:04:33', '2020-12-29 09:04:33'),
+(37, 36, 4, '2020-12-30 09:09:38', '2020-12-30 09:09:38');
 
 --
 -- Indexes for dumped tables
@@ -3845,13 +3863,13 @@ ALTER TABLE `complain_asigned`
 -- AUTO_INCREMENT for table `complain_details`
 --
 ALTER TABLE `complain_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `complain_details_history`
 --
 ALTER TABLE `complain_details_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `complain_feedbacks`
@@ -3875,13 +3893,13 @@ ALTER TABLE `complain_statuses`
 -- AUTO_INCREMENT for table `complain_types`
 --
 ALTER TABLE `complain_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `complain_type_categories`
 --
 ALTER TABLE `complain_type_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -3905,19 +3923,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -3929,19 +3947,19 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `staff_locations`
 --
 ALTER TABLE `staff_locations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables

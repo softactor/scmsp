@@ -104,7 +104,7 @@
                             $countParam['where']['complain_status']     =   $solved;
                             $role                                       =   getRoleNameByUserId(Auth::user()->id);
                             if($role    ==  'Service Staff'){
-                                $countParam['where']['assign_to']           =   Auth::user()->id;
+                                $countParam['where']['assign_to']          =   Auth::user()->id;
                                 $totalsolved                               =   getTableTotalRows($countParam)->total;
                             }else if($role    ==  'Area Manager'){
                                 $list   = get_complain_details_by_area_manager(Auth::user()->id, $solved);

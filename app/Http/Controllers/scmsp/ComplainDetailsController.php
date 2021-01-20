@@ -80,18 +80,19 @@ class ComplainDetailsController extends Controller
 	*/
     public function edit(Request $request)
     {
-        $editData           = ComplainDetails::find($request->id);
+        $editData           =   ComplainDetails::find($request->id);
         $activeMenuClass    =   'complain-details';
         $role               =   getRoleNameByUserId(Auth::user()->id);
+        
         // Area Manager:
         if($role== 'Admin' || $role=='Agent'){
             return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
-        }elseif($role== 'Area Manager'){
+        }elseif($role== 'Area Manager / Key Concern Person'){
             return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
         }else{
             return View('scmsp.backend.complain_details.edit_technician',  compact('editData','activeMenuClass'));
         }      
-	}
+    }
         /*
 	Method Name	: store
 	Purpose		: load complain details store
