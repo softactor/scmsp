@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class SettingsController.
@@ -266,5 +267,239 @@ class SettingsController extends Controller {
 
         return response()->json($data);
     }
+    
+    public function address_upazila(){
+        $activeMenuClass = 'address-upazila';
+        $list            = getUpazilaList();
+        
+        return View('scmsp.backend.settings.address_upazila_list', compact('activeMenuClass', 'list'));
+    }
+    
+    public function address_upazila_create(){
+        $divisions      =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
+        return View('scmsp.backend.settings.address_upazila_create', compact('activeMenuClass', 'divisions'));
+    }
+    
+    public function address_upazila_edit(Request $request){
+        $divisions      =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
+        $upazila                =   DB::table('addr_upazilas')->where('id', $request->id)->first();
+        $selectedDivisionId     =   get_address_division_by_district_id($upazila->district_id);
+        $districtData           =   DB::table('addr_districts')->where('division_id', $selectedDivisionId)->get();
+        return View('scmsp.backend.settings.address_upazila_edit', compact('activeMenuClass','divisions','upazila','selectedDivisionId', 'districtData'));
+    }
+    
+    public function get_address_district_by_division(Request $request){
+        $division_id     =   $request->division_id;
+        $district        =   DB::table('addr_districts')
+                            ->where('division_id', $division_id)
+                            ->orderBy('name', 'asc')
+                            ->get();
+        $department_view =   View::make('scmsp.backend.partial.get_address_district_by_division', compact('district'));
+        $feedback = [
+            'status'    => 'success',
+            'message'   => 'Data found',
+            'data'      => $department_view->render(),
+        ];
+        echo json_encode($feedback);
+    }
+    
+    public function address_upazila_store(Request $request){
+        $all            =   $request->all();
+        $division_id    =   $request->division_id;
+        $district_id    =   $request->district_id;
+        $name           =   $request->name;       
+        
+        $insertData     =   [
+            'district_id'   =>  $district_id,
+            'name'          =>  $name,
+        ];
+        
+        $duplicateCheck['where']     =  $insertData; 
+        $duplicateCheck['table']     =  'addr_upazilas'; 
+        
+        $idDuplicate        =  check_duplicate_data($duplicateCheck);
+        if($idDuplicate){
+            return redirect('admin/address_upazila')
+                    ->with('error', 'Failed to saved.Duplicate data found.');
+        }else{
+            if(isset($request->bn_name) && !empty($request->bn_name)){
+                $insertData['bn_name']     =   $request->bn_name;
+            }
+            DB::table('addr_upazilas')->insert($insertData);
+            return redirect('admin/address_upazila')
+                    ->with('success', 'Data have been successfully saved.');            
+        }
+        
+    }
+    
+    public function address_upazila_update(Request $request){
+        $all            =   $request->all();
+        $division_id    =   $request->division_id;
+        $district_id    =   $request->district_id;
+        $name           =   $request->name;       
+        $edit_id        =   $request->edit_id;       
+        
+        $insertData     =   [
+            'district_id'   =>  $district_id,
+            'name'          =>  $name,
+        ];
+        
+        $checkParam['table'] = "addr_upazilas";
+        $checkWhereParam = [
+            ['district_id',     '=', $district_id],
+            ['name',            '=', $name],
+            ['id',              '!=',$edit_id]
+        ];
+        $checkParam['where']    = $checkWhereParam;
+        $duplicateCheck         = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        // check is it duplicate or not
+        if ($duplicateCheck) {
+            return redirect('admin/address_upazila_edit/'.$edit_id)
+                            ->withInput()
+                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+        }else{
+            if(isset($request->bn_name) && !empty($request->bn_name)){
+                $insertData['bn_name']     =   $request->bn_name;
+            }
+            
+            DB::table('addr_upazilas')
+            ->where('id', $edit_id)
+            ->update($insertData);
+            return redirect('admin/address_upazila')
+                    ->with('success', 'Data have been successfully updated.');            
+        }
+        
+    }
+    
+    public function address_upazila_delete(Request $request){
+        $res        =   DB::table('addr_upazilas')->where('id',$request->del_id)->delete();
+            $feedback   =   [
+                'status'    => 'success',
+                'message'   => 'Data have successfully deleted.',
+                'data'      =>  ''
+            ];
+            echo json_encode($feedback);
+    }
 
+    public function address_union(){
+        $activeMenuClass = 'address-upazila';
+        $list            = getUnionList();
+        
+        return View('scmsp.backend.settings.address_union_list', compact('activeMenuClass', 'list'));
+    }
+    
+    public function address_union_create(){
+        $divisions      =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
+        return View('scmsp.backend.settings.address_union_create', compact('activeMenuClass', 'divisions'));
+    }
+    
+    public function get_address_upazila_by_district(Request $request){
+        $district_id     =   $request->district_id;
+        $district        =   DB::table('addr_upazilas')
+                            ->where('district_id', $district_id)
+                            ->orderBy('name', 'asc')
+                            ->get();
+        $department_view =   View::make('scmsp.backend.partial.get_address_upazila_by_district', compact('district'));
+        $feedback = [
+            'status'    => 'success',
+            'message'   => 'Data found',
+            'data'      => $department_view->render(),
+        ];
+        echo json_encode($feedback);
+    }
+    
+    public function address_union_store(Request $request){
+        $all            =   $request->all();
+        $division_id    =   $request->division_id;
+        $district_id    =   $request->district_id;
+        $upazila_id     =   $request->upazila_id;
+        $name           =   $request->name;       
+        
+        $insertData     =   [
+            'upazila_id'    =>  $upazila_id,
+            'name'          =>  $name,
+        ];
+        
+        $duplicateCheck['where']     =  $insertData; 
+        $duplicateCheck['table']     =  'addr_unions'; 
+        
+        $idDuplicate        =  check_duplicate_data($duplicateCheck);
+        if($idDuplicate){
+            return redirect('admin/address_union')
+                    ->with('error', 'Failed to saved.Duplicate data found.');
+        }else{
+            if(isset($request->bn_name) && !empty($request->bn_name)){
+                $insertData['bn_name']     =   $request->bn_name;
+            }
+            DB::table('addr_unions')->insert($insertData);
+            return redirect('admin/address_union')
+                    ->with('success', 'Data have been successfully saved.');            
+        }
+        
+    }
+    
+    public function address_union_edit(Request $request){
+        $unionDetails           =   DB::table('addr_unions')->where('id', $request->id)->first();
+        $upazila                =   DB::table('addr_upazilas')->where('id', $unionDetails->upazila_id)->first();
+        $districts              =   DB::table('addr_districts')->where('id', $upazila->district_id)->first();//district_id
+        $divisions              =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
+        $selectedDivisionId     =   get_address_division_by_district_id($upazila->district_id);
+        return View('scmsp.backend.settings.address_union_edit', compact('activeMenuClass',
+                'unionDetails',
+                'upazila',
+                'districts',
+                'divisions',
+                'selectedDivisionId')
+                );
+    }
+    
+    public function address_union_update(Request $request){
+        $all            =   $request->all();
+        $division_id    =   $request->division_id;
+        $district_id    =   $request->district_id;
+        $upazila_id     =   $request->upazila_id;
+        $name           =   $request->name;       
+        $edit_id        =   $request->edit_id;       
+        
+        $insertData     =   [
+            'upazila_id'   =>  $upazila_id,
+            'name'          =>  $name,
+        ];
+        
+        $checkParam['table'] = "addr_unions";
+        $checkWhereParam = [
+            ['upazila_id',     '=', $upazila_id],
+            ['name',            '=', $name],
+            ['id',              '!=',$edit_id]
+        ];
+        $checkParam['where']    = $checkWhereParam;
+        $duplicateCheck         = check_duplicate_data($checkParam); //check_duplicate_data is a helper method:
+        // check is it duplicate or not
+        if ($duplicateCheck) {
+            return redirect('admin/address_union_edit/'.$edit_id)
+                            ->withInput()
+                            ->with('error', 'Failed to save data. Duplicate Entry found.');
+        }else{
+            if(isset($request->bn_name) && !empty($request->bn_name)){
+                $insertData['bn_name']     =   $request->bn_name;
+            }
+            
+            DB::table('addr_unions')
+            ->where('id', $edit_id)
+            ->update($insertData);
+            return redirect('admin/address_union')
+                    ->with('success', 'Data have been successfully updated.');            
+        }
+        
+    }
+    
+    public function address_union_delete(Request $request){
+        $res        =   DB::table('addr_unions')->where('id',$request->del_id)->delete();
+        $feedback   =   [
+            'status'    => 'success',
+            'message'   => 'Data have successfully deleted.',
+            'data'      =>  ''
+        ];
+        echo json_encode($feedback);
+    }
 }

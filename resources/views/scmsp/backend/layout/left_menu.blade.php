@@ -43,6 +43,14 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
                 <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
                 <span class="sub_menu_text_design">SMS Status</span>
             </a>
+            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'sms-status-set', 'submenu_selector') ?>" href="{{ route('admin.address_upazila') }}">
+                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
+                <span class="sub_menu_text_design">Address Upazila</span>
+            </a>
+            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'sms-status-set', 'submenu_selector') ?>" href="{{ route('admin.address_union') }}">
+                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
+                <span class="sub_menu_text_design">Address Union</span>
+            </a>
         </div>
     </li>
     <?php } ?>

@@ -171,6 +171,54 @@ function getDepartmentByDivision(divisionId, selector, url){
 /*
  *  getDepartmentByDivision
  */
+function getAddressDistrictByDivision(divisionId, selector, url){
+    if(divisionId){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'division_id='+divisionId,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}
+/*
+ *  getDepartmentByDivision
+ */
+function getAddressUpazialByDistrict(districtId, selector, url){
+    if(districtId){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'district_id='+districtId,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#'+selector).html(response.data);                    
+                }else{
+                    $('#'+selector).html(defaultSelector);
+                }
+            }
+        });
+    }else{
+        var defaultSelector = "<option value=''>Select</option>";
+        $('#'+selector).html(defaultSelector);
+    }
+}
+
+
+/*
+ *  getDepartmentByDivision
+ */
 function getusersByDepartment(union_id, selector, url){
     if(union_id){
         var division_id     =   $('#div_id').val();

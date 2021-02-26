@@ -228,6 +228,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
      */    
     Route::get('sms-status-set', 'scmsp\SettingsController@sms_status_set')->name('sms-status-set');
     Route::post('sms-status-set-update', 'scmsp\SettingsController@sms_status_set_update')->name('sms-status-set-update');
+    Route::get('address_upazila', 'scmsp\SettingsController@address_upazila')->name('address_upazila');
+    Route::get('address_upazila_create', 'scmsp\SettingsController@address_upazila_create')->name('address_upazila_create');
+    Route::get('address_upazila_edit/{id}', 'scmsp\SettingsController@address_upazila_edit')->name('address_upazila_edit');
+    Route::post('address_upazila_delete', 'scmsp\SettingsController@address_upazila_delete')->name('address_upazila_delete');
+    Route::get('get_address_district_by_division', 'scmsp\SettingsController@get_address_district_by_division')->name('get_address_district_by_division');
+    Route::get('get_address_upazila_by_district', 'scmsp\SettingsController@get_address_upazila_by_district')->name('get_address_upazila_by_district');
+    Route::post('address_upazila_store', 'scmsp\SettingsController@address_upazila_store')->name('address_upazila_store');
+    Route::post('address_upazila_update', 'scmsp\SettingsController@address_upazila_update')->name('address_upazila_update');
+    Route::get('address_union', 'scmsp\SettingsController@address_union')->name('address_union');
+    Route::get('address_union_create', 'scmsp\SettingsController@address_union_create')->name('address_union_create');
+    Route::post('address_union_store', 'scmsp\SettingsController@address_union_store')->name('address_union_store');
+    Route::get('address_union_edit/{id}', 'scmsp\SettingsController@address_union_edit')->name('address_union_edit');
+    Route::post('address_union_update', 'scmsp\SettingsController@address_union_update')->name('address_union_update');
 
     Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
     Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));

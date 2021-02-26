@@ -114,6 +114,26 @@ function hasAccessPermission($role, $module, $accessType) {
     return false;
 }
 
+function getUpazilaList() {
+    $users = DB::table('addr_upazilas as u')
+            ->join('addr_districts as dis', 'u.district_id', '=', 'dis.id')
+            ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
+            ->select('div.name as division_name','dis.name as district_name','u.id', 'u.name as upazila_name', 'u.bn_name as upazila_bn_name')
+            ->orderBy('div.name', 'asc')
+            ->get();
+    return $users;
+}
+function getUnionList() {
+    $users = DB::table('addr_unions as u')
+            ->join('addr_upazilas as upa', 'u.upazila_id', '=', 'upa.id')
+            ->join('addr_districts as dis', 'upa.district_id', '=', 'dis.id')
+            ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
+            ->select('div.name as division_name','dis.name as district_name','upa.name as upazila_name', 'u.id', 'u.name as union_name', 'u.bn_name as union_bangla_name')
+            ->orderBy('div.name', 'asc')
+            ->get();
+    return $users;
+}
+
 function getRoleWiseUser($role_id) {
     $users = DB::table('users as u')
             ->join('model_has_roles as mhr', 'u.id', '=', 'mhr.model_id')
@@ -463,4 +483,18 @@ function get_area_manager_by_department($request){
         ->where('ur.role_id',5)
         ->get();
     return $areaManagerdata;
+}
+
+
+function get_address_division_by_district_id($district_id){
+    //addr_districts
+    $data       =   DB::table('addr_districts')
+            ->select('division_id')
+            ->where('id', $district_id)
+            ->first();
+    if(isset($data) && !empty($data)){
+        return $data->division_id;
+    }
+    
+    return '';
 }
