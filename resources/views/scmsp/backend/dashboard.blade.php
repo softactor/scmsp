@@ -31,6 +31,7 @@
                     <!-- Icon Cards-->
                     <div class="row">
                         <?php
+                        
                             $countParam                                 =   [];
                             $countParam['table']                        =   'complain_details';
                             $countParam['field']                        =   'id';
@@ -42,8 +43,11 @@
                             }else if($role    ==  'Area Manager'){
                                 $list   = get_complain_details_by_area_manager(Auth::user()->id, $pending);
                                 $totalPending                               =   count($list);
+                            }else if($role    ==  'Zonal Manager'){                                
+                                $list           = get_complain_details_by_zonal_manager(Auth::user()->id, $pending);                                
+                                $totalPending   =   count($list);
                             }else{
-                                $totalPending                               =   getTableTotalRows($countParam)->total;
+                                $totalPending   =   getTableTotalRows($countParam)->total;
                             }
                             
                         ?>                        
@@ -77,6 +81,9 @@
                             }else if($role    ==  'Area Manager'){
                                 $list   = get_complain_details_by_area_manager(Auth::user()->id, $processing);
                                 $totalprocessing                               =   count($list);
+                            }else if($role    ==  'Zonal Manager'){                                
+                                $list           = get_complain_details_by_zonal_manager(Auth::user()->id, $processing);
+                                $totalprocessing   =   count($list);
                             }else{
                                 $totalprocessing                               =   getTableTotalRows($countParam)->total;
                             }
@@ -109,6 +116,9 @@
                             }else if($role    ==  'Area Manager'){
                                 $list   = get_complain_details_by_area_manager(Auth::user()->id, $solved);
                                 $totalsolved                               =   count($list);
+                            }else if($role    ==  'Zonal Manager'){                                
+                                $list           = get_complain_details_by_zonal_manager(Auth::user()->id, $solved);
+                                $totalsolved   =   count($list);
                             }else{
                                 $totalsolved                               =   getTableTotalRows($countParam)->total;
                             }

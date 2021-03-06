@@ -395,6 +395,29 @@ function get_complain_details_by_area_manager($area_manager_id, $complain_status
     return $complainDetailsData;
 }
 
+function get_complain_details_by_zonal_manager($zonal_manager_id, $complain_status=false){
+    $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);
+    if($complain_status){
+        $complainDetailsData   = DB::table('complain_details as u')
+                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
+                ->join('users as ur', 'u.assign_to', '=', 'ur.id')
+                ->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id')
+                ->where('u.division_id',$divisionId)
+                ->where('u.entry_type', 1)
+                ->where('u.complain_status',$complain_status)
+                ->get();
+    }else{
+        $complainDetailsData   = DB::table('complain_details as u')
+                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
+                ->join('users as ur', 'u.user_id', '=', 'ur.id')
+                ->join('staff_locations as sl', 'u.user_id', '=', 'sl.user_id')
+                ->where('u.division_id',$divisionId)
+                ->where('u.entry_type', 1)
+                ->get();
+    }
+    return $complainDetailsData;
+}
+
 function mail_execution($data){
     $emails['to']                   = 'tanveerqureshee1@gmail.com';
     $emails['from_address']         = 'mail.saifpowergroup.com';
@@ -491,6 +514,18 @@ function get_address_division_by_district_id($district_id){
     $data       =   DB::table('addr_districts')
             ->select('division_id')
             ->where('id', $district_id)
+            ->first();
+    if(isset($data) && !empty($data)){
+        return $data->division_id;
+    }
+    
+    return '';
+}
+
+function get_zonal_manager_division_by_user_id($userId){
+    $data   =   DB::table('users')
+            ->select('division_id')
+            ->where('id', $userId)
             ->first();
     if(isset($data) && !empty($data)){
         return $data->division_id;

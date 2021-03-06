@@ -40,6 +40,12 @@ class ComplainDetailsController extends Controller
                 }else{
                     $list   = get_complain_details_by_area_manager(Auth::user()->id);
                 }
+            }else if($role  ==   'Zonal Manager'){
+                if(isset($complain_status) && !empty($complain_status)){
+                    $list   = get_complain_details_by_zonal_manager(Auth::user()->id, $complain_status);
+                }else{
+                    $list   = get_complain_details_by_zonal_manager(Auth::user()->id);
+                }
             }else{
                 if(isset($complain_status) && !empty($complain_status)){
                     $list   = ComplainDetails::where('complain_status',$complain_status)

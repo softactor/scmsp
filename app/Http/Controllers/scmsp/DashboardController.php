@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use View;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         /* selected menue data */
-        $activeMenuClass    =   'dashboard';   
+        $activeMenuClass    =   'dashboard';        
         return View('scmsp.backend.dashboard', compact('activeMenuClass'));
     }
     
