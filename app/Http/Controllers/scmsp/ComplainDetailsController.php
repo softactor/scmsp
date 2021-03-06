@@ -85,7 +85,7 @@ class ComplainDetailsController extends Controller
         $role               =   getRoleNameByUserId(Auth::user()->id);
         
         // Area Manager:
-        if($role== 'Admin' || $role=='Agent'){
+        if($role== 'Admin' || $role=='Agent' || $role=='Zonal Manager'){
             return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
         }elseif($role== 'Area Manager / Key Concern Person'){
             return View('scmsp.backend.complain_details.edit',  compact('editData','activeMenuClass'));
