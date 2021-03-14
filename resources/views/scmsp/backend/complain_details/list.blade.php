@@ -93,8 +93,30 @@
                                     ?>
                                 </a>
                             </td>
-                            <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
-                            <td>{{ (isset($data->user_id) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
+                            <td>
+                                <?php
+                                    if(isset($data->assign_to) && !empty($data->assign_to)){
+                                        $nameDetails    =   get_data_name_by_id('users',$data->assign_to);
+                                        if(isset($nameDetails) && !empty($nameDetails)){
+                                            echo $nameDetails->name;
+                                        }else{
+                                            echo 'No Data';
+                                        }
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                    if(isset($data->user_id) && !empty($data->user_id)){
+                                        $nameDetails    =   get_data_name_by_id('users',$data->user_id);
+                                        if(isset($nameDetails) && !empty($nameDetails)){
+                                            echo $nameDetails->name;
+                                        }else{
+                                            echo 'No Data';
+                                        }
+                                    }
+                                ?>
+                            </td>
                             <td>
                                 <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">
                                     <i class="fa fa-edit text-grey-darker"></i>

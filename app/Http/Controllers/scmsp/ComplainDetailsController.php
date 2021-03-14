@@ -60,6 +60,7 @@ class ComplainDetailsController extends Controller
                     ->get();
                 }
             }
+            
             /* selected menue data */
             $activeMenuClass    =   'complain-details';   
             return View('scmsp.backend.complain_details.list', compact('list','activeMenuClass'));
