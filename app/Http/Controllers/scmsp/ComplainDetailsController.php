@@ -22,6 +22,14 @@ class ComplainDetailsController extends Controller
 	*/
     public function index($complain_status = null)
     {
+            /*
+         * // passing this $complain_entry_type = 1
+         * Meaning when click add form it will indicate
+         * this is Customer call entry
+             * 
+             */
+        
+            $complain_entry_type    =   1;
             $role   =   getRoleNameByUserId(Auth::user()->id);
             if($role== 'Admin' || $role=='Agent'){
                 if(isset($complain_status) && !empty($complain_status)){
@@ -63,7 +71,7 @@ class ComplainDetailsController extends Controller
             
             /* selected menue data */
             $activeMenuClass    =   'complain-details';   
-            return View('scmsp.backend.complain_details.list', compact('list','activeMenuClass'));
+            return View('scmsp.backend.complain_details.list', compact('list','activeMenuClass', 'complain_entry_type'));
 	}
         
         /*
@@ -73,10 +81,10 @@ class ComplainDetailsController extends Controller
 	Date		: 04/16/2019
 	Author		: Atiqur Rahman
 	*/
-    public function create()
+    public function create($complain_entry_type = '1')
     {
             $activeMenuClass    =   'complain-details';
-            return View('scmsp.backend.complain_details.create', compact('activeMenuClass'));
+            return View('scmsp.backend.complain_details.create', compact('activeMenuClass', 'complain_entry_type'));
 	}
         /*
 	Method Name	: edit
@@ -114,7 +122,16 @@ class ComplainDetailsController extends Controller
         $entry_type             =   $request->entry_type;
         if($entry_type == 1){
             $createPage     =   'admin/complain-details-create';
-            $listPage       =   'admin/complain-details-list';
+            
+            /*
+             * Decided is it direct complain entry
+             * Or Customar care entry
+             */
+            if($request->complain_entry_type == 1){            
+                $listPage       =   'admin/complain-details-list';
+            }else{
+                $listPage       =   'admin/manual-complain-list';
+            }
             $successMsg     =   'Complain have been successfully created.';
         }elseif($entry_type == 2){
             $executeSMS             =   false;
@@ -191,6 +208,7 @@ class ComplainDetailsController extends Controller
         $complain_details->address             =   $request->complainer_address;
         $complain_details->complain_details    =   $request->complain_details;
         $complain_details->issued_date         =   (isset($request->complain_date) && !empty($request->complain_date) ? $request->complain_date : date('Y-m-d H:i:s'));
+        $complain_details->complain_entry_type =   (isset($request->complain_entry_type) && !empty($request->complain_entry_type) ? $request->complain_entry_type : 1);
         $complain_details->division_id         =   $request->div_id;
         $complain_details->department_id       =   $request->dept_id;
         $complain_details->complain_status     =   1;
@@ -358,6 +376,7 @@ class ComplainDetailsController extends Controller
             $complain_details->complain_status = $request->complain_status;
             $complain_details->assign_to = $request->assign_to;
             $complain_details->priority_id = $request->priority_id;
+            $complain_details->complain_entry_type =   $request->complain_entry_type;
             $complain_details->updated_at = date('Y-m-d H:i:s');
             $descriptions = $request->complain_details;
         } else {
@@ -400,7 +419,16 @@ class ComplainDetailsController extends Controller
                 $sms_response   = sending_sms($smsParam, $multiple, $lastHistoryId);
             }
         }
-        return redirect('admin/complain-details-list')->with('success', 'Complain have been successfully Updated.');
+        
+        if($request->complain_entry_type == 2){
+            if ($role == 'Admin' || $role == 'Agent') {
+                $redirectUrl    =   'admin/complain-details-list';
+            }else{
+                $redirectUrl    =   'admin/manual-complain-list';
+            }
+        }
+        
+        return redirect($redirectUrl)->with('success', 'Complain have been successfully Updated.');
     }
 
     /*
@@ -587,6 +615,35 @@ class ComplainDetailsController extends Controller
         $lastHistoryId      = DB::table('complain_details_history')->insertGetId($detailsHistoryData);
         $complain_status    = get_data_name_by_id('complain_statuses', $request->complain_status)->name;
         return redirect('admin/query-details-list')->with('success', 'Query have been successfully Updated.');
+    }
+    
+    
+    public function manual_complain_list($complain_status = "")
+    {
+        /*
+         * // passing this $complain_entry_type = 2
+         * Meaning when click add form it will indicate
+         * this is direct phone call manual entry
+         */
+        $complain_entry_type    =   2; 
+        $role   =   getRoleNameByUserId(Auth::user()->id);
+        if($role== 'Admin' || $role=='Agent'){
+            if(isset($complain_status) && !empty($complain_status)){
+                $list   = ComplainDetails::where('complain_status',$complain_status)
+                    ->orderBy('created_at', 'DESC')
+                    ->where('complain_entry_type', 2)
+                    ->get();
+            }else{
+                $list   = ComplainDetails::orderBy('created_at', 'DESC')
+                ->where('complain_entry_type', 2)
+                ->get();
+            }
+        }elseif($role=='Area Manager / Key Concern Person' ||  $role== 'Zonal Manager'){
+            $list   = get_complain_details_by_zonal_manager(Auth::user()->id, $complain_status, $complain_entry_type=2);
+        }
+            /* selected menue data */
+            $activeMenuClass    =   'manual-complain-details';   
+            return View('scmsp.backend.complain_details.list', compact('list','activeMenuClass', 'complain_entry_type'));
     }
 
 }

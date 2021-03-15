@@ -7,13 +7,19 @@ use App\Http\Controllers\Controller;
 use View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index(Request $request){
         /* selected menue data */
+        $userId             =   Auth::user()->id;
+        $role               =   getRoleNameByUserId($userId);
+        $userDetails        =   DB::table('users')->where('id', $userId)->first();
+        
         $activeMenuClass    =   'dashboard';        
-        return View('scmsp.backend.dashboard', compact('activeMenuClass'));
+        return View('scmsp.backend.dashboard', compact('activeMenuClass', 'role', 'userDetails'));
     }
     
     public function test_mail() {

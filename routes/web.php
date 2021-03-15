@@ -156,7 +156,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     // calling complain-details list routes
     Route::get('complain-details-list/{complain_status?}', 'scmsp\ComplainDetailsController@index')->name('complain-details-list');
     // calling complain-details create routes
-    Route::get('complain-details-create', 'scmsp\ComplainDetailsController@create')->name('complain-details-create');
+    Route::get('complain-details-create/{complain_entry_type?}', 'scmsp\ComplainDetailsController@create')->name('complain-details-create');
     // calling complain-details edit routes
     Route::get('complain-details-edit/{id}', 'scmsp\ComplainDetailsController@edit')->name('complain-details-edit');
     // calling complain-details store routes
@@ -168,6 +168,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     
     Route::get('get-all-division-service-staff', 'scmsp\ComplainDetailsController@get_all_division_service_staff')->name('get_all_division_service_staff');
 
+    Route::get('manual-complain-list', 'scmsp\ComplainDetailsController@manual_complain_list')->name('manual-complain-list');
     // start feedback details routes
     // calling feedback-details list routes
     Route::get('feedback-details-list', 'scmsp\FeedbackDetailsController@index')->name('feedback-details-list');

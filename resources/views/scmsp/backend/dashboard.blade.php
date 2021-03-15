@@ -21,13 +21,37 @@
                 <!--@include('scmsp.backend.partial.dashboard_complain_search')-->
             </div>
             <div class="row">
-                <?php 
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+<!--                        <tr>
+                            <td>
+                                <img src="" alt="Profile image" title="profile image">
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td>
+                                <?php
+                                    if($role== 'Admin' || $role=='Agent'){
+                                ?>
+                                    <?php }else{ ?>
+                                <ul id="user_profile_list">
+                                    <li>Role: <span class="user_value"><?php echo $role; ?></span></li>
+                                    <li>Email: <span class="user_value"><?php echo $userDetails->email; ?></span></li>
+                                    <li>Division: <span class="user_value"><?php echo get_division_name_by_id($userDetails->division_id); ?></span></li>
+                                    <li>Department: <span class="user_value"><?php echo get_department_name_by_id($userDetails->department_id); ?></span></li>
+                                </ul>
+                                    <?php }  ?>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-8">
+                    <?php 
                     $pending        =   1;
                     $processing     =   3;
                     $solved         =   2;
                 ?>
                 <!-- Grid column -->
-                <div class="col-md-12">                    
                     <!-- Icon Cards-->
                     <div class="row">
                         <?php
@@ -140,7 +164,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
             <!-- Grid row -->
 
@@ -157,7 +181,7 @@
                 location.reload();
             }, 30000);
         }
-        complain_details_auto_refresh();
+        //complain_details_auto_refresh();
     </script>
 @endsection
 @endsection

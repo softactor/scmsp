@@ -395,25 +395,33 @@ function get_complain_details_by_area_manager($area_manager_id, $complain_status
     return $complainDetailsData;
 }
 
-function get_complain_details_by_zonal_manager($zonal_manager_id, $complain_status=false){
-    $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);
+function get_complain_details_by_zonal_manager($zonal_manager_id, $complain_status=false, $complain_entry_type = 1){
+    $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);  
+    $isAllLocation             =    user_has_all_location(Auth::user()->id, $divisionId);
+    
     if($complain_status){
-        $complainDetailsData   = DB::table('complain_details as u')
+        $complainDetailsDataSql   = DB::table('complain_details as u')
                 ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
-                ->join('users as ur', 'u.assign_to', '=', 'ur.id')
-                ->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id')
+                ->join('users as ur', 'u.assign_to', '=', 'ur.id')                
                 ->where('u.division_id',$divisionId)
                 ->where('u.entry_type', 1)
                 ->where('u.complain_status',$complain_status)
-                ->get();
+                ->where('u.complain_entry_type',$complain_entry_type);
+        if(!$isAllLocation){
+            $complainDetailsDataSql->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id');
+        }
+        $complainDetailsData    =   $complainDetailsDataSql->get();
     }else{
-        $complainDetailsData   = DB::table('complain_details as u')
+        $complainDetailsDataSql   = DB::table('complain_details as u')
                 ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
                 ->join('users as ur', 'u.user_id', '=', 'ur.id')
-                ->join('staff_locations as sl', 'u.user_id', '=', 'sl.user_id')
                 ->where('u.division_id',$divisionId)
                 ->where('u.entry_type', 1)
-                ->get();
+                ->where('u.complain_entry_type',$complain_entry_type);
+        if(!$isAllLocation){
+            $complainDetailsDataSql->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id');
+        }
+        $complainDetailsData    =   $complainDetailsDataSql->get();
     }
     return $complainDetailsData;
 }
@@ -532,4 +540,42 @@ function get_zonal_manager_division_by_user_id($userId){
     }
     
     return '';
+}
+
+function get_division_name_by_id($id){
+    //addr_districts
+    $data       =   DB::table('departments')
+            ->select('name')
+            ->where('id', $id)
+            ->first();
+    if(isset($data) && !empty($data)){
+        return $data->name;
+    }
+    
+    return 'No Data Found';
+}
+function get_department_name_by_id($id){
+    //addr_districts
+    $data       =   DB::table('divisions')
+            ->select('name')
+            ->where('id', $id)
+            ->first();
+    if(isset($data) && !empty($data)){
+        return $data->name;
+    }
+    
+    return 'No Data Found';
+}
+
+function user_has_all_location($userId, $divisionId){
+    $data           =   DB::table('staff_locations as s')
+        ->select('s.all_division as all_location')
+        ->join('users as u', 'u.id', '=', 's.user_id')
+        ->where('u.division_id',$divisionId)
+        ->where('u.id',$userId)
+        ->first();
+    if(isset($data) && !empty($data)){
+        return $data->all_location;
+    }
+    return 0;
 }

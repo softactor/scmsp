@@ -12,10 +12,11 @@
     <div class='row'>
         <div class='col col-md-12'>
                <?php
+                    $createUrl                  =   url("admin/complain-details-create/".$complain_entry_type);
                     $roleName                   =   getRoleNameByUserId(Auth::user()->id);
                     if(hasAccessPermission($roleName, 'Complain details', 'addaccess')){
                 ?>
-            <a class="" href="{{ route('admin.complain-details-create') }}" >
+            <a class="" href="{{ $createUrl }}" >
                 <button type="button" class="btn btn-sm btn-success float-right margin-fixing">New Complain</button>
             </a>
                 <?php } ?>
@@ -25,6 +26,7 @@
                     <thead>
                         <tr>
                             <th style="width: 20px; text-align: right;">SL No.</th>
+                            <th>Division</th>
                             <th>Code</th>
                             <th>Priority</th>
                             <th>Complain date</th>
@@ -41,6 +43,7 @@
                     <tfoot>
                         <tr>
                             <th style="width: 20px; text-align: right;">SL No.</th>
+                            <th>Division</th>
                             <th>Code</th>
                             <th>Priority</th>
                             <th>Complain date</th>
@@ -64,6 +67,11 @@
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
                             <td style="width: 20px; text-align: right;"><?php echo $sl++; ?></td>
+                            <td>
+                                <?php
+                                    echo get_division_name_by_id($data->division_id)
+                                ?>
+                            </td>
                             <td>
                                 <a href="{{ url('admin/complain-details-edit/'.$data->id) }}"> 
                                 <?php echo $data->complainer_code; ?>

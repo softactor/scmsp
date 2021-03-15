@@ -112,4 +112,14 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
         </a>
     </li>
         <?php } ?>
+    <?php
+        if(hasAccessPermission($roleName, 'Manual Complain List', 'listaccess')){
+    ?>
+    <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'manual-complain-list') ?>">
+        <a class="nav-link" href="{{ route('admin.manual-complain-list') }}">
+            <i class="fas fa-fw fa-pen-nib"></i>
+            <span>Manual Query Details</span>
+        </a>
+    </li>
+        <?php } ?>
 </ul>

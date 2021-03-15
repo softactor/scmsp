@@ -420,6 +420,17 @@ class UserController extends Controller
             Author		: Tanveer Qureshee
         */    
         function get_department_wise_user(Request $request){
+            
+            //Get all location users:
+            
+            $allLocationUsers = DB::table('users as u')
+                                    ->select('u.id as user_id', 'u.name as user_name', 'u.email')
+                                    ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
+                                    ->join('staff_locations as sl', 'u.id', '=', 'sl.user_id')
+                                    ->where('u.division_id',$request->division_id)
+                                    ->where('sl.all_division',1)
+                                    ->get();
+            
             $usersData   = DB::table('users as u')
                 ->select('u.id as user_id', 'u.name as user_name', 'u.email')
                 ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
@@ -432,7 +443,7 @@ class UserController extends Controller
                 ->where('sl.addr_union_id',$request->addr_union_id)
                 ->where('ur.role_id',4)
                 ->get();
-            $users_view        =   View::make('scmsp.backend.partial.get_users_by_department', compact('usersData'));
+            $users_view        =   View::make('scmsp.backend.partial.get_users_by_department', compact('usersData', 'allLocationUsers'));
             $feedback = [
                     'status'    => 'success',
                     'message'   => 'Data found',

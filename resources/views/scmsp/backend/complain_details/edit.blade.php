@@ -257,7 +257,8 @@
                     </div>
                 </div>
                 <input type="hidden" name="edit_id" value="{{ $editData->id }}">
-                    <button type="submit" class="btn btn-info">Update</button>
+                <input type="hidden" name="complain_entry_type" value="{{ $editData->complain_entry_type }}">
+                <button type="submit" class="btn btn-info">Update</button>
             </form>
         </div>
         <div class="col-md-6">
