@@ -579,3 +579,16 @@ function user_has_all_location($userId, $divisionId){
     }
     return 0;
 }
+
+function get_all_division(){
+    $order_by['order_by_column']    =   'name';
+    $order_by['order_by']           =   'ASC';
+    $divisions                      = get_table_data_by_table('departments', $order_by);
+    return $divisions;
+}
+function get_all_role(){
+    $order_by['order_by_column']    =   'name';
+    $order_by['order_by']           =   'ASC';
+    $divisions                      = get_table_data_by_table('roles', $order_by);
+    return $divisions;
+}

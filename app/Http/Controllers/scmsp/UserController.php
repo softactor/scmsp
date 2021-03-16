@@ -451,4 +451,36 @@ class UserController extends Controller
                 ];
             echo json_encode($feedback);
         }
+        
+        
+        /*
+            Method Name         : get_user_data_by_division_role
+            Purpose		: load user by department from an ajax call
+            Param		: department id need
+            Date		: 16/03/2021
+            Author		: Tanveer Qureshee
+        */    
+        function get_user_data_by_division_role(Request $request){
+            
+            $usersDataSql   = DB::table('users as u')
+                ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
+                ->select('u.*', 'ur.role_id');
+            
+            if(isset($request->division_id) && !empty($request->division_id)){
+                $usersDataSql->where('u.division_id',$request->division_id);
+            }
+            if(isset($request->role_id) && !empty($request->role_id)){
+                $usersDataSql->where('ur.role_id',$request->role_id);
+            }
+            
+            $usersData          =   $usersDataSql->get();
+            
+            $users_view        =   View::make('scmsp.backend.partial.user_data_view_by_division_role', compact('usersData'));
+            $feedback = [
+                    'status'    => 'success',
+                    'message'   => 'Data found',
+                    'data'      => $users_view->render(),
+                ];
+            echo json_encode($feedback);
+        }
 }

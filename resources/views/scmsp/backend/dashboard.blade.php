@@ -33,6 +33,9 @@
                                 <?php
                                     if($role== 'Admin' || $role=='Agent'){
                                 ?>
+                                <div class="alert alert-info">
+                                    <strong><?php echo $role ?> Dashboard</strong>
+                                </div>
                                     <?php }else{ ?>
                                 <ul id="user_profile_list">
                                     <li>Role: <span class="user_value"><?php echo $role; ?></span></li>

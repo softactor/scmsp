@@ -373,7 +373,6 @@ function generatePDF(url) {
         }
     });
 }
-
 function get_all_division_service_users(division_id, url){
     if(division_id){
         $.ajax({
@@ -389,3 +388,16 @@ function get_all_division_service_users(division_id, url){
         });
     }
 }
+    function get_user_data_by_division_role(url) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            dataType: 'json',
+            data: $('#division_role_filter_form').serialize(),
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#users_list_data_body').html(response.data);
+                }
+            }
+        });
+    }

@@ -123,6 +123,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
      *  Get Ajax call Details:
      */    
     Route::get('get_department_wise_user', 'scmsp\UserController@get_department_wise_user')->name('get_department_wise_user');
+    Route::get('get_user_data_by_division_role', 'scmsp\UserController@get_user_data_by_division_role')->name('get_user_data_by_division_role');
 
     // start user role routes
     // calling user-role list routes

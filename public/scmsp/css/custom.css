@@ -99,3 +99,8 @@ ul#user_profile_list{
 #user_profile_list li span.user_value{
     font-weight: bold;
 }
+.filter_separation{
+    margin: 10px 0;
+    border: 1px dashed lightcyan;
+    width: 100%;
+}
