@@ -108,6 +108,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
 
     // start users routes
     // calling user list routes
+    Route::get('user-profile', 'scmsp\UserController@user_profile')->name('user-profile');
+    Route::post('general-user-update', 'scmsp\UserController@general_user_update')->name('general-user-update');
     Route::get('user-list', 'scmsp\UserController@index')->name('user-list');
     // calling user create routes
     Route::get('user-create', 'scmsp\UserController@create')->name('user-create');

@@ -93,8 +93,9 @@ ul#user_profile_list{
     padding: 0;
 }
 #user_profile_list li{
-    border: 1px solid orange;
+    border: 1px solid white;
     padding: 8px 16px;
+    background-color: orange;
 }
 #user_profile_list li span.user_value{
     font-weight: bold;

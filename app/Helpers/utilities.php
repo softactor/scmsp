@@ -592,3 +592,19 @@ function get_all_role(){
     $divisions                      = get_table_data_by_table('roles', $order_by);
     return $divisions;
 }
+
+function get_dynamic_division(){
+    $list   =   "";
+    $role   =   getRoleNameByUserId(Auth::user()->id);
+    if($role== 'Admin' || $role=='Agent'){
+        $list = get_table_data_by_table('departments');
+    }else{
+        $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);
+        $table          =   "departments";
+        $where          =   [
+            'id'        =>  $divisionId
+        ];
+        $list           =   get_table_data_by_table_and_where($table, $where);
+    }    
+    return $list;
+}

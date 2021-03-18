@@ -483,4 +483,58 @@ class UserController extends Controller
                 ];
             echo json_encode($feedback);
         }
+        
+        public function user_profile(){
+            $usersData          =   "";
+            $staffLocations     =   "";
+            $role   =   getRoleNameByUserId(Auth::user()->id);
+            if($role== 'Admin' || $role=='Agent'){
+                
+            }else{
+                $user_id        =   Auth::user()->id;
+                $usersData      =   DB::table('users')->where('id', $user_id)->first();
+                $staffLocations =   DB::table('staff_locations')->where('user_id', $user_id)->first();
+                
+            }
+            
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'user-profile';
+            return View('scmsp.backend.general_user_profile', compact('usersData','staffLocations','subMenuClass', 'role'));
+            
+        }
+        
+        public function general_user_update(Request $request){
+            $all    =   $request->all();
+            $updated    =   false;
+            if(isset($request->mobile) && !empty($request->mobile)){
+                $userData  =   [
+                    'mobile'        =>  $request->mobile,
+                    'updated_at'    =>  date('Y-m-d H:i:s'),
+                ];
+                //user update
+                $dbResult   =   DB::table('users')->where('id',$request->user_update_id)->update($userData);
+                $updated    =   true;
+            }
+            
+            $password   =   $request->password;
+            if(isset($password) && !empty($password)){
+                $userPasswordData  =   [
+                    'password'  =>  Hash::make($request->password),
+                    'updated_at'=>  date('Y-m-d h:i:s'),
+                ];
+                //user update
+                DB::table('users')->where('id',$request->user_update_id)->update($userPasswordData);
+                $updated    =   true;
+            }    
+            
+            if($updated){
+                $status     =   'success';
+                $message    =   'Data have been successfully Updated';
+            }else{
+                $status     =   'error';
+                $message    =   'Noting there to update';
+            }
+            
+            return redirect('admin/user-profile')->with($status, $message);
+        }
 }

@@ -81,7 +81,7 @@
                             <select class="form-control" id='div_id' name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>');">
                                 <option value="">Select</option>
                                 <?php
-                                $list = get_table_data_by_table('departments');
+                                $list   =   get_dynamic_division();
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
                                         ?>

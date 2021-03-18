@@ -21,34 +21,7 @@
                 <!--@include('scmsp.backend.partial.dashboard_complain_search')-->
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <table class="table table-bordered">
-<!--                        <tr>
-                            <td>
-                                <img src="" alt="Profile image" title="profile image">
-                            </td>
-                        </tr>-->
-                        <tr>
-                            <td>
-                                <?php
-                                    if($role== 'Admin' || $role=='Agent'){
-                                ?>
-                                <div class="alert alert-info">
-                                    <strong><?php echo $role ?> Dashboard</strong>
-                                </div>
-                                    <?php }else{ ?>
-                                <ul id="user_profile_list">
-                                    <li>Role: <span class="user_value"><?php echo $role; ?></span></li>
-                                    <li>Email: <span class="user_value"><?php echo $userDetails->email; ?></span></li>
-                                    <li>Division: <span class="user_value"><?php echo get_division_name_by_id($userDetails->division_id); ?></span></li>
-                                    <li>Department: <span class="user_value"><?php echo get_department_name_by_id($userDetails->department_id); ?></span></li>
-                                </ul>
-                                    <?php }  ?>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <?php 
                     $pending        =   1;
                     $processing     =   3;
