@@ -489,6 +489,9 @@ class UserController extends Controller
             $staffLocations     =   "";
             $role   =   getRoleNameByUserId(Auth::user()->id);
             if($role== 'Admin' || $role=='Agent'){
+                $user_id        =   Auth::user()->id;
+                $usersData      =   DB::table('users')->where('id', $user_id)->first();
+                $staffLocations =   DB::table('staff_locations')->where('user_id', $user_id)->first();
                 
             }else{
                 $user_id        =   Auth::user()->id;

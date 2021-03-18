@@ -15,6 +15,47 @@
             <!--<form action="{{ route('admin.user-update') }}" method="post">-->
             <form action="{{ route('admin.general-user-update') }}" method="post">
                 @csrf
+                <?php
+                    if($role== 'Admin' || $role=='Agent'){
+                ?>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="role"><b>Role</b></label><br>
+                            <?php echo $role; ?>                            
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name"><b>Name</b></label><br>
+                            <?php echo $usersData->name; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email"><b>Email</b></label><br>
+                            <?php echo $usersData->email; ?>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="psw">Password</label>
+                            <input type="password" class="form-control" id="psw" placeholder="Enter password" name="password">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="psw">Mobile</label>
+                            <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile" name="mobile" value="{{ old('mobile',$usersData->mobile) }}">
+                        </div>                
+                    </div>                
+                </div>
+                
+                    <?php }else{ ?>
+                
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -103,6 +144,7 @@
                         </div>
                     </div>
                 </div>
+                    <?php } ?>
                 <input type='hidden' name="user_update_id" value="<?php echo $usersData->id; ?>">
                 <input type="submit" name="update" value="Update" class="btn btn-info">
             </form>
