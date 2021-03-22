@@ -24,14 +24,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="complainer">Complainer</label>
+                            <label for="complainer">Query Mobile</label>
                             <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="{{ old('complainer',$editData->complainer) }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <!--demoDatepicker-->
-                            <label for="complainer">Complain Date</label>
+                            <label for="complainer">Query Date</label>
                             <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="{{ old('complain_date',$editData->issued_date) }}">
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="complain details">Complain</label>
+                            <label for="complain details">Query</label>
                             <textarea class="form-control" id="details" name="complain_details">{{ old('complain_details',$editData->complain_details) }}</textarea>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="pwd">Complain Type</label>
+                            <label for="pwd">Query Type</label>
                             <select class="form-control" id='complain_type_id' name="complain_type_id">
                                 <option>Select Type</option>
                                 <?php
@@ -210,7 +210,7 @@
                 <div class="row">           
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="pwd">Complain Status</label>
+                            <label for="pwd">Query Status</label>
                             <select class="form-control" name="complain_status">
                                         <?php
                                         $list = get_table_data_by_table('complain_statuses');
@@ -274,7 +274,6 @@
             <?php $data=[
                     'history' => $complainHistory
                 ]  ?>
-            @include('scmsp.backend.partial.complain_history', $data)
         </div>
     </div>
 </div>

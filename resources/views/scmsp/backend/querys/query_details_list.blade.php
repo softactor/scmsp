@@ -61,7 +61,7 @@
                         ?>
                         <tr id='delete_row_id_{{$data->id}}' class="<?php echo $rawColor; ?>">
                             <td>
-                                <a href="{{ url('admin/complain-details-edit/'.$data->id) }}"> 
+                                <a href="{{ url('admin/query-details-edit/'.$data->id) }}"> 
                                 <?php echo $data->complainer_code; ?>
                                 </a>
                             </td>
@@ -77,9 +77,9 @@
                             <td>{{ $data->complainer }}</td>                            
                             <td>
                                 <?php 
-                                        $res    =   get_data_name_by_id('complain_types',$data->complain_type_id);
-                                        echo    (isset($res) && !empty($res) ? short_str($res->name) : 'No data found');
-                                    ?>
+                                    $res    =   get_data_name_by_id('complain_types',$data->complain_type_id);
+                                    echo    (isset($res) && !empty($res) ? short_str($res->name) : 'No data found');
+                                ?>
                             </td>                            
                             <td>
                                 <a href="{{ url('admin/complain-details-edit/'.$data->id) }}">                                    
@@ -89,8 +89,22 @@
                                     ?>
                                 </a>
                             </td>
-                            <td>{{ (isset($data->assign_to) && !empty($data->assign_to) ? get_data_name_by_id('users',$data->assign_to)->name : '') }}</td>
-                            <td>{{ (isset($data->user_id) && !empty($data->user_id) ? get_data_name_by_id('users',$data->user_id)->name : '') }}</td>
+                            <td>
+                                <?php
+                                    if(isset($data->assign_to) && !empty($data->assign_to)){
+                                        $res    =   get_data_name_by_id('users',$data->assign_to);
+                                        echo    (isset($res) && !empty($res) ? $res->name : 'No data found');                                        
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <?php
+                                    if(isset($data->user_id) && !empty($data->user_id)){
+                                        $res    =   get_data_name_by_id('users',$data->user_id);
+                                        echo    (isset($res) && !empty($res) ? $res->name : 'No data found');                                        
+                                    }
+                                ?>
+                            </td>
                             <td>
                                 <a href="{{ url('admin/query-details-edit/'.$data->id) }}">
                                     <i class="fa fa-edit text-grey-darker"></i>
