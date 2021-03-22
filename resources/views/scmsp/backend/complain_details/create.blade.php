@@ -86,18 +86,26 @@
                         <div class="form-group">
                             <label for="pwd">Department<span class="required_text"></span></label> 
                             <?php
+                            if(old('div_id')){
+                                $divId  =   old('div_id');
+                            }
                             $get_department_wise_user_url   = url('admin/get_department_wise_user');
                             $get_category_by_department     = url('admin/get_category_by_department');
                             ?>
                             <select class="form-control" id="dept_id" name="dept_id" onchange="getCategoryByDepartment(this.value, 'div_id', 'category_id', '<?php echo $get_category_by_department; ?>');">
                                 <option value="">Select</option>
                                 <?php
-                                    if(old('dept_id')){
-                                        $table = 'divisions';
-                                        $order = 'ASC';
-                                        $column = 'name';
-                                        $dataType = 'obj';
-                                        $tableData = get_table_data_by_table($table);
+                                    if(old('div_id')){
+                                        $where      =   [
+                                            'dept_id'   =>  $divId
+                                        ];
+                                        $order_by      =   [
+                                            'order_by_column'   =>  'name',
+                                            'order_by'          =>  'ASC',
+                                        ];
+                                        $table      = 'divisions';
+                                        $dataType   = 'obj';
+                                        $tableData  = get_table_data_by_table_and_where($table, $where, $order_by);
                                         if (isset($tableData) && !empty($tableData)) {
                                             foreach ($tableData as $data) {
                                                 ?>
@@ -124,23 +132,34 @@
                             <select class="form-control" id="category_id" name="category_id" onchange="getCategoryWiseComplainType(this.value, '<?php echo $url; ?>','complain_type_id','div_id','dept_id');">
                                 <option value="">Select</option>
                                 <?php
-                                $list = get_table_data_by_table('complain_type_categories');
-                                if (!$list->isEmpty()) {
-                                    foreach ($list as $data) {
-                                        ?>
-                                        <option value="{{ $data->id }}"<?php
-                                        if (old('category_id') == $data->id) {
-                                            echo 'selected';
-                                        }
-                                        ?>>{{ $data->name }}
-                                        </option>
-                                                <?php
+                                if (old('dept_id')) {
+                                    $where      =   [
+                                        'dept_id'   =>  $divId,
+                                        'div_id'    =>  old('dept_id')
+                                    ];
+                                    $order_by      =   [
+                                        'order_by_column'   =>  'name',
+                                        'order_by'          =>  'ASC',
+                                    ];
+                                    $table      = 'complain_type_categories';
+                                    $list  = get_table_data_by_table_and_where($table, $where, $order_by);
+                                    if (!$list->isEmpty()) {
+                                        foreach ($list as $data) {
+                                            ?>
+                                            <option value="{{ $data->id }}"<?php
+                                            if (old('category_id') == $data->id) {
+                                                echo 'selected';
                                             }
+                                            ?>>{{ $data->name }}
+                                            </option>
+                                            <?php
                                         }
-                                        ?>
+                                    }
+                                }
+                                ?>
                             </select>
                             <?php
-                                if ($errors->has('complain_type_id')) {
+                                if ($errors->has('category_id')) {
                                     echo "<div class='alert alert-danger'>Complain Type is Required</div>";
                                 }
                             ?>
@@ -152,25 +171,37 @@
                             <select class="form-control" name="complain_type_id" id='complain_type_id'>
                                 <option value="">Select Type</option>
                                 <?php
-                                $list = get_table_data_by_table('complain_types');
-                                if (!$list->isEmpty()) {
-                                    foreach ($list as $data) {
-                                        ?>
-                                        <option value="{{ $data->id }}"<?php
-                                        if (old('complain_type_id') == $data->id) {
-                                            echo 'selected';
-                                        }
-                                        ?>>{{ $data->name }}
-                                        </option>
-                                                <?php
+                                if (old('category_id')) {
+                                    $where = [
+                                        'dept_id'       => $divId,
+                                        'div_id'        => old('dept_id'),
+                                        'category_id'   => old('category_id'),
+                                    ];
+                                    $order_by = [
+                                        'order_by_column' => 'name',
+                                        'order_by' => 'ASC',
+                                    ];
+                                    $table = 'complain_types';
+                                    $list = get_table_data_by_table_and_where($table, $where, $order_by);
+                                    if (!$list->isEmpty()) {
+                                        foreach ($list as $data) {
+                                            ?>
+                                            <option value="{{ $data->id }}"<?php
+                                            if (old('complain_type_id') == $data->id) {
+                                                echo 'selected';
                                             }
+                                            ?>>{{ $data->name }}
+                                            </option>
+                                            <?php
                                         }
-                                        ?>
+                                    }
+                                }
+                                ?>
                             </select>
                             <?php
-                                if ($errors->has('complain_type_id')) {
-                                    echo "<div class='alert alert-danger'>Complain Type is Required</div>";
-                                }
+                            if ($errors->has('complain_type_id')) {
+                                echo "<div class='alert alert-danger'>Complain Type is Required</div>";
+                            }
                             ?>
                         </div>
                     </div>
@@ -209,12 +240,16 @@
                             <select class="form-control" name="addr_dis_id" id="addr_dis_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_upazila_id', '<?php echo $up_by_dis_url; ?>');">
                                 <option value="">Select</option>
                                 <?php
-                                    if(old('addr_dis_id')){
+                                    if(old('addr_div_id')){
                                         $table = 'addr_districts';
-                                        $order = 'ASC';
-                                        $column = 'name';
-                                        $dataType = 'obj';
-                                        $tableData = get_table_data_by_table($table);
+                                        $where = [
+                                            'division_id'       => old('addr_div_id')
+                                        ];
+                                        $order_by = [
+                                            'order_by_column'   => 'name',
+                                            'order_by'          => 'ASC',
+                                        ];
+                                        $tableData = get_table_data_by_table_and_where($table, $where, $order_by);
                                         if (isset($tableData) && !empty($tableData)) {
                                             foreach ($tableData as $data) {
                                                 ?>
@@ -241,10 +276,14 @@
                                 <?php
                                     if(old('addr_upazila_id')){
                                         $table = 'addr_upazilas';
-                                        $order = 'ASC';
-                                        $column = 'name';
-                                        $dataType = 'obj';
-                                        $tableData = get_table_data_by_table($table);
+                                        $where = [
+                                            'district_id'       => old('addr_dis_id')
+                                        ];
+                                        $order_by = [
+                                            'order_by_column'   => 'name',
+                                            'order_by'          => 'ASC',
+                                        ];
+                                        $tableData = get_table_data_by_table_and_where($table, $where, $order_by);
                                         if (isset($tableData) && !empty($tableData)) {
                                             foreach ($tableData as $data) {
                                                 ?>
@@ -270,14 +309,18 @@
                                 <?php
                                     if(old('addr_union_id')){
                                         $table = 'addr_unions';
-                                        $order = 'ASC';
-                                        $column = 'name';
-                                        $dataType = 'obj';
-                                        $tableData = get_table_data_by_table($table);
+                                        $where = [
+                                            'upazila_id'       => old('addr_upazila_id')
+                                        ];
+                                        $order_by = [
+                                            'order_by_column'   => 'name',
+                                            'order_by'          => 'ASC',
+                                        ];
+                                        $tableData = get_table_data_by_table_and_where($table, $where, $order_by);
                                         if (isset($tableData) && !empty($tableData)) {
                                             foreach ($tableData as $data) {
                                                 ?>
-                                                <option value="<?php echo $data->id; ?>" <?php if(old('addr_union_id') && old('addr_union_id') == $data->id){ echo 'selected'; } ?>><?php echo $data->name; ?></option>   
+                                                <option value="<?php echo $data->id; ?>" <?php if(old('addr_union_id') && old('addr_union_id') == $data->id){ echo 'selected'; } ?>><?php echo $data->bn_name; ?></option>   
                                                 <?php
                                             }
                                         }  
@@ -299,7 +342,7 @@
                             <select class="form-control" name="assign_to" id="assign_to">
                                 <option value="">Select</option>
                                 <?php
-                                    if(old('addr_upazila_id')){
+                                    if(old('assign_to')){
                                         $table      = 'users';
                                         $order      = 'ASC';
                                         $column     = 'name';
