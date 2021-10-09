@@ -271,16 +271,19 @@ class SettingsController extends Controller {
     public function address_upazila(){
         $activeMenuClass = 'address-upazila';
         $list            = getUpazilaList();
+        $activeMenuClass    =   'settings';
         
         return View('scmsp.backend.settings.address_upazila_list', compact('activeMenuClass', 'list'));
     }
     
     public function address_upazila_create(){
+        $activeMenuClass    =   'settings';
         $divisions      =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
         return View('scmsp.backend.settings.address_upazila_create', compact('activeMenuClass', 'divisions'));
     }
     
     public function address_upazila_edit(Request $request){
+        $activeMenuClass    =   'settings';
         $divisions      =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
         $upazila                =   DB::table('addr_upazilas')->where('id', $request->id)->first();
         $selectedDivisionId     =   get_address_division_by_district_id($upazila->district_id);
@@ -389,6 +392,7 @@ class SettingsController extends Controller {
     }
     
     public function address_union_create(){
+        $activeMenuClass    =   'address-upazila';
         $divisions      =   DB::table('addr_divisions')->orderBy('name', 'asc')->get();
         return View('scmsp.backend.settings.address_union_create', compact('activeMenuClass', 'divisions'));
     }
@@ -439,6 +443,7 @@ class SettingsController extends Controller {
     }
     
     public function address_union_edit(Request $request){
+        $activeMenuClass    =   'address-upazila';
         $unionDetails           =   DB::table('addr_unions')->where('id', $request->id)->first();
         $upazila                =   DB::table('addr_upazilas')->where('id', $unionDetails->upazila_id)->first();
         $districts              =   DB::table('addr_districts')->where('id', $upazila->district_id)->first();//district_id
