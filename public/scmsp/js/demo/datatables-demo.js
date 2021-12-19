@@ -1,6 +1,6 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-  $('#dataTable').DataTable();
+  $('#user_list_data_table').DataTable();
   $('#complainDetailsdataTable').DataTable({
     order: [[3, 'desc']],
     "columnDefs": [

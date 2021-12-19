@@ -396,7 +396,10 @@ function get_all_division_service_users(division_id, url){
             data: $('#division_role_filter_form').serialize(),
             success: function (response) {
                 if (response.status == 'success') {
-                    $('#users_list_data_body').html(response.data);
+                    $('#user_list_data_table_section').html(response.data);
+                    setTimeout(function(){
+                        $('#user_list_data_table').DataTable();
+                    }, 1000);
                 }
             }
         });

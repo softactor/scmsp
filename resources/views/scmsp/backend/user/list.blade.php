@@ -29,7 +29,9 @@
             <div class="row">
                 <div class="col-md-12">
                     @include('scmsp.backend.partial.operation_message')
-                    <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
+                    
+                    <div id="user_list_data_table_section">
+                        <table class="table table-bordered list-table-custom-style" id="user_list_data_table" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -82,6 +84,7 @@
                             } ?>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>            
         </div>

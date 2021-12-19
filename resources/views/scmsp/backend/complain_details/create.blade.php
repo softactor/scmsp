@@ -299,6 +299,9 @@
                                     echo "<div class='alert alert-danger'>Upozila is Required</div>";
                                 }
                             ?>
+                            <div class="new_upazial_union_data" id="addr_upazila_data">
+                                <input type="text" name="addr_upazila_new_data">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -306,6 +309,7 @@
                             <label for="role">Address Union<span class="required_text"></span></label>
                             <select class="form-control" name="addr_union_id" id="addr_union_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
                                 <option value="">Select</option>     
+                                <option value="new">New</option>     
                                 <?php
                                     if(old('addr_union_id')){
                                         $table = 'addr_unions';
@@ -332,6 +336,9 @@
                                     echo "<div class='alert alert-danger'>Union is Required</div>";
                                 }
                             ?>
+                            <div class="new_upazial_union_data" id="addr_union_data">
+                                <input type="text" name="addr_union_new_data">
+                            </div>
                         </div>
                     </div>
                 </div>

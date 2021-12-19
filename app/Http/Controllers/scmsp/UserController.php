@@ -461,7 +461,6 @@ class UserController extends Controller
             Author		: Tanveer Qureshee
         */    
         function get_user_data_by_division_role(Request $request){
-            
             $usersDataSql   = DB::table('users as u')
                 ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
                 ->select('u.*', 'ur.role_id');
