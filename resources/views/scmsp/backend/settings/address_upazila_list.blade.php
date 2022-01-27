@@ -9,10 +9,23 @@
         </li>
         <li class="breadcrumb-item active">Upazila List</li>
     </ol>
+    <div class="row">
+        <div class="col-md-10">
+            <form class="form-inline" id="division_role_filter_form">
+                @include('scmsp.backend.partial.division_and_district_filter')
+                <?php
+                    $filterDataUrl  =   url('admin/get_upazilla_list_by_district');
+                ?>
+                <button type="button" class="btn btn-primary" onclick="get_upazilla_list_by_district('<?php echo $filterDataUrl; ?>');">Search</button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.address_upazila_create') }}" >Create New</a>
+        </div>
+    </div>
     <div class='row'>
         <div class='col col-md-12'>
             @include('scmsp.backend.partial.operation_message')
-            <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.address_upazila_create') }}" >Create New</a>            
             <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -22,7 +35,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="upazila_list_tbody">
                     <?php
                     $deleteUrl = url('admin/complain-type-delete');
                     if (!$list->isEmpty()) {

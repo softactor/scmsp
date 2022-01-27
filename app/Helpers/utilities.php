@@ -114,24 +114,33 @@ function hasAccessPermission($role, $module, $accessType) {
     return false;
 }
 
-function getUpazilaList() {
-    $users = DB::table('addr_upazilas as u')
+function getUpazilaList($district_id = null) {
+    $upazila_slq = DB::table('addr_upazilas as u')
             ->join('addr_districts as dis', 'u.district_id', '=', 'dis.id')
             ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
             ->select('div.name as division_name','dis.name as district_name','u.id', 'u.name as upazila_name', 'u.bn_name as upazila_bn_name')
-            ->orderBy('div.name', 'asc')
-            ->get();
-    return $users;
+            ->orderBy('div.name', 'asc');
+    
+    if(isset($district_id) && !empty($district_id)){
+        $upazila_slq->where('u.district_id', $district_id);
+    }
+    $upazila  =   $upazila_slq->get();
+    return $upazila;
 }
-function getUnionList() {
-    $users = DB::table('addr_unions as u')
+function getUnionList($upazila_id = null) {
+    $union_sql = DB::table('addr_unions as u')
             ->join('addr_upazilas as upa', 'u.upazila_id', '=', 'upa.id')
             ->join('addr_districts as dis', 'upa.district_id', '=', 'dis.id')
             ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
             ->select('div.name as division_name','dis.name as district_name','upa.name as upazila_name', 'u.id', 'u.name as union_name', 'u.bn_name as union_bangla_name')
-            ->orderBy('div.name', 'asc')
-            ->get();
-    return $users;
+            ->orderBy('div.name', 'asc');
+    
+    
+    if(isset($upazila_id) && !empty($upazila_id)){
+        $union_sql->where('u.upazila_id', $upazila_id);
+    }
+    $unions  =   $union_sql->get();
+    return $unions;
 }
 
 function getRoleWiseUser($role_id) {
@@ -580,6 +589,12 @@ function user_has_all_location($userId, $divisionId){
     return 0;
 }
 
+function get_address_division(){
+    $order_by['order_by_column']    =   'name';
+    $order_by['order_by']           =   'ASC';
+    $divisions                      = get_table_data_by_table('addr_divisions', $order_by);
+    return $divisions;
+}
 function get_all_division(){
     $order_by['order_by_column']    =   'name';
     $order_by['order_by']           =   'ASC';

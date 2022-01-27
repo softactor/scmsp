@@ -411,6 +411,28 @@ class SettingsController extends Controller {
         ];
         echo json_encode($feedback);
     }
+    public function get_upazilla_list_by_district(Request $request){
+        $district_id     =   $request->district_id;
+        $addr_upazilas        =   getUpazilaList($district_id);
+        $view =   View::make('scmsp.backend.partial.get_upazilla_list_by_district', compact('addr_upazilas'));
+        $feedback = [
+            'status'    => 'success',
+            'message'   => 'Data found',
+            'data'      => $view->render(),
+        ];
+        echo json_encode($feedback);
+    }
+    public function address_union_list_by_upazila(Request $request){
+        $upazila_id     =   $request->upazila_id;
+        $addr_unions        =   getUnionList($upazila_id);
+        $view =   View::make('scmsp.backend.partial.address_union_list_by_upazila', compact('addr_unions'));
+        $feedback = [
+            'status'    => 'success',
+            'message'   => 'Data found',
+            'data'      => $view->render(),
+        ];
+        echo json_encode($feedback);
+    }
     
     public function address_union_store(Request $request){
         $all            =   $request->all();

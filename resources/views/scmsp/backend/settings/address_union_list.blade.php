@@ -5,10 +5,24 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Upazial</a>
+            <a href="#">Union</a>
         </li>
-        <li class="breadcrumb-item active">Upazila List</li>
+        <li class="breadcrumb-item active">Union List</li>
     </ol>
+    <div class="row">
+                <div class="col-md-10">
+                    <form class="form-inline" id="division_role_filter_form">
+                        @include('scmsp.backend.partial.division_and_district_upazila_filter')
+                        <?php
+                        
+                        $filterDataUrl  =   url("admin/address_union_list_by_upazila");
+                        
+                        ?>
+                        
+                        <button type="button" class="btn btn-primary" onclick="get_union_list('<?php echo $filterDataUrl; ?>');">Search</button>
+                    </form>
+                </div>
+            </div>
     <div class='row'>
         <div class='col col-md-12'>
             @include('scmsp.backend.partial.operation_message')
@@ -23,7 +37,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="union_list_tbody">
                     <?php
                     $deleteUrl = url('admin/complain-type-delete');
                     if (!$list->isEmpty()) {

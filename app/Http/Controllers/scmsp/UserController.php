@@ -49,12 +49,12 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function create(){
-        $role           =   getRoleNameByUserId(Auth::user()->id);
-        $userDetails    =   DB::table('users')->where('id', Auth::user()->id)->first();
-                /* selected menue data */
-                $activeMenuClass    =   'users';   
-                $subMenuClass       =   'users-list';
-		return View('scmsp.backend.user.create', compact('list','activeMenuClass','subMenuClass', 'role', 'userDetails'));
+            $role           =   getRoleNameByUserId(Auth::user()->id);
+            $userDetails    =   DB::table('users')->where('id', Auth::user()->id)->first();
+            /* selected menue data */
+            $activeMenuClass    =   'users';   
+            $subMenuClass       =   'users-list';
+            return View('scmsp.backend.user.create', compact('activeMenuClass','subMenuClass', 'role', 'userDetails'));
 	}
         /*
 	Method Name	: edit
@@ -84,6 +84,11 @@ class UserController extends Controller
             Author		: Tanveer Qureshee
 	*/
 	public function store(Request $request){
+            
+            $created_by =   Auth::user()->id;
+            
+            
+            
             $staffLocation  =   false;
             if (isset($request->role_id) && !empty($request->role_id)) {
                 $userRoll = get_data_name_by_id('roles', $request->role_id)->name;
@@ -157,6 +162,10 @@ class UserController extends Controller
             ];
             $user_roles_id   =   DB::table('user_roles')->insert($roleData);
             
+            
+            
+            
+            
             // If Service Staff Then the following code block will execute:
             
             $addrDiv        =   (isset($request->addr_div_id) && !empty($request->addr_div_id) ? $request->addr_div_id : false);
@@ -170,20 +179,41 @@ class UserController extends Controller
             }
             
             if($staffLocation){
-                $staffLocationsData  =   [
-                    'all_division'      =>  $is_all_location,
-                    'addr_div_id'       =>  $addrDiv,
-                    'addr_dis_id'       =>  $addrDis,
-                    'addr_up_id'        =>  $addrUpz,
-                    'addr_union_id'     =>  $addrunion,
-                    'user_id'           =>  $user_id,
-                    'area_mng_id'       =>  $areaManger,
-                    'created_at'        =>  date('Y-m-d H:i:s'),
-                    'created_by'        =>  1,
-                ];
-            //insert
-            $user_id   =   DB::table('staff_locations')->insertGetId($staffLocationsData);
+                $created_at         =   date('Y-m-d H:i:s');                
+                if($is_all_location){
+                    $staffLocationsData  =   [
+                        'all_division'      =>  $is_all_location,
+                        'user_id'           =>  $user_id,
+                        'area_mng_id'       =>  $areaManger,
+                        'created_at'        =>  $created_at,
+                        'created_by'        =>  $created_by,
+                    ];
+                    //insert
+                    DB::table('staff_locations')->insertGetId($staffLocationsData);
+                }else{                
+                    $num_of_address     =   count($addrDiv); 
+                    for($nofadd = 0; $nofadd < $num_of_address; $nofadd++){
+                        $staffLocationsData  =   [
+                            'all_division'      =>  $is_all_location,
+                            'addr_div_id'       =>  $addrDiv[$nofadd],
+                            'addr_dis_id'       =>  $addrDis[$nofadd],
+                            'addr_up_id'        =>  $addrUpz[$nofadd],
+                            'addr_union_id'     =>  $addrunion[$nofadd],
+                            'user_id'           =>  $user_id,
+                            'area_mng_id'       =>  $areaManger,
+                            'created_at'        =>  $created_at,
+                            'created_by'        =>  $created_by,
+                        ];
+                        //insert
+                        DB::table('staff_locations')->insertGetId($staffLocationsData);
+                    }
+                }
             }
+            
+            
+            
+            
+            
             
             return redirect('admin/user-list')->with('success', 'User have been successfully created.');
 	}
@@ -196,6 +226,8 @@ class UserController extends Controller
 	Author		: Atiqur Rahman
 	*/
 	public function update(Request $request){
+            
+            $created_by =   Auth::user()->id;
             $staffLocation  =   false;
             if (isset($request->role_id) && !empty($request->role_id)) {
                 $userRoll = get_data_name_by_id('roles', $request->role_id)->name;
@@ -281,43 +313,37 @@ class UserController extends Controller
                 $staffLocation  =   true;
             }
             
-            if($staffLocation){                
-                // Duplicate Check:
-                $whereParam['table']    =   'staff_locations';
-                $whereParam['field']    =   'id';
-                $whereParam['where']    =   [
-                    'user_id'       =>  $request->user_update_id,
-                ];
-                $totalRows              =   getTableTotalRows($whereParam);
-                if($totalRows->total){
-                    // update:
+            if($staffLocation){  
+                $user_id    =   $request->user_update_id;
+                DB::table('staff_locations')->where('user_id',$user_id)->delete();
+                $created_at         =   date('Y-m-d H:i:s');                
+                if($is_all_location){
                     $staffLocationsData  =   [
-                        'all_division'   =>  $is_all_location,
-                        'addr_div_id'       =>  $addrDiv,
-                        'addr_dis_id'       =>  $addrDis,
-                        'addr_up_id'        =>  $addrUpz,
-                        'addr_union_id'     =>  $addrunion,
-                        'user_id'           =>  $request->user_update_id,
+                        'all_division'      =>  $is_all_location,
+                        'user_id'           =>  $user_id,
                         'area_mng_id'       =>  $areaManger,
-                        'updated_at'        =>  date('Y-m-d H:i:s'),
-                        'updated_by'        =>  1,
-                    ];
-                    DB::table('staff_locations')->where('user_id',$request->user_update_id)->update($staffLocationsData);
-                }else{
-                    //Insert:
-                    $staffLocationsData  =   [
-                        'all_division'   =>  $is_all_location,
-                        'addr_div_id'       =>  $addrDiv,
-                        'addr_dis_id'       =>  $addrDis,
-                        'addr_up_id'        =>  $addrUpz,
-                        'addr_union_id'     =>  $addrunion,
-                        'user_id'           =>  $request->user_update_id,
-                        'area_mng_id'       =>  $areaManger,
-                        'created_at'        =>  date('Y-m-d H:i:s'),
-                        'created_by'        =>  1,
+                        'created_at'        =>  $created_at,
+                        'created_by'        =>  $created_by,
                     ];
                     //insert
-                    $user_id   =   DB::table('staff_locations')->insertGetId($staffLocationsData);
+                    DB::table('staff_locations')->insertGetId($staffLocationsData);
+                }else{                
+                    $num_of_address     =   count($addrDiv); 
+                    for($nofadd = 0; $nofadd < $num_of_address; $nofadd++){
+                        $staffLocationsData  =   [
+                            'all_division'      =>  $is_all_location,
+                            'addr_div_id'       =>  $addrDiv[$nofadd],
+                            'addr_dis_id'       =>  $addrDis[$nofadd],
+                            'addr_up_id'        =>  $addrUpz[$nofadd],
+                            'addr_union_id'     =>  $addrunion[$nofadd],
+                            'user_id'           =>  $user_id,
+                            'area_mng_id'       =>  $areaManger,
+                            'created_at'        =>  $created_at,
+                            'created_by'        =>  $created_by,
+                        ];
+                        //insert
+                        DB::table('staff_locations')->insertGetId($staffLocationsData);
+                    }
                 }                
             }
             

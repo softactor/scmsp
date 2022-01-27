@@ -339,6 +339,43 @@ function getAreaManagerByDepartment(dept_id,divSelector,selector,url){
     }
 }
 
+function get_upazilla_list_by_district(url){
+    var district_id     =   $('#district_id').val();
+    if(district_id){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'district_id='+district_id,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#upazila_list_tbody').html(response.data);                    
+                }
+            }
+        });
+    }else{
+        alert('Please select District');
+    }
+}
+function get_union_list(url){
+    var upazila_id     =   $('#upazila_id').val();
+    if(upazila_id){
+        $.ajax({
+            url         :  url,
+            type        : 'GET',
+            dataType    : 'json',
+            data        : 'upazila_id='+upazila_id,
+            success     : function(response){
+                if(response.status  ==  'success'){
+                    $('#union_list_tbody').html(response.data);                    
+                }
+            }
+        });
+    }else{
+        alert('Please select Upazial');
+    }
+}
+
 function getCMSReport(selector, url) {
     $.ajax({
         url: url,
@@ -403,4 +440,24 @@ function get_all_division_service_users(division_id, url){
                 }
             }
         });
+    }
+    
+    function add_more_address_row(url){
+        var num_of_row  =   $("#user_address_body tr").length;
+        $.ajax({
+            url     : url,
+            type    : 'GET',
+            dataType: 'json',
+            data    : 'num_of_row='+num_of_row,
+            success: function (response) {
+                if (response.status == 'success') {
+                    $('#user_address_body').append(response.data).show('slow');
+                }
+            }
+        });
+    }
+    
+    function remove_more_address_row(row_id){
+        console.log(row_id);
+        $('#more_address_row_'+row_id).remove();
     }

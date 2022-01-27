@@ -61,6 +61,8 @@ class AutoCompleteController extends Controller
             ];
         echo json_encode($feedback);
     }
+    
+    
     public function get_area_manager_by_department(Request $request){
         $areaManagerdata           =   DB::table('users as u')
                 ->select('u.id as user_id', 'u.name as user_name')
@@ -74,6 +76,18 @@ class AutoCompleteController extends Controller
                 'status'    => 'success',
                 'message'   => 'Data found',
                 'data'      => $department_view->render(),
+            ];
+        echo json_encode($feedback);
+    }
+    
+    
+    public function more_address_row(Request $request){
+        $row_id         =   $request->num_of_row + 1;
+        $view           =   View::make('scmsp.backend.partial.more_address_row', compact('row_id'));
+        $feedback = [
+                'status'    => 'success',
+                'message'   => 'Data found',
+                'data'      => $view->render(),
             ];
         echo json_encode($feedback);
     }

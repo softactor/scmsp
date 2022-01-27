@@ -238,6 +238,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::post('address_upazila_delete', 'scmsp\SettingsController@address_upazila_delete')->name('address_upazila_delete');
     Route::get('get_address_district_by_division', 'scmsp\SettingsController@get_address_district_by_division')->name('get_address_district_by_division');
     Route::get('get_address_upazila_by_district', 'scmsp\SettingsController@get_address_upazila_by_district')->name('get_address_upazila_by_district');
+    Route::get('get_upazilla_list_by_district', 'scmsp\SettingsController@get_upazilla_list_by_district')->name('get_upazilla_list_by_district');
     Route::post('address_upazila_store', 'scmsp\SettingsController@address_upazila_store')->name('address_upazila_store');
     Route::post('address_upazila_update', 'scmsp\SettingsController@address_upazila_update')->name('address_upazila_update');
     Route::get('address_union', 'scmsp\SettingsController@address_union')->name('address_union');
@@ -245,6 +246,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::post('address_union_store', 'scmsp\SettingsController@address_union_store')->name('address_union_store');
     Route::get('address_union_edit/{id}', 'scmsp\SettingsController@address_union_edit')->name('address_union_edit');
     Route::post('address_union_update', 'scmsp\SettingsController@address_union_update')->name('address_union_update');
+    Route::get('address_union_list_by_upazila', 'scmsp\SettingsController@address_union_list_by_upazila')->name('address_union_list_by_upazila');
 
     Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
     Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
@@ -253,6 +255,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::get('get_upozila_by_district', 'scmsp\AutoCompleteController@get_upozila_by_district')->name('get_upozila_by_district');
     Route::get('get_union_by_upozila', 'scmsp\AutoCompleteController@get_union_by_upozila')->name('get_union_by_upozila');
     Route::get('get_area_manager_by_department', 'scmsp\AutoCompleteController@get_area_manager_by_department')->name('get_area_manager_by_department');
+    
+    
+    Route::get('more_address_row', 'scmsp\AutoCompleteController@more_address_row')->name('more_address_row');
     
     // calling complain-details list routes
     Route::get('query-details-list', 'scmsp\ComplainDetailsController@query_details_list')->name('query-details-list');
