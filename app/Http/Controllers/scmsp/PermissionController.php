@@ -39,7 +39,7 @@ class PermissionController extends Controller {
         /* selected menue data */
         $activeMenuClass    =   'users';   
         $subMenuClass       =   'permission-list';
-        return View('scmsp.backend.permission.create', compact('list','activeMenuClass','subMenuClass'));
+        return View('scmsp.backend.permission.create', compact('activeMenuClass','subMenuClass'));
     }
 
     /*

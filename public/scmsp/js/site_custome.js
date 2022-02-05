@@ -376,6 +376,19 @@ function get_union_list(url){
     }
 }
 
+function getStaffLocationReport(selector, url) {
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'json',
+        data: $('#staff_location_report_search_form').serialize(),
+        success: function (response) {
+            
+            $('#' + selector).html(response.data);
+            
+        }
+    });
+}
 function getCMSReport(selector, url) {
     $.ajax({
         url: url,

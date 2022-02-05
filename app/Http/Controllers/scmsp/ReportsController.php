@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Session;
  * Class SettingsController.
  */
 class ReportsController extends Controller {
+    public function staff_location_veiw(Request $request)
+    {
+        $role   =   getRoleNameByUserId(Auth::user()->id);
+        $activeMenuClass    =   'report-list';   
+        return View('scmsp.backend.reports.staff_location', compact('activeMenuClass'));
+    }
     public function index(Request $request)
     {
         $role   =   getRoleNameByUserId(Auth::user()->id);
@@ -63,6 +69,47 @@ class ReportsController extends Controller {
         $pdf = PDF::loadView('scmsp.backend.reports.prints.general_pdf', $data);
         return $pdf->download('report.pdf');
     }
+    
+    public function get_staff_location_report_by_filter_data(Request $request) {
+        
+        $sql = DB::table('users as u')
+            ->select('u.id','u.name','u.email','u.mobile','u.division_id','u.department_id')
+            ->join('staff_locations as sl', 'u.id', '=', 'sl.user_id');
+        
+        if(isset($request->div_id) && !empty($request->div_id)){
+            $sql->where('u.division_id', $request->div_id);
+        }
+        
+        if(isset($request->dept_id) && !empty($request->dept_id)){
+            $sql->where('u.department_id', $request->dept_id);
+        }
+        
+        if(isset($request->addr_div_id) && !empty($request->addr_div_id)){
+            $sql->where('sl.addr_div_id', $request->addr_div_id);
+        }
+        
+        if(isset($request->addr_dis_id) && !empty($request->addr_dis_id)){
+            $sql->where('sl.addr_dis_id', $request->addr_dis_id);
+        }
+        
+        if(isset($request->addr_upazila_id) && !empty($request->addr_upazila_id)){
+            $sql->where('sl.addr_up_id', $request->addr_upazila_id);
+        }
+        
+        $report_data   =   $sql->get();       
+        
+        
+        $data_view   =   View::make('scmsp.backend.reports.report_staff_locations_data', compact('report_data'));
+        
+        $feedback = [
+            'data'      => $data_view->render(),
+        ];
+        
+        
+        echo json_encode($feedback);
+        
+    }
+    
     public function download_complain_excel_file(Request $request)
     {
         $filtersData        =   Session::get('filters');

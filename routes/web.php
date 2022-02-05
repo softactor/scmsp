@@ -217,6 +217,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
       // start Report routes
     // calling reports list routes
     Route::get('report-list', 'scmsp\ReportsController@index')->name('report-list');
+    Route::get('staff-location', 'scmsp\ReportsController@staff_location_veiw')->name('staff-location');
+    Route::get('get-staff-location-report', 'scmsp\ReportsController@get_staff_location_report_by_filter_data')->name('get-staff-location-report');
+    
+    
+    
+    
+    
+    
     Route::get('get-cms-general-report', 'scmsp\ReportsController@get_general_report_data')->name('get-cms-general-report');
     Route::get('generate-general-report-pdf', 'scmsp\ReportsController@generate_general_report_pdf')->name('generate-general-report-pdf');
     Route::get('test-pdf', 'scmsp\ReportsController@testPDF')->name('test-pdf');
