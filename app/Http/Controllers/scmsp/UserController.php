@@ -481,7 +481,7 @@ class UserController extends Controller
                 
                 foreach($usersData as $udata){
                     
-                    array_push($user_ids, $udata->id);                   
+                    array_push($user_ids, $udata->user_id);                   
                     array_push($user_datas, $udata);                 
                         
                 }
@@ -494,7 +494,7 @@ class UserController extends Controller
                 foreach($allLocationUsers as $udata){
                     
                     if(!in_array($udata->id, $user_ids)){
-                        array_push($user_ids, $udata->id);
+                        array_push($user_ids, $udata->user_id);
                         array_push($user_datas, $udata);   
                     
                     } 
