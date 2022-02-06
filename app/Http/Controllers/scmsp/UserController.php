@@ -502,6 +502,12 @@ class UserController extends Controller
                 }
                 
             }
+
+
+            print '<pre>';
+            print_r($user_datas);
+            print '</pre>';
+            exit;
             
             
             
