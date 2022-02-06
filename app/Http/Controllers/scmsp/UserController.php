@@ -473,7 +473,6 @@ class UserController extends Controller
                 ->where('sl.addr_div_id',$request->addr_div_id)
                 ->where('sl.addr_dis_id',$request->addr_dis_id)
                 ->where('sl.addr_up_id',$request->addr_up_id)
-                ->where('sl.addr_union_id',$request->addr_union_id)
                 ->where('ur.role_id',4)
                 ->get();
             

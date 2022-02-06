@@ -271,7 +271,7 @@
                         <div class="form-group">
                             <label for="role">Address Upazila<span class="required_text"></span></label>
                             <?php $union_by_up_url = route('admin.get_union_by_upozila') ?>
-                            <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
+                            <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
                                 <option value="">Select</option>  
                                 <?php
                                     if(old('addr_upazila_id')){
@@ -307,7 +307,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="role">Address Union<span class="required_text"></span></label>
-                            <select class="form-control" name="addr_union_id" id="addr_union_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
+                            <select class="form-control" name="addr_union_id" id="addr_union_id">
                                 <option value="">Select</option>     
                                 <option value="new">New</option>     
                                 <?php
