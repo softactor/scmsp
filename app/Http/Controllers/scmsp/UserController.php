@@ -501,14 +501,7 @@ class UserController extends Controller
                     
                 }
                 
-            }
-
-
-            print '<pre>';
-            print_r($user_datas);
-            print '</pre>';
-            exit;
-            
+            }            
             
             
             $users_view        =   View::make('scmsp.backend.partial.get_users_by_department', compact('user_datas'));
