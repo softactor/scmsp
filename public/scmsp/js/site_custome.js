@@ -233,7 +233,7 @@ function getusersByDepartment(union_id, selector, url){
             data        : 'division_id='+division_id+'&department_id='+department_id+'&addr_div_id='+addr_div_id+'&addr_dis_id='+addr_dis_id+'&addr_up_id='+addr_up_id+'&addr_union_id='+union_id,
             success     : function(response){
                 if(response.status  ==  'success'){
-                    $('#'+selector).append(response.data);                    
+                    $('#'+selector).html(response.data);                    
                 }
             }
         });
