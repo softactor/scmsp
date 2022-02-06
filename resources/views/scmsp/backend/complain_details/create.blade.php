@@ -348,23 +348,6 @@
                             <label for="pwd">Assign To<span class="required_text"></span></label>
                             <select class="form-control" name="assign_to" id="assign_to">
                                 <option value="">Select</option>
-                                <?php
-                                    if(old('assign_to')){
-                                        $table      = 'users';
-                                        $order      = 'ASC';
-                                        $column     = 'name';
-                                        $dataType   = 'obj';
-                                        $tableData  = get_table_data_by_table($table);
-                                        if (isset($tableData) && !empty($tableData)) {
-                                            foreach ($tableData as $data) {
-                                                ?>
-                                                <option value="<?php echo $data->id; ?>" <?php if(old('assign_to') && old('assign_to') == $data->id){ echo 'selected'; } ?>><?php echo $data->name; ?></option>   
-                                                <?php
-                                            }
-                                        }  
-                                    }
-                                ?>
-                            </select>
                             <?php
                                 if ($errors->has('assign_to')) {
                                     echo "<div class='alert alert-danger'>Technician is Required</div>";
