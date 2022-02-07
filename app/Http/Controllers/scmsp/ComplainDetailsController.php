@@ -174,7 +174,6 @@ class ComplainDetailsController extends Controller
             'addr_div_id'       => 'required',
             'addr_dis_id'       => 'required',
             'addr_upazila_id'   => 'required',
-            'addr_union_id'     => 'required',
             'assign_to'         => 'required',
             'priority_id'       => 'required',
         ];

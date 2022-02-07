@@ -299,50 +299,8 @@
                                     echo "<div class='alert alert-danger'>Upozila is Required</div>";
                                 }
                             ?>
-                            <div class="new_upazial_union_data" id="addr_upazila_data">
-                                <input type="text" name="addr_upazila_new_data">
-                            </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="role">Address Union<span class="required_text"></span></label>
-                            <select class="form-control" name="addr_union_id" id="addr_union_id">
-                                <option value="">Select</option>     
-                                <option value="new">New</option>     
-                                <?php
-                                    if(old('addr_union_id')){
-                                        $table = 'addr_unions';
-                                        $where = [
-                                            'upazila_id'       => old('addr_upazila_id')
-                                        ];
-                                        $order_by = [
-                                            'order_by_column'   => 'name',
-                                            'order_by'          => 'ASC',
-                                        ];
-                                        $tableData = get_table_data_by_table_and_where($table, $where, $order_by);
-                                        if (isset($tableData) && !empty($tableData)) {
-                                            foreach ($tableData as $data) {
-                                                ?>
-                                                <option value="<?php echo $data->id; ?>" <?php if(old('addr_union_id') && old('addr_union_id') == $data->id){ echo 'selected'; } ?>><?php echo $data->bn_name; ?></option>   
-                                                <?php
-                                            }
-                                        }  
-                                    }
-                                ?>
-                            </select>
-                            <?php
-                                if ($errors->has('addr_union_id')) {
-                                    echo "<div class='alert alert-danger'>Union is Required</div>";
-                                }
-                            ?>
-                            <div class="new_upazial_union_data" id="addr_union_data">
-                                <input type="text" name="addr_union_new_data">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="pwd">Assign To<span class="required_text"></span></label>
@@ -353,8 +311,10 @@
                                     echo "<div class='alert alert-danger'>Technician is Required</div>";
                                 }
                             ?>
+                            </select>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="row">
                     <div class="col-md-8">
