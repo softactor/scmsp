@@ -25,7 +25,7 @@
                                     <label for="contact_number">Contact Number:</label>
                                     <input type="text" class="form-control" id="contact_number" name="contact_number">
                                     
-                                    <div class="text-grey-darker text-danger">Contact format: without +88 LIKE: 01716600843</div>
+                                    <div class="text-grey-darker text-danger">Contact format: without +88 LIKE: 01710000000</div>
                                     
                                 </div>
                                 
