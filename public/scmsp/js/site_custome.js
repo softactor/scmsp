@@ -496,7 +496,7 @@ function get_all_division_service_users(division_id, url){
                 },
                 success: function (response) {
                     
-                    if(response.status = 1){
+                    if(response.status == 1){
                         $("#contact_number").val("");
                         $("#smsdescription").val("");
                         swal('Success', response.message, 'success');
@@ -504,6 +504,12 @@ function get_all_division_service_users(division_id, url){
                             swal.close();
                             $("#sms_sent_response").html(response.data);
                         }, 1000);
+                    }else{
+                        swal('Error', response.message, 'error');
+                       setTimeout(function(){
+                            swal.close();
+                            $("#sms_sent_response").html(response.data);
+                        }, 1000); 
                     }                   
                 },
                 async: false // <- this turns it into synchronous
