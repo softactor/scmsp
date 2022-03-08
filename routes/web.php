@@ -274,6 +274,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 's
     Route::get('query-details-edit/{id}', 'scmsp\ComplainDetailsController@query_edit')->name('query-details-edit');
     Route::post('query-details-update', 'scmsp\ComplainDetailsController@query_update')->name('query-details-update');
     
+    
+    
+//    common-sms
+    
+    Route::get('common-sms-view', 'scmsp\CommonSMSController@sms_from_view')->name('common-sms-view');
+    Route::post('sms_process', 'scmsp\CommonSMSController@sms_process')->name('sms_process');
+    
+    
 });
 Auth::routes();
 

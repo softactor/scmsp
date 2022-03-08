@@ -128,4 +128,15 @@ $roleName                   =   getRoleNameByUserId(Auth::user()->id);
         </a>
     </li>
         <?php } ?>
+    
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.common-sms-view') }}">
+            <i class="fas fa-fw fa-pen-nib"></i>
+            <span>Common SMS</span>
+        </a>
+    </li>
+    
+    
+    
+    
 </ul>

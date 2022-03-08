@@ -35,7 +35,7 @@
                                 <form action="{{ route('login') }}" method="POST">
                                     @csrf
                                     <fieldset class="clearfix">
-                                        <p><span class="fa fa-user"></span><input placeholder="E-mail Address" name="email" type="text" id="email" required></p>
+                                        <p><span class="fa fa-user"></span><input value="<?php echo old('email') ?>" placeholder="E-mail Address" name="email" type="text" id="email" required></p>
                                         <p><span class="fa fa-lock"></span><input placeholder="Password" name="password" type="password" id="password" required></p>
                                         <div>
                                             <span style="width:100%; text-align:right;  display: inline-block;">

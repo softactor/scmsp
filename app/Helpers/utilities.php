@@ -255,25 +255,13 @@ function getComplainCode($date, $prefix="C", $entry_type){
 
 }
 function sending_sms($smsData, $multiple = false, $history_id) {
-    $curl = curl_init();
+    
 // Set some options - we are passing in a useragent too here
     if ($multiple) {
         foreach ($smsData as $sdata) {
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => 'http://users.sendsmsbd.com/smsapi',
-                CURLOPT_USERAGENT => 'SMS Process',
-                CURLOPT_POST => 1,
-                CURLOPT_POSTFIELDS => [
-                    'api_key' => 'C20042245d5bcca0a4bc54.80275636',
-                    'type' => 'text',
-                    'senderid' => '8804445629107',
-                    'contacts' => '88' . $sdata['contacts'],
-                    'msg' => $sdata['msg'],
-                ]
-            ]);
+            
             // Send the request & save response to $resp
-            $resp = curl_exec($curl);
+            $resp = execution_sms($sdata);
             $historyUpdateParam = [
                 'is_sms_send' => 1,
                 'sms_response' => $resp,
@@ -281,24 +269,11 @@ function sending_sms($smsData, $multiple = false, $history_id) {
             DB::table('complain_details_history')->where('id', $history_id)->update($historyUpdateParam);
         }
     } else {
-        curl_setopt_array($curl, [
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://users.sendsmsbd.com/smsapi',
-            CURLOPT_USERAGENT => 'SMS Process',
-            CURLOPT_POST => 1,
-            CURLOPT_POSTFIELDS => [
-                'api_key' => 'C20042245d5bcca0a4bc54.80275636',
-                'type' => 'text',
-                'senderid' => '8804445629107',
-                'contacts' => '88' . $smsData['contacts'],
-                'msg' => $smsData['msg'],
-            ]
-        ]);
         // Send the request & save response to $resp
-        $resp = curl_exec($curl);
+        $resp = execution_sms($smsData);
         $historyUpdateParam = [
-            'is_sms_send' => 1,
-            'sms_response' => $resp,
+            'is_sms_send'       => 1,
+            'sms_response'      => $resp,
         ];
         DB::table('complain_details_history')->where('id', $history_id)->update($historyUpdateParam);
     }
@@ -307,6 +282,29 @@ function sending_sms($smsData, $multiple = false, $history_id) {
     curl_close($curl);
     return $resp;
 }
+
+
+function execution_sms($sdata){
+    
+    $curl = curl_init();
+    curl_setopt_array($curl, [
+        CURLOPT_RETURNTRANSFER      => 1,
+        CURLOPT_URL                 => 'http://users.sendsmsbd.com/smsapi',
+        CURLOPT_USERAGENT           => 'SMS Process',
+        CURLOPT_POST                => 1,
+        CURLOPT_POSTFIELDS          => [
+            'api_key'       => 'C200904161a870e1be5177.43884751', //C200904161a870e1be5177.43884751
+            'type'          => 'text',
+            'senderid'      => 'SAIF POWER', //SAIF POWER
+            'contacts'      => '88' . $sdata['contacts'],
+            'msg'           => $sdata['msg'],
+        ]
+    ]);
+    // Send the request & save response to $resp
+    $resp = curl_exec($curl);
+    return $resp;
+}
+
 
 function short_str($str, $max = 50) {
     $str = trim($str);

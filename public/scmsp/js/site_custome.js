@@ -474,3 +474,40 @@ function get_all_division_service_users(division_id, url){
         console.log(row_id);
         $('#more_address_row_'+row_id).remove();
     }
+    
+    
+    function send_sms(form_id, url) {
+        swal({
+            title: "Confirm to send SMS?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-success",
+            confirmButtonText: "Confirm!",
+            closeOnConfirm: false
+        },
+        function () {
+            $.ajax({
+                url     : url,
+                type    : 'POST',
+                dataType: 'json',
+                data    : $('#'+form_id).serialize(),
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+                },
+                success: function (response) {
+                    
+                    if(response.status = 1){
+                        $("#contact_number").val("");
+                        $("#smsdescription").val("");
+                        swal('Success', response.message, 'success');
+                        setTimeout(function(){
+                            swal.close();
+                            $("#sms_sent_response").html(response.data);
+                        }, 1000);
+                    }                   
+                },
+                async: false // <- this turns it into synchronous
+            });
+
+        });
+    }
