@@ -235,15 +235,19 @@
                         <div class="form-group">
                             <label for="role">Address Upazila<span class="required_text"></span></label>
                             <?php $union_by_up_url = route('admin.get_union_by_upozila') ?>
-                            <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getAddressRelatedAjaxdata(this.value, 'addr_union_id', '<?php echo $union_by_up_url; ?>');">
+                            <select class="form-control" name="addr_upazila_id" id="addr_upazila_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
                                 <option value="">Select</option>  
                                 <?php
                                     if(old('addr_upazila_id')){
                                         $table = 'addr_upazilas';
-                                        $order = 'ASC';
-                                        $column = 'name';
-                                        $dataType = 'obj';
-                                        $tableData = get_table_data_by_table($table);
+                                        $where = [
+                                            'district_id'       => old('addr_dis_id')
+                                        ];
+                                        $order_by = [
+                                            'order_by_column'   => 'name',
+                                            'order_by'          => 'ASC',
+                                        ];
+                                        $tableData = get_table_data_by_table_and_where($table, $where, $order_by);
                                         if (isset($tableData) && !empty($tableData)) {
                                             foreach ($tableData as $data) {
                                                 ?>
@@ -261,37 +265,6 @@
                             ?>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="role">Address Union<span class="required_text"></span></label>
-                            <select class="form-control" name="addr_union_id" id="addr_union_id" onchange="getusersByDepartment(this.value, 'assign_to', '<?php echo $get_department_wise_user_url; ?>');">
-                                <option value="">Select</option>     
-                                <?php
-                                    if(old('addr_union_id')){
-                                        $table = 'addr_unions';
-                                        $order = 'ASC';
-                                        $column = 'name';
-                                        $dataType = 'obj';
-                                        $tableData = get_table_data_by_table($table);
-                                        if (isset($tableData) && !empty($tableData)) {
-                                            foreach ($tableData as $data) {
-                                                ?>
-                                                <option value="<?php echo $data->id; ?>" <?php if(old('addr_union_id') && old('addr_union_id') == $data->id){ echo 'selected'; } ?>><?php echo $data->name; ?></option>   
-                                                <?php
-                                            }
-                                        }  
-                                    }
-                                ?>
-                            </select>
-                            <?php
-                                if ($errors->has('addr_union_id')) {
-                                    echo "<div class='alert alert-danger'>Union is Required</div>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">                    
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="pwd">Assign To<span class="required_text"></span></label>
