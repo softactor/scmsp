@@ -279,7 +279,6 @@ function sending_sms($smsData, $multiple = false, $history_id) {
     }
 
 // Close request to clear up some resources
-    curl_close($curl);
     return $resp;
 }
 
