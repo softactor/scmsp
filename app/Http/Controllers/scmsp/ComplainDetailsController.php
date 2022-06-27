@@ -418,6 +418,8 @@ class ComplainDetailsController extends Controller
                 $sms_response   = sending_sms($smsParam, $multiple, $lastHistoryId);
             }
         }
+
+        $redirectUrl    =   'admin/complain-details-list';
         
         if($request->complain_entry_type == 2){
             if ($role == 'Admin' || $role == 'Agent') {
