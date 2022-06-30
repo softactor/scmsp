@@ -330,7 +330,8 @@ class ComplainDetailsController extends Controller
     public function update(Request $request) 
     {
         $role = getRoleNameByUserId(Auth::user()->id);
-        if ($role == 'Admin' || $role == 'Agent' || $role == 'Area Manager') {
+
+        if ($role == 'Admin' || $role == 'Agent' || $role == 'Area Manager' || $role == 'Zonal Manager') {
             $rules = [
                 'category_id'       => 'required',
                 'complain_type_id'  => 'required',
