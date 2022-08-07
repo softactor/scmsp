@@ -552,6 +552,7 @@ class ComplainDetailsController extends Controller
                 'category_id'       => 'required',
                 'complain_type_id'  => 'required',
                 'complainer'        => 'required',
+                'complainer_name'        => 'required',
                 'complain_details'  => 'required',
                 'complainer_address'=> 'required',
                 'complain_date'     => 'required',
@@ -585,6 +586,7 @@ class ComplainDetailsController extends Controller
             $complain_details->category_id = $request->category_id;
             $complain_details->complain_type_id = $request->complain_type_id;
             $complain_details->complainer = $request->complainer;
+            $complain_details->name = $request->complainer_name;
             $complain_details->complain_details = $request->complain_details;
             $complain_details->address = $request->complainer_address;
             $complain_details->issued_date = $request->complain_date;

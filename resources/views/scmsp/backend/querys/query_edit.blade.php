@@ -24,14 +24,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="complainer">Query Mobile</label>
+                            <label for="complainer">Query Mobile<span class="required_text"></span></label>
                             <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="{{ old('complainer',$editData->complainer) }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <!--demoDatepicker-->
-                            <label for="complainer">Query Date</label>
+                            <label for="complainer">Query Date<span class="required_text"></span></label>
                             <input type="text" class="form-control" name="complain_date" id="complain_date" placeholder="Complainer Date" autocomplete="off" value="{{ old('complain_date',$editData->issued_date) }}">
                         </div>
                     </div>
@@ -39,14 +39,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="complainer">Name</label>
-                            <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="{{ old('name',$editData->name) }}">
+                            <label for="complainer">Name<span class="required_text"></span></label>
+                            <input type="text" class="form-control" name="complainer_name" placeholder="Enter Complainer Name" id='search_text' onkeyup="autosearch()" value="{{ old('name',$editData->name) }}">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <!--demoDatepicker-->
-                            <label for="complainer">Address</label>
+                            <label for="complainer">Address<span class="required_text"></span></label>
                             <input type="text" class="form-control" name="complainer_address" id="complainer_address" placeholder="Complainer address" autocomplete="off" value="{{ old('address',$editData->address) }}">
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="complain details">Query</label>
+                            <label for="complain details">Query<span class="required_text"></span></label>
                             <textarea class="form-control" id="details" name="complain_details">{{ old('complain_details',$editData->complain_details) }}</textarea>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="complain details"><strong><u>Feedback</u></strong>
+                            <label for="complain details"><strong><u>Feedback<span class="required_text"></span></u></strong>
                                 <?php
                                     if(isset($editData->feedback_details) && !empty($editData->feedback_details)){
                                 ?>
@@ -76,7 +76,7 @@
                 <div class="row">                    
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="pwd">Division</label>
+                            <label for="pwd">Division<span class="required_text"></span></label>
                             <?php
                             $get_department_by_division_url = url('admin/get_department_by_division');
                             ?>
@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="pwd">Department</label> 
+                            <label for="pwd">Department<span class="required_text"></span></label> 
                                 <?php
                                 $get_department_wise_user_url = url('admin/get_department_wise_user');
                                 ?>
@@ -129,7 +129,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="pwd">Category</label>
+                            <label for="pwd">Category<span class="required_text"></span></label>
                             <?php
                             $url = route('admin.get_category_wise_complain_type');
                             ?>
@@ -160,7 +160,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="pwd">Query Type</label>
+                            <label for="pwd">Query Type<span class="required_text"></span></label>
                             <select class="form-control" id='complain_type_id' name="complain_type_id">
                                 <option>Select Type</option>
                                 <?php
@@ -182,7 +182,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="pwd">Assign To</label>
+                            <label for="pwd">Assign To<span class="required_text"></span></label>
                             <select class="form-control" name="assign_to" id="assign_to">
                                 <option value="">Select</option>
                                 <?php
@@ -210,7 +210,7 @@
                 <div class="row">           
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="pwd">Query Status</label>
+                            <label for="pwd">Query Status<span class="required_text"></span></label>
                             <select class="form-control" name="complain_status">
                                         <?php
                                         $list = get_table_data_by_table('complain_statuses');
@@ -231,7 +231,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="pwd">Priority</label>
+                            <label for="pwd">Priority<span class="required_text"></span></label>
                             <select class="form-control" id='priority_id' name="priority_id">
                                 <option value="">Select</option>
                                 <?php
