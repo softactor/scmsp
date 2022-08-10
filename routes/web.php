@@ -14,10 +14,6 @@
 Route::get('/', function () {
     return view('login');
 });
-
-Route::get('/loginnew', function () {
-    return view('login_new');
-});
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'storeusersession']], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');
