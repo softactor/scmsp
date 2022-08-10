@@ -14,6 +14,11 @@
 Route::get('/', function () {
     return view('login');
 });
+
+Route::get('/sidebar', function () {
+    return view('scmsp\backend\layout\left_menu');
+});
+
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'storeusersession']], function () {
     Route::get('dashboard', 'scmsp\DashboardController@index')->name('dashboard');

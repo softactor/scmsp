@@ -1,4 +1,4 @@
-/*!
+/* !
  * Start Bootstrap - SB Admin v5.0.3 (https://startbootstrap.com/template-overviews/sb-admin)
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin/blob/master/LICENSE)
@@ -10486,7 +10486,7 @@ body {
 }
 
 .sidebar {
-  width: 90px !important;
+  /* width: 90px !important; */
   background-color: #212529;
   min-height: calc(100vh - 56px);
 }

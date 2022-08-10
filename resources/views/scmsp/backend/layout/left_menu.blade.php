@@ -1,142 +1,205 @@
-<?php
-$activeMenu                 =   (isset($activeMenuClass) && !empty($activeMenuClass) ? $activeMenuClass : '');
-$activeSubMenu              =   (isset($subMenuClass) && !empty($subMenuClass) ? $subMenuClass : '');
-$roleName                   =   getRoleNameByUserId(Auth::user()->id);
-?>
-<ul class="sidebar navbar-nav">
-    <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'dashboard') ?>">
-        <a class="nav-link" href="{{ route('admin.dashboard') }}">
-            <i class="fas fa-fw fa-tachometer-alt" style="color:#dc3545;"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
-    <?php
-        if(hasAccessPermission($roleName, 'Settings', 'listaccess')){
-    ?>
-    <li class="nav-item dropdown <?php echo setActiveMenuClass($activeMenu, 'settings') ?>">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-info" aria-hidden="true" style="color:#dc3545;"></i>
-            <span>Settings</span>
-        </a>
-        <div class="dropdown-menu <?php echo setActiveMenuClass($activeMenu, 'settings', 'hide') ?>" aria-labelledby="pagesDropdown">
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'division-list', 'submenu_selector') ?>" href="{{ route('admin.department-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Division</span>
-            </a>
-            <a class="active nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'department-list', 'submenu_selector') ?>" href="{{ route('admin.division-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Department</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'complain-type-category-list', 'submenu_selector') ?>" href="{{ route('admin.complain-type-category-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Complain Cat.</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'complain-type-list', 'submenu_selector') ?>" href="{{ route('admin.complain-type-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Complain Sub Cat.</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'complain-status-list', 'submenu_selector') ?>" href="{{ route('admin.complain-status-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Complain Status</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'sms-status-set', 'submenu_selector') ?>" href="{{ route('admin.sms-status-set') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">SMS Status</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'sms-status-set', 'submenu_selector') ?>" href="{{ route('admin.address_upazila') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Address Upazila</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'sms-status-set', 'submenu_selector') ?>" href="{{ route('admin.address_union') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Address Union</span>
-            </a>
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+        <img src="{{ asset('theme/backend/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">CMS</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ asset('theme/backend/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2"
+                    alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">Alexander Pierce</a>
+            </div>
         </div>
-    </li>
-    <?php } ?>
-    <?php
-        if(hasAccessPermission($roleName, 'Users', 'listaccess')){
-    ?>
-    <li class="nav-item dropdown <?php echo setActiveMenuClass($activeMenu, 'users') ?>">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-user-circle" aria-hidden="true" style="color:#dc3545;"></i>
-            <span>Users</span>
-        </a>
-        <div class="dropdown-menu <?php echo setActiveMenuClass($activeMenu, 'users', 'hide') ?>" aria-labelledby="pagesDropdown">
-        <?php
-            if(hasAccessPermission($roleName, 'Role Permission', 'listaccess')){
-        ?>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'role-list', 'submenu_selector') ?>" href="{{ route('admin.role-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color: #dc3545;"></i>
-                <span class="sub_menu_text_design">Role</span>
-            </a>
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'permission-list', 'submenu_selector') ?>" href="{{ route('admin.permission-create') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Permission</span>
-            </a>
-            <?php } ?>            
-            <a class="nav-link sub_menu_text_nav_link <?php echo setActiveMenuClass($activeSubMenu, 'users-list', 'submenu_selector') ?>" href="{{ route('admin.user-list') }}">
-                <i class="fa fa-bullseye" aria-hidden="true" style="color:#dc3545;"></i>
-                <span class="sub_menu_text_design">Users</span>
-            </a>
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-    </li>
-        <?php } ?>
-    <?php
-        if(hasAccessPermission($roleName, 'Complain details', 'listaccess')){
-    ?>
-     <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'complain-details') ?>">
-        <a class="nav-link" href="{{ route('admin.complain-details-list') }}">
-            <i class="fas fa-fw fa-marker" style="color:#dc3545;"></i>
-            <span>Complain Details</span>
-        </a>
-    </li> 
-        <?php } ?>
-    <?php
-        if(hasAccessPermission($roleName, 'Query details', 'listaccess')){
-    ?>
-     <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'query-details') ?>">
-        <a class="nav-link" href="{{ route('admin.query-details-list') }}">
-            <i class="fas fa-question-circle" style="color:#dc3545;"></i>
-            <span>Query Details</span>
-        </a>
-    </li> 
-        <?php } ?>
-    <?php
-        if(hasAccessPermission($roleName, 'Report', 'listaccess')){
-    ?>
-    <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'report-list') ?>">
-        <a class="nav-link" href="{{ route('admin.report-list') }}">
-            <i class="fas fa-fw fa-pen-nib"></i>
-            <span>Report Details</span>
-        </a>
-    </li>
-    <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'staff-location') ?>">
-        <a class="nav-link" href="{{ route('admin.staff-location') }}">
-            <i class="fas fa-fw fa-pen-nib"></i>
-            <span>Staff Location</span>
-        </a>
-    </li>
-        <?php } ?>
-    <?php
-        if(hasAccessPermission($roleName, 'Manual Complain List', 'listaccess')){
-    ?>
-    <li class="nav-item <?php echo setActiveMenuClass($activeMenu, 'manual-complain-list') ?>">
-        <a class="nav-link" href="{{ route('admin.manual-complain-list') }}">
-            <i class="fas fa-fw fa-pen-nib"></i>
-            <span>Manual Query Details</span>
-        </a>
-    </li>
-        <?php } ?>
-    
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.common-sms-view') }}">
-            <i class="fas fa-fw fa-pen-nib"></i>
-            <span>Common SMS</span>
-        </a>
-    </li>
-    
-    
-    
-    
-</ul>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                        <i class="nav-icon far fa-circle"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                            Settings
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">8</span>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.department-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Division</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.division-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Department</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.complain-type-category-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Complain Cat.</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.complain-type-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Complain Sub Cat.</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.complain-status-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Complain Status</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.sms-status-set') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>SMS Status</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.address_upazila') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Address Upazila</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.address_union') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Address Union</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Users
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-info right">3</span>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.role-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Role</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.user-list') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.permission-create') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Permission</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.complain-details-list') }}" class="nav-link">
+                        <i class="nav-icon fas fa-info"></i>
+                        <p>
+                            Complain Details
+                            <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.query-details-list') }}" class="nav-link">
+                        <i class="nav-icon fas fa-question-circle"></i>
+                        <p>
+                            Query Details
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.report-list') }}" class="nav-link">
+                        <i class="nav-icon fas fa-info-circle"></i>
+                        <p>
+                            Report Details
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.staff-location') }}" class="nav-link">
+                        <i class="nav-icon fas fa-map-marker-alt"></i>
+                        <p>
+                            Staff Location
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.manual-complain-list') }}" class="nav-link">
+                        <i class="nav-icon fas fa-question-circle"></i>
+                        <p>
+                            Manual Query Details
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.common-sms-view') }}" class="nav-link">
+                        <i class="nav-icon fas fa-comment-alt"></i>
+                        <p>
+                            Common SMS
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+
+
+<!-- ====================javascript============================= -->
