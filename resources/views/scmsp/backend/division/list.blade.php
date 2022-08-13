@@ -1,40 +1,54 @@
 @extends('scmsp.backend.layout.app')
 @section('title', 'List Devision')
 @section('content')
-<div class="container-fluid">
+<div class="container">
     <!-- Breadcrumbs-->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="#">Department</a>
-        </li>
-        <li class="breadcrumb-item active">Department List</li>
-    </ol>            
-    <div class='row'>
-        <div class='col col-md-12'>
-            @include('scmsp.backend.partial.operation_message')
-            <a class="btn btn-outline-primary" style="float:right" href="{{route('admin.division-create')}}">Create New</a>            
-            <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Division</th>
-                        <th>Department</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Division</th>
-                        <th>Department</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <?php
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Department</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Department</a></li>
+                        <li class="breadcrumb-item active">Division List</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <div class='row'>
+                <div class='col col-md-12'>
+                    <!-- @include('scmsp.backend.partial.operation_message') -->
+                    <a class="btn btn-outline-primary mb-4" style="float:right"
+                        href="{{route('admin.division-create')}}">Create New</a>
+                    <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%"
+                        cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Division</th>
+                                <th>Department</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Division</th>
+                                <th>Department</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <?php
                     $deleteUrl = url('admin/division-delete');
                     if (!$list->isEmpty()) {
                         foreach ($list as $data) {
                             ?>
-                            <tr id='delete_row_id_{{$data->id}}'>                                
+                            <tr id='delete_row_id_{{$data->id}}'>
                                 <td>
                                     <?php
                                     $res    =   get_data_name_by_id('departments',$data->dept_id);
@@ -51,10 +65,12 @@
                                     </a>
                                 </td>
                             </tr>
-                        <?php }
+                            <?php }
                     } ?>
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

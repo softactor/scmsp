@@ -44,13 +44,13 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.department-list') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Division</p>
+                                <p>Department</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.division-list') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Department</p>
+                                <p>Division</p>
                             </a>
                         </li>
                         <li class="nav-item">
