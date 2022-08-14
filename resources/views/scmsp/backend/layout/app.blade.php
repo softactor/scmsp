@@ -42,9 +42,8 @@
 
     <div class="content-wrapper">
 
-        <div class="container-fluid">
             @yield('content')
-        </div>
+
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
             <div class="container my-auto">
