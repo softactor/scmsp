@@ -90,49 +90,54 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <div class="row">
+                        <div class="row justify-content-center">
 
                             <div class="col-md-2 col-lg-2">
                                 <!-- small box -->
-                                <div class="small-box bg-info">
-                                    <div class="inner">
-                                        <h3><?php echo $totalPending; ?></h3>
+                                <a href="<?php echo url('admin/complain-details-list/' . $pending) ?>">
+                                    <div class="small-box bg-info rounded-circle text-center d-flex justify-content-center align-items-center"
+                                        style="height: 160px;">
+                                        <div class="inner">
+                                            <h2 style="font-size: 3.2rem;"><?php echo $totalPending; ?></h2>
 
-                                        <p> Pending</p>
+                                            <p> Pending</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-bag"></i>
+                                        </div>
                                     </div>
-                                    <div class="icon">
-                                        <i class="ion ion-bag"></i>
-                                    </div>
-                                    <a href="<?php echo url('admin/complain-details-list/' . $pending) ?>" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-2 col-lg-2">
                                 <!-- small box -->
-                                <div class="small-box bg-success">
-                                    <div class="inner">
-                                        <h3><?php echo $totalprocessing; ?></h3>
+                                <a href="<?php echo url('admin/complain-details-list/' . $processing) ?>">
+                                    <div class="small-box bg-success text-center rounded-circle d-flex justify-content-center align-items-center"
+                                        style="height: 160px;">
+                                        <div class="inner">
+                                            <h2 style="font-size: 3.2rem;"><?php echo $totalprocessing; ?></h2>
 
-                                        <p>Processing</p>
+                                            <p>Processing</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-stats-bars"></i>
+                                        </div>
                                     </div>
-                                    <div class="icon">
-                                        <i class="ion ion-stats-bars"></i>
-                                    </div>
-                                    <a href="<?php echo url('admin/complain-details-list/' . $processing) ?>" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-2 col-lg-2">
                                 <!-- small box -->
-                                <div class="small-box bg-warning">
-                                    <div class="inner">
-                                        <h3><?php echo $totalsolved ?></h3>
-
-                                        <p>Solved</p>
+                                <a href="<?php echo url('admin/complain-details-list/' . $solved) ?>" class="">
+                                    <div class="small-box bg-warning text-center rounded-circle d-flex justify-content-center align-items-center"
+                                        style="height: 160px;">
+                                        <div class="inner">
+                                            <h2 style="font-size: 3.2rem;"><?php echo $totalsolved ?></h2>
+                                            <p>Solved</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-person-add"></i>
+                                        </div>
                                     </div>
-                                    <div class="icon">
-                                        <i class="ion ion-person-add"></i>
-                                    </div>
-                                    <a href="<?php echo url('admin/complain-details-list/' . $solved) ?>" class="small-box-footer">View Details <i class="fas fa-arrow-circle-right"></i></a>
-                                </div>
+                                </a>
                             </div>
 
                         </div>
@@ -148,12 +153,12 @@
 @section('footer_js_scrip_area')
 @parent
 <script type="text/javascript">
-    function complain_details_auto_refresh() {
-        setTimeout(function() {
-            location.reload();
-        }, 30000);
-    }
-    //complain_details_auto_refresh();
+function complain_details_auto_refresh() {
+    setTimeout(function() {
+        location.reload();
+    }, 30000);
+}
+//complain_details_auto_refresh();
 </script>
 @endsection
 @endsection
