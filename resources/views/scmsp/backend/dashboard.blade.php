@@ -95,8 +95,8 @@
                             <div class="col-md-2 col-lg-2">
                                 <!-- small box -->
                                 <a href="<?php echo url('admin/complain-details-list/' . $pending) ?>">
-                                    <div class="small-box bg-info rounded-circle text-center d-flex justify-content-center align-items-center"
-                                        style="height: 160px;">
+                                    <div class="small-box bg-info rounded-circle text-center d-flex justify-content-center align-items-center mb-3"
+                                        style="height: 160px; width: 160px;  margin: 0 auto;">
                                         <div class="inner">
                                             <h2 style="font-size: 3.2rem;"><?php echo $totalPending; ?></h2>
 
@@ -111,8 +111,8 @@
                             <div class="col-md-2 col-lg-2">
                                 <!-- small box -->
                                 <a href="<?php echo url('admin/complain-details-list/' . $processing) ?>">
-                                    <div class="small-box bg-success text-center rounded-circle d-flex justify-content-center align-items-center"
-                                        style="height: 160px;">
+                                    <div class="small-box bg-success text-center rounded-circle d-flex justify-content-center align-items-center mb-3"
+                                        style="height: 160px; width: 160px; margin: 0 auto;">
                                         <div class="inner">
                                             <h2 style="font-size: 3.2rem;"><?php echo $totalprocessing; ?></h2>
 
@@ -127,8 +127,8 @@
                             <div class="col-md-2 col-lg-2">
                                 <!-- small box -->
                                 <a href="<?php echo url('admin/complain-details-list/' . $solved) ?>" class="">
-                                    <div class="small-box bg-warning text-center rounded-circle d-flex justify-content-center align-items-center"
-                                        style="height: 160px;">
+                                    <div class="small-box bg-warning text-center rounded-circle d-flex justify-content-center align-items-center mb-3"
+                                        style="height: 160px; width: 160px; margin: 0 auto;">
                                         <div class="inner">
                                             <h2 style="font-size: 3.2rem;"><?php echo $totalsolved ?></h2>
                                             <p>Solved</p>
