@@ -17,7 +17,7 @@
     </div><!-- /.container-fluid -->
 </section>
 <section class="content">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Breadcrumbs-->
         <div class="card">
             <div class="card-body">
