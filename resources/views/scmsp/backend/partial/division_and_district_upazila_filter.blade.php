@@ -4,7 +4,7 @@
             $divisions           = get_address_division();
             $getDisByDivUrl      =   url('admin/get_address_district_by_division');
         ?>
-        <select class="form-control" name="division_id" onchange="getAddressDistrictByDivision(this.value,'district_id','<?php echo $getDisByDivUrl; ?>');">
+        <select class="form-control ml-2" name="division_id" onchange="getAddressDistrictByDivision(this.value,'district_id','<?php echo $getDisByDivUrl; ?>');">
             <option value="">Select Division</option>
             <?php
             if (!$divisions->isEmpty()) {
@@ -29,7 +29,7 @@
         <?php
             $getDisByDivUrl      =   url('admin/get_address_upazila_by_district');
         ?>
-        <select class="form-control" name="district_id" id="district_id" onchange="getAddressUpazialByDistrict(this.value,'upazila_id','<?php echo $getDisByDivUrl; ?>');">
+        <select class="form-control ml-2" name="district_id" id="district_id" onchange="getAddressUpazialByDistrict(this.value,'upazila_id','<?php echo $getDisByDivUrl; ?>');">
             <option value="">Select District</option>                        
         </select>
         <?php
@@ -40,7 +40,7 @@
     </div>  
     <div class="form-group">
         <label for="sel1">&nbsp;Upazila:</label>
-        <select class="form-control" name="upazila_id" id="upazila_id">
+        <select class="form-control ml-2" name="upazila_id" id="upazila_id">
             <option value="">Select Upazila</option>                        
         </select>
         <?php

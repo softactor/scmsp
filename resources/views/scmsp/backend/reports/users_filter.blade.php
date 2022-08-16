@@ -1,6 +1,5 @@
 <div class='row'>
     <div class='col col-md-12'>
-        @include('scmsp.backend.partial.operation_message')
         <form action="" method="post" id="staff_location_report_search_form">
             @csrf
             <div class="row">
