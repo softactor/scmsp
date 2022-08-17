@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{{ asset('theme/backend/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('theme/backend/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- Custom Css  -->
+    <link rel="stylesheet" href="{{ asset('theme/backend/dist/css/custom.css') }}">
 </head>
 
 <body id="page-top">

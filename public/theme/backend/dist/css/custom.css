@@ -1,0 +1,21 @@
+.main-sidebar{
+    background-color: #217346 !important;
+}
+
+.main-sidebar a{
+    color: #fff !important;
+}
+.brand-link{
+    border-bottom: 1px solid #fff !important;
+}
+.user-panel {
+    border-bottom: 1px solid #fff !important;
+}
+
+.btn-outline-primary {
+    color: #217346 !important;
+    border: 1px solid #217346 !important;
+}
+.btn-info{
+    background-color: #217346 !important;
+}
