@@ -20,7 +20,7 @@ class SettingsController extends Controller {
         /* selected menue data */
         $activeMenuClass    =   'settings';   
         $subMenuClass       =   'sms-status-set';
-        return View('scmsp.backend.settings.sms_settings', compact('send_sms_value','list','activeMenuClass','subMenuClass'));
+        return View('scmsp.backend.settings.sms_settings', compact('send_sms_value','activeMenuClass','subMenuClass'));
     }
     public function sms_status_set_update(Request $request) {
         $smsStatusUpdateParam =   [
