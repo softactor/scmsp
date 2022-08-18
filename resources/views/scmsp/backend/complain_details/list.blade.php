@@ -38,15 +38,15 @@
                             <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width: 20px; text-align: right;">SL No.</th>
+                                        <th style="width: 20px; text-align: right;">#</th>
                                         <th>Division</th>
                                         <th>Code</th>
                                         <th>Priority</th>
-                                        <th>Complain date</th>
+                                        <th title="Complain Date">CD</th>
                                         <th>Complain raw date</th>
                                         <th>Complainer</th>
                                         <th>Contact</th>
-                                        <th>Complain Type</th>
+                                        <th title="Complain Type">CT</th>
                                         <th>Status</th>
                                         <th>In-Charge</th>
                                         <th>Created By</th>
