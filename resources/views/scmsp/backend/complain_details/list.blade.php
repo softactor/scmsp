@@ -19,11 +19,11 @@
 
 <section class="content">
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class='row'>
-                    <div class='col col-md-12'>
+        <div class='row'>
+            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12'>
+                <div class="card">
+                    <div class="card-body">
+
                         <?php
                         $createUrl                  =   url("admin/complain-details-create/" . $complain_entry_type);
                         $roleName                   =   getRoleNameByUserId(Auth::user()->id);
@@ -35,41 +35,24 @@
                             </a>
                         <?php } ?>
                         <div class="table-responsive">
-                            <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%">
                                 <thead>
                                     <tr>
-                                        <th style="width: 20px; text-align: right;">SL No.</th>
+                                        <th style="width: 20px; text-align: right;">#</th>
                                         <th>Division</th>
                                         <th>Code</th>
                                         <th>Priority</th>
-                                        <th>Complain date</th>
+                                        <th title="Complain Date">CD</th>
                                         <th>Complain raw date</th>
                                         <th>Complainer</th>
                                         <th>Contact</th>
-                                        <th>Complain Type</th>
+                                        <th title="Complain Type">CT</th>
                                         <th>Status</th>
                                         <th>In-Charge</th>
                                         <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th style="width: 20px; text-align: right;">SL No.</th>
-                                        <th>Division</th>
-                                        <th>Code</th>
-                                        <th>Priority</th>
-                                        <th>Complain date</th>
-                                        <th>Complain raw date</th>
-                                        <th>Complainer</th>
-                                        <th>Contact</th>
-                                        <th>Complain Type</th>
-                                        <th>Status</th>
-                                        <th>In-Charge</th>
-                                        <th>Created By</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody id="complain_details">
                                     <?php
                                     $deleteUrl  =   url('admin/complain-details-delete');
