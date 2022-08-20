@@ -21,11 +21,11 @@
         <!-- Breadcrumbs-->
         <div class="card">
             <div class="card-body">
-                <div class='row'>
+                <div class='row justify-content-end'>
+                    <a class="btn btn-outline-primary mb-4" href="{{route('admin.division-create')}}">Create New</a>
                     <div class='col col-md-12'>
                         <!-- @include('scmsp.backend.partial.operation_message') -->
-                        <a class="btn btn-outline-primary mb-4" style="float:right" href="{{route('admin.division-create')}}">Create New</a>
-                        <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered list-table-custom-style data_table" id="divisionListdataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Division</th>

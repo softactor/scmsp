@@ -34,7 +34,7 @@
                             </a>
                         <?php } ?>
                         <div class="table-responsive">
-                            <table class="table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
+                            <table class="table data_table table-bordered complain_details_table_style list-table-custom-style" id="complainDetailsdataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Code</th>

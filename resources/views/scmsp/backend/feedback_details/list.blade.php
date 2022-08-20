@@ -13,7 +13,7 @@
         <div class='col col-md-12'>
             <h2>List Feedback Details<button type="button" class="btn btn-outline-primary" style="float:right" onclick="window.location.href='{{ route('admin.feedback-details-create') }}'" >Create New</button></h2>
             @include('scmsp.backend.partial.operation_message')
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered data_table" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Complain</th>

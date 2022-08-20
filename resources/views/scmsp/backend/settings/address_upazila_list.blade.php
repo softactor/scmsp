@@ -38,7 +38,7 @@
                 </div>
                 <div class='row'>
                     <div class='col col-md-12'>
-                        <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
+                        <table class="data_table table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Division</th>

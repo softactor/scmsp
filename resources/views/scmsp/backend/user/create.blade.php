@@ -294,6 +294,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="name">Profile Picture</label>
+                                        <input type="file" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label for="name">All Location?</label>
                                         <div class="checkbox">
                                             <label>

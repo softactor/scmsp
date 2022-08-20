@@ -17,3 +17,22 @@ $(document).ready(function() {
         ]
     });
 });
+
+$(document).ready(function() {
+    $('.data_table').DataTable();
+    ({
+        order: [
+            [3, 'desc']
+        ],
+        "columnDefs": [{
+                "targets": [5],
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "targets": [0],
+                "searchable": false
+            }
+        ]
+    });
+});

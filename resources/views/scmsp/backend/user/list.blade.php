@@ -34,14 +34,14 @@
                                 </form>
                             </div>
                             <div class="col-md-2">
-                                <a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.user-create') }}">Create New</a>
+                                <a class="btn btn-outline-primary" href="{{ route('admin.user-create') }}">Create New</a>
                             </div>
                         </div>
                         <div class="filter_separation"></div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="user_list_data_table_section">
-                                    <table class="table table-bordered list-table-custom-style" id="user_list_data_table" width="100%" cellspacing="0">
+                                    <table class="data_table table table-bordered list-table-custom-style" id="user_list_data_table" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>#</th>

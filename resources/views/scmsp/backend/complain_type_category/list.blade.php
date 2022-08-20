@@ -26,7 +26,7 @@
                     <div class='col col-md-12'>
                         <a class="btn btn-outline-primary mb-4" style="float:right"
                             href="{{ route('admin.complain-type-category-create') }}">Create New</a>
-                        <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%"
+                        <table class="table table-bordered list-table-custom-style data_table" id="" width="100%"
                             cellspacing="0">
                             <thead>
                                 <tr>

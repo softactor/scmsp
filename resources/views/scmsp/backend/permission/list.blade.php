@@ -29,7 +29,7 @@
                         <h2>Permission List<button type="button" class="btn btn-outline-primary" style="float:right"
                                 onclick="window.location.href='{{ route('admin.permission-create') }}'">Create
                                 New</button></h2>
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered data_table" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Name</th>

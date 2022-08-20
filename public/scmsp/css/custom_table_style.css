@@ -14,7 +14,7 @@ table.list-table-custom-style{
 table.list-table-custom-style tr th{
     font-size: 12px;
     text-align: center;
-    background-color: lightgrey;
+    background-color:  #fff;
 }
 table.list-table-custom-style tr td{
     font-size: 12px;
