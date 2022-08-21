@@ -19,13 +19,13 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class='row'>
-                    <div class='col col-md-12'>
-                        <a class="btn btn-outline-primary mb-4" style="float:right"
+        <div class='row'>
+            <div class='col col-md-12 col-sm-12 col-lg-12'>
+                <div class="card">
+                    <div class="card-body">
+                        <a class="btn btn-outline-primary mb-4"
                             href="{{ route('admin.department-create') }}">Create New</a>
-                        <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%"
+                        <table class="data_table table table-bordered list-table-custom-style" width="100%"
                             cellspacing="0">
                             <thead>
                                 <tr>

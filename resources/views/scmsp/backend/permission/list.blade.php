@@ -22,11 +22,11 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class='row'>
-                    <div class='col col-md-12'>
-                        <h2>Permission List<button type="button" class="btn btn-outline-primary" style="float:right"
+        <div class='row'>
+            <div class='col col-md-12 col-sm-12 col-lg-12'>
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Permission List<button type="button" class="btn btn-outline-primary"
                                 onclick="window.location.href='{{ route('admin.permission-create') }}'">Create
                                 New</button></h2>
                         <table class="table table-bordered data_table" id="dataTable" width="100%" cellspacing="0">

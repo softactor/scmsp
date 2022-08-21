@@ -21,10 +21,10 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body">
                         <form class="form-inline" id="division_role_filter_form">
                             @include('scmsp.backend.partial.division_and_district_upazila_filter')
                             <?php
@@ -33,14 +33,17 @@
 
                             ?>
 
-                            <button type="button" class="btn btn-primary ml-2" onclick="get_union_list('<?php echo $filterDataUrl; ?>');">Search</button>
+                            <button type="button" class="btn btn-primary ml-2"
+                                onclick="get_union_list('<?php echo $filterDataUrl; ?>');">Search</button>
                         </form>
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col col-md-12'>
-                        <a class="btn btn-outline-primary mb-3" style="float:right" href="{{ route('admin.address_union_create') }}">Create New</a>
-                        <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
+                    <div class='col col-md-12 col-sm-12 col-lg-12'>
+                        <a class="btn btn-outline-primary mb-3"
+                            href="{{ route('admin.address_union_create') }}">Create New</a>
+                        <table class="data_table table table-bordered list-table-custom-style" id="dataTable" width="100%"
+                            cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Division</th>
@@ -56,36 +59,36 @@
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
                                 ?>
-                                        <tr id="delete_row_id_<?php echo $data->id; ?>">
-                                            <td>
-                                                <?php echo $data->division_name; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $data->district_name; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $data->upazila_name; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $data->union_name . ' (' . $data->union_bangla_name . ')'; ?>
-                                            </td>
-                                            <td style="text-align: center;">
-                                                <?php
+                                <tr id="delete_row_id_<?php echo $data->id; ?>">
+                                    <td>
+                                        <?php echo $data->division_name; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $data->district_name; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $data->upazila_name; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $data->union_name . ' (' . $data->union_bangla_name . ')'; ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?php
                                                 $editUrl   = url('admin/address_union_edit/' . $data->id);
                                                 $deleteUrl = url('admin/address_upazila_delete');
                                                 ?>
-                                                <a href="<?php echo $editUrl; ?>">
-                                                    <i class="fa fa-edit text-grey-darker"></i>
-                                                </a>
-                                                <?php
+                                        <a href="<?php echo $editUrl; ?>">
+                                            <i class="fa fa-edit text-grey-darker"></i>
+                                        </a>
+                                        <?php
                                                 if (isSuperAdmin(Auth::user()->id)) {
                                                 ?>
-                                                    <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">
-                                                        <i class="fa fa-trash text-danger"></i>
-                                                    </a>
-                                                <?php } ?>
-                                            </td>
-                                        </tr>
+                                        <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">
+                                            <i class="fa fa-trash text-danger"></i>
+                                        </a>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
                                 <?php }
                                 } ?>
                             </tbody>

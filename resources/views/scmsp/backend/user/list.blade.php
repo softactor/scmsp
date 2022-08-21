@@ -19,10 +19,10 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
+        <div class='row'>
+                    <div class='col-md-12'>
         <div class="card">
             <div class="card-body">
-                <div class='row'>
-                    <div class='col-md-12'>
                         <?php
                         $filterDataUrl  =   route("admin.get_user_data_by_division_role")
                         ?>

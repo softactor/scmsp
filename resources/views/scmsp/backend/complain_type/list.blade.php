@@ -21,12 +21,14 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class='row'>
-                    <div class='col col-md-12'>
-                        <a class="btn btn-outline-primary mb-3" style="float:right" href="{{ route('admin.complain-type-create') }}">Create New</a>
-                        <table class="table table-bordered list-table-custom-style" id="dataTable" width="100%" cellspacing="0">
+        <div class='row'>
+            <div class='col col-md-12 col-sm-12 col-lg-12'>
+                <div class="card">
+                    <div class="card-body">
+                        <a class="btn btn-outline-primary mb-3"
+                            href="{{ route('admin.complain-type-create') }}">Create New</a>
+                        <table class="data_table table table-bordered list-table-custom-style" id="dataTable"
+                            width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Division</th>
@@ -51,31 +53,33 @@
                                 if (!$list->isEmpty()) {
                                     foreach ($list as $data) {
                                 ?>
-                                        <tr>
-                                            <td>
-                                                <?php
+                                <tr>
+                                    <td>
+                                        <?php
                                                 $departRes  =   get_data_name_by_id('departments', $data->dept_id);
                                                 echo (isset($departRes) && !empty($departRes) ? $departRes->name : 'Not Found');
                                                 ?>
-                                            </td>
-                                            <td>
-                                                <?php
+                                    </td>
+                                    <td>
+                                        <?php
                                                 $divRes  =   get_data_name_by_id('divisions', $data->div_id);
                                                 echo (isset($divRes) && !empty($divRes) ? $divRes->name : 'Not Found');
                                                 ?>
-                                            </td>
-                                            <td>
-                                                <?php
+                                    </td>
+                                    <td>
+                                        <?php
                                                 $catRes  =   get_data_name_by_id('complain_type_categories', $data->category_id);
                                                 echo (isset($catRes) && !empty($catRes) ? $catRes->name : 'Not Found');
                                                 ?>
-                                            <td>{{ $data->name }}</td>
-                                            <td>
-                                                <a href="{{ url('admin/complain-type-edit/'.$data->id) }}"><i class="fa fa-edit text-success"></i></a>
-                                                <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');"><i class="fa fa-trash text-danger"></i></a>
+                                    <td>{{ $data->name }}</td>
+                                    <td>
+                                        <a href="{{ url('admin/complain-type-edit/'.$data->id) }}"><i
+                                                class="fa fa-edit text-success"></i></a>
+                                        <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');"><i
+                                                class="fa fa-trash text-danger"></i></a>
 
-                                            </td>
-                                        </tr>
+                                    </td>
+                                </tr>
                                 <?php }
                                 } ?>
                             </tbody>

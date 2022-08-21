@@ -20,11 +20,11 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class='row'>
-                    <div class='col col-md-12'>
-                        <a class="btn btn-outline-primary mb-4" style="float:right"
+        <div class='row'>
+            <div class='col col-md-12 col-sm-12 col-lg-12'>
+                <div class="card">
+                    <div class="card-body">
+                        <a class="btn btn-outline-primary mb-4"
                             href="{{ route('admin.complain-type-category-create') }}">Create New</a>
                         <table class="table table-bordered list-table-custom-style data_table" id="" width="100%"
                             cellspacing="0">

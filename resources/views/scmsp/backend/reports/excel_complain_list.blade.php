@@ -1,4 +1,4 @@
-<table>
+<table class="data_table">
     <thead>
         <tr>
             <th style="text-align: center;">Code</th>

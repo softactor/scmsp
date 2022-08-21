@@ -21,13 +21,13 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-                <div class='row'>
-                    <div class='col col-md-12'>
-                        <!--<a class="btn btn-outline-primary" style="float:right" href="{{ route('admin.role-create') }}" >Create New</a>-->
-                        <table class="table data_table table-bordered list-table-custom-style" id="dataTable" width="100%"
-                            cellspacing="0">
+        <div class='row'>
+            <div class='col col-md-12 col-sm-12 col-lg-12'>
+                <div class="card">
+                    <div class="card-body">
+                        <a class="btn btn-outline-primary" href="{{ route('admin.role-create') }}" >Create New</a>
+                        <table class="table data_table table-bordered list-table-custom-style" id="dataTable"
+                            width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Name</th>
