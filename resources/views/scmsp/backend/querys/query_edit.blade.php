@@ -271,9 +271,11 @@
             $param['order_by']              =   'DESC';
             $complainHistory                =   get_table_data_by_clause($param);
             ?>
-            <?php $data=[
+            <?php 
+                $data=[
                     'history' => $complainHistory
                 ]  ?>
+                @include('scmsp.backend.partial.complain_history', $data)
         </div>
     </div>
 </div>

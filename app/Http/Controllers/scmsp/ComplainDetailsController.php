@@ -608,7 +608,7 @@ class ComplainDetailsController extends Controller
 
         $detailsHistoryData = [
             'complain_id'       => $request->edit_id,
-            'descriptions'      => $descriptions,
+            'descriptions'      => $request->feedback_details,
             'assign_to'         => (isset($request->assign_to) && !empty($request->assign_to) ? $request->assign_to : $complain_details->assign_to),
             'updated_by'        => Auth::user()->id,
             'current_status'    => $request->complain_status,
