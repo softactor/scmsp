@@ -11,15 +11,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name')}}</title>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('theme/backend/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('theme/backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/backend/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('theme/backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- JQVMap -->
@@ -50,7 +48,7 @@
 
     <div class="content-wrapper">
 
-            @yield('content')
+        @yield('content')
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
@@ -70,8 +68,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -101,12 +98,12 @@
     <script src="{{ asset('scmsp/vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('scmsp/vendor/datatables/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('scmsp/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
-    
+
     <script src="{{ asset('scmsp/js/jquery-ui.js') }}"></script>
 
     <!-- Demo scripts for this page-->
     <script src="{{ asset('scmsp/js/sweetalert.min.js') }}"></script>
-    
+
     <script src="{{ asset('theme/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('theme/backend/dist/js/adminlte.js') }}"></script>
@@ -115,14 +112,78 @@
     <!-- Demo scripts for this page-->
     <script src="{{ asset('scmsp/js/demo/datatables-demo.js') }}"></script>
     <script>
-    $(function() {
-        $("#complainStartDatepicker").datepicker();
-        $("#complainEndDatepicker").datepicker();
-    });
+        $(function() {
+            $("#complainStartDatepicker").datepicker();
+            $("#complainEndDatepicker").datepicker();
+        });
     </script>
     @show
-    
-    
+
+    <script>
+        var a = 0;
+        //binds to onchange event of your input field
+        $('#profile_image').bind('change', function() {
+            $('#profile_image_upload_error').hide();
+            let imageCheckResponse = true;
+            var targetFile = this.files[0];
+
+            check_upload_image_dimension(targetFile, 'profile_image');
+
+            if (!check_upload_image_type('profile_image')) {
+                $('#profile_image_upload_error').show();
+                $('#profile_image_upload_error').html("Upload image type was incorrect");
+                $('#profile_image').val("");
+            } else if (!check_upload_image_size(targetFile)) {
+                $('#profile_image_upload_error').show();
+                $('#profile_image_upload_error').html("Upload image Size was incorrect");
+                $('#profile_image').val("");
+            } else {
+                $('#profile_image_upload_error').hide();
+            }
+        });
+
+        function check_upload_image_dimension(targetFile, imageId) {
+
+            let feedback = true;
+
+            var _URL = window.URL || window.webkitURL;
+
+            let img = new Image()
+            img.src = window.URL.createObjectURL(targetFile)
+            img.onload = () => {
+                if (img.width > 450) {
+                    document.getElementById('profile_image_upload_error').style.display = "block";
+                    document.getElementById('profile_image_upload_error').innerHTML = "Image Width/Height was too big!";
+                    document.getElementById(imageId).value = "";
+                    // upload logic here
+                }
+            }
+        }
+
+        function check_upload_image_type(imageId) {
+            let feedback = true;
+            var ext = $('#' + imageId).val().split('.').pop().toLowerCase();
+
+            if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+                feedback = false;
+            }
+
+            return feedback;
+        }
+
+        function check_upload_image_size(targetFile) {
+            let feedback = true;
+            var picsize = (targetFile.size);
+            if (picsize > 9000) {
+                feedback = false;
+            }
+
+            return feedback;
+        }
+    </script>
+
+
+
 </body>
 
 </html>

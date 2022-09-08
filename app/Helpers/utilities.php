@@ -12,10 +12,12 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 // GET TABLE DATA BY TABLE NAME:
 
-function get_table_data_by_table($table, $order_by = null) {
+function get_table_data_by_table($table, $order_by = null)
+{
     $result = DB::table($table);
     if (isset($order_by['order_by'])) {
         $result->orderBy($order_by['order_by_column'], $order_by['order_by']);
@@ -23,7 +25,8 @@ function get_table_data_by_table($table, $order_by = null) {
     return $result->get();
 }
 
-function get_table_data_by_table_and_where($table, $where, $order_by = null) {
+function get_table_data_by_table_and_where($table, $where, $order_by = null)
+{
     $result = DB::table($table)->where($where);
     if (isset($order_by['order_by'])) {
         $result->orderBy($order_by['order_by_column'], $order_by['order_by']);
@@ -33,27 +36,30 @@ function get_table_data_by_table_and_where($table, $where, $order_by = null) {
 
 // GET TABLE DATA BY TABLE NAME:
 
-function get_data_name_by_id($table, $id) {
+function get_data_name_by_id($table, $id)
+{
     $result     =   '';
     $result     =    DB::table($table)->where('id', '=', $id)->first();
-    if(isset($result) && !empty($result)){
+    if (isset($result) && !empty($result)) {
         return $result;
     }
     return $result;
 }
-function get_user_mobile_number_by_id($id) {
+function get_user_mobile_number_by_id($id)
+{
     $result     =   '';
     $result     =    DB::table('users')->where('id', '=', $id)->first();
-    if(isset($result->mobile) && !empty($result->mobile)){
+    if (isset($result->mobile) && !empty($result->mobile)) {
         return $result->mobile;
     }
     return $result;
 }
 
-function get_data_name_by_where($table, $where) {
+function get_data_name_by_where($table, $where)
+{
     $result     =   '';
     $result     =    DB::table($table)->where($where)->first();
-    if(isset($result) && !empty($result)){
+    if (isset($result) && !empty($result)) {
         return $result;
     }
     return $result;
@@ -61,7 +67,8 @@ function get_data_name_by_where($table, $where) {
 
 // CHECK DUPLICATE DATA ENTRY:
 
-function check_duplicate_data($data) {
+function check_duplicate_data($data)
+{
     $result = DB::table($data['table'])->where($data['where'])->first();
     if (isset($result) && !empty($result)) {
         return $result->id;
@@ -72,9 +79,10 @@ function check_duplicate_data($data) {
 
 // GET TABLE DATA BY TABLE NAME:
 
-function get_table_data_by_clause($data) {
+function get_table_data_by_clause($data)
+{
     $result = DB::table($data['table'])
-            ->where($data['where']);
+        ->where($data['where']);
     if (isset($data['order_by'])) {
         $result->orderBy($data['order_by_column'], $data['order_by']);
     }
@@ -86,27 +94,28 @@ function get_table_data_by_clause($data) {
     }
 }
 
-function hasAccessPermission($role, $module, $accessType) {
+function hasAccessPermission($role, $module, $accessType)
+{
     $accessAllPermission = DB::table('permissions')
-            ->where('user_type', $role)
-            ->where('isallpermission', 1)
-            ->first();
+        ->where('user_type', $role)
+        ->where('isallpermission', 1)
+        ->first();
     if (isset($accessAllPermission) && !empty($accessAllPermission)) {
         return true;
     }
     $accessmodAccPermission = DB::table('permissions')
-            ->where('user_type', $role)
-            ->where('module', $module)
-            ->where($accessType, 1)
-            ->first();
+        ->where('user_type', $role)
+        ->where('module', $module)
+        ->where($accessType, 1)
+        ->first();
     if (isset($accessmodAccPermission) && !empty($accessmodAccPermission)) {
         return true;
     }
     $accessmodAccPermission = DB::table('permissions')
-            ->where('user_type', $role)
-            ->where('module', $module)
-            ->where('isallmodulepermission', 1)
-            ->first();
+        ->where('user_type', $role)
+        ->where('module', $module)
+        ->where('isallmodulepermission', 1)
+        ->first();
     if (isset($accessmodAccPermission) && !empty($accessmodAccPermission)) {
         return true;
     }
@@ -114,72 +123,79 @@ function hasAccessPermission($role, $module, $accessType) {
     return false;
 }
 
-function getUpazilaList($district_id = null) {
+function getUpazilaList($district_id = null)
+{
     $upazila_slq = DB::table('addr_upazilas as u')
-            ->join('addr_districts as dis', 'u.district_id', '=', 'dis.id')
-            ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
-            ->select('div.name as division_name','dis.name as district_name','u.id', 'u.name as upazila_name', 'u.bn_name as upazila_bn_name')
-            ->orderBy('div.name', 'asc');
-    
-    if(isset($district_id) && !empty($district_id)){
+        ->join('addr_districts as dis', 'u.district_id', '=', 'dis.id')
+        ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
+        ->select('div.name as division_name', 'dis.name as district_name', 'u.id', 'u.name as upazila_name', 'u.bn_name as upazila_bn_name')
+        ->orderBy('div.name', 'asc');
+
+    if (isset($district_id) && !empty($district_id)) {
         $upazila_slq->where('u.district_id', $district_id);
     }
     $upazila  =   $upazila_slq->get();
     return $upazila;
 }
-function getUnionList($upazila_id = null) {
+function getUnionList($upazila_id = null)
+{
     $union_sql = DB::table('addr_unions as u')
-            ->join('addr_upazilas as upa', 'u.upazila_id', '=', 'upa.id')
-            ->join('addr_districts as dis', 'upa.district_id', '=', 'dis.id')
-            ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
-            ->select('div.name as division_name','dis.name as district_name','upa.name as upazila_name', 'u.id', 'u.name as union_name', 'u.bn_name as union_bangla_name')
-            ->orderBy('div.name', 'asc');
-    
-    
-    if(isset($upazila_id) && !empty($upazila_id)){
+        ->join('addr_upazilas as upa', 'u.upazila_id', '=', 'upa.id')
+        ->join('addr_districts as dis', 'upa.district_id', '=', 'dis.id')
+        ->join('addr_divisions as div', 'dis.division_id', '=', 'div.id')
+        ->select('div.name as division_name', 'dis.name as district_name', 'upa.name as upazila_name', 'u.id', 'u.name as union_name', 'u.bn_name as union_bangla_name')
+        ->orderBy('div.name', 'asc');
+
+
+    if (isset($upazila_id) && !empty($upazila_id)) {
         $union_sql->where('u.upazila_id', $upazila_id);
     }
     $unions  =   $union_sql->get();
     return $unions;
 }
 
-function getRoleWiseUser($role_id) {
+function getRoleWiseUser($role_id)
+{
     $users = DB::table('users as u')
-            ->join('model_has_roles as mhr', 'u.id', '=', 'mhr.model_id')
-            ->join('roles as r', 'r.id', '=', 'mhr.role_id')
-            ->where('r.id', '=', $role_id)
-            ->select(DB::raw('CONCAT(u.first_name,u.last_name) AS name'), "u.id")
-            ->get();
+        ->join('model_has_roles as mhr', 'u.id', '=', 'mhr.model_id')
+        ->join('roles as r', 'r.id', '=', 'mhr.role_id')
+        ->where('r.id', '=', $role_id)
+        ->select(DB::raw('CONCAT(u.first_name,u.last_name) AS name'), "u.id")
+        ->get();
     return $users;
 }
 
-function getRoleIdByUserId($user_id) {
+function getRoleIdByUserId($user_id)
+{
     $role = DB::table('model_has_roles as hr')
-            ->where('hr.model_id', $user_id)
-            ->first();
+        ->where('hr.model_id', $user_id)
+        ->first();
     return $role->role_id;
 }
 
-function getRoleNameByUserId($user_id) {
+function getRoleNameByUserId($user_id)
+{
     $role = DB::table('users as u')
-            ->select('r.name as role_name')
-            ->join('user_roles as ur', 'ur.user_id', '=', 'u.id')
-            ->join('roles as r', 'r.id', '=', 'ur.role_id')
-            ->where('u.id', $user_id)
-            ->first();
+        ->select('r.name as role_name')
+        ->join('user_roles as ur', 'ur.user_id', '=', 'u.id')
+        ->join('roles as r', 'r.id', '=', 'ur.role_id')
+        ->where('u.id', $user_id)
+        ->first();
     return $role->role_name;
 }
 
-function getTableTotalRows($data) {
+function getTableTotalRows($data)
+{
     $field      = $data['field'];
     $total_row  = DB::table($data['table'])
-            ->select(DB::raw("count($field) as total"))
-            ->where($data['where'])
-            ->first();
+        ->select(DB::raw("count($field) as total"))
+        ->where($data['where'])
+        ->first();
     return $total_row;
 }
 
-function get_settings_value($key) {
+function get_settings_value($key)
+{
     $data = DB::table('settings')->where('setting_key', $key)->first();
     if (isset($data) && !empty($data)) {
         return $data->setting_value;
@@ -187,7 +203,8 @@ function get_settings_value($key) {
     return 0;
 }
 
-function setActiveMenuClass($menuName, $currentMenu, $activeClass = 'active') {
+function setActiveMenuClass($menuName, $currentMenu, $activeClass = 'active')
+{
     if ($menuName == $currentMenu) {
         return $activeClass;
     } else {
@@ -195,7 +212,8 @@ function setActiveMenuClass($menuName, $currentMenu, $activeClass = 'active') {
     }
 }
 
-function get_status_wise_row_color($complain_status) {
+function get_status_wise_row_color($complain_status)
+{
     $status = get_data_name_by_id('complain_statuses', $complain_status)->name;
     switch ($status) {
         case 'Pending':
@@ -214,26 +232,30 @@ function get_status_wise_row_color($complain_status) {
     return $color;
 }
 
-function human_format_date($timestamp) {
+function human_format_date($timestamp)
+{
     return date("jS M, Y h:i:a", strtotime($timestamp)); //September 30th, 2013
 }
 
-function isAgentRole($roleName) {
+function isAgentRole($roleName)
+{
     if ($roleName == 'Agent') {
         return true;
     }
     return false;
 }
 
-function getTableTotalRowsByFieldValues($data) {
+function getTableTotalRowsByFieldValues($data)
+{
     $total_row = DB::table($data['table'])
-            ->select(DB::raw("count(id) as total"))
-            ->where($data['where'])
-            ->first();
+        ->select(DB::raw("count(id) as total"))
+        ->where($data['where'])
+        ->first();
     return $total_row;
 }
 
-function generate_serial_number($data) {
+function generate_serial_number($data)
+{
     $alphanum = $data['alphanum'];
     $next_id = sprintf('%06d', $data['next_id']);
     $event = sprintf('%04d', $data['event_id']);
@@ -241,25 +263,26 @@ function generate_serial_number($data) {
     return $comingDigit;
 }
 // get Daily Assignment Import Code:
-function getComplainCode($date, $prefix="C", $entry_type){
+function getComplainCode($date, $prefix = "C", $entry_type)
+{
     $total_row = DB::table('complain_details')
-            ->select(DB::raw("count(id) as total_row"))
-            ->where('issued_date', $date)
-            ->where('entry_type', $entry_type)
-            ->first();
+        ->select(DB::raw("count(id) as total_row"))
+        ->where('issued_date', $date)
+        ->where('entry_type', $entry_type)
+        ->first();
     $number             = intval($total_row->total_row) + 1;
     $dateFormatExplode  = explode('-', $date);
-    $dateFormat         = $dateFormatExplode[0].$dateFormatExplode[1].$dateFormatExplode[2];
-    $defaultCode        = $prefix.$dateFormat.sprintf('%03d', $number);
+    $dateFormat         = $dateFormatExplode[0] . $dateFormatExplode[1] . $dateFormatExplode[2];
+    $defaultCode        = $prefix . $dateFormat . sprintf('%03d', $number);
     return $defaultCode;
-
 }
-function sending_sms($smsData, $multiple = false, $history_id) {
-    
-// Set some options - we are passing in a useragent too here
+function sending_sms($smsData, $multiple = false, $history_id)
+{
+
+    // Set some options - we are passing in a useragent too here
     if ($multiple) {
         foreach ($smsData as $sdata) {
-            
+
             // Send the request & save response to $resp
             $resp = execution_sms($sdata);
             $historyUpdateParam = [
@@ -278,13 +301,14 @@ function sending_sms($smsData, $multiple = false, $history_id) {
         DB::table('complain_details_history')->where('id', $history_id)->update($historyUpdateParam);
     }
 
-// Close request to clear up some resources
+    // Close request to clear up some resources
     return $resp;
 }
 
 
-function execution_sms($sdata){
-    
+function execution_sms($sdata)
+{
+
     $curl = curl_init();
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER      => 1,
@@ -305,7 +329,8 @@ function execution_sms($sdata){
 }
 
 
-function short_str($str, $max = 50) {
+function short_str($str, $max = 50)
+{
     $str = trim($str);
     if (strlen($str) > $max) {
         $s_pos = strpos($str, ' ');
@@ -317,7 +342,8 @@ function short_str($str, $max = 50) {
     return $str;
 }
 
-function get_customer_message($data){
+function get_customer_message($data)
+{
     $message  = '';
     $message .= "Dear Valued Customer,";
     $message .= chr(10) . "Your complain have been successfully received.";
@@ -334,97 +360,102 @@ function get_customer_message($data){
     ];
     return $smsParam;
 }
-function get_service_staff_message($data){
+function get_service_staff_message($data)
+{
     $message  = '';
     $message .= "Dear Concern,";
-    $message .= chr(10) . $data['complainerType']." related complain have been assigned to you.";
+    $message .= chr(10) . $data['complainerType'] . " related complain have been assigned to you.";
     $message .= chr(10) . "Complain ID is:";
     $message .= chr(10) . $data['complainerCode'];
-    $message .= chr(10) . "Name: ".$data['complainerName'];
-    $message .= chr(10) . "Mobile: ".$data['complainerMobile'];
+    $message .= chr(10) . "Name: " . $data['complainerName'];
+    $message .= chr(10) . "Mobile: " . $data['complainerMobile'];
     $message .= chr(10) . "Thanks";
-    $message .= chr(10) . "SAIF Powertec Ltd";   
+    $message .= chr(10) . "SAIF Powertec Ltd";
     $smsParam   =   [
         'contacts'  =>  $data['contacts'],
         'msg'       =>  $message
     ];
     return $smsParam;
 }
-function get_manager_message($data){
+function get_manager_message($data)
+{
     $message  = '';
     $message .= "Dear Concern,";
-    $message .= chr(10) . $data['complainerType']." related  complain have been assigned to ".$data['contacts'];
+    $message .= chr(10) . $data['complainerType'] . " related  complain have been assigned to " . $data['contacts'];
     $message .= chr(10) . "Complain ID is:";
     $message .= chr(10) . $data['complainerCode'];
-    $message .= chr(10) . "Name: ".$data['complainerName'];
-    $message .= chr(10) . "Mobile: ".$data['complainerMobile'];
+    $message .= chr(10) . "Name: " . $data['complainerName'];
+    $message .= chr(10) . "Mobile: " . $data['complainerMobile'];
     $message .= chr(10) . "Thanks";
-    $message .= chr(10) . "SAIF Powertec Ltd";   
+    $message .= chr(10) . "SAIF Powertec Ltd";
     $smsParam   =   [
         'contacts'  =>  $data['mmobile'],
         'msg'       =>  $message
     ];
     return $smsParam;
 }
-function isSuperAdmin($user_id) {
+function isSuperAdmin($user_id)
+{
     $role = DB::table('users as u')
-            ->select('r.name as role_name')
-            ->join('user_roles as ur', 'ur.user_id', '=', 'u.id')
-            ->join('roles as r', 'r.id', '=', 'ur.role_id')
-            ->where('u.id', $user_id)
-            ->first();
-    if($role->role_name == "Admin"){
+        ->select('r.name as role_name')
+        ->join('user_roles as ur', 'ur.user_id', '=', 'u.id')
+        ->join('roles as r', 'r.id', '=', 'ur.role_id')
+        ->where('u.id', $user_id)
+        ->first();
+    if ($role->role_name == "Admin") {
         return true;
     }
     return false;
 }
 
-function get_complain_details_by_area_manager($area_manager_id, $complain_status=false){
-    if($complain_status){
+function get_complain_details_by_area_manager($area_manager_id, $complain_status = false)
+{
+    if ($complain_status) {
         $complainDetailsData   = DB::table('complain_details as u')
-                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
-                ->join('users as ur', 'u.assign_to', '=', 'ur.id')
-                ->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id')
-                ->where('sl.area_mng_id',$area_manager_id)
-                ->where('u.entry_type', 1)
-                ->where('u.complain_status',$complain_status)
-                ->get();
-    }else{
+            ->select('u.id', 'u.complainer_code', 'u.category_id', 'u.complain_type_id', 'u.complainer', 'u.name', 'u.address', 'u.complain_details', 'u.feedback_details', 'u.issued_date', 'u.division_id', 'u.department_id', 'u.user_id', 'u.assign_to', 'u.complain_status', 'u.priority_id', 'u.created_at', 'u.updated_at')
+            ->join('users as ur', 'u.assign_to', '=', 'ur.id')
+            ->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id')
+            ->where('sl.area_mng_id', $area_manager_id)
+            ->where('u.entry_type', 1)
+            ->where('u.complain_status', $complain_status)
+            ->get();
+    } else {
         $complainDetailsData   = DB::table('complain_details as u')
-                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
-                ->join('users as ur', 'u.user_id', '=', 'ur.id')
-                ->join('staff_locations as sl', 'u.user_id', '=', 'sl.user_id')
-                ->where('sl.area_mng_id',$area_manager_id)
-                ->where('u.entry_type', 1)
-                ->get();
+            ->select('u.id', 'u.complainer_code', 'u.category_id', 'u.complain_type_id', 'u.complainer', 'u.name', 'u.address', 'u.complain_details', 'u.feedback_details', 'u.issued_date', 'u.division_id', 'u.department_id', 'u.user_id', 'u.assign_to', 'u.complain_status', 'u.priority_id', 'u.created_at', 'u.updated_at')
+            ->join('users as ur', 'u.user_id', '=', 'ur.id')
+            ->join('staff_locations as sl', 'u.user_id', '=', 'sl.user_id')
+            ->where('sl.area_mng_id', $area_manager_id)
+            ->where('u.entry_type', 1)
+            ->get();
     }
     return $complainDetailsData;
 }
 
-function get_complain_details_by_zonal_manager($zonal_manager_id, $complain_status=false, $complain_entry_type = 1){
-    $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);  
+function get_complain_details_by_zonal_manager($zonal_manager_id, $complain_status = false, $complain_entry_type = 1)
+{
+    $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);
     $isAllLocation             =    user_has_all_location(Auth::user()->id, $divisionId);
-    
-    if($complain_status){
+
+    if ($complain_status) {
         $complainDetailsDataSql   = DB::table('complain_details as u')
-                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
-                ->join('users as ur', 'u.assign_to', '=', 'ur.id')                
-                ->where('u.division_id',$divisionId)
-                ->where('u.entry_type', 1)
-                ->where('u.complain_status',$complain_status)
-                ->where('u.complain_entry_type',$complain_entry_type);
-        if(!$isAllLocation){
+            ->select('u.id', 'u.complainer_code', 'u.category_id', 'u.complain_type_id', 'u.complainer', 'u.name', 'u.address', 'u.complain_details', 'u.feedback_details', 'u.issued_date', 'u.division_id', 'u.department_id', 'u.user_id', 'u.assign_to', 'u.complain_status', 'u.priority_id', 'u.created_at', 'u.updated_at')
+            ->join('users as ur', 'u.assign_to', '=', 'ur.id')
+            ->where('u.division_id', $divisionId)
+            ->where('u.entry_type', 1)
+            ->where('u.complain_status', $complain_status)
+            ->where('u.complain_entry_type', $complain_entry_type);
+        if (!$isAllLocation) {
             $complainDetailsDataSql->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id');
         }
         $complainDetailsData    =   $complainDetailsDataSql->get();
-    }else{
+    } else {
         $complainDetailsDataSql   = DB::table('complain_details as u')
-                ->select('u.id', 'u.complainer_code', 'u.category_id','u.complain_type_id', 'u.complainer', 'u.name','u.address', 'u.complain_details', 'u.feedback_details','u.issued_date', 'u.division_id', 'u.department_id','u.user_id', 'u.assign_to', 'u.complain_status','u.priority_id', 'u.created_at', 'u.updated_at')
-                ->join('users as ur', 'u.user_id', '=', 'ur.id')
-                ->where('u.division_id',$divisionId)
-                ->where('u.entry_type', 1)
-                ->where('u.complain_entry_type',$complain_entry_type);
-        if(!$isAllLocation){
+            ->select('u.id', 'u.complainer_code', 'u.category_id', 'u.complain_type_id', 'u.complainer', 'u.name', 'u.address', 'u.complain_details', 'u.feedback_details', 'u.issued_date', 'u.division_id', 'u.department_id', 'u.user_id', 'u.assign_to', 'u.complain_status', 'u.priority_id', 'u.created_at', 'u.updated_at')
+            ->join('users as ur', 'u.user_id', '=', 'ur.id')
+            ->where('u.division_id', $divisionId)
+            ->where('u.entry_type', 1)
+            ->where('u.complain_entry_type', $complain_entry_type);
+        if (!$isAllLocation) {
             $complainDetailsDataSql->join('staff_locations as sl', 'u.assign_to', '=', 'sl.user_id');
         }
         $complainDetailsData    =   $complainDetailsDataSql->get();
@@ -432,7 +463,8 @@ function get_complain_details_by_zonal_manager($zonal_manager_id, $complain_stat
     return $complainDetailsData;
 }
 
-function mail_execution($data){
+function mail_execution($data)
+{
     $emails['to']                   = 'tanveerqureshee1@gmail.com';
     $emails['from_address']         = 'mail.saifpowergroup.com';
     $emails['from_name']            = 'Saif Customer Care';
@@ -442,7 +474,8 @@ function mail_execution($data){
         $message->subject("Complain Test Mail");
     });
 }
-function get_report_table_data($request){
+function get_report_table_data($request)
+{
     //$all     =   $request->all();
     $filtersData['filter']      =   [];
     $query           =     DB::table('complain_details as p');
@@ -455,12 +488,12 @@ function get_report_table_data($request){
             $filtersData['filter']['complainer']   =   $request->complainer;
         }
         if (isset($request->from_date) && !empty($request->from_date)) {
-            $from_date      =   date("Y-m-d", strtotime($request->from_date)).' 00:00:00';
+            $from_date      =   date("Y-m-d", strtotime($request->from_date)) . ' 00:00:00';
             $query->where('p.created_at', '>=', $from_date);
             $filtersData['filter']['from_date']   =   $request->from_date;
-        }            
+        }
         if (isset($request->to_date) && !empty($request->to_date)) {
-            $to_date      =   date("Y-m-d", strtotime($request->to_date)).' 12:59:59';
+            $to_date      =   date("Y-m-d", strtotime($request->to_date)) . ' 12:59:59';
             $query->where('p.created_at', '<=', $to_date);
             $filtersData['filter']['to_date']   =   $request->to_date;
         }
@@ -486,137 +519,332 @@ function get_report_table_data($request){
     return $report_data;
 }
 
-function getManagerMobileByServiceStaff($data){
+function getManagerMobileByServiceStaff($data)
+{
     $role = DB::table('users as u')
-            ->select('u.mobile as mobile')
-            ->join('staff_locations as sl', 'u.id', '=', 'sl.area_mng_id')
-            ->where('sl.addr_div_id', $data['addr_div_id'])
-            ->where('sl.addr_dis_id', $data['addr_dis_id'])
-            ->where('sl.addr_up_id', $data['addr_up_id'])
-            ->where('sl.addr_union_id', $data['addr_union_id'])
-            ->where('sl.user_id', $data['user_id'])
-            ->first();
-    if(isset($role->mobile)){
+        ->select('u.mobile as mobile')
+        ->join('staff_locations as sl', 'u.id', '=', 'sl.area_mng_id')
+        ->where('sl.addr_div_id', $data['addr_div_id'])
+        ->where('sl.addr_dis_id', $data['addr_dis_id'])
+        ->where('sl.addr_up_id', $data['addr_up_id'])
+        ->where('sl.addr_union_id', $data['addr_union_id'])
+        ->where('sl.user_id', $data['user_id'])
+        ->first();
+    if (isset($role->mobile)) {
         return $role->mobile;
     }
     return false;
 }
 // this method is using for get all division service staff:
-function get_all_division_service_staff($division_id){
+function get_all_division_service_staff($division_id)
+{
     $data = DB::table('users as u')
-            ->select('u.id', 'u.name')
-            ->join('staff_locations as sl', 'u.id', '=', 'sl.user_id')
-            ->where('sl.all_division', 1)
-            ->where('u.division_id', $division_id)
-            ->get();
+        ->select('u.id', 'u.name')
+        ->join('staff_locations as sl', 'u.id', '=', 'sl.user_id')
+        ->where('sl.all_division', 1)
+        ->where('u.division_id', $division_id)
+        ->get();
     return $data;
 }
-function get_area_manager_by_department($request){
+function get_area_manager_by_department($request)
+{
     $areaManagerdata           =   DB::table('users as u')
         ->select('u.id as user_id', 'u.name as user_name')
         ->join('user_roles as ur', 'u.id', '=', 'ur.user_id')
-        ->where('u.division_id',$request->division_id)
-        ->where('u.department_id',$request->department_id)
-        ->where('ur.role_id',5)
+        ->where('u.division_id', $request->division_id)
+        ->where('u.department_id', $request->department_id)
+        ->where('ur.role_id', 5)
         ->get();
     return $areaManagerdata;
 }
 
 
-function get_address_division_by_district_id($district_id){
+function get_address_division_by_district_id($district_id)
+{
     //addr_districts
     $data       =   DB::table('addr_districts')
-            ->select('division_id')
-            ->where('id', $district_id)
-            ->first();
-    if(isset($data) && !empty($data)){
+        ->select('division_id')
+        ->where('id', $district_id)
+        ->first();
+    if (isset($data) && !empty($data)) {
         return $data->division_id;
     }
-    
+
     return '';
 }
 
-function get_zonal_manager_division_by_user_id($userId){
+function get_zonal_manager_division_by_user_id($userId)
+{
     $data   =   DB::table('users')
-            ->select('division_id')
-            ->where('id', $userId)
-            ->first();
-    if(isset($data) && !empty($data)){
+        ->select('division_id')
+        ->where('id', $userId)
+        ->first();
+    if (isset($data) && !empty($data)) {
         return $data->division_id;
     }
-    
+
     return '';
 }
 
-function get_division_name_by_id($id){
+function get_division_name_by_id($id)
+{
     //addr_districts
     $data       =   DB::table('departments')
-            ->select('name')
-            ->where('id', $id)
-            ->first();
-    if(isset($data) && !empty($data)){
+        ->select('name')
+        ->where('id', $id)
+        ->first();
+    if (isset($data) && !empty($data)) {
         return $data->name;
     }
-    
+
     return 'No Data Found';
 }
-function get_department_name_by_id($id){
+function get_department_name_by_id($id)
+{
     //addr_districts
     $data       =   DB::table('divisions')
-            ->select('name')
-            ->where('id', $id)
-            ->first();
-    if(isset($data) && !empty($data)){
+        ->select('name')
+        ->where('id', $id)
+        ->first();
+    if (isset($data) && !empty($data)) {
         return $data->name;
     }
-    
+
     return 'No Data Found';
 }
 
-function user_has_all_location($userId, $divisionId){
+function user_has_all_location($userId, $divisionId)
+{
     $data           =   DB::table('staff_locations as s')
         ->select('s.all_division as all_location')
         ->join('users as u', 'u.id', '=', 's.user_id')
-        ->where('u.division_id',$divisionId)
-        ->where('u.id',$userId)
+        ->where('u.division_id', $divisionId)
+        ->where('u.id', $userId)
         ->first();
-    if(isset($data) && !empty($data)){
+    if (isset($data) && !empty($data)) {
         return $data->all_location;
     }
     return 0;
 }
 
-function get_address_division(){
+function get_address_division()
+{
     $order_by['order_by_column']    =   'name';
     $order_by['order_by']           =   'ASC';
     $divisions                      = get_table_data_by_table('addr_divisions', $order_by);
     return $divisions;
 }
-function get_all_division(){
+function get_all_division()
+{
     $order_by['order_by_column']    =   'name';
     $order_by['order_by']           =   'ASC';
     $divisions                      = get_table_data_by_table('departments', $order_by);
     return $divisions;
 }
-function get_all_role(){
+function get_all_role()
+{
     $order_by['order_by_column']    =   'name';
     $order_by['order_by']           =   'ASC';
     $divisions                      = get_table_data_by_table('roles', $order_by);
     return $divisions;
 }
 
-function get_dynamic_division(){
+function get_dynamic_division()
+{
     $list   =   "";
     $role   =   getRoleNameByUserId(Auth::user()->id);
-    if($role== 'Admin' || $role=='Agent'){
+    if ($role == 'Admin' || $role == 'Agent') {
         $list = get_table_data_by_table('departments');
-    }else{
+    } else {
         $divisionId                =    get_zonal_manager_division_by_user_id(Auth::user()->id);
         $table          =   "departments";
         $where          =   [
             'id'        =>  $divisionId
         ];
         $list           =   get_table_data_by_table_and_where($table, $where);
-    }    
+    }
     return $list;
+}
+
+
+/*
+#################check Validate file input############################## 
+@function name: file_type_error
+@param $file_name = will be input field name
+@$response = will be object array with staus 'error' OR 'success'
+*/
+function file_exists_error($input_file_name = 'file_upload')
+{
+
+    $status     =   "success";
+    $message    =   "Valid file";
+    $tmp_name   = $_FILES[$input_file_name]["tmp_name"];
+
+    // Validate file input to check if is not empty
+    if (!file_exists($tmp_name)) {
+        $status     =   "error";
+        $message    =   "Choose file to upload.";
+    }    // Validate file input to check if is with valid extension
+
+    $response = (object)[
+        "status"    => $status,
+        "message"   => $message
+    ];
+    return $response;
+}
+
+/*
+################# check File Size error ############################## 
+@function name: file_type_error
+@param $file_name = will be input field name
+@param $allowed_image_extension = will be default file size, but possible to send user defined allowed size
+@$response = will be object array with staus 'error' OR 'success'
+*/
+function file_size_error($input_file_name = 'file_upload', $default_allowed_size = 2000000)
+{
+
+    $status     =   "success";
+    $message    =   "Valid file";
+    $file_size  = $_FILES[$input_file_name]["size"];
+
+    // Validate file size
+    if (($file_size > $default_allowed_size)) {
+        $status     =   "error";
+        $message    =   "Image size exceeds 2MB";
+    }
+
+    $response = (object)[
+        "status"    => $status,
+        "message"   => $message
+    ];
+    return $response;
+}
+
+
+/*
+#################check allowed_image_extension############################## 
+@function name: file_type_error
+@param $file_name = will be input field name
+@param $allowed_image_extension = will be default file extension, but possible to send user defined allowed extension
+@$response = will be object array with staus 'error' OR 'success'
+*/
+function file_type_error($input_file_name = 'file_upload', $allowed_image_extension = ['png', 'jpg', 'jpeg'])
+{
+
+    $status     =   "success";
+    $message    =   "Valid file";
+    $file_name  = $_FILES[$input_file_name]["name"];
+
+    // Get image file extension
+    $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
+
+    if (!in_array($file_extension, $allowed_image_extension)) {
+        $status     =   "error";
+        $message    =   "Upload valid images. Only PNG and JPEG are allowed.";
+    }
+
+    $response = (object)[
+        "status"    => $status,
+        "message"   => $message
+    ];
+    return $response;
+}
+
+
+/*
+#################check allowed_image_extension############################## 
+@function name: file_type_error
+@param $file_name = will be input field name
+@param $img_ratio = will be default ratio checking and value. Possible to send user defined value
+@$response = will be object array with staus 'error' OR 'success'
+*/
+function file_ratio_error($input_file_name = 'file_upload', $img_ratio = ['ratio' => true, 'width' => 300, 'height' => 200])
+{
+
+    $status     =   "success";
+    $message    =   "Valid file";
+    $tmp_name   = $_FILES[$input_file_name]["tmp_name"];
+
+    // Get Image Dimension
+    $fileinfo = @getimagesize($tmp_name);
+    $width = $fileinfo[0];
+    $height = $fileinfo[1];
+
+    if ($img_ratio['ratio']) {
+        if ($width > $img_ratio['width'] || $height > $img_ratio['height']) {
+            $status     =   "error";
+            $message    =   "Image dimension should be within " . $img_ratio['width'] . "X" . $img_ratio['height'];
+        }
+    }
+    if (!$img_ratio['ratio']) {
+        if ($width != $img_ratio['width'] && $height != $img_ratio['height']) {
+            $status     =   "error";
+            $message    =   "Image dimension must be " . $img_ratio['width'] . "X" . $img_ratio['height'];;
+        }
+    }
+
+    $response = (object)[
+        "status"    => $status,
+        "message"   => $message
+    ];
+    return $response;
+}
+
+function file_upload($input_file_name = 'file_upload', $upload_param = ['file_name' => '', 'location' => 'images'])
+{
+
+    $status     =   "success";
+    $message    =   "Valid file";
+    $file_name  = $_FILES[$input_file_name]["name"];
+    $tmp_name   = $_FILES[$input_file_name]["tmp_name"];
+
+    if (isset($upload_param['file_name']) && !empty($upload_param['file_name'])) {
+        $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
+
+        $file_name      = $upload_param['file_name'] . "." . $file_extension;
+
+        $target         = $upload_param['location'] . "/" . $file_name;
+    } else {
+        $target      = $upload_param['location'] . "/" . basename($file_name);
+    }
+
+
+    if (move_uploaded_file($tmp_name, $target)) {
+        $status     =   "success";
+        $message    =   "Image uploaded successfully.";
+    } else {
+        $status     =   "error";
+        $message    =   "Problem in uploading image files.";
+    }
+
+    $response = (object)[
+        "status"    => $status,
+        "message"   => $message,
+        "file_name" => $file_name,
+        "location"  => $target,
+    ];
+    return $response;
+}
+
+function user_profile_image()
+{
+    if (!empty(Auth::user()->profile_image)) {
+        $profile_image      =   Auth::user()->profile_image;
+?>
+        <img src="<?php echo asset('/scmsp/profile_images/' . $profile_image) ?>" class="img-fluid img-circle elevation-2" alt="Profile Image">
+    <?php } else { ?>
+        <img src="<?php echo asset('/scmsp/profile_images/avater.png') ?>" class="img-fluid img-circle elevation-2" alt="Profile Image">
+<?php }
+}
+function has_profile_image($id)
+{
+    $data       =   DB::table('users')
+        ->select('profile_image')
+        ->where('id', $id)
+        ->first();
+    if (isset($data->profile_image) && !empty($data->profile_image)) {
+        return true;
+    }
+
+    return false;
 }

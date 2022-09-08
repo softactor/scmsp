@@ -154,6 +154,25 @@ class UserController extends Controller
             ];
             //insert
             $user_id   =   DB::table('users')->insertGetId($userData);
+
+
+            if(isset($_FILES['profile_image']['name']) && !empty($_FILES['profile_image']['name'])){
+
+                $upload_param = [
+                    'file_name'  => 'profile_image_'.$user_id.time(),
+                    'location'   => public_path('/scmsp/profile_images')
+                ];
+
+                $upload_response    =   file_upload('profile_image',$upload_param);
+                print "<pre>";
+                print_r($upload_response);
+                print "</pre>";
+
+                exit;
+            }
+
+
+
             $roleData  =   [
                 'user_id'   =>  $user_id,
                 'role_id'   =>  $request->role_id,
@@ -294,7 +313,26 @@ class UserController extends Controller
                 ];
                 //user update
                 DB::table('users')->where('id',$request->user_update_id)->update($userPasswordData);
-            }            
+            }   
+            
+
+            if(isset($_FILES['profile_image']['name']) && !empty($_FILES['profile_image']['name'])){
+
+                $upload_param = [
+                    'file_name'  => 'profile_image_'.$request->user_update_id.time(),
+                    'location'   => public_path('/scmsp/profile_images')
+                ];
+
+                $upload_response    =   file_upload('profile_image',$upload_param);
+                $profile_image_update  =   [
+                    'profile_image' =>  $upload_response->file_name
+                ];
+                //user update
+                DB::table('users')->where('id',$request->user_update_id)->update($profile_image_update);
+                
+            }
+
+            
             $roleData  =   [
                 'role_id'   =>  $request->role_id,
                 'updated_at'=>  date('Y-m-d h:i:s'),

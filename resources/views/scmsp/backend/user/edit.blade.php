@@ -25,7 +25,7 @@
                 <div class='row'>
                     <div class='col col-md-12'>
                         <!--<form action="{{ route('admin.user-update') }}" method="post">-->
-                        <form action="{{ route('admin.user-update') }}" method="post">
+                        <form action="{{ route('admin.user-update') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -343,10 +343,34 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Profile Picture</label>
-                                        <input type="file" class="form-control">
-                                    </div>
+
+                                    <?php
+
+                                    if (has_profile_image($editData->id)) { ?>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="name">Profile Picture</label>
+                                                    <input id="profile_image" type="file" class="form-control" name="profile_image">
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-md-6">
+                                                <?php user_profile_image(); ?>
+                                            </div>
+                                        </div>
+
+                                    <?php } else { ?>
+                                        <div class="form-group">
+                                            <label for="name">Profile Picture</label>
+                                            <input type="file" id="profile_image" class="form-control" name="profile_image">
+                                        </div>
+
+                                    <?php } ?>
+                                    <p id="profile_image_upload_error" style="display:none; color:#FF0000;">
+                                        
+                                    </p>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">

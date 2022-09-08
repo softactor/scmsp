@@ -23,7 +23,7 @@
             <div class="card-body">
                 <div class='row'>
                     <div class='col col-md-12'>
-                        <form action="{{ route('admin.user-store') }}" method="post">
+                        <form action="{{ route('admin.user-store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -295,7 +295,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Profile Picture</label>
-                                        <input type="file" class="form-control">
+                                        <input type="file" class="form-control" name="profile_image">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
