@@ -14,7 +14,7 @@
                 <?php user_profile_image(); ?>
             </div>
             <div class="info">
-                <a href="#" class="d-block">Tanveer Qureshee</a>
+                <a href="#" class="d-block"><?php echo session('logginName') ?></a>
             </div>
         </div>
 
