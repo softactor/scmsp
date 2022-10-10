@@ -476,6 +476,28 @@ class UserController extends Controller
                 echo json_encode($feedbackdata);
             }
 	}
+
+
+    function get_users_by_division(Request $request){
+        $usersDataSql   = DB::table('users as u');
+        
+        if(isset($request->division_id) && !empty($request->division_id)){
+            $usersDataSql->where('u.division_id',$request->division_id);
+        }
+
+        $usersDataSql->orderBy('u.name','asc');
+        
+        $user_datas          =   $usersDataSql->get();
+        
+        $users_view        =   View::make('scmsp.backend.partial.get_users_by_division', compact('user_datas'));
+        $feedback = [
+                'status'    => 'success',
+                'message'   => 'Data found',
+                'data'      => $users_view->render(),
+            ];
+        echo json_encode($feedback);
+    }
+
         /*
             Method Name         : get_department_wise_user
             Purpose		: load user by department from an ajax call
