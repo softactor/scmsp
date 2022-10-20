@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Query</a></li>
+                    <li class="breadcrumb-item"><a  href="{{url('admin/query-details-list')}}">Query</a></li>
                     <li class="breadcrumb-item active">Create Query</li>
                 </ol>
             </div><!-- /.col -->

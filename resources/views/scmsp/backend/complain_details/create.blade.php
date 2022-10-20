@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Complain</a></li>
+                    <li class="breadcrumb-item"><a href="{{url('admin/complain-details-list')}}">Complain</a></li>
                     <li class="breadcrumb-item active">Create Complain</li>
                 </ol>
             </div><!-- /.col -->
