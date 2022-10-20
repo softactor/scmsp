@@ -9,7 +9,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Query Details</a></li>
+                    <li class="breadcrumb-item"><a href="{{url('admin/query-details-list')}}">Query Details</a></li>
                     <li class="breadcrumb-item active">Query Details List</li>
                 </ol>
             </div><!-- /.col -->

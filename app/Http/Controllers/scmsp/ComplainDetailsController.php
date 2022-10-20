@@ -117,6 +117,8 @@ class ComplainDetailsController extends Controller
 	*/
     public function store(Request $request)
     {
+
+
         //START COMPLAIN DETAILS ERROR CHECK:
         $executeSMS             =   true;
         $entry_type             =   $request->entry_type;
@@ -329,6 +331,9 @@ class ComplainDetailsController extends Controller
 	*/
     public function update(Request $request) 
     {
+
+        // return $request->all();
+        
         $role = getRoleNameByUserId(Auth::user()->id);
 
         if ($role == 'Admin' || $role == 'Agent' || $role == 'Area Manager' || $role == 'Zonal Manager') {
