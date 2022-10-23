@@ -29,6 +29,26 @@
 
                     <div class="row">
                         <div class="col-md-6 col-sm-12 col-lg-6">
+
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="data_type">Type<span class="required_text"></span></label>
+                                        <select class="form-control data_type" name="data_type" required>
+                                            @foreach( data_types() as $key=> $dataype)
+                                            <option value="{{$key}}">{{$dataype}}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <div class="form-group issued_date_area">
+                                        <label for="complain_date">Issue Date</label>
+                                        <input type="date" name="complain_date" class="form-control complain_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="dd-mm-yyyy">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="complainer">Mobile<span class="required_text"></span></label>
                                 <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="<?php echo old('complainer'); ?>">
@@ -402,4 +422,24 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section("footer_js_scrip_area")
+<script type="text/javascript">
+    var to_day =`<?php echo date('Y-m-d'); ?>`
+    $(document).on("change",".data_type",function(){
+        let data_type = $(this).val();
+        if(data_type==1){
+            $(document).find(".issued_date_area").hide();
+            $(document).find(".complain_date").val(to_day);
+            $(document).find(".sms_send").val(1);
+
+        }else{
+            console.log(to_day)
+            $(document).find(".issued_date_area").show();
+            $(document).find(".complain_date").val(to_day);
+            $(document).find(".sms_send").val(2);
+        }
+    })
+</script>
 @endsection

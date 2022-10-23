@@ -25,36 +25,60 @@
             <div class="card-body">
                 <form method="POST" action="{{ route('admin.complain-details-store') }}">
                     @csrf
-
+                    
                     <div class="row">
+                        
+                        
                         <div class="col-md-6 col-sm-12 col-lg-6">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="data_type">Type<span class="required_text"></span></label>
+                                        <select class="form-control data_type" name="data_type" required>
+                                            @foreach( data_types() as $key=> $dataype)
+                                            <option value="{{$key}}">{{$dataype}}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="sms_send">Send SMS<span class="required_text"></span></label>
+                                        <select class="form-control sms_send" name="sms_send" required>
+                                            @foreach( yes_nos() as $key=> $yesno)
+                                            <option value="{{$key}}">{{$yesno}}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12 col-lg-4">
+                                    <div class="form-group issued_date_area">
+                                        <label for="complain_date">Issue Date</label>
+                                        <input type="date" name="complain_date" class="form-control complain_date" value="<?php echo date('Y-m-d'); ?>"  placeholder="dd-mm-yyyy">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="complainer">Mobile<span class="required_text"></span></label>
                                 <input type="text" class="form-control" name="complainer" placeholder="Enter Complainer Phone" id='search_text' onkeyup="autosearch()" value="<?php echo old('complainer'); ?>">
-                                <?php
-                                if ($errors->has('complainer')) {
-                                    echo "<div class='alert alert-danger'>Complainer Phone is Required</div>";
-                                }
-                                ?>
+                                @if ($errors->has('complainer')) 
+                                <div class='alert alert-danger'>Complainer Phone is Required</div>
+                                @endif
                             </div>
 
                             <div class="form-group">
                                 <label for="complainer">Name<span class="required_text"></span></label>
                                 <input type="text" class="form-control" name="complainer_name" placeholder="Enter Complainer Name" id='search_text' value="<?php echo old('complainer_name'); ?>">
-                                <?php
-                                if ($errors->has('complainer_name')) {
-                                    echo "<div class='alert alert-danger'>Complainer Name is Required</div>";
-                                }
-                                ?>
+                                @if ($errors->has('complainer_name')) 
+                                   <div class='alert alert-danger'>Complainer Name is Required</div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="complain details">Address<span class="required_text"></span></label>
                                 <textarea class="form-control" id="complainer_address" name="complainer_address" rows="4"><?php echo old('complainer_address'); ?></textarea>
-                                <?php
-                                if ($errors->has('complainer_address')) {
-                                    echo "<div class='alert alert-danger'>Complainer Address is Required</div>";
-                                }
-                                ?>
+                                @if ($errors->has('complainer_address')) 
+                                <div class='alert alert-danger'>Complainer Address is Required</div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="entry_type" value="1">
@@ -68,34 +92,25 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <?php
+                                        @php
                                         $get_department_by_division_url = url('admin/get_department_by_division');
                                         $get_all_division_service_staff = url('admin/get-all-division-service-staff');
-                                        ?>
+                                         $list   =   get_dynamic_division();
+                                       @endphp
                                         <label for="pwd">Complain Division<span class="required_text"></span></label>
                                         <select class="form-control" id='div_id' name="div_id" onchange="getDepartmentByDivision(this.value, 'dept_id', '<?php echo $get_department_by_division_url; ?>'); get_all_division_service_users(this.value, '<?php echo $get_all_division_service_staff; ?>');">
                                             <option value="">Select</option>
-                                            <?php
-                                            $list   =   get_dynamic_division();
-                                            if (!$list->isEmpty()) {
-                                                foreach ($list as $data) {
-                                            ?>
-                                                    <option value="{{ $data->id }}" <?php
-                                                                                    if (old('div_id') == $data->id) {
-                                                                                        echo 'selected';
-                                                                                    }
-                                                                                    ?>>{{ $data->name }}
+                                            @if (!$list->isEmpty()) 
+                                                @foreach ($list as $data) 
+                                                    <option value="{{ $data->id }}" 
+                                                        @if(old('div_id') == $data->id) selected @endif >{{ $data->name }}
                                                     </option>
-                                            <?php
-                                                }
-                                            }
-                                            ?>
+                                                @endforeach
+                                            @endif
                                         </select>
-                                        <?php
-                                        if ($errors->has('div_id')) {
-                                            echo "<div class='alert alert-danger'>Division is Required</div>";
-                                        }
-                                        ?>
+                                        @if ($errors->has('div_id')) 
+                                           <div class='alert alert-danger'>Division is Required</div>
+                                       @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -125,21 +140,17 @@
                                                 if (isset($tableData) && !empty($tableData)) {
                                                     foreach ($tableData as $data) {
                                             ?>
-                                                        <option value="<?php echo $data->id; ?>" <?php if (old('dept_id') && old('dept_id') == $data->id) {
-                                                                                                        echo 'selected';
-                                                                                                    } ?>>
-                                                            <?php echo $data->name; ?></option>
+                                                        <option value="{{$data->id}}" 
+                                                            @if(old('dept_id') && old('dept_id') == $data->id) selected @endif>{{ $data->name }}</option>
                                             <?php
                                                     }
                                                 }
                                             }
                                             ?>
                                         </select>
-                                        <?php
-                                        if ($errors->has('dept_id')) {
-                                            echo "<div class='alert alert-danger'>Department is Required</div>";
-                                        }
-                                        ?>
+                                        @if ($errors->has('dept_id')) 
+                                            <div class='alert alert-danger'>Department is Required</div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -171,11 +182,8 @@
                                                 if (!$list->isEmpty()) {
                                                     foreach ($list as $data) {
                                             ?>
-                                                        <option value="{{ $data->id }}" <?php
-                                                                                        if (old('category_id') == $data->id) {
-                                                                                            echo 'selected';
-                                                                                        }
-                                                                                        ?>>{{ $data->name }}
+                                                        <option value="{{ $data->id }}" 
+                                                          @if (old('category_id') == $data->id) selected @endif>{{ $data->name }}
                                                         </option>
                                             <?php
                                                     }
@@ -183,11 +191,9 @@
                                             }
                                             ?>
                                         </select>
-                                        <?php
-                                        if ($errors->has('category_id')) {
-                                            echo "<div class='alert alert-danger'>Complain Type is Required</div>";
-                                        }
-                                        ?>
+                                        @if ($errors->has('category_id')) 
+                                            <div class='alert alert-danger'>Complain Type is Required</div>
+                                        @endif
                                     </div>
 
                                 </div>
@@ -212,11 +218,8 @@
                                                 if (!$list->isEmpty()) {
                                                     foreach ($list as $data) {
                                             ?>
-                                                        <option value="{{ $data->id }}" <?php
-                                                                                        if (old('complain_type_id') == $data->id) {
-                                                                                            echo 'selected';
-                                                                                        }
-                                                                                        ?>>{{ $data->name }}
+                                                        <option value="{{ $data->id }}" 
+                                                           @if (old('complain_type_id') == $data->id) selected @endif>{{ $data->name }}
                                                         </option>
                                             <?php
                                                     }
@@ -224,11 +227,9 @@
                                             }
                                             ?>
                                         </select>
-                                        <?php
-                                        if ($errors->has('complain_type_id')) {
-                                            echo "<div class='alert alert-danger'>Complain Type is Required</div>";
-                                        }
-                                        ?>
+                                        @if ($errors->has('complain_type_id')) 
+                                            <div class='alert alert-danger'>Complain Type is Required</div>
+                                       @endif
                                     </div>
 
 
@@ -249,9 +250,8 @@
                                             if (!$list->isEmpty()) {
                                                 foreach ($list as $data) {
                                             ?>
-                                                    <option value="{{ $data->id }}" <?php if (old('addr_div_id') && old('addr_div_id') == $data->id) {
-                                                                                        echo 'selected';
-                                                                                    } ?>>
+                                                    <option value="{{ $data->id }}" 
+                                                        @if(old('addr_div_id') && old('addr_div_id') == $data->id) selected @endif >
                                                         {{ $data->name }}
                                                     </option>
                                             <?php
@@ -259,11 +259,9 @@
                                             }
                                             ?>
                                         </select>
-                                        <?php
-                                        if ($errors->has('addr_div_id')) {
-                                            echo "<div class='alert alert-danger'>Division is Required</div>";
-                                        }
-                                        ?>
+                                        @if ($errors->has('addr_div_id')) 
+                                            <div class='alert alert-danger'>Division is Required</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -407,4 +405,24 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section("footer_js_scrip_area")
+<script type="text/javascript">
+    var to_day =`<?php echo date('Y-m-d'); ?>`
+    $(document).on("change",".data_type",function(){
+        let data_type = $(this).val();
+        if(data_type==1){
+            $(document).find(".issued_date_area").hide();
+            $(document).find(".complain_date").val(to_day);
+            $(document).find(".sms_send").val(1);
+
+        }else{
+            console.log(to_day)
+            $(document).find(".issued_date_area").show();
+            $(document).find(".complain_date").val(to_day);
+            $(document).find(".sms_send").val(2);
+        }
+    })
+</script>
 @endsection

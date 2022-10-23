@@ -1,14 +1,16 @@
 function user_delete_operation(url, del_id) {
-    swal({
-            title: "Are you sure,You want to delete?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Confirm!",
-            closeOnConfirm: false
-        },
-        function() {
-            $.ajax({
+
+
+swal({
+      title: "Are you sure,You want to delete?",
+      text: "Once deleted, you will not be able to recover Data",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+.then((willDelete) => {
+  if (willDelete) {
+       $.ajax({
                 url: url,
                 type: 'POST',
                 dataType: 'json',
@@ -27,21 +29,30 @@ function user_delete_operation(url, del_id) {
                 },
                 async: false // <- this turns it into synchronous
             });
+    swal("Information Deleted Successfully", {
+      icon: "success",
+    });
+  } else {
+    swal("Information Not Deleted !");
+  }
+});
 
-        });
+
+
 }
 
 function delete_operation(url, del_id) {
+
     swal({
-            title: "Are you sure,You want to delete?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Confirm!",
-            closeOnConfirm: false
-        },
-        function() {
-            $.ajax({
+      title: "Are you sure,You want to delete?",
+      text: "Once deleted, you will not be able to recover Data",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+.then((willDelete) => {
+  if (willDelete) {
+       $.ajax({
                 url: url,
                 type: 'POST',
                 dataType: 'json',
@@ -57,8 +68,16 @@ function delete_operation(url, del_id) {
                 },
                 async: false // <- this turns it into synchronous
             });
+    swal("Information Deleted Successfully", {
+      icon: "success",
+    });
+  } else {
+    swal("Information Not Deleted !");
+  }
+});
 
-        });
+
+   
 }
 
 function allcheck() {
@@ -509,16 +528,15 @@ function remove_more_address_row(row_id) {
 
 
 function send_sms(form_id, url) {
-    swal({
-            title: "Confirm to send SMS?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-success",
-            confirmButtonText: "Confirm!",
-            closeOnConfirm: false
-        },
-        function() {
-            $.ajax({
+        swal({
+              title: "Confirm to send SMS?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+        .then((willDelete) => {
+          if (willDelete) {
+                $.ajax({
                 url: url,
                 type: 'POST',
                 dataType: 'json',
@@ -546,6 +564,55 @@ function send_sms(form_id, url) {
                 },
                 async: false // <- this turns it into synchronous
             });
-
+            swal("Information Send Successfully", {
+              icon: "success",
+            });
+          } else {
+            swal("Information Not Send !");
+          }
         });
+
+
+
+
+
+    // swal({
+    //         title: "Confirm to send SMS?",
+    //         type: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonClass: "btn-success",
+    //         confirmButtonText: "Confirm!",
+    //         closeOnConfirm: false
+    //     },
+    //     function() {
+            // $.ajax({
+            //     url: url,
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     data: $('#' + form_id).serialize(),
+            //     headers: {
+            //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+            //     },
+            //     success: function(response) {
+
+            //         if (response.status == 1) {
+            //             $("#contact_number").val("");
+            //             $("#smsdescription").val("");
+            //             swal('Success', response.message, 'success');
+            //             setTimeout(function() {
+            //                 swal.close();
+            //                 $("#sms_sent_response").html(response.data);
+            //             }, 1000);
+            //         } else {
+            //             swal('Error', response.message, 'error');
+            //             setTimeout(function() {
+            //                 swal.close();
+            //                 $("#sms_sent_response").html(response.data);
+            //             }, 1000);
+            //         }
+            //     },
+            //     async: false // <- this turns it into synchronous
+            // });
+
+    //     });
 }

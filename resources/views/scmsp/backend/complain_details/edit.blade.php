@@ -25,10 +25,6 @@
     <section class="content">
     <div class="container-fluid">
         <!-- Breadcrumbs-->
-        <div class="card">
-            <div class="card-body">
-    <div class='row'>
-        <div class="col-md-6">
         <?php
                 if (isset($editData->feedback_details) && !empty($editData->feedback_details)) {
                     $feedback_details = true;
@@ -40,6 +36,44 @@
                 @include('scmsp.backend.partial.operation_message')
                
                 @csrf
+        <div class="card">
+            <div class="card-body">
+    <div class='row'>
+        <div class="col-md-6">
+        
+
+                    <div class="row">
+                    <div class="col-md-4 col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="data_type">Type<span class="required_text"></span></label>
+                            <select class="form-control data_type" name="data_type" required>
+                                @foreach( data_types() as $key=> $dataype)
+                                <option value="{{$key}}" @if($key==$editData->data_type) selected @endif>{{$dataype}}</option>
+                               @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-lg-4">
+                        <div class="form-group">
+                            <label for="sms_send">Send SMS<span class="required_text"></span></label>
+                            <select class="form-control sms_send" name="sms_send" required>
+                                @foreach( yes_nos() as $key=> $yesno)
+                                <option value="{{$key}}" @if($key==$editData->sms_send) selected @endif >{{$yesno}}</option>
+                               @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @php
+                        $date=date_create($editData->issued_date);
+                         $issued_date =  date_format($date,"Y-m-d");
+                    @endphp
+                    <div class="col-md-4 col-sm-12 col-lg-4">
+                        <div class="form-group issued_date_area" style="display: block;">
+                            <label for="complain_date">Issue Date</label>
+                            <input type="date" name="complain_date" class="form-control complain_date" value="{{$issued_date ?? ''}}"  placeholder="dd-mm-yyyy" readonly>
+                        </div>
+                    </div>
+                    </div>
                         <div class="col-md-12 col-sm-12 col-lg-12">
                             <div class="form-group">
                                 <label for="complainer">Mobile<span class="required_text"></span></label>
@@ -251,7 +285,7 @@
                     </div>
             </div>
            
-            </form>
+</form>
         
         <div class="col-md-12 mt-10">
             <?php

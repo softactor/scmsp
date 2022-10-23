@@ -85,9 +85,9 @@
             </div>
         </div>
     </div>
-    @section('footer_js_scrip_area')
+   
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('scmsp/js/site_url.js') }}"></script>
+    
     <script src="{{ asset('scmsp/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('scmsp/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -102,21 +102,26 @@
     <script src="{{ asset('scmsp/js/jquery-ui.js') }}"></script>
 
     <!-- Demo scripts for this page-->
-    <script src="{{ asset('scmsp/js/sweetalert.min.js') }}"></script>
+   <!--   -->
 
     <script src="{{ asset('theme/backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('theme/backend/dist/js/adminlte.js') }}"></script>
-    <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="{{ asset('scmsp/js/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('scmsp/js/momentjs/moment.js') }}"></script>
 
     <!-- Demo scripts for this page-->
     <script src="{{ asset('scmsp/js/demo/datatables-demo.js') }}"></script>
+    <script src="{{ asset('scmsp/js/site_url.js') }}"></script>
+    <script src="{{ asset('scmsp/js/site_custome.js') }}"></script>
     <script>
         $(function() {
             $("#complainStartDatepicker").datepicker();
             $("#complainEndDatepicker").datepicker();
         });
     </script>
+     @section('footer_js_scrip_area')
     @show
 
     <script>

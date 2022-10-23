@@ -34,6 +34,20 @@ function get_table_data_by_table_and_where($table, $where, $order_by = null)
     return $result->get();
 }
 
+if (! function_exists('yes_nos')) {
+    function yes_nos()
+    {
+        return  [1=>'YES',2=>'NO'];
+    }
+}
+
+if (! function_exists('data_types')) {
+    function data_types()
+    {
+        return  [1=>'NEW',2=>'OLD'];
+    }
+}
+
 // GET TABLE DATA BY TABLE NAME:
 
 function get_data_name_by_id($table, $id)

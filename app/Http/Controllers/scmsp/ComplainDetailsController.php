@@ -118,7 +118,7 @@ class ComplainDetailsController extends Controller
     public function store(Request $request)
     {
 
-
+    //return $request->all();
         //START COMPLAIN DETAILS ERROR CHECK:
         $executeSMS             =   true;
         $entry_type             =   $request->entry_type;
@@ -150,7 +150,7 @@ class ComplainDetailsController extends Controller
         }else{
             //START COMPLAIN STORE METHOD HERE
             $complainStoreResponse          =   $this->execute_complain_store($request);
-            if($executeSMS){
+            if($executeSMS && $request->sms_send ==1){
                 //START SEND SMS METHOD HERE
                 $request->complainerCode        =   $complainStoreResponse->complainerCode;
                 $request->lastHistoryId         =   $complainStoreResponse->lastHistoryId;
@@ -216,6 +216,8 @@ class ComplainDetailsController extends Controller
         $complain_details->user_id             =   Auth::user()->id;
         $complain_details->assign_to           =   $request->assign_to;
         $complain_details->priority_id         =   $request->priority_id;
+        $complain_details->data_type         =   $request->data_type ?? 1;
+        $complain_details->sms_send         =   $request->sms_send ?? 2;
         $complain_details->save();
         
         $complain_id                           =   $complain_details->id;
@@ -391,6 +393,11 @@ class ComplainDetailsController extends Controller
             $complain_details->updated_at = date('Y-m-d H:i:s');
             $descriptions = $request->feedback_details;
         }
+
+        $complain_details->data_type   =   $request->data_type ?? 1;
+        $complain_details->sms_send    =   $request->sms_send ?? 2;
+
+
         $complain_details->save();
 
         $detailsHistoryData = [
@@ -405,7 +412,7 @@ class ComplainDetailsController extends Controller
         $lastHistoryId = DB::table('complain_details_history')->insertGetId($detailsHistoryData);
         $complain_status = get_data_name_by_id('complain_statuses', $request->complain_status)->name;
         if (get_settings_value('send_sms')) {
-            if ($complain_status == 'Solved') {
+            if ($complain_status == 'Solved' && $request->sms_send ==1) {
                 $message = '';
                 $message .= "Dear Valued Customer,";
                 $message .= chr(10) . "Your complain have been successfully Resolved.";
@@ -609,6 +616,9 @@ class ComplainDetailsController extends Controller
             $complain_details->updated_at = date('Y-m-d H:i:s');
             $descriptions = $request->feedback_details;
         }
+
+        $complain_details->data_type   =   $request->data_type ?? 1;
+        $complain_details->sms_send    =   $request->sms_send ?? 2;
         $complain_details->save();
 
         $detailsHistoryData = [

@@ -40,7 +40,29 @@
                 @csrf
                     <div class='row'>
                         <div class="col-md-6">
-                           
+                           <div class="row">
+                                <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="data_type">Type<span class="required_text"></span></label>
+                                        <select class="form-control data_type" name="data_type" required>
+                                            @foreach( data_types() as $key=> $dataype)
+                                            <option value="{{$key}}" @if($key==$editData->data_type) selected @endif>{{$dataype}}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="sms_send">Send SMS<span class="required_text"></span></label>
+                                        <select class="form-control sms_send" name="sms_send" required>
+                                            @foreach( yes_nos() as $key=> $yesno)
+                                            <option value="{{$key}}" @if($key==$editData->sms_send) selected @endif >{{$yesno}}</option>
+                                           @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">

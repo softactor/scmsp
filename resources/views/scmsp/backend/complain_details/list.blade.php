@@ -128,9 +128,14 @@
                                                     <?php
                                                     if (isSuperAdmin(Auth::user()->id)) {
                                                     ?>
-                                                        <a href="#" onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');">
+                                                        <button
+                                                          class="btn btn-sm"
+                                                           onclick="delete_operation('{{ $deleteUrl }}','{{ $data->id }}');"
+                                                           attr_url="{{ $deleteUrl }}"
+                                                           attr_id="{{ $data->id }}}"
+                                                           >
                                                             <i class="fa fa-trash text-grey-darker"></i>
-                                                        </a>
+                                                        </button>
                                                     <?php } ?>
                                                 </td>
                                             </tr>
